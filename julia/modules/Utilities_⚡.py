@@ -185,14 +185,14 @@ async def fetch_info(replied_user, event):
     caption += f"ID: <code>{user_id}</code> \n \n"
     caption += f"Bio: \n<code>{user_bio}</code> \n \n"
     # caption += f"Common Chats with this user: {common_chat} \n\n"
-    caption += f"Permanent Link To Profile: "
+    caption += "Permanent Link To Profile: "
     caption += f"<a href=\"tg://user?id={user_id}\">{first_name}</a>"
 
     if user_id in SUDO_USERS:
-        caption += f"\n\n<b>This person is one of my SUDO USERS\nHe can Gban/Ungban anyome, so mind it !</b>"
+        caption += "\n\n<b>This person is one of my SUDO USERS\nHe can Gban/Ungban anyome, so mind it !</b>"
 
     if user_id == OWNER_ID:
-        caption += f"\n\n<b>This person is my owner.\nHe is the reason why I am alive.</b>"
+        caption += "\n\n<b>This person is my owner.\nHe is the reason why I am alive.</b>"
 
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -200,7 +200,7 @@ async def fetch_info(replied_user, event):
         userss = ch["user"]
 
     if event.chat_id == iid and event.sender_id == userss:
-        caption += f"\n\n<b>This person is approved in this chat.</b>"
+        caption += "\n\n<b>This person is approved in this chat.</b>"
 
     return photo, caption
 
