@@ -99,10 +99,6 @@ async def _(event):
     end = datetime.now()
     ms = (end - start).seconds
     await event.reply("Created BarCode in {} seconds".format(ms))
-
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")

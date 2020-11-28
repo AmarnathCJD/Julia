@@ -438,10 +438,6 @@ async def _(event):
         link = result['href']
         reply += f"\n• [{title.get_text()}]({link})"
     await event.reply(reply)
-
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")

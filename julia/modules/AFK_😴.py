@@ -185,9 +185,6 @@ async def _(event):
             await event.reply(res, parse_mode="markdown")
     userid = ""  # after execution
     let = ""  # after execution
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")

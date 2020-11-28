@@ -192,9 +192,6 @@ async def _(event):
            return
     sql.reset_warns(reply_message.sender_id, event.chat_id)
     await event.reply("Warns for this user have been reset!")
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
