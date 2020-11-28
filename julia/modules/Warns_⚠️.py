@@ -67,23 +67,22 @@ async def _(event):
                 limit, reply_message.sender_id)
             await event.reply(reply, parse_mode="html")
             return
-        else:
-            BANNED_RIGHTS = ChatBannedRights(
-               until_date=None,
-               view_messages=True,
-               send_messages=True,
-               send_media=True,
-               send_stickers=True,
-               send_gifs=True,
-               send_games=True,
-               send_inline=True,
-               embed_links=True,
-            )
-            await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, BANNED_RIGHTS))      
-            reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(
-                limit, reply_message.sender_id)
-            await event.reply(reply, parse_mode="html")
-            return
+        BANNED_RIGHTS = ChatBannedRights(
+           until_date=None,
+           view_messages=True,
+           send_messages=True,
+           send_media=True,
+           send_stickers=True,
+           send_gifs=True,
+           send_games=True,
+           send_inline=True,
+           embed_links=True,
+        )
+        await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, BANNED_RIGHTS))      
+        reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(
+            limit, reply_message.sender_id)
+        await event.reply(reply, parse_mode="html")
+        return
     else:
         reply = "<u><a href='tg://user?id={}'>user</a></u> has {}/{} warnings... watch out!".format(
             reply_message.sender_id, num_warns, limit)
