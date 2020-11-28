@@ -117,7 +117,7 @@ __help__ = """
  - /checkwelcome: Check whether you have a welcome note in the chat.
  - /clearwelcome: Deletes the welcome note for the current chat.
 
-*Goodbye**
+**Goodbye**
  - /setgoodbye <goodbye message> or <reply to a text>: Saves the message as a goodbye note in the chat.
  - /checkgoodbye: Check whether you have a goodbye note in the chat.
  - /cleargoodbye: Deletes the goodbye note for the current chat.
