@@ -364,8 +364,10 @@ async def del_cleanservice(event):
     for c in chats:
       if event.chat_id == c['id']:       
        try:
+        print("it's working")
         message = event.action_message
         await message.delete()
+        print(
        except Exception as e:
         print(e)
 
