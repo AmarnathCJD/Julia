@@ -73,10 +73,6 @@ async def tor_search(event):
         "Magnet Links for {}:\n\nhttps://telegra.ph/{}".format(str, response["path"]),
         link_preview=False,
     )
-
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")

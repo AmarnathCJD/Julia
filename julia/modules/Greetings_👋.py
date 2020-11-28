@@ -103,9 +103,6 @@ async def _(event):
         )
     else:
         await event.reply("No welcome message found for this chat")
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")

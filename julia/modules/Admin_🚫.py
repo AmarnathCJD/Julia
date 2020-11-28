@@ -1239,9 +1239,6 @@ async def set_group_sticker(gpic):
         print(e)
         await gpic.reply("Failed to set group sticker pack.")
 
-
-global __help__
-
 __help__ = """
  - /adminlist : list of admins in the chat
  - /pin <loud(optional)> | /unpin: pins/unpins the message in the chat
@@ -1270,8 +1267,6 @@ __help__ = """
  - /zombies: counts the number of deleted account in your group
  - /kickthefools: kicks all members inactive from 1 week
 """
-
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")

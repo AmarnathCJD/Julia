@@ -95,10 +95,6 @@ async def on_note_delete(event):
     name = event.pattern_match.group(1)
     remove_note(event.chat_id, name)
     await event.reply("Note **{}** deleted successfully".format(name))
-
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")

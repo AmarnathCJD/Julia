@@ -500,10 +500,6 @@ async def savel(event):
     await randika.delete()
     del holababy
     del reply_message
-
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
