@@ -354,20 +354,16 @@ async def del_profanity(event):
                     os.remove("nudes.jpg")
 
 @tbot.on(events.ChatAction)
-async def del_cleanservice(event):
+async def del_cleanservice(event: events.ChatAction.Event):
     if event.is_private:
         return
     if MONGO_DB_URI is None:
         return
-
     chats = cleanservices.find({})
     for c in chats:
       if event.chat_id == c['id']:       
-       try:
-        print("it's working")
-        message = event.action_message
-        await message.delete()
-        print(
+       try:       
+        await event.delete()
        except Exception as e:
         print(e)
 
