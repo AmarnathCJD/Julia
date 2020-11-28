@@ -232,8 +232,7 @@ async def promote(promt):
         if await is_register_admin(promt.input_chat, user.id):
             await promt.reply("Why will i promote an admin ?")
             return
-        else:
-            pass
+        pass
     else:
         return
 
@@ -280,8 +279,7 @@ async def demote(dmod):
         if not await is_register_admin(dmod.input_chat, user.id):
             await dmod.reply("How can i demote a non-admin ?")
             return
-        else:
-            pass
+        pass
     else:
         return
 
@@ -426,8 +424,7 @@ async def settitle(promt):
         if not await is_register_admin(promt.input_chat, user.id):
             await promt.reply("How can i set title of a non-admin ?")
             return
-        else:
-            pass
+        pass
 
     try:
         result = await tbot(functions.channels.GetParticipantRequest(
@@ -555,16 +552,14 @@ async def _(event):
                 EditBannedRequest(event.chat_id, i, KICK_RIGHTS))
             if not status:
                 return
-            else:
-                c = c + 1
+            c = c + 1
 
         if isinstance(i.status, UserStatusLastWeek):
             status = await tbot(
                 EditBannedRequest(event.chat_id, i, KICK_RIGHTS))
             if not status:
                 return
-            else:
-                c = c + 1
+            c = c + 1
 
     if c == 0:
         await done.edit("Got no one to kick 😔")
@@ -667,8 +662,7 @@ async def ban(bon):
         if await is_register_admin(bon.input_chat, user.id):
             await bon.reply("Why will i ban an admin ?")
             return
-        else:
-            pass
+        pass
     else:
         print("i don't work in channels")
         return
@@ -708,8 +702,7 @@ async def kick(bon):
         if await is_register_admin(bon.input_chat, user.id):
             await bon.reply("Why will i kick an admin ?")
             return
-        else:
-            pass
+        pass
     else:
         return
 
@@ -745,8 +738,7 @@ async def unban(bon):
         if await is_register_admin(bon.input_chat, user.id):
             await bon.reply("Why will i unban an admin ?")
             return
-        else:
-            pass
+        pass
     else:
         return
 
@@ -827,8 +819,7 @@ async def spider(spdr):
         if await is_register_admin(spdr.input_chat, user.id):
             await spdr.reply("Why will i mute an admin ?")
             return
-        else:
-            pass
+        pass
     else:
         return
 
@@ -869,8 +860,7 @@ async def spiderr(spdr):
         if await is_register_admin(spdr.input_chat, user.id):
             await spdr.reply("Why will i unmute an admin ?")
             return
-        else:
-            pass
+        pass
     else:
         return
 
@@ -953,9 +943,8 @@ async def locks(event):
         if not input_str:
             await event.reply("I can't lock nothing !!")
             return
-        else:
-            await event.reply(f"Invalid lock type: {input_str}")
-            return
+        await event.reply(f"Invalid lock type: {input_str}")
+        return
 
     lock_rights = ChatBannedRights(
         until_date=None,
@@ -1053,9 +1042,8 @@ async def rem_locks(event):
         if not input_str:
             await event.reply("I can't unlock nothing !!")
             return
-        else:
-            await event.reply(f"Invalid unlock type: {input_str}")
-            return
+        await event.reply(f"Invalid unlock type: {input_str}")
+        return
 
     unlock_rights = ChatBannedRights(
         until_date=None,

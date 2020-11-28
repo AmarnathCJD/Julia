@@ -183,10 +183,9 @@ async def _(event):
     if event.is_group:
         if (await is_register_admin(event.input_chat, event.message.sender_id)):
             return
-        elif str(event.sender_id) in str(userss) and str(event.chat_id) in str(iid):
+        if str(event.sender_id) in str(userss) and str(event.chat_id) in str(iid):
             return
-        else:
-            pass
+        pass
     else:
         return
     if str(event.sender_id) == "1246850012":
@@ -322,8 +321,7 @@ async def del_profanity(event):
     if event.is_group:
         if (await is_register_admin(event.input_chat, event.message.sender_id)):
             return
-        else:
-            pass
+        pass
     chats = spammers.find({})
     for c in chats:
         if event.text:

@@ -339,8 +339,7 @@ def is_it_animated_sticker(message):
             mime_type = message.media.document.mime_type
             if "tgsticker" in mime_type:
                 return True
-            else:
-                return False
+            return False
         else:
             return False
     except BaseException:
