@@ -363,7 +363,8 @@ async def del_cleanservice(event):
     chats = cleanservices.find({})
     for c in chats:
        if event.chat_id == c['id']:       
-          await event.delete()
+        message = event.action_message
+        await message.delete()
                
 
 
