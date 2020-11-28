@@ -21,29 +21,19 @@ import nltk
 from PIL import Image
 from zalgo_text import zalgo
 from julia.events import register
-import glob
 import json
 import subprocess
-import sys
 import textwrap
-import time
-import traceback
 import urllib.request
-from datetime import datetime
 from random import randrange
-from time import sleep
 from typing import List
 from typing import Optional
-import barcode
 import emoji
-import telegraph
 from cowpy import cow
 from fontTools.ttLib import TTFont
-from gtts import gTTSError
 from PIL import ImageDraw
 from PIL import ImageFont
 from pymongo import MongoClient
-from telegram import Message
 from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
