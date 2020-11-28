@@ -362,11 +362,12 @@ async def del_cleanservice(event):
 
     chats = cleanservices.find({})
     for c in chats:
-       if event.chat_id == c['id']:       
+      if event.chat_id == c['id']:       
+       try:
         message = event.action_message
         await message.delete()
-               
-
+       except Exception as e:
+        print(e)
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
