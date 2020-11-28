@@ -11,14 +11,14 @@ scikit-image==0.17.2
 argparse==1.4.0
 imutils==0.5.3
 python-telegram-bot==12.8
-telethon==1.17.5
+telethon==1.18.0
 aiohttp==3.7.2
 bleach==3.2.1
 emoji==0.6.0
 feedparser==6.0.2
 future==0.18.2
 geopy==2.0.0
-translate==3.5.0
+googletrans==3.0.0
 hurry.filesize==0.9
 markdown2==2.3.10
 nltk==3.5
