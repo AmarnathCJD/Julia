@@ -1,0 +1,147 @@
+{
+  "name": "MissJuliaRobot",
+  "description": "A Powerful Telegram Bot written in PTB and Telethon",
+  "logo": "https://telegra.ph/file/1b8591ec85dfefd72f0d3.jpg",
+  "keywords": ["telegram-bot"],
+  "repository": "https://github.com/MissJuliaRobot/MissJuliaRobot.git",
+  "success_url": "https://telegra.ph/MissJulieRobot-10-24",
+  "env": {
+    "API_KEY": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": "",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Get this value from my.telegram.org! Please do not steal",
+      "value": "",
+      "required": true
+    },
+    "STRING_SESSION": {
+      "description": "Get this value by running python3 GenerateStringSession.py locally",
+      "value": "",
+      "required": true
+    },
+    "TOKEN": {
+      "description": "Get your bot token from botfather",
+      "value": "",
+      "required": true
+    },
+    "OPENWEATHERMAP_ID": {
+      "description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
+      "required": false
+    },
+    "IBM_WATSON_CRED_URL": {
+      "description": "This is required for the speech to text module. Get your USERNAME from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html",
+      "required": false
+    },
+    "IBM_WATSON_CRED_PASSWORD": {
+      "description": "This is required for the speech to text module. Get your PASSWORD from https://console.bluemix.net/docs/services/speech-to-text/getting-started.html",
+      "required": false
+    },
+    "LYDIA_API_KEY": {
+      "description": "This Module Needs CoffeeHouse API to work. so Join https://telegram.dog/IntellivoidDev and send #activateapi and follow instructions",
+      "value": "",
+      "required": false
+    },
+    "OCR_SPACE_API_KEY": {
+      "description": "Get an API Key from http://OCR.Space",
+      "required": false
+    },
+    "GBAN_LOGS": {
+      "description": "The group id for logging all gbans",
+      "value": "",
+      "required": true
+    },
+    "REM_BG_API_KEY": {
+      "description": "Get your own API key from https://www.remove.bg/ or feel free to use http://telegram.dog/Remove_BGBot",
+      "required": false
+    },
+    "SUDO_USERS": {
+      "description": "List of user id's who will have SUDO rights in your bot(they can't be banned/warned etc. by the bot)",
+      "value": "",
+      "required": false
+    },
+    "YOUTUBE_API_KEY": {
+      "description": "Place your YouTube API Key here",
+      "value": "",
+      "required": false
+    },
+    "OWNER_ID": {
+      "description": "An integer of consisting of your ID",
+      "value": "",
+      "required": true
+    },
+    "OWNER_USERNAME": {
+      "description": "Your username",
+      "value": "",
+      "required": true
+    },
+    "MESSAGE_DUMP": {
+      "description": "A chat for logging bot events",
+      "value": "",
+      "required": true
+    },
+    "TIME_API_KEY": {
+      "description": "Required for timezone information",
+      "value": "",
+      "required": false
+    },
+    "CASH_API_KEY": {
+      "description": "Required for currency converter",
+      "value": "",
+      "required": false
+    },
+    "MONGO_DB_URI": {
+      "description": "Required for database connections",
+      "value": "",
+      "required": true
+    },
+    "WOLFRAM_ID": {
+      "description": "Required for Assistant module, get your own key from wolframalpha.com",
+      "value": "",
+      "required": false
+    },
+    "WALL_API": {
+      "description": "Get one from https://wall.alphacoders.com/api.php",
+      "value": "",
+      "required": false
+    },
+    "STRICT_GBAN": {
+      "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned",
+      "value": "True",
+      "required": false
+    },
+    "GOOGLE_CHROME_BIN": {
+      "description": "For Carbon.py",
+      "value": "/app/.apt/usr/bin/google-chrome",
+      "required": false
+    },
+    "CHROME_DRIVER": {
+      "description": "For Carbon.py",
+      "value": "/app/.chromedriver/bin/chromedriver",
+      "required": false
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql",
+      "options": {
+        "version": "12"
+      }
+    }
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-python"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-google-chrome"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-chromedriver"
+    }
+  ]
+}
