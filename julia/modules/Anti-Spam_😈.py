@@ -311,7 +311,7 @@ async def cleanservice(event):
 
 
 @tbot.on(events.NewMessage(pattern=None))
-async def spam_update(event):
+async def del_profanity(event):
     if event.is_private:
         return
     if MONGO_DB_URI is None:
@@ -356,7 +356,7 @@ async def spam_update(event):
                     os.remove("nudes.jpg")
 
 @tbot.on(events.ChatAction)
-async def spam_update(event):
+async def del_cleanservice(event):
     if event.is_private:
         return
     if MONGO_DB_URI is None:
