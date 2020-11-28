@@ -1,7 +1,6 @@
 from julia import CMD_HELP
 import time
 import os
-import shutil
 import json
 from telethon.tl.types import DocumentAttributeAudio
 from youtube_dl import YoutubeDL
