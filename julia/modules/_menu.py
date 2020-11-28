@@ -83,7 +83,8 @@ async def start(event):
                     ),
                 ],
                 [
-                    Button.url("Channel 🗞️", url="https://t.me/MissJuliaRobotNews/2"),
+                    Button.url(
+                        "Channel 🗞️", url="https://t.me/MissJuliaRobotNews/2"),
                     Button.url("Webiste 🌐", "missjuliarobot.unaux.com"),
                     Button.url("Donate 💲", "https://ko-fi.com/missjuliarobot"),
                 ],
@@ -126,7 +127,8 @@ async def reopen_again(event):
                     ),
                 ],
                 [
-                    Button.url("Channel 🗞️", url="https://t.me/MissJuliaRobotNews/2"),
+                    Button.url(
+                        "Channel 🗞️", url="https://t.me/MissJuliaRobotNews/2"),
                     Button.url("Webiste 🌐", "missjuliarobot.unaux.com"),
                     Button.url("Donate 💲", "https://ko-fi.com/missjuliarobot"),
                 ],
@@ -221,7 +223,8 @@ async def on_plug_in_callback_query_handler(event):
         reply_pop_up_alert = help_string
     try:
         await event.edit(
-            reply_pop_up_alert, buttons=[[Button.inline("🔙 Back", data="go_back")]]
+            reply_pop_up_alert, buttons=[
+                [Button.inline("🔙 Back", data="go_back")]]
         )
     except BaseException:
         with io.BytesIO(str.encode(reply_pop_up_alert)) as out_file:
@@ -285,7 +288,7 @@ def paginate_help(event, page_number, loaded_plugins, prefix):
     modulo_page = page_number % max_num_pages
     if len(pairs) > number_of_rows:
         pairs = pairs[
-            modulo_page * number_of_rows : number_of_rows * (modulo_page + 1)
+            modulo_page * number_of_rows: number_of_rows * (modulo_page + 1)
         ] + [
             (
                 custom.Button.inline(
