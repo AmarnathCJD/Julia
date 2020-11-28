@@ -8,6 +8,7 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/missjuliarobot/missjuliarobot/badge)](https://www.codefactor.io/repository/github/missjuliarobot/missjuliarobot)
 [![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2FMissJuliaRobot%2FMissJuliaRobot.git)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 [![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot/?ref=repository-badge)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 [![Total Size](https://github-size-badge.herokuapp.com/MissJuliaRobot/MissJuliaRobot.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 [![Python 3.8](https://img.shields.io/badge/python->=3.8.3-blue.svg)](https://www.python.org/downloads/release/python-383/)
