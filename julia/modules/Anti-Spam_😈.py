@@ -355,7 +355,7 @@ async def del_profanity(event):
                     await dev.delete()
                     os.remove("nudes.jpg")
 
-@tbot.on(events.ChatAction)
+@tbot.on(events.ChatAction(outgoing=True))
 async def del_cleanservice(event):
     if event.is_private:
         return
