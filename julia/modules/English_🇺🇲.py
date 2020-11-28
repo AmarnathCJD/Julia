@@ -1,4 +1,4 @@
-from translate import Translator
+from googletrans import Translator
 from julia import tbot
 import json
 import requests
@@ -57,12 +57,34 @@ async def _(event):
             pass
         else:
             return
-    lang = event.pattern_match.group(1)
-    thetext = await event.get_reply_message()
-    translate_text = thetext.text
-    translator = Translator(to_lang=lang)
-    translation = translator.translate(translate_text)
-    await event.reply(translation)
+    if "trim" in event.raw_text:
+        return
+    input_str = event.pattern_match.group(1)
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        text = previous_message.message
+        lan = input_str or "en"
+    elif "|" in input_str:
+        lan, text = input_str.split("|")
+    else:
+        return
+    text = text.strip()
+    lan = lan.strip()
+    translator = Translator()
+    try:
+        translated = translator.translate(text, dest=lan)
+        after_tr_text = translated.text
+        output_str = (
+            "**TRANSLATED** from {} to {}\n"
+            "{}"
+        ).format(
+            translated.src,
+            lan,
+            after_tr_text
+        )
+        await event.reply(output_str)
+    except Exception as exc:
+        await event.reply(str(exc))
 
 
 API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
