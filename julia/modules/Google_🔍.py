@@ -116,7 +116,7 @@ async def img_sampler(event):
     await tbot.send_file(event.chat_id,
                          files_grabbed,
                          reply_to=event.id)
-    os.chdir("/app/MissJuliaRobot/MissJuliaRobot")
+    os.chdir("/app")
     os.system("rm -rf store")
 
 
@@ -309,6 +309,7 @@ async def apk(e):
             "No result found in search. Please enter **Valid app name**")
     except Exception as err:
         await e.reply("Exception Occured:- " + str(err))
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
