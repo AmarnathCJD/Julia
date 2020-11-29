@@ -453,26 +453,27 @@ async def _(event):
         await event.reply(final_output)
 
 
-@ubot.on(events.NewMessage(pattern="/saved"))
-async def saat(event):
+async def get_reply_media_link(reply):
     chat = "@FileToLinkTGbot"
     async with ubot.conversation(chat) as conv:
         try:
             response = await conv.wait_event(
                 events.NewMessage(incoming=True, from_users=1011636686))
-            await reply_message.forward_to(chat, debloat)
+            await reply.forward_to(chat)
             response = await response
         except YouBlockedUserError:
-            return
+            return None
         if not response:
-            return
+            return None
         if response.text.startswith("🔗"):
             #    my_string= response.text
             #    p = re.compile(":(.*)")
             #    global holababy
             #    holababy = p.findall(my_string)
-            global holababy
-            holababy = response.text
+            #    global holababy
+           return response.text
+        else:
+           return "Sorry I can't create any direct link for that !"
 
 
 @tbot.on(events.NewMessage(pattern="^/savefile$"))
@@ -492,13 +493,9 @@ async def savel(event):
             pass
         else:
             return
-    global reply_message
     reply_message = await event.get_reply_message()
-    entity = await event.client.get_entity(OWNER_USERNAME)
-    randika = await event.client.send_message(entity, "/saved")
-    await event.reply(holababy)
-    await randika.delete()
-  
+    response = await get_reply_media_link(reply=reply_message)
+    await event.reply(response)
 
 @register(pattern="^/cmdlist$")
 async def cmndlist(event):
