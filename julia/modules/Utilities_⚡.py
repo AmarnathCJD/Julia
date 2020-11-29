@@ -500,6 +500,26 @@ async def savel(event):
     await randika.delete()
     del holababy
     del reply_message
+
+@register(pattern="^/cmdlist$")
+async def cmndlist(event):
+    if event.fwd_from:
+        return
+    if not event.reply_to_msg_id:
+        return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply("Click on the below button to get the list of commands", button=[[Button.url('Command List', 'https://telegra.ph/Command-List-11-25')]])
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
@@ -510,6 +530,7 @@ __help__ = """
  - /runs: Reply a random string from an array of replies.
  - /info: Get information about a user.
  - /savefile: Gives you a permanent link of a file so that you can download it later anytime
+ - /cmdlist: Lists all the available commands of @MissJuliaRobot until now
 """
 CMD_HELP.update({
     file_helpo: [
