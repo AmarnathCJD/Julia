@@ -114,7 +114,7 @@ DEFAULTUSER = "Julia"
 FILLED_UP_DADDY = "Invalid pack selected."
 
 
-@tbot.on(events.NewMessage(pattern="^/kang ?(.*)"))
+@register(pattern="^/kang ?(.*)")
 async def _(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -437,6 +437,7 @@ async def _(event):
         link = result['href']
         reply += f"\n• [{title.get_text()}]({link})"
     await event.reply(reply)
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
