@@ -66,6 +66,8 @@ async def _(event):
         return
     text = text.strip()
     lan = lan.strip()
+    print(text)
+    print(lan)
     translator = Translator()
     try:
         translated = translator.translate(text, dest=lan)
