@@ -471,12 +471,14 @@ async def savel(event):
         else:
             return
     reply_message = await event.get_reply_message()
+    debloat = await ubot.download_media(reply_message, TEMP_DOWNLOAD_DIRECTORY)
     chat = "@FileToLinkTGbot"
     async with ubot.conversation(chat) as conv:
         try:
             response = await conv.wait_event(
                 events.NewMessage(incoming=True, from_users=1011636686))
-            await reply_message.forward_to(chat)
+            await ubot.send_message(chat, debloat)
+            os.remove(debloat)
             response = await response
         except YouBlockedUserError:
             return
@@ -519,9 +521,10 @@ __help__ = """
  - /chatid: Get the current chat id.
  - /runs: Reply a random string from an array of replies.
  - /info: Get information about a user.
- - /savefile: Gives you a permanent link of a file so that you can download it later anytime
+ - /savefile: Gives you a permanent link of a file so that you can download it later anytime (MAX SIZE = 50MB)
  - /cmdlist: Lists all the available commands of @MissJuliaRobot until now
 """
+
 CMD_HELP.update({
     file_helpo: [
         file_helpo,
