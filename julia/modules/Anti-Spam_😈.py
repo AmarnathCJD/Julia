@@ -10,6 +10,8 @@ from telethon import types, events
 from telethon.tl import *
 from telethon.tl.types import *
 from julia import *
+from better_profanity import profanity
+
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -18,6 +20,7 @@ approved_users = db.approve
 spammers = dbb.spammer
 cleanservices = dbb.cleanservice
 CMD_STARTERS = '/'
+profanity.load_censor_words_from_file('./profanity_wordlist.txt')
 
 
 async def can_change_info(message):
@@ -205,8 +208,6 @@ async def _(event):
                 return
             await event.delete()
 
-from better_profanity import profanity
-profanity.load_censor_words_from_file('./profanity_wordlist.txt')
 @register(pattern="^/profanity(?: |$)(.*)")
 async def profanity(event):
     if event.fwd_from:
