@@ -453,29 +453,6 @@ async def _(event):
         await event.reply(final_output)
 
 
-async def get_reply_media_link(reply):
-    chat = "@FileToLinkTGbot"
-    async with ubot.conversation(chat) as conv:
-        try:
-            response = await conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1011636686))
-            await reply.forward_to(chat)
-            response = await response
-        except YouBlockedUserError:
-            return None
-        if not response:
-            return None
-        if response.text.startswith("🔗"):
-            #    my_string= response.text
-            #    p = re.compile(":(.*)")
-            #    global holababy
-            #    holababy = p.findall(my_string)
-            #    global holababy
-           return response.text
-        else:
-           return "Sorry I can't create any direct link for that !"
-
-
 @tbot.on(events.NewMessage(pattern="^/savefile$"))
 async def savel(event):
     if event.fwd_from:
@@ -494,9 +471,28 @@ async def savel(event):
         else:
             return
     reply_message = await event.get_reply_message()
-    response = await get_reply_media_link(reply=reply_message)
-    await event.reply(response)
+    chat = "@FileToLinkTGbot"
+    async with ubot.conversation(chat) as conv:
+        try:
+            response = await conv.wait_event(
+                events.NewMessage(incoming=True, from_users=1011636686))
+            await reply_message.forward_to(chat)
+            response = await response
+        except YouBlockedUserError:
+            return
+        if not response:
+            return
+        if response.text.startswith("🔗"):
+            #    my_string= response.text
+            #    p = re.compile(":(.*)")
+            #    global holababy
+            #    holababy = p.findall(my_string)
+            #    global holababy
+           await event.reply(response.text)
+        else:
+           await event.reply("Sorry I can't create any direct link for that !")
 
+  
 @register(pattern="^/cmdlist$")
 async def cmndlist(event):
     if event.fwd_from:
