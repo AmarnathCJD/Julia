@@ -3,6 +3,7 @@ from julia.events import register
 from telethon.tl.types import ChatBannedRights
 from telethon.tl import functions
 from telethon.tl import types
+from telethon import events
 from telethon.tl.functions.channels import EditBannedRequest
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
