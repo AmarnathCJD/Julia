@@ -1,6 +1,5 @@
 from julia import CMD_HELP
 import nude
-from better_profanity import profanity
 import html
 import asyncio
 from julia.modules.sql import cleaner_sql as sql
@@ -206,6 +205,7 @@ async def _(event):
                 return
             await event.delete()
 
+from better_profanity import profanity
 profanity.load_censor_words_from_file('profanity_wordlist.txt')
 @register(pattern="^/profanity(?: |$)(.*)")
 async def profanity(event):
