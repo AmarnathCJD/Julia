@@ -55,7 +55,6 @@ if ENV:
 
     SUDO_USERS = list(SUDO_USERS)
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
-    WHITELIST_USERS = list(WHITELIST_USERS)
     IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     WALL_API = os.environ.get("WALL_API", None)
