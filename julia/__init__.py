@@ -38,18 +38,18 @@ if ENV:
     except ValueError:
         raise Exception(
             "Your sudo users list does not contain valid integers.")
-    
+
     API_KEY = os.environ.get("API_KEY", None)
     API_HASH = os.environ.get("API_HASH", None)
 
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
-    DB_URI = os.environ.get("DATABASE_URL") 
+    DB_URI = os.environ.get("DATABASE_URL")
     BOTLOG_CHATID = int(os.environ.get("MESSAGE_DUMP"))
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
     WOLFRAM_ID = os.environ.get("WOLFRAM_ID", None)
-    
+
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     tbot = TelegramClient("julia", API_KEY, API_HASH)
 
