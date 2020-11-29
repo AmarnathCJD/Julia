@@ -515,7 +515,7 @@ async def cmndlist(event):
             pass
         else:
             return
-    await event.reply("Click on the below button to get the list of commands 👇", button=[[Button.url('Command List', 'https://telegra.ph/Command-List-11-25')]])
+    await event.reply("Click on the below button to get the list of commands 👇", buttons=[[Button.url('Command List', 'https://telegra.ph/Command-List-11-25')]])
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
