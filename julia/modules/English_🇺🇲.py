@@ -64,10 +64,10 @@ async def _(event):
         lan, text = input_str.split("|")
     else:
         return
-    text = text.strip()
-    lan = lan.strip()
-    print(text)
-    print(lan)
+    text = str(text.strip())
+    lan = str(lan.strip())
+    #print(text)
+    #print(lan)
     translator = Translator()
     try:
         translated = translator.translate(text, dest=lan)
@@ -83,7 +83,7 @@ async def _(event):
         await event.reply(output_str)
     except Exception as exc:
         print(exc)
-        await event.reply("Server Error!\n\nTry Again.")
+        await event.reply("**Server Error !**\nTry Again.")
 
 
 API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
