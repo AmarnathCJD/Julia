@@ -206,7 +206,7 @@ async def _(event):
             await event.delete()
 
 from better_profanity import profanity
-profanity.load_censor_words_from_file('profanity_wordlist.txt')
+profanity.load_censor_words_from_file('./profanity_wordlist.txt')
 @register(pattern="^/profanity(?: |$)(.*)")
 async def profanity(event):
     if event.fwd_from:
