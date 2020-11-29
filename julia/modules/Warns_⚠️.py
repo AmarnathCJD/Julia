@@ -45,8 +45,7 @@ async def _(event):
             pass
         else:
             return
-    warn_getter = event.text
-    warn_reason = warn_getter.split(" ", maxsplit=1)[1]
+    warn_reason = event.text[len("/warn "):]
     if not warn_reason:
         await event.reply("Please provide a reason for warning.")
         return
