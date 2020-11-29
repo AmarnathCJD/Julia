@@ -471,7 +471,7 @@ async def savel(event):
         else:
             return
     reply_message = await event.get_reply_message()
-    debloat = await event.client.download_file(reply_message.media)
+    debloat = await event.client.download_file(reply_message)
     chat = "@FileToLinkTGbot"
     async with ubot.conversation(chat) as conv:
         try:
@@ -486,11 +486,6 @@ async def savel(event):
             os.remove(debloat)
             return
         if response.text.startswith("🔗"):
-            #    my_string= response.text
-            #    p = re.compile(":(.*)")
-            #    global holababy
-            #    holababy = p.findall(my_string)
-            #    global holababy
            await event.reply(response.text)
            os.remove(debloat)
         else:
