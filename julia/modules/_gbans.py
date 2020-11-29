@@ -1,4 +1,4 @@
-from julia import SUDO_USERS
+from julia import SUDO_USERS, tbot
 from julia.events import register
 from telethon.tl.types import ChatBannedRights
 from telethon.tl import functions
@@ -63,7 +63,7 @@ async def _(event):
     await event.reply("Gbanned Successfully !")
 
 
-@register(pattern="^/ungban ?(.*)")
+@register(pattern="^/ungban(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -103,7 +103,7 @@ async def join_ban(event):
         await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`"
 
 
-@ tbot.on(events.NewMessage(pattern=None))
+@tbot.on(events.NewMessage(pattern=None))
 async def type_ban(event):
    chats=gbanned.find({})
    for c in chats:
