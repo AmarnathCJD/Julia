@@ -477,12 +477,13 @@ async def savel(event):
         try:
             response = await conv.wait_event(
                 events.NewMessage(incoming=True, from_users=1011636686))
-            await ubot.send_message(chat, debloat)
-            os.remove(debloat)
+            await ubot.send_file(chat, debloat)
             response = await response
         except YouBlockedUserError:
+            os.remove(debloat)
             return
         if not response:
+            os.remove(debloat)
             return
         if response.text.startswith("🔗"):
             #    my_string= response.text
@@ -491,8 +492,10 @@ async def savel(event):
             #    holababy = p.findall(my_string)
             #    global holababy
            await event.reply(response.text)
+           os.remove(debloat)
         else:
            await event.reply("Sorry I can't create any direct link for that !")
+           os.remove(debloat)
 
   
 @register(pattern="^/cmdlist$")
