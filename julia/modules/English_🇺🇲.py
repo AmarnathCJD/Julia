@@ -16,12 +16,10 @@ from PyDictionary import PyDictionary
 from telethon.tl import types
 from telethon.tl.types import *
 
-
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
-
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -57,8 +55,6 @@ async def _(event):
             pass
         else:
             return
-    if "trim" in event.raw_text:
-        return
     input_str = event.pattern_match.group(1)
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
@@ -84,7 +80,8 @@ async def _(event):
         )
         await event.reply(output_str)
     except Exception as exc:
-        await event.reply(str(exc))
+        print(exc)
+        await event.reply("Server Error!\n\nTry Again.")
 
 
 API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
@@ -225,6 +222,7 @@ async def _(event):
     # s = r.replace("'Fear'", "")
     t = o.replace(", ", "\n\n")
     await event.reply(t)
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
