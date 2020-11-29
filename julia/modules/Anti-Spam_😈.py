@@ -16,6 +16,8 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
+spammers = dbb.spammer
+cleanservices = dbb.cleanservice
 CMD_STARTERS = '/'
 
 
@@ -204,14 +206,7 @@ async def _(event):
                 return
             await event.delete()
 
-profanity.load_censor_words_from_file('./profanity_wordlist.txt')
-
-client = MongoClient()
-client = MongoClient(MONGO_DB_URI)
-dbb = client["missjuliarobot"]
-spammers = dbb.spammer
-cleanservices = dbb.cleanservice
-
+profanity.load_censor_words_from_file('profanity_wordlist.txt')
 @register(pattern="^/profanity(?: |$)(.*)")
 async def profanity(event):
     if event.fwd_from:
@@ -307,7 +302,6 @@ async def cleanservice(event):
     if not input == "on" or input == "off":
         await event.reply("I only understand by on or off")
         return
-
 
 @tbot.on(events.NewMessage(pattern=None))
 async def del_profanity(event):
