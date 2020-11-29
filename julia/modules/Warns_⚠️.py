@@ -34,7 +34,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-@tbot.on(events.NewMessage(pattern="^/warn"))
+@register(pattern="^/warn(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
