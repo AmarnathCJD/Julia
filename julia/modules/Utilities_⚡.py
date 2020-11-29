@@ -496,16 +496,13 @@ async def savel(event):
     reply_message = await event.get_reply_message()
     entity = await event.client.get_entity(OWNER_USERNAME)
     randika = await event.client.send_message(entity, "/saved")
-    await event.reply(f"{holababy}")
+    await event.reply(holababy)
     await randika.delete()
-    del holababy
-    del reply_message
+  
 
 @register(pattern="^/cmdlist$")
 async def cmndlist(event):
     if event.fwd_from:
-        return
-    if not event.reply_to_msg_id:
         return
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -518,7 +515,7 @@ async def cmndlist(event):
             pass
         else:
             return
-    await event.reply("Click on the below button to get the list of commands", button=[[Button.url('Command List', 'https://telegra.ph/Command-List-11-25')]])
+    await event.reply("Click on the below button to get the list of commands 👇", button=[[Button.url('Command List', 'https://telegra.ph/Command-List-11-25')]])
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
