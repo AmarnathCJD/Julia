@@ -25,8 +25,10 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 gbanned = db.gban
 
+
 def get_reason(id):
     return pagenumber.find_one({"id": id})
+
 
 @register(pattern="^/gban(?: |$)(.*)")
 async def _(event):
@@ -36,25 +38,27 @@ async def _(event):
        return
     reason = event.pattern_match.group(1)
     if not reason:
-      reason = "No reason given" 
+      reason = "No reason given"
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
-        r_sender_id = r.sender_id 
-        
+        r_sender_id = r.sender_id
+
     chats = gbanned.find({})
-    
+
     for c in chats:
         if r_sender_id == c["user"]:
             to_check = get_reason(id=r_sender_id)
-            gbanned.update_one({"_id": to_check["_id"], "user": r_sender_id, "reason": to_check["reason"]}, {"$set": {"reason": reason}})
+            gbanned.update_one({"_id": to_check["_id"], "user": r_sender_id, "reason": to_check["reason"]}, {
+                               "$set": {"reason": reason}})
             await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
             return
 
     gbanned.insert_one({"user": r_sender_id, "reason": reason})
-   
+
     await event.client.send_message(
             G_BAN_LOGGER_GROUP,
-            "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(r_sender_id, reason)
+            "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(
+                r_sender_id, reason)
         )
     await event.reply("Gbanned Successfully !")
 
@@ -68,24 +72,25 @@ async def _(event):
        return
     reason = event.pattern_match.group(1)
     if not reason:
-      reason = "No reason given" 
+      reason = "No reason given"
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
         r_sender_id = r.sender_id
-        
+
     chats = gbanned.find({})
-    
+
     for c in chats:
         if r_sender_id == c["user"]:
             to_check = get_reason(id=r_sender_id)
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
                   G_BAN_LOGGER_GROUP,
-                  "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(r_sender_id, reason)
+                  "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(
+                      r_sender_id, reason)
                )
             return
     await event.reply("Is that user even gbanned ?")
-          
+
 
 @tbot.on(events.ChatAction())
 async def join_ban(event):
@@ -93,19 +98,18 @@ async def join_ban(event):
       try:
         user = await event.get_user()
         chat = await event.get_chat()
-        await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))      
+        await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
       except Exception:
         await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`"
 
 
-@tbot.on(events.NewMessage(pattern=None))
+@ tbot.on(events.NewMessage(pattern=None))
 async def type_ban(event):
-   chats = gbanned.find({})
+   chats=gbanned.find({})
    for c in chats:
        if event.sender_id == c["user"]:
           try:
-            await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))      
+            await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))
             await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`"
           except Exception:
              return
-            
