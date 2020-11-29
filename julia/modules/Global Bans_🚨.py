@@ -48,12 +48,12 @@ async def _(event):
     for c in chats:
         if r_sender_id == c["user"]:
             to_check = get_reason(id=r_sender_id)
-            gbanned.update_one({"_id": to_check["_id"], "user": r_sender_id, "reason": to_check["reason"]}, {
+            gbanned.update_one({"_id": to_check["_id"], "bannerid": to_check["bannerid"], "user": to_check["user"], "reason": to_check["reason"]}, {
                                "$set": {"reason": reason}})
             await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
             return
 
-    gbanned.insert_one({"user": r_sender_id, "reason": reason})
+    gbanned.insert_one({"bannerid": event.sender_id, "user": r_sender_id, "reason": reason})
 
     await event.client.send_message(
             G_BAN_LOGGER_GROUP,
@@ -98,10 +98,13 @@ async def join_ban(event):
       try:
         user = await event.get_user()
         chat = await event.get_chat()
+        to_check = get_reason(id=user.id)
+        reason = to_check["reason"]
+        bannerid = to_check["bannerid"]
         await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
+        await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
       except Exception:
-        await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`"
-
+        return
 
 @tbot.on(events.NewMessage(pattern=None))
 async def type_ban(event):
@@ -109,7 +112,10 @@ async def type_ban(event):
    for c in chats:
        if event.sender_id == c["user"]:
           try:
+            to_check = get_reason(id=event.sender_id)
+            reason = to_check["reason"]
+            bannerid = to_check["bannerid"]
             await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))
-            await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`"
+            await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
           except Exception:
              return
