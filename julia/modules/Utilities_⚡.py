@@ -453,7 +453,7 @@ async def _(event):
         await event.reply(final_output)
 
 
-@juliabot(pattern="/saved")
+@ubot.on(events.NewMessage(pattern="/saved"))
 async def saat(event):
     chat = "@FileToLinkTGbot"
     async with event.client.conversation(chat) as conv:
@@ -475,7 +475,7 @@ async def saat(event):
             holababy = response.text
 
 
-@register(pattern="^/savefile$")
+@tbot.on(events.NewMessage(pattern="^/savefile$"))
 async def savel(event):
     if event.fwd_from:
         return
