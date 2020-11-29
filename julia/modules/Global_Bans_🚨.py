@@ -1,4 +1,4 @@
-from julia import SUDO_USERS, tbot
+from julia import SUDO_USERS, tbot, OWNER_ID
 from julia.events import register
 from telethon.tl.types import ChatBannedRights
 from telethon.tl import functions
@@ -37,6 +37,8 @@ async def _(event):
         return
     if not event.sender_id in SUDO_USERS:
        return
+    elif event.sender_id == OWNER_ID:
+       pass
     reason = event.pattern_match.group(1)
     if not reason:
       reason = "No reason given"
@@ -68,6 +70,8 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    elif event.sender_id == OWNER_ID:
+       pass
     reason = event.pattern_match.group(1)
     if not event.sender_id in SUDO_USERS:
        return
