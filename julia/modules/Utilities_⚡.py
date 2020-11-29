@@ -471,7 +471,7 @@ async def savel(event):
         else:
             return
     reply_message = await event.get_reply_message()
-    debloat = await ubot.download_media(reply_message, TEMP_DOWNLOAD_DIRECTORY)
+    debloat = await event.client.download_file(reply_message.media)
     chat = "@FileToLinkTGbot"
     async with ubot.conversation(chat) as conv:
         try:
