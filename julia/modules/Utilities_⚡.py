@@ -451,48 +451,7 @@ async def _(event):
 
     else:
         await event.reply(final_output)
-
-
-@tbot.on(events.NewMessage(pattern="^/savefile$"))
-async def savel(event):
-    if event.fwd_from:
-        return
-    if not event.reply_to_msg_id:
-        return
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    reply_message = await event.get_reply_message()
-    debloat = await event.client.download_file(reply_message)
-    chat = "@FileToLinkTGbot"
-    async with ubot.conversation(chat) as conv:
-        try:
-            response = await conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1011636686))
-            await ubot.send_file(chat, debloat)
-            response = await response
-        except YouBlockedUserError:
-            os.remove(debloat)
-            return
-        if not response:
-            os.remove(debloat)
-            return
-        if response.text.startswith("🔗"):
-           await event.reply(response.text)
-           os.remove(debloat)
-        else:
-           await event.reply("Sorry I can't create any direct link for that !")
-           os.remove(debloat)
-
-  
+ 
 @register(pattern="^/cmdlist$")
 async def cmndlist(event):
     if event.fwd_from:
@@ -519,8 +478,7 @@ __help__ = """
  - /chatid: Get the current chat id.
  - /runs: Reply a random string from an array of replies.
  - /info: Get information about a user.
- - /savefile: Gives you a permanent link of a file so that you can download it later anytime (MAX SIZE = 50MB)
- - /cmdlist: Lists all the available commands of @MissJuliaRobot until now
+ - /cmdlist: Lists all the available commands of @MissJuliaRobot until now.
 """
 
 CMD_HELP.update({
