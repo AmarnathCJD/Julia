@@ -69,7 +69,6 @@ def register(**args):
                     spamtimecheck = time.time() - painkiller
                     if (time.strftime("%H", time.gmtime(spamtimecheck))) >= "10":
                         leechers.delete_one({"id": check.sender_id})
-                        pass
                     else:
                         return
 
