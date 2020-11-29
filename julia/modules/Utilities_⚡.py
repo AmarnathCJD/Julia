@@ -456,7 +456,7 @@ async def _(event):
 @ubot.on(events.NewMessage(pattern="/saved"))
 async def saat(event):
     chat = "@FileToLinkTGbot"
-    async with event.client.conversation(chat) as conv:
+    async with ubot.conversation(chat) as conv:
         try:
             response = await conv.wait_event(
                 events.NewMessage(incoming=True, from_users=1011636686))
