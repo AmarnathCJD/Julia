@@ -1,9 +1,34 @@
 from julia import SUDO_USERS
 from julia.events import register
+from telethon.tl.types import ChatBannedRights
+from telethon.tl import functions
+from telethon.tl import types
+from telethon.tl.functions.channels import EditBannedRequest
+from pymongo import MongoClient
+from julia import MONGO_DB_URI
 
 G_BAN_LOGGER_GROUP = "@MissJuliaRobotGbans"
+BANNED_RIGHTS = ChatBannedRights(
+    until_date=None,
+    view_messages=True,
+    send_messages=True,
+    send_media=True,
+    send_stickers=True,
+    send_gifs=True,
+    send_games=True,
+    send_inline=True,
+    embed_links=True,
+)
 
-@register(pattern="^/gban ?(.*)")
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client["missjuliarobot"]
+gbanned = db.gban
+
+def get_reason(id):
+    return pagenumber.find_one({"id": id})
+
+@register(pattern="^/gban(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -15,26 +40,72 @@ async def _(event):
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
         r_sender_id = r.sender_id 
+        
+    chats = gbanned.find({})
+    
+    for c in chats:
+        if r_sender_id == c["user"]:
+            to_check = get_reason(id=r_sender_id)
+            gbanned.update_one({"_id": to_check["_id"], "user": r_sender_id, "reason": to_check["reason"]}, {"$set": {"reason": reason}})
+            await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
+            return
+
+    gbanned.insert_one({"user": r_sender_id, "reason": reason})
+   
     await event.client.send_message(
             G_BAN_LOGGER_GROUP,
-            "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: {}".format(r_sender_id, reason)
+            "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(r_sender_id, reason)
         )
-    await event.reply("Gbanned Successfully")
+    await event.reply("Gbanned Successfully !")
 
 
 @register(pattern="^/ungban ?(.*)")
 async def _(event):
-    if Config.G_BAN_LOGGER_GROUP is None:
-        await event.edit("ENV VAR is not set. This module will not work.")
-        return
     if event.fwd_from:
         return
     reason = event.pattern_match.group(1)
+    if not event.sender_id in SUDO_USERS:
+       return
+    reason = event.pattern_match.group(1)
+    if not reason:
+      reason = "No reason given" 
     if event.reply_to_msg_id:
         r = await event.get_reply_message()
-        r_sender_id = r.from_id
-        await event.client.send_message(
-            Config.G_BAN_LOGGER_GROUP,
-            "!ungban [user](tg://user?id={}) {}".format(r_sender_id, reason)
-        )
-    await event.delete()
+        r_sender_id = r.sender_id
+        
+    chats = gbanned.find({})
+    
+    for c in chats:
+        if r_sender_id == c["user"]:
+            to_check = get_reason(id=r_sender_id)
+            gbanned.delete_one({"user": r_sender_id})
+            await event.client.send_message(
+                  G_BAN_LOGGER_GROUP,
+                  "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(r_sender_id, reason)
+               )
+            return
+    await event.reply("Is that user even gbanned ?")
+          
+
+@tbot.on(events.ChatAction())
+async def join_ban(event):
+    if event.user_joined:
+      try:
+        user = await event.get_user()
+        chat = await event.get_chat()
+        await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))      
+      except Exception:
+        await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`"
+
+
+@tbot.on(events.NewMessage(pattern=None))
+async def type_ban(event):
+   chats = gbanned.find({})
+   for c in chats:
+       if event.sender_id == c["user"]:
+          try:
+            await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))      
+            await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`"
+          except Exception:
+             return
+            
