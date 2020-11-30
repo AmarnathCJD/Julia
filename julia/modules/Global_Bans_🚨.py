@@ -28,7 +28,7 @@ gbanned = db.gban
 
 
 def get_reason(id):
-    return pagenumber.find_one({"id": id})
+    return gbanned.find_one({"id": id})
 
 
 @tbot.on(events.NewMessage(pattern="^/gban(?: |$)(.*)"))
@@ -123,9 +123,7 @@ async def type_ban(event):
    chats=gbanned.find({})
    for c in chats:
        if event.sender_id == c["user"]:
-          print ("gotcha")
           try:
-            print ("potcha")
             to_check = get_reason(id=event.sender_id)
             print ("potchau")
             reason = to_check["reason"]
