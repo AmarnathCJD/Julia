@@ -10,6 +10,7 @@ from telethon import types, events
 from telethon.tl import *
 from telethon.tl.types import *
 from julia import *
+import better_profanity
 from better_profanity import profanity
 
 
@@ -323,7 +324,7 @@ async def del_profanity(event):
     for c in chats:
         if event.text:
             if event.chat_id == c['id']:
-                if profanity.contains_profanity(msg):
+                if better_profanity.profanity.contains_profanity(msg):
                     await event.delete()
                     if sender.username is None:
                         st = sender.first_name
