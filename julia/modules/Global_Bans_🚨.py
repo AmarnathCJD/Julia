@@ -31,7 +31,7 @@ def get_reason(id):
     return pagenumber.find_one({"id": id})
 
 
-@register(pattern="^/gban(?: |$)(.*)")
+@tbot.on(events.NewMessage(pattern="^/gban(?: |$)(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -66,7 +66,7 @@ async def _(event):
     await event.reply("Gbanned Successfully !")
 
 
-@register(pattern="^/ungban(?: |$)(.*)")
+@tbot.on(events.NewMessage(pattern="^/ungban(?: |$)(.*)"))
 async def _(event):
     if event.fwd_from:
         return
