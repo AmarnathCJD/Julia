@@ -35,10 +35,12 @@ def get_reason(id):
 async def _(event):
     if event.fwd_from:
         return
-    if not event.sender_id in SUDO_USERS:
-       return
+    if event.sender_id in SUDO_USERS:
+       pass
     elif event.sender_id == OWNER_ID:
        pass
+    else:
+       return
     reason = event.pattern_match.group(1)
     if not reason:
       reason = "No reason given"
@@ -70,8 +72,12 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if event.sender_id in SUDO_USERS:
+       pass
     elif event.sender_id == OWNER_ID:
        pass
+    else:
+       return
     reason = event.pattern_match.group(1)
     if not event.sender_id in SUDO_USERS:
        return
