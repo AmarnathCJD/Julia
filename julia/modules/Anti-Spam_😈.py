@@ -301,8 +301,8 @@ async def cleanservice(event):
                     return
         await event.reply(
                     "Service message cleaning isn't turned on for this chat.")       
-        return
-    if not input == "on" or input == "off":
+    
+    if not input == "on" and not input == "off":
         await event.reply("I only understand by on or off")
         return
 
