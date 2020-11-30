@@ -1237,7 +1237,7 @@ __help__ = """
  - /mute: mute a user
  - /unmute: unmutes a user
  - /kick: kicks a user
- - /settitle <title>: sets a custom title for an admin. If no <title> provided defaults to "Admin"
+ - /settitle <entity> <title>: sets a custom title for an admin. If no <title> provided defaults to "Admin"
  - /setdescription <text>: set group description
  - /setgrouptitle <text>: set group title
  - /setgpic: reply to an image to set as group photo
