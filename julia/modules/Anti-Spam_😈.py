@@ -18,7 +18,7 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
 spammers = db.spammer
-cleanservices = dbb.cleanservice
+cleanservices = db.cleanservice
 
 CMD_STARTERS = '/'
 profanity.load_censor_words_from_file('./profanity_wordlist.txt')
