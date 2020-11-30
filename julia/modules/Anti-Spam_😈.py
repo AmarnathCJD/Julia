@@ -253,7 +253,7 @@ async def profanity(event):
                     return
         await event.reply(
                     "Profanity filter isn't turned on for this chat.")
-    if not input == "on" or input == "off":
+    if not input == "on" and not input == "off":
         await event.reply("I only understand by on or off")
         return
 
