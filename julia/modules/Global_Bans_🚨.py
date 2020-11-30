@@ -123,11 +123,16 @@ async def type_ban(event):
    chats=gbanned.find({})
    for c in chats:
        if event.sender_id == c["user"]:
+          print ("gotcha")
           try:
+            print ("potcha")
             to_check = get_reason(id=event.sender_id)
+            print ("potchau")
             reason = to_check["reason"]
+            print ("potda")
             bannerid = to_check["bannerid"]
             await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))
+            print ("potcddjdj")
             await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
           except Exception as e:
              print(e)
