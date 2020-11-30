@@ -56,6 +56,9 @@ async def _(event):
             gbanned.update_one({"_id": to_check["_id"], "bannerid": to_check["bannerid"], "user": to_check["user"], "reason": to_check["reason"]}, {
                                "$set": {"reason": reason}})
             await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
+            await event.client.send_message(
+                G_BAN_LOGGER_GROUP,
+                "**GLOBAL BAN REASON UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(r_sender_id, reason))
             return
 
     gbanned.insert_one({"bannerid": event.sender_id, "user": r_sender_id, "reason": reason})
@@ -77,9 +80,6 @@ async def _(event):
     elif event.sender_id == OWNER_ID:
        pass
     else:
-       return
-    reason = event.pattern_match.group(1)
-    if not event.sender_id in SUDO_USERS:
        return
     reason = event.pattern_match.group(1)
     if not reason:
