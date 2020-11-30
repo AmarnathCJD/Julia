@@ -114,7 +114,8 @@ async def join_ban(event):
         bannerid = to_check["bannerid"]
         await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
         await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
-      except Exception:
+      except Exception as e:
+        print(e)
         return
 
 @tbot.on(events.NewMessage(pattern=None))
@@ -128,5 +129,6 @@ async def type_ban(event):
             bannerid = to_check["bannerid"]
             await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))
             await event.reply("This user is gbanned and has been removed\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
-          except Exception:
+          except Exception as e:
+             print(e)
              return
