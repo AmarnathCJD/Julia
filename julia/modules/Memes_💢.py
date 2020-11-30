@@ -1291,9 +1291,6 @@ async def _(event):
                                  reply_to=event.reply_to_msg_id)
     os.remove("sticker.webp")
 
-
-BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID")
-
 EMOJI_PATTERN = re.compile(
     "["
     "\U0001F1E0-\U0001F1FF"  # flags (iOS)
@@ -1317,18 +1314,6 @@ def deEmojify(inputString: str) -> str:
 # Made By @MissJulia_Robot
 
 
-@juliabot(pattern="/animated")
-async def waifu(animu):
-    animus = [20, 32, 33, 40, 41, 42, 58]
-    sticcers = await animu.client.inline_query(
-        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
-    null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
-    global bara
-    bara = str(null)
-
-    print("sticker downloaded successfully")
-
-
 @register(pattern="^/animate (.*)")
 async def stickerizer(event):
     approved_userss = approved_users.find({})
@@ -1342,16 +1327,14 @@ async def stickerizer(event):
             pass
         else:
             return
-
-    global newtext
     newtext = event.pattern_match.group(1)
-    myid = int("-1009655116")
-    entity = await event.client.get_entity(OWNER_USERNAME)
-    randika = await event.client.send_message(entity, "/animated")
-    await asyncio.sleep(3)
+    animus = [20, 32, 33, 40, 41, 42, 58]
+    sticcers = await ubot.inline_query(
+        "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(newtext))}")
+    null = await sticcers[0].download_media(TEMP_DOWNLOAD_DIRECTORY)
+    bara = str(null)
     await event.client.send_file(event.chat_id, bara, reply_to=event.id)
     os.remove(bara)
-    await randika.delete()
 
 
 @register(pattern="^/dice$")
