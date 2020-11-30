@@ -231,7 +231,7 @@ async def profanity(event):
             "Please provide some input yes or no.\n\nCurrent setting is : **off**"
         )
         return
-    if input in "on":
+    if input == "on":
         if event.is_group:
             chats = spammers.find({})
             for c in chats:
@@ -241,7 +241,7 @@ async def profanity(event):
                     return
             spammers.insert_one({"id": event.chat_id})
             await event.reply("Profanity filter turned on for this chat.")
-    if input in "off":
+    if input == "off":
         if event.is_group:  
             chats = spammers.find({})
             for c in chats:
@@ -250,7 +250,7 @@ async def profanity(event):
                     await event.reply(
                         "Profanity filter turned off for this chat.")
                     return
-                await event.reply(
+            await event.reply(
                     "Profanity filter isn't turned on for this chat.")
     if not input == "on" or input == "off":
         await event.reply("I only understand by on or off")
@@ -298,7 +298,7 @@ async def cleanservice(event):
                     await event.reply(
                         "I will not clean service messages anymore.")
                     return
-                await event.reply(
+            await event.reply(
                     "Service message cleaning isn't turned on for this chat.")
     if not input == "on" or input == "off":
         await event.reply("I only understand by on or off")
