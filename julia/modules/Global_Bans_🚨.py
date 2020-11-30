@@ -28,7 +28,7 @@ gbanned = db.gban
 
 
 def get_reason(id):
-    return gbanned.find_one({"id": id})
+    return gbanned.find_one({"user": id})
 
 
 @tbot.on(events.NewMessage(pattern="^/gban(?: |$)(.*)"))
