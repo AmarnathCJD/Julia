@@ -62,7 +62,7 @@ async def _(event):
 
     await event.client.send_message(
             G_BAN_LOGGER_GROUP,
-            "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(
+            "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
                 r_sender_id, reason)
         )
     await event.reply("Gbanned Successfully !")
@@ -96,7 +96,7 @@ async def _(event):
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
                   G_BAN_LOGGER_GROUP,
-                  "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON: `{}`".format(
+                  "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
                       r_sender_id, reason)
                )
             return
