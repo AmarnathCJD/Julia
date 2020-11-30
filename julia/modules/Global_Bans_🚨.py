@@ -31,7 +31,7 @@ def get_reason(id):
     return gbanned.find_one({"user": id})
 
 
-@tbot.on(events.NewMessage(pattern="^/gban(?: |$)(.*)"))
+@register(pattern="^/gban(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -71,7 +71,7 @@ async def _(event):
     await event.reply("Gbanned Successfully !")
 
 
-@tbot.on(events.NewMessage(pattern="^/ungban(?: |$)(.*)"))
+@register(pattern="^/ungban(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -99,6 +99,7 @@ async def _(event):
                   "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
                       r_sender_id, reason)
                )
+            await event.reply("Ungbanned Successfully !")
             return
     await event.reply("Is that user even gbanned ?")
 
