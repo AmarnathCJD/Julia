@@ -7,7 +7,7 @@ from math import ceil
 from telethon import custom, events, Button
 
 from julia.events import register
-from julia import CMD_HELP
+from julia import CMD_HELP, BOT_VERSION
 
 from telethon import types
 from telethon.tl import functions
@@ -44,9 +44,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-PM_START_TEXT = """
-[Julia](https://telegra.ph/MissJulieRobot-10-24)
-"""
+PM_START_TEXT = "[Julia](https://telegra.ph/MissJulieRobot-10-24)"+" "+"**"+"V"+BOT_VERSION+"**"
 
 
 @register(pattern="^/start$")
