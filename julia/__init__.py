@@ -14,7 +14,7 @@ StartTime = time.time()
 CMD_LIST = {}
 CMD_HELP = {}
 LOAD_PLUG = {}
-BOT_VERSION = "1.0.0"
+BOT_VERSION = "1.0.1"
 
 # enable logging
 logging.basicConfig(
