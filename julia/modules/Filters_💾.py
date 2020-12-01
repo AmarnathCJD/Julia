@@ -177,6 +177,11 @@ async def on_snip_save(event):
 
 @register(pattern="^/listfilters$")
 async def on_snip_list(event):
+    if event.is_group:
+        if not await can_change_info(message=event):
+            return
+    else:
+        return
     all_snips = get_all_filters(event.chat_id)
 
     OUT_STR = "Available Filters in the Current Chat:\n"
@@ -225,6 +230,7 @@ async def on_snip_delete(event):
     remove_filter(event.chat_id, name)
 
     await event.reply(f"Filter **{name}** deleted successfully")
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
