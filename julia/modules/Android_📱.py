@@ -43,55 +43,6 @@ async def is_register_admin(chat, user):
     return None
 
 
-@register(pattern=r"^/magisk$")
-async def magisk(event):
-    if event.sender_id is None:
-        return
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    url = "https://raw.githubusercontent.com/topjohnwu/magisk_files/"
-    releases = "**Latest Magisk Releases:**\n"
-    variant = ["master/stable", "master/beta", "canary/debug"]
-    for variants in variant:
-        fetch = get(url + variants + ".json")
-        data = json.loads(fetch.content)
-        if variants == "master/stable":
-            name = "**Stable**"
-            cc = 1
-            branch = "master"
-        elif variants == "master/beta":
-            name = "**Beta**"
-            cc = 0
-            branch = "master"
-        elif variants == "canary/debug":
-            name = "**Canary (Debug)**"
-            cc = 1
-            branch = "canary"
-
-        releases += (
-            f'{name}: [ZIP v{data["magisk"]["version"]}]({data["magisk"]["link"]}) | '
-            f'[APK v{data["app"]["version"]}]({data["app"]["link"]}) | ')
-
-        if cc == 1:
-            releases += (
-                f'[Uninstaller]({data["uninstaller"]["link"]}) | '
-                f"[Changelog]({url}{branch}/notes.md)\n"
-            )
-        else:
-            releases += f'[Uninstaller]({data["uninstaller"]["link"]})\n'
-
-    await event.reply(releases, link_preview=False)
-
-
 @register(pattern=r"^/device(?: |$)(\S*)")
 async def device_info(request):
     approved_userss = approved_users.find({})
@@ -307,7 +258,6 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /magisk: Get the latest Magisk releases
  - /device <codename>: Get info about an Android device
  - /codename <brand> <device>: Search for Android device codename
  - /specs <brand> <device>: Get device specifications info
