@@ -1,8 +1,8 @@
 {
   "name": "MissJuliaRobot",
-  "description": "A Powerful Telegram Bot written in PTB and Telethon",
-  "logo": "https://telegra.ph/file/1b8591ec85dfefd72f0d3.jpg",
-  "keywords": ["telegram-bot"],
+  "description": "Blazingly fast Telegram Group Management Bot based on Telethon coupled with Sqlalchemy and MongoDB",
+  "logo": "https://telegra.ph/file/517f97b74ad036b2ef3c9.jpg",
+  "keywords": ["telethon", "sqlalchemy", "mongodb"],
   "repository": "https://github.com/MissJuliaRobot/MissJuliaRobot.git",
   "success_url": "http://missjuliarobot.unaux.com",
   "env": {
