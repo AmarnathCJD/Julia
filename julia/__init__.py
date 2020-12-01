@@ -45,7 +45,6 @@ if ENV:
 
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
     DB_URI = os.environ.get("DATABASE_URL")
-    BOTLOG_CHATID = int(os.environ.get("MESSAGE_DUMP"))
     YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
@@ -86,26 +85,6 @@ if ENV:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
     else:
         sys.exit(1)
-
-    async def check_botlog_chatid():
-        if not BOTLOG:
-            return
-        entity = await ubot.get_entity(BOTLOG_CHATID)
-        if entity.default_banned_rights.send_messages:
-            LOGS.error(
-                "Your account doesn't have rights to send messages to BOTLOG_CHATID "
-                "group. Check if you typed the Chat ID correctly. Halting!"
-            )
-            sys.exit(1)
-
-    with ubot:
-        try:
-            ubot.loop.run_until_complete(check_botlog_chatid())
-        except BaseException:
-            LOGS.error(
-                "BOTLOG_CHATID environment variable isn't a " "valid entity. Halting!"
-            )
-            sys.exit(1)
 
     try:
         ubot.start()
