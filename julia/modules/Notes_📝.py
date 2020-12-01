@@ -67,7 +67,7 @@ async def on_note_list(event):
     OUT_STR = "**Available notes:**\n"
     if len(all_notes) > 0:
         for a_note in all_notes:
-            OUT_STR += f"➤ #{a_note.note} \n"
+            OUT_STR += f"➤ #{a_note.keyword} \n"
     else:
         OUT_STR = "No notes. Start Saving using /addnote"
     if len(OUT_STR) > 4096:
