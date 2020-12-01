@@ -61,7 +61,7 @@ async def _(event):
         await event.reply("Reply to a message with /addnote keyword to save the note")
 
 
-@register(pattern="^/notes$")
+@tbot.on(events.NewMessage(pattern="^/notes$"))
 async def on_note_list(event):
     all_notes = get_all_notes(event.chat_id)
     OUT_STR = "**Available notes:**\n"
@@ -95,6 +95,7 @@ async def on_note_delete(event):
     name = event.pattern_match.group(1)
     remove_note(event.chat_id, name)
     await event.reply("Note **{}** deleted successfully".format(name))
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
