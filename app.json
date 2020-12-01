@@ -4,7 +4,7 @@
   "logo": "https://telegra.ph/file/1b8591ec85dfefd72f0d3.jpg",
   "keywords": ["telegram-bot"],
   "repository": "https://github.com/MissJuliaRobot/MissJuliaRobot.git",
-  "success_url": "https://telegra.ph/MissJulieRobot-10-24",
+  "success_url": "http://missjuliarobot.unaux.com",
   "env": {
     "API_KEY": {
       "description": "Get this value from my.telegram.org! Please do not steal",
@@ -110,9 +110,6 @@
   "addons": [
     {
       "plan": "heroku-postgresql",
-      "options": {
-        "version": "12"
-    }
     },
     {
       "plan": "ormongo:5-mmap",
