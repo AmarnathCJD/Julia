@@ -61,8 +61,13 @@ async def _(event):
         await event.reply("Reply to a message with /addnote keyword to save the note")
 
 
-@tbot.on(events.NewMessage(pattern="^/notes$"))
+@register(pattern="^/notes$")
 async def on_note_list(event):
+    if event.is_group:
+        if not await can_change_info(message=event):
+            return
+    else:
+        return
     all_notes = get_all_notes(event.chat_id)
     OUT_STR = "**Available notes:**\n"
     if len(all_notes) > 0:
