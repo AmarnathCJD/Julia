@@ -111,6 +111,9 @@
     {
       "plan": "heroku-postgresql"
     }
+    {
+      "plan": "ormongo:5-mmap"
+    }
   ],
   "buildpacks": [
     {
