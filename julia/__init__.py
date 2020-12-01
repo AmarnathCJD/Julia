@@ -79,7 +79,6 @@ if ENV:
         )
 
     LOGS = getLogger(__name__)
-    BOTLOG = os.environ.get("BOTLOG") == "True"
 
     if STRING_SESSION:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
