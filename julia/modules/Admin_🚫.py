@@ -348,7 +348,7 @@ async def pin(msg):
     if msg.is_group:
         if not await can_pin_msg(message=msg):
             return
-    c = await event.get_reply_message()
+    c = await msg.get_reply_message()
     await tbot.unpin_message(event.chat_id, c)
 
 
