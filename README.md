@@ -11,7 +11,7 @@
 [![DeepSource](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot/?ref=repository-badge)
 [![Total Size](https://github-size-badge.herokuapp.com/MissJuliaRobot/MissJuliaRobot.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 [![Python 3.8](https://img.shields.io/badge/python->=3.8.3-blue.svg)](https://www.python.org/downloads/release/python-383/)
-[![Website status](https://img.shields.io/website-up-down-green-red/https/laborecke.de.svg?label=Website%20status)]()
+[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)]()
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 
 **Blazingly fast Telegram Group Management Bot based on [Telethon](https://github.com/LonamiWebs/Telethon) coupled with [Sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) and [MongoDB](https://github.com/mongodb/mongo)**
