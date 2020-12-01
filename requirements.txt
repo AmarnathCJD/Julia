@@ -10,7 +10,6 @@ opencv-python-headless==4.4.0.44
 scikit-image==0.17.2
 argparse==1.4.0
 imutils==0.5.3
-python-telegram-bot==12.8
 telethon==1.18.2
 aiohttp==3.7.2
 bleach==3.2.1
