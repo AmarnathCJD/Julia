@@ -6,9 +6,8 @@ from telethon.tl import types
 from telethon import events
 from telethon.tl.functions.channels import EditBannedRequest
 from pymongo import MongoClient
-from julia import MONGO_DB_URI
+from julia import MONGO_DB_URI, GBAN_LOGS
 
-G_BAN_LOGGER_GROUP = "@MissJuliaRobotGbans"
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
     view_messages=True,
@@ -57,14 +56,14 @@ async def _(event):
                                "$set": {"reason": reason}})
             await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
             await event.client.send_message(
-                G_BAN_LOGGER_GROUP,
+                GBAN_LOGS,
                 "**GLOBAL BAN REASON UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(r_sender_id, reason))
             return
 
     gbanned.insert_one({"bannerid": event.sender_id, "user": r_sender_id, "reason": reason})
 
     await event.client.send_message(
-            G_BAN_LOGGER_GROUP,
+            GBAN_LOGS,
             "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
                 r_sender_id, reason)
         )
@@ -95,7 +94,7 @@ async def _(event):
             to_check = get_reason(id=r_sender_id)
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
-                  G_BAN_LOGGER_GROUP,
+                  GBAN_LOGS,
                   "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
                       r_sender_id, reason)
                )
