@@ -12,7 +12,7 @@ from telethon.tl.types import *
 from julia import *
 import better_profanity
 from better_profanity import profanity
-
+from langdetect import detect
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -400,6 +400,36 @@ async def del_profanity(event):
                     await asyncio.sleep(10)
                     await dev.delete()
                     os.remove("nudes.jpg")
+
+@tbot.on(events.NewMessage(pattern=None))
+async def del_profanity(event):
+    if event.is_private:
+        return
+    if MONGO_DB_URI is None:
+        return
+    msg = str(event.text)
+    sender = await event.get_sender()
+    let = sender.username
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            return
+        pass
+    chats = globalchat.find({})
+    for c in chats:
+        if event.text:
+            if event.chat_id == c['id']:
+                if not detect(msg) == 'en':
+                    await event.delete()
+                    if sender.username is None:
+                        st = sender.first_name
+                        hh = sender.id
+                        final = f"[{st}](tg://user?id={hh}) you should only speak in english here !"
+                    else:
+                        final = f'@{let} you should only speak in english here !'
+                    dev = await event.respond(final)
+                    await asyncio.sleep(10)
+                    await dev.delete()
+
 
 @tbot.on(events.ChatAction())
 async def del_cleanservice(event):
