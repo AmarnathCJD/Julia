@@ -20,6 +20,7 @@ db = client["missjuliarobot"]
 approved_users = db.approve
 spammers = db.spammer
 cleanservices = db.cleanservice
+globalchat = db.globchat
 
 CMD_STARTERS = '/'
 profanity.load_censor_words_from_file('./profanity_wordlist.txt')
@@ -257,6 +258,55 @@ async def profanity(event):
     if not input == "on" and not input == "off":
         await event.reply("I only understand by on or off")
         return
+
+@register(pattern="^/globalmode(?: |$)(.*)")
+async def profanity(event):
+    if event.fwd_from:
+        return
+    if event.is_private:
+        return
+    if MONGO_DB_URI is None:
+        return
+    if not await can_change_info(message=event):
+        return
+    input = event.pattern_match.group(1)
+    chats = globalchat.find({})
+    if not input:
+        for c in chats:
+            if event.chat_id == c["id"]:
+                await event.reply(
+                    "Please provide some input yes or no.\n\nCurrent setting is : **on**"
+                )
+                return
+        await event.reply(
+            "Please provide some input yes or no.\n\nCurrent setting is : **off**"
+        )
+        return
+    if input == "on":
+        if event.is_group:
+            chats = globalchat.find({})
+            for c in chats:
+                if event.chat_id == c["id"]:
+                    await event.reply(
+                        "Global mode is already activated for this chat.")
+                    return
+            globalchat.insert_one({"id": event.chat_id})
+            await event.reply("Global mode turned on for this chat.")
+    if input == "off":
+        if event.is_group:  
+            chats = globalchat.find({})
+            for c in chats:
+                if event.chat_id == c["id"]:
+                    globalchat.delete_one({"id": event.chat_id})
+                    await event.reply(
+                        "Global mode turned off for this chat.")
+                    return
+        await event.reply(
+                    "Global mode isn't turned on for this chat.")
+    if not input == "on" and not input == "off":
+        await event.reply("I only understand by on or off")
+        return
+
 
 @register(pattern="^/cleanservice(?: |$)(.*)")
 async def cleanservice(event):
