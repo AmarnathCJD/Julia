@@ -21,11 +21,6 @@
       "value": "",
       "required": true
     },
-    "TOKEN": {
-      "description": "Get your bot token from botfather",
-      "value": "",
-      "required": true
-    },
     "OPENWEATHERMAP_ID": {
       "description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
       "required": false
@@ -76,11 +71,6 @@
       "value": "",
       "required": true
     },
-    "MESSAGE_DUMP": {
-      "description": "A chat for logging bot events",
-      "value": "",
-      "required": true
-    },
     "TIME_API_KEY": {
       "description": "Required for timezone information",
       "value": "",
@@ -106,18 +96,13 @@
       "value": "",
       "required": false
     },
-    "STRICT_GBAN": {
-      "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned",
-      "value": "True",
-      "required": false
-    },
     "GOOGLE_CHROME_BIN": {
-      "description": "For Carbon.py",
+      "description": "For carbon.py",
       "value": "/app/.apt/usr/bin/google-chrome",
       "required": false
     },
     "CHROME_DRIVER": {
-      "description": "For Carbon.py",
+      "description": "For carbon.py",
       "value": "/app/.chromedriver/bin/chromedriver",
       "required": false
     }
@@ -127,7 +112,10 @@
       "plan": "heroku-postgresql",
       "options": {
         "version": "12"
-      }
+    }
+    },
+    {
+      "plan": "ormongo:5-mmap",
     }
   ],
   "buildpacks": [
