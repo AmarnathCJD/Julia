@@ -10,7 +10,6 @@ from julia.modules.sql.welcome_sql import (
     update_previous_welcome,
 )
 
-
 @tbot.on(events.ChatAction())  # pylint:disable=E0602
 async def _(event):
     cws = get_current_welcome_settings(event.chat_id)
@@ -113,11 +112,6 @@ __help__ = """
  - /setwelcome <welcome message> or <reply to a text>: Saves the message as a welcome note in the chat.
  - /checkwelcome: Check whether you have a welcome note in the chat.
  - /clearwelcome: Deletes the welcome note for the current chat.
-
-**Goodbye**
- - /setgoodbye <goodbye message> or <reply to a text>: Saves the message as a goodbye note in the chat.
- - /checkgoodbye: Check whether you have a goodbye note in the chat.
- - /cleargoodbye: Deletes the goodbye note for the current chat.
 
 **Available variables for formatting greeting message:**
 `{mention}, {title}, {count}, {first}, {last}, {fullname}, {userid}, {username}, {my_first}, {my_fullname}, {my_last}, {my_mention}, {my_username}`
