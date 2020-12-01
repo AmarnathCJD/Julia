@@ -7,8 +7,6 @@
 [![AGPLv3 license](https://img.shields.io/github/license/MissJuliaRobot/MissJuliaRobot)](https://www.gnu.org/licenses/agpl-3.0.en.html)
 [![CodeFactor](https://www.codefactor.io/repository/github/missjuliarobot/missjuliarobot/badge)](https://www.codefactor.io/repository/github/missjuliarobot/missjuliarobot)
 [![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2FMissJuliaRobot%2FMissJuliaRobot.git)](https://github.com/MissJuliaRobot/MissJuliaRobot)
-[![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot/?ref=repository-badge)
-[![DeepSource](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot/?ref=repository-badge)
 [![Total Size](https://github-size-badge.herokuapp.com/MissJuliaRobot/MissJuliaRobot.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 [![Python 3.8](https://img.shields.io/badge/python->=3.8.3-blue.svg)](https://www.python.org/downloads/release/python-383/)
 [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
