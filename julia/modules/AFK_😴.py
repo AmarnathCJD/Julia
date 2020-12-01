@@ -76,7 +76,7 @@ async def _(event):
     else:
         reason = cmd
 
-    print(reason)
+    # print(reason)
     start_time = time.time()
     sql.set_afk(sender.id, reason, start_time)
 
