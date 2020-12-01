@@ -1,4 +1,4 @@
-from googletrans import Translator
+from mtranslate import translate
 from julia import tbot
 import json
 import requests
@@ -59,28 +59,11 @@ async def _(event):
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
-        lan = input_str or "en"
-    elif "|" in input_str:
-        lan, text = input_str.split("|")
-    else:
-        return
-    text = str(text.strip())
-    lan = str(lan.strip())
-    #print(text)
-    #print(lan)
-    translator = Translator()
+        lan = input_str
+    
     try:
-        translated = translator.translate(text, dest=lan)
-        after_tr_text = translated.text
-        output_str = (
-            "**TRANSLATED** from {} to {}\n"
-            "{}"
-        ).format(
-            translated.src,
-            lan,
-            after_tr_text
-        )
-        await event.reply(output_str)
+        translated = translate(text,lan,"auto")
+        await event.reply(translated)
     except Exception as exc:
         print(exc)
         await event.reply("**Server Error !**\nTry Again.")
