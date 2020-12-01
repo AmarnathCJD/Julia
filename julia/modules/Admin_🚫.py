@@ -343,6 +343,14 @@ async def pin(msg):
         await msg.reply("Failed to pin the message !")
         return
 
+@register(pattern="^/unpin$")
+async def pin(msg):
+    if msg.is_group:
+        if not await can_pin_msg(message=msg):
+            return
+    c = await event.get_reply_message()
+    await tbot.unpin_message(event.chat_id, c)
+
 
 @register(pattern="^/adminlist$")
 async def get_admin(show):
