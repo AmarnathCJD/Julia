@@ -109,7 +109,7 @@
   },
   "addons": [
     {
-      "plan": "heroku-postgresql",
+      "plan": "heroku-postgresql"
     }
   ],
   "buildpacks": [
