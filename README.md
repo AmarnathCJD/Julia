@@ -9,7 +9,7 @@
 [![Hits](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https%3A%2F%2Fgithub.com%2FMissJuliaRobot%2FMissJuliaRobot.git)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 [![Total Size](https://github-size-badge.herokuapp.com/MissJuliaRobot/MissJuliaRobot.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 [![Python 3.8](https://img.shields.io/badge/python->=3.8.3-blue.svg)](https://www.python.org/downloads/release/python-383/)
-[![Maintenance](https://img.shields.io/badge/maintained-no-yellow.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
+[![Maintenance](https://img.shields.io/badge/maintained-yes-yellow.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 
 **Blazingly fast Telegram Group Management Bot based on [Telethon](https://github.com/LonamiWebs/Telethon) coupled with [Sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) and [MongoDB](https://github.com/mongodb/mongo)**
 
