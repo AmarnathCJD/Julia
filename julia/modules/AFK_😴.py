@@ -2,8 +2,6 @@ import os
 from julia import tbot, CMD_HELP
 from julia.modules.sql import afk_sql as sql
 
-from telegram.error import BadRequest
-
 import time
 from telethon import types
 from telethon.tl import functions
@@ -87,7 +85,7 @@ async def _(event):
             "**{} is now AFK !**\n\n{}".format(fname, notice),
             parse_mode="markdown",
         )
-    except BadRequest:
+    except Exception:
         pass
 
 
