@@ -351,9 +351,9 @@ async def pin(msg):
     try:
       c = await msg.get_reply_message()
       await tbot.unpin_message(msg.chat_id, c)
-      await event.reply("Unpinned Successfully.")
+      await msg.reply("Unpinned Successfully.")
     except Exception:
-      await event.reply("Failed to unpin.")
+      await msg.reply("Failed to unpin.")
 
 @register(pattern="^/adminlist$")
 async def get_admin(show):
