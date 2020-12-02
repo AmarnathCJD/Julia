@@ -31,7 +31,7 @@ class WarnSettings(BASE):
     warn_limit = Column(Integer, default=3)
     soft_warn = Column(String, default=False)
 
-    def __init__(self, chat_id, warn_limit=3, soft_warn=False):
+    def __init__(self, chat_id, warn_limit=3, soft_warn="ban"):
         self.chat_id = str(chat_id)
         self.warn_limit = warn_limit
         self.soft_warn = soft_warn
@@ -41,7 +41,7 @@ class WarnSettings(BASE):
 
 
 Warns.__table__.create(checkfirst=True)
-WarnSettings.__table__.create(checkfirst=True)
+WarnSettings.__table__.drop()
 
 
 WARN_INSERTION_LOCK = threading.RLock()
