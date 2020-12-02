@@ -35,11 +35,11 @@ async def _(event):
     if event.fwd_from:
         return
     if event.sender_id in SUDO_USERS:
-       pass
+        pass
     elif event.sender_id == OWNER_ID:
-       pass
+        pass
     else:
-       return
+        return
 
     quew = event.pattern_match.group(1)
 
@@ -51,7 +51,7 @@ async def _(event):
     r_sender_id = entity.id
 
     if not reason:
-      reason = "No reason given"
+        reason = "No reason given"
     chats = gbanned.find({})
 
     for c in chats:
@@ -65,13 +65,14 @@ async def _(event):
                 "**GLOBAL BAN REASON UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(r_sender_id, reason))
             return
 
-    gbanned.insert_one({"bannerid": event.sender_id, "user": r_sender_id, "reason": reason})
+    gbanned.insert_one({"bannerid": event.sender_id,
+                        "user": r_sender_id, "reason": reason})
 
     await event.client.send_message(
-            GBAN_LOGS,
-            "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
-                r_sender_id, reason)
-        )
+        GBAN_LOGS,
+        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
+            r_sender_id, reason)
+    )
     await event.reply("Gbanned Successfully !")
 
 
@@ -80,11 +81,11 @@ async def _(event):
     if event.fwd_from:
         return
     if event.sender_id in SUDO_USERS:
-       pass
+        pass
     elif event.sender_id == OWNER_ID:
-       pass
+        pass
     else:
-       return
+        return
 
     quew = event.pattern_match.group(1)
 
@@ -96,8 +97,8 @@ async def _(event):
     r_sender_id = entity.id
 
     if not reason:
-      reason = "No reason given"
-  
+        reason = "No reason given"
+
     chats = gbanned.find({})
 
     for c in chats:
@@ -105,10 +106,10 @@ async def _(event):
             to_check = get_reason(id=r_sender_id)
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
-                  GBAN_LOGS,
-                  "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
-                      r_sender_id, reason)
-               )
+                GBAN_LOGS,
+                "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
+                    r_sender_id, reason)
+            )
             await event.reply("Ungbanned Successfully !")
             return
     await event.reply("Is that user even gbanned ?")
@@ -117,40 +118,41 @@ async def _(event):
 @tbot.on(events.ChatAction())
 async def join_ban(event):
     if event.chat_id == "-1001158277850":
-       return
-    elif event.chat_id == "-1001342790946":
-       return
-    else:
-       pass
-    if event.user_joined:
-      try:
-        user = await event.get_user()
-        chat = await event.get_chat()
-        to_check = get_reason(id=user.id)
-        reason = to_check["reason"]
-        bannerid = to_check["bannerid"]
-        await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
-        await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
-      except Exception as e:
-        print(e)
         return
+    elif event.chat_id == "-1001342790946":
+        return
+    else:
+        pass
+    if event.user_joined:
+        try:
+            user = await event.get_user()
+            chat = await event.get_chat()
+            to_check = get_reason(id=user.id)
+            reason = to_check["reason"]
+            bannerid = to_check["bannerid"]
+            await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
+            await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
+        except Exception as e:
+            print(e)
+            return
+
 
 @tbot.on(events.NewMessage(pattern=None))
 async def type_ban(event):
-   if event.chat_id == "-1001158277850":
-       return
-   elif event.chat_id == "-1001342790946":
-       return
-   else:
-       pass
-   chats=gbanned.find({})
-   for c in chats:
-       if event.sender_id == c["user"]:
-          try:
-            to_check = get_reason(id=event.sender_id)
-            reason = to_check["reason"]
-            bannerid = to_check["bannerid"]
-            await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))
-            await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
-          except Exception:
-             return
+    if event.chat_id == "-1001158277850":
+        return
+    elif event.chat_id == "-1001342790946":
+        return
+    else:
+        pass
+    chats = gbanned.find({})
+    for c in chats:
+        if event.sender_id == c["user"]:
+            try:
+                to_check = get_reason(id=event.sender_id)
+                reason = to_check["reason"]
+                bannerid = to_check["bannerid"]
+                await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))
+                await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
+            except Exception:
+                return
