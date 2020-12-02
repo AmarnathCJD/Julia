@@ -238,7 +238,7 @@ __help__ = """
  - /removelastwarn: remove the last warn that a user has received
  - /getwarns: list the warns that a user has received
  - /resetwarns: reset all warns that a user has received
- - /setwarnmode <kick/ban>: set the warn mode for the chat
+ - /setwarnmode <kick/ban/mute>: set the warn mode for the chat
 """
 
 CMD_HELP.update({
