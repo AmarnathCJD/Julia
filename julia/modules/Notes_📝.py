@@ -64,8 +64,7 @@ async def _(event):
 @register(pattern="^/notes$")
 async def on_note_list(event):
     if event.is_group:
-        if not await can_change_info(message=event):
-            return
+        pass
     else:
         return
     all_notes = get_all_notes(event.chat_id)
