@@ -133,11 +133,12 @@ def set_warn_strength(chat_id, soft_warn):
         SESSION.commit()
 
 
-def get_warn_strength(chat_id, soft_warn):
+def get_warn_strength(chat_id):
     try:
         setting = SESSION.query(WarnSettings).get(str(chat_id))
         if setting:
             return setting.soft_warn
+        return "ban"
     finally:
         SESSION.close()
 
