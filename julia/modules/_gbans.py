@@ -30,7 +30,7 @@ def get_reason(id):
     return gbanned.find_one({"user": id})
 
 
-@register(pattern="^/gban(?: |$)(.*)")
+@register(pattern="^/gban (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -40,13 +40,18 @@ async def _(event):
        pass
     else:
        return
-    reason = event.pattern_match.group(1)
+
+    quew = event.pattern_match.group(1)
+
+    if "|" in quew:
+        iid, reasonn = quew.split("|")
+    cid = iid.strip()
+    reason = reasonn.strip()
+    entity = await tbot.get_entity(cid)
+    r_sender_id = entity.id
+
     if not reason:
       reason = "No reason given"
-    if event.reply_to_msg_id:
-        r = await event.get_reply_message()
-        r_sender_id = r.sender_id
-
     chats = gbanned.find({})
 
     for c in chats:
@@ -70,7 +75,7 @@ async def _(event):
     await event.reply("Gbanned Successfully !")
 
 
-@register(pattern="^/ungban(?: |$)(.*)")
+@register(pattern="^/ungban (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -80,13 +85,19 @@ async def _(event):
        pass
     else:
        return
-    reason = event.pattern_match.group(1)
+
+    quew = event.pattern_match.group(1)
+
+    if "|" in quew:
+        iid, reasonn = quew.split("|")
+    cid = iid.strip()
+    reason = reasonn.strip()
+    entity = await tbot.get_entity(cid)
+    r_sender_id = entity.id
+
     if not reason:
       reason = "No reason given"
-    if event.reply_to_msg_id:
-        r = await event.get_reply_message()
-        r_sender_id = r.sender_id
-
+  
     chats = gbanned.find({})
 
     for c in chats:
