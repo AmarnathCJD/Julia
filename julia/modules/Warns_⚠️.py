@@ -226,7 +226,7 @@ async def _(event):
         await event.reply("I only understand by kick/ban/mute")
         return
     sql.set_warn_strength(event.chat_id, input)
-    await event.reply("Too many warns will now result in **{input}**")
+    await event.reply(f"Too many warns will now result in **{input}**")
 
 
 file_help = os.path.basename(__file__)
