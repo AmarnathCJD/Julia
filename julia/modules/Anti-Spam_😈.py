@@ -12,8 +12,7 @@ from telethon.tl.types import *
 from julia import *
 import better_profanity
 from better_profanity import profanity
-from langdetect import detect_langs
-from langdetect import DetectorFactory
+from textblob import TextBlob
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -25,7 +24,6 @@ globalchat = db.globchat
 
 CMD_STARTERS = '/'
 profanity.load_censor_words_from_file('./profanity_wordlist.txt')
-DetectorFactory.seed = 0
 
 async def can_change_info(message):
     result = await tbot(
@@ -419,9 +417,9 @@ async def del_profanity(event):
     for c in chats:
         if event.text:
             if event.chat_id == c['id']:
-                a = detect_langs(msg)
-                for ele in a:
-                 if str(ele).split(':')[0] != 'en':
+                a = TextBlob(msg)
+                b = a.detect_language()
+                if not b == "en":
                     await event.delete()
                     if sender.username is None:
                         st = sender.first_name
