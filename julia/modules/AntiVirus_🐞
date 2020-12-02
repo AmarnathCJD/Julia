@@ -5,8 +5,23 @@ from telethon import events
 from telethon.tl import functions
 from telethon.tl import types
 
-chat = "@VS_Robot"
-async with ubot.conversation(chat) as conv:
+@tbot.on(events.NewMessage(pattern="^/scanit$"))
+async def virusscan(event):
+    if event.fwd_from:
+        return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    chat = "@VS_Robot"
+    async with ubot.conversation(chat) as conv:
         try:
             response = conv.wait_event(events.NewMessage(incoming=True, from_users=299969270))
             await ubot.send_file(chat, )
