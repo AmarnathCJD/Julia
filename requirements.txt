@@ -67,5 +67,5 @@ better_profanity==0.7.0
 heroku3==4.2.3
 validators==0.18.1
 youtube-search-python==1.3.2
-langdetect==1.0.8
+textblob==0.15.3
 mtranslate==1.7
