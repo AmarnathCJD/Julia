@@ -1,0 +1,20 @@
+import re
+from julia import ubot, tbot
+import asyncio
+
+chat = "@VS_Robot"
+async with ubot.conversation(chat) as conv:
+        try:
+            response = conv.wait_event(events.NewMessage(incoming=True, from_users=299969270))
+            await ubot.send_file(chat, )
+            response = await response
+            fetch = response.text
+            if fetch.startswith("Please"):
+                timewait = int(re.search(r'\d+', string1).group())
+                print(f"sleeping for {timewait}")
+                await asyncio.sleep(timewait)
+            if fetch.startswith("No") or fetch.startswith("⚠️"):
+              c = await tbot.send_message(event.chat_id, "Scanning the file ...")
+              await tbot.edit_message(c, response.text)
+        except Exception:
+            return
