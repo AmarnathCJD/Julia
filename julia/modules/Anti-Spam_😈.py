@@ -12,7 +12,7 @@ from telethon.tl.types import *
 from julia import *
 import better_profanity
 from better_profanity import profanity
-from langdetect import detect
+from langdetect import detect_langs
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -418,7 +418,9 @@ async def del_profanity(event):
     for c in chats:
         if event.text:
             if event.chat_id == c['id']:
-                if not detect(msg) == 'en':
+                a = detect_langs(msg)
+                for ele in a:
+                 if str(ele).split(':')[0] == 'en':
                     await event.delete()
                     if sender.username is None:
                         st = sender.first_name
