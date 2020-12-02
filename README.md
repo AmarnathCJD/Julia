@@ -1,6 +1,6 @@
 # Julia - A Telegram Bot Project
 
-> ⭐ Thanks to everyone who has starred the project, your star motivates me to bring more new features to the bot and keep working on the project 😀
+> ⭐️ Thanks everyone who has starred the project, it means a lot !
 
 ##### Its a request to everyone who is using this free software and maintaining their own forks/imports from this repository to strictly comply with the LICENCE associated with this repository !<br /><br />If you are using an import your repository should contain a link to the [main repository](https://github.com/MissJuliaRobot/MissJuliaRobot) in the README.
 
