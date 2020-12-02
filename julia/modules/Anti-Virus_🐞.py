@@ -65,7 +65,7 @@ async def virusscan(event):
             response = await response
             fetch = response.text
             if fetch.startswith("Please"):
-                timewait = int(re.search(r'\d+', string1).group())
+                timewait = int(re.search(r'\d+', response.text).group())
                 print(f"sleeping for {timewait}")
                 await asyncio.sleep(timewait)
             if fetch.startswith("No") or fetch.startswith("⚠️"):
