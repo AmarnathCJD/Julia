@@ -95,7 +95,12 @@ async def _(event):
          await event.reply(reply, parse_mode="html")
          return
         elif sql.soft_warn(event.chat_id) == "mute":
-         # do..
+  
+         await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, MUTED_RIGHTS))      
+         reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been muted!".format(
+            limit, reply_message.sender_id)
+         await event.reply(reply, parse_mode="html")
+         return         
     else:
         reply = "<u><a href='tg://user?id={}'>user</a></u> has {}/{} warnings... watch out!".format(
             reply_message.sender_id, num_warns, limit)
