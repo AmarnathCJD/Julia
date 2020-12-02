@@ -178,8 +178,7 @@ async def on_snip_save(event):
 @register(pattern="^/listfilters$")
 async def on_snip_list(event):
     if event.is_group:
-        if not await can_change_info(message=event):
-            return
+        pass
     else:
         return
     all_snips = get_all_filters(event.chat_id)
