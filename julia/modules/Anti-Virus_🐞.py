@@ -49,6 +49,13 @@ async def virusscan(event):
             pass
         else:
             return
+    if not event.reply_to_msg_id:
+       await event.reply("Reply to a file to scan it.")
+       return
+    c = await event.get_reply_message()
+    if not c.media.document:
+       await event.reply("Thats not a file.")
+       return
     chat = "@VS_Robot"
     async with ubot.conversation(chat) as conv:
         try:
