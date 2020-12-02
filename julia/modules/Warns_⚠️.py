@@ -71,13 +71,14 @@ async def _(event):
         reply_message.sender_id, event.chat_id, warn_reason)
     if num_warns >= limit:
         sql.reset_warns(reply_message.sender_id, event.chat_id)
-        if soft_warn:
+        if sql.soft_warn(event.chat_id) == "kick":
             await tbot.kick_participant(event.chat_id, reply_message.sender_id)
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been kicked!".format(
                 limit, reply_message.sender_id)
             await event.reply(reply, parse_mode="html")
             return
-        BANNED_RIGHTS = ChatBannedRights(
+        elif sql.soft_warn(event.chat_id) == "ban":
+         BANNED_RIGHTS = ChatBannedRights(
            until_date=None,
            view_messages=True,
            send_messages=True,
@@ -87,12 +88,14 @@ async def _(event):
            send_games=True,
            send_inline=True,
            embed_links=True,
-        )
-        await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, BANNED_RIGHTS))      
-        reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(
+         )
+         await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, BANNED_RIGHTS))      
+         reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been banned!".format(
             limit, reply_message.sender_id)
-        await event.reply(reply, parse_mode="html")
-        return
+         await event.reply(reply, parse_mode="html")
+         return
+        elif sql.soft_warn(event.chat_id) == "mute":
+         # do..
     else:
         reply = "<u><a href='tg://user?id={}'>user</a></u> has {}/{} warnings... watch out!".format(
             reply_message.sender_id, num_warns, limit)
