@@ -71,13 +71,13 @@ async def _(event):
         reply_message.sender_id, event.chat_id, warn_reason)
     if num_warns >= limit:
         sql.reset_warns(reply_message.sender_id, event.chat_id)
-        if sql.soft_warn(event.chat_id) == "kick":
+        if sql.get_warn_strength(event.chat_id) == "kick":
             await tbot.kick_participant(event.chat_id, reply_message.sender_id)
             reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been kicked!".format(
                 limit, reply_message.sender_id)
             await event.reply(reply, parse_mode="html")
             return
-        elif sql.soft_warn(event.chat_id) == "ban":
+        elif sql.get_warn_strength(event.chat_id) == "ban":
          BANNED_RIGHTS = ChatBannedRights(
            until_date=None,
            view_messages=True,
@@ -94,9 +94,9 @@ async def _(event):
             limit, reply_message.sender_id)
          await event.reply(reply, parse_mode="html")
          return
-        elif sql.soft_warn(event.chat_id) == "mute":
-  
-         await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, MUTED_RIGHTS))      
+        elif sql.get_warn_strength(event.chat_id) == "mute":
+         MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
+         await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, MUTE_RIGHTS))      
          reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been muted!".format(
             limit, reply_message.sender_id)
          await event.reply(reply, parse_mode="html")
