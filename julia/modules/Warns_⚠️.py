@@ -33,6 +33,17 @@ async def is_register_admin(chat, user):
         )
     return None
 
+async def can_change_info(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
+    )
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
+        p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
+
 
 @register(pattern="^/warn(?: |$)(.*)")
 async def _(event):
@@ -190,6 +201,21 @@ async def _(event):
            return
     sql.reset_warns(reply_message.sender_id, event.chat_id)
     await event.reply("Warns for this user have been reset!")
+
+@register(pattern="^/resetwarns$")
+async def _(event):
+    if event.fwd_from:
+        return
+    if event.is_private:
+        return
+    if event.is_group:
+        if await can_change_info(message=event):
+            pass
+        else:
+            return
+    
+
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
