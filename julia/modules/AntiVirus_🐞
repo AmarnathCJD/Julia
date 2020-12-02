@@ -1,6 +1,9 @@
 import re
 from julia import ubot, tbot
 import asyncio
+from telethon import events
+from telethon.tl import functions
+from telethon.tl import types
 
 chat = "@VS_Robot"
 async with ubot.conversation(chat) as conv:
