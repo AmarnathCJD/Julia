@@ -202,7 +202,7 @@ async def _(event):
     sql.reset_warns(reply_message.sender_id, event.chat_id)
     await event.reply("Warns for this user have been reset!")
 
-@register(pattern="^/resetwarns$")
+@register(pattern="^/setwarnmode (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -213,7 +213,12 @@ async def _(event):
             pass
         else:
             return
-    
+    input = event.pattern_match.group(1)
+    if not input == "kick" and not input == "mute" and not input == "ban":
+        await event.reply("I only understand by kick/ban/mute")
+        return
+    sql.set_warn_strength(event.chat_id, input)
+    await event.reply("Too many warns will now result in **{input}**")
 
 
 file_help = os.path.basename(__file__)
@@ -225,7 +230,7 @@ __help__ = """
  - /removelastwarn: remove the last warn that a user has received
  - /getwarns: list the warns that a user has received
  - /resetwarns: reset all warns that a user has received
- - /warnmode <kick/ban>: set the warn mode for the chat
+ - /setwarnmode <kick/ban>: set the warn mode for the chat
 """
 
 CMD_HELP.update({
