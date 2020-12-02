@@ -41,7 +41,7 @@ class WarnSettings(BASE):
 
 
 Warns.__table__.create(checkfirst=True)
-WarnSettings.__table__.drop()
+WarnSettings.__table__.create(checkfirst=True)
 
 
 WARN_INSERTION_LOCK = threading.RLock()
