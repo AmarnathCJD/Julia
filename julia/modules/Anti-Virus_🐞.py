@@ -53,7 +53,7 @@ async def virusscan(event):
        await event.reply("Reply to a file to scan it.")
        return
     c = await event.get_reply_message()
-    if not c.media.document:
+    if c.media.document is None:
        await event.reply("Thats not a file.")
        return
     chat = "@VS_Robot"
