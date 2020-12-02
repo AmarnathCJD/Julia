@@ -4,6 +4,13 @@ import asyncio
 from telethon import events
 from telethon.tl import functions
 from telethon.tl import types
+from pymongo import MongoClient
+from julia import MONGO_DB_URI
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client["missjuliarobot"]
+approved_users = db.approve
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -56,5 +63,6 @@ async def virusscan(event):
             if fetch.startswith("No") or fetch.startswith("⚠️"):
               c = await tbot.send_message(event.chat_id, "Scanning the file ...")
               await tbot.edit_message(c, response.text)
-        except Exception:
+        except Exception as e:
+            print (e)
             return
