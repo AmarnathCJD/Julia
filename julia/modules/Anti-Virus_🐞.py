@@ -81,7 +81,7 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
-- /scanit: Scan a file for virus with the help of virustotal.com
+ - /scanit: Scan a file for virus with the help of virustotal.com
 """
 
 CMD_HELP.update({
