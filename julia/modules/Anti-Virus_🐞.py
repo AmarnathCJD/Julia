@@ -6,6 +6,7 @@ from telethon.tl import functions
 from telethon.tl import types
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
+from julia.events import register
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -34,7 +35,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-@tbot.on(events.NewMessage(pattern="^/scanit$"))
+@register(pattern="^/scanit$")
 async def virusscan(event):
     if event.fwd_from:
         return
