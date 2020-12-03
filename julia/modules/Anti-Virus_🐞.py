@@ -38,7 +38,7 @@ async def is_register_admin(chat, user):
 async def virusscan(event):
     if event.fwd_from:
         return
-    #sender_id = event.message
+    sender_id = event.message
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
