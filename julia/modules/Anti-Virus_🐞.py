@@ -58,20 +58,19 @@ async def virusscan(event):
     except:
        await event.reply("Thats not a file.")
        return
-    chat = "@VirusTotalAV_bot"
-    async with ubot.conversation(chat) as conv:
-        try:
-            virus = c.file.name
-            await event.client.download_file(c, virus)
-            response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
-            await ubot.send_file(chat, virus)
-            response = await response
-            if response.text.startswith("🧬"):
-              c = await tbot.send_message(event.chat_id, response)
-              # await tbot.edit_message(c, response)
-            os.remove(virus)
-        except Exception as e:
-            os.remove(virus)
-            await event.reply("Some error occurred.")
-            print (e)
-            return
+    o = await ubot.get_entity("@VirusTotalAV_bot")
+    async with ubot.conversation(o) as y:
+     try:
+      virus = c.file.name
+      await event.client.download_file(c, virus)
+      await y.send_file(file=virus)
+      response = await y.wait_event(events.MessageEdited(from_users=o.id))
+      response = await y.wait_event(events.MessageEdited(from_users=o.id))
+      response = await y.wait_event(events.MessageEdited(from_users=o.id))
+      bbc = await tbot.send_message(event.chat_id, "Scanning the file ...")
+      await tbot.edit_messages(bbc, response.message)
+     except Exception as e:
+      os.remove(virus)
+      await event.reply("Some error occurred.")
+      print (e)
+      return
