@@ -80,8 +80,9 @@ async def howdoi(event):
         return
     if not event.is_private:
         return
+    c = event.message
     os.system("youtube-dl https://vimeo.com/486829727")
-    await tbot.send_file(event.chat_id, "Torrent-486829727.mp4")
+    await tbot.send_file(event.chat_id, "Torrent-486829727.mp4", reply_to=c)
     os.remove("Torrent-486829727.mp4")
 
 file_help = os.path.basename(__file__)
