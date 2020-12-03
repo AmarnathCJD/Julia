@@ -142,7 +142,7 @@ file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /paste: Create a paste or a shortened url using del.dog
- - /getpaste: Get the content of a paste or shortened url from del.dog
+ - /getpaste <key>: Get the content of a paste or shortened url from del.dog
 """
 
 CMD_HELP.update({
