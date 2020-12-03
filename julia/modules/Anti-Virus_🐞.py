@@ -47,7 +47,7 @@ async def can_change_info(message):
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
 @register(pattern="^/autoscanit(?: |$)(.*)")
-async def cleanservice(event):
+async def autoscanit(event):
     if event.fwd_from:
         return
     if event.is_private:
@@ -136,6 +136,33 @@ async def virusscan(event):
       print (e)
       return
 
+@tbot.on(events.NewMessage(pattern=None))
+async def virusscann(event):
+    if event.fwd_from:
+        return
+    sender_id = event.message
+    try:
+       c.media.document
+    except:
+       # await event.reply("Thats not a file.")
+       return
+    c = event.media.document
+    o = await ubot.get_entity("@VirusTotalAV_bot")
+    async with ubot.conversation(o) as y:
+     try:
+      virus = event.file.name
+      await event.client.download_file(c, virus)
+      await y.send_file(file=virus)
+      response = await y.wait_event(events.MessageEdited(from_users=o.id))
+      response = await y.wait_event(events.MessageEdited(from_users=o.id))
+      response = await y.wait_event(events.MessageEdited(from_users=o.id))
+      await tbot.send_message(event.chat_id, response.message, reply_to=sender_id)
+     except Exception as e:
+      os.remove(virus)
+      await event.reply("Some error occurred.")
+      print (e)
+      return
+
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
@@ -143,6 +170,7 @@ file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /scanit: Scan a file for virus with the help of virustotal.com
+ - /autofilescan <on/off>: Automatically scans all incoming files in your group sent by peoples
 """
 
 CMD_HELP.update({
