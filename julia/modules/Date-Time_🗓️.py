@@ -87,7 +87,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
     return result
 
 
-@register(pattern="^/datetime (.*)")
+@register(pattern="^/datetime ?(.*)")
 async def _(event):
     if event.fwd_from:
         return
