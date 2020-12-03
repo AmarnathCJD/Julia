@@ -59,16 +59,16 @@ async def virusscan(event):
     chat = "@VirusTotalAV_bot"
     async with ubot.conversation(chat) as conv:
         try:
-            await event.client.download_file(c, "antivirus.txt")
+            await event.client.download_file(c, "virus")
             response = conv.wait_event(events.NewMessage(incoming=True, from_users=299969270))
-            await ubot.send_file(chat, "antivirus.txt")
+            await ubot.send_file(chat, "virus")
             response = await response
             if response.startswith("🧬"):
               c = await tbot.send_message(event.chat_id, response)
               # await tbot.edit_message(c, response)
-            os.remove("antivirus.txt")
+            os.remove("virus")
         except Exception as e:
-            os.remove("antivirus.txt")
+            os.remove("virus")
             await event.reply("Some error occurred.")
             print (e)
             return
