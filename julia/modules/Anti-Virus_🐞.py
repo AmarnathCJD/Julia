@@ -1,5 +1,5 @@
 import re, os
-from julia import ubot, tbot
+from julia import ubot, tbot, CMD_HELP
 import asyncio
 from telethon import events
 from telethon.tl import functions
@@ -74,3 +74,19 @@ async def virusscan(event):
       await event.reply("Some error occurred.")
       print (e)
       return
+
+
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+- /scanit: Scan a file for virus with the help of virustotal.com
+"""
+
+CMD_HELP.update({
+    file_helpo: [
+        file_helpo,
+        __help__
+    ]
+})
