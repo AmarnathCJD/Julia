@@ -38,6 +38,7 @@ async def is_register_admin(chat, user):
 async def virusscan(event):
     if event.fwd_from:
         return
+    sender_id = event.sender_id
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
@@ -67,7 +68,7 @@ async def virusscan(event):
       response = await y.wait_event(events.MessageEdited(from_users=o.id))
       response = await y.wait_event(events.MessageEdited(from_users=o.id))
       response = await y.wait_event(events.MessageEdited(from_users=o.id))
-      bbc = await tbot.send_message(event.chat_id, "Scanning the file ...")
+      bbc = await tbot.send_message(event.chat_id, "Scanning the file ...", reply_to=sender_id)
       await tbot.edit_message(bbc, response.message)
      except Exception as e:
       os.remove(virus)
