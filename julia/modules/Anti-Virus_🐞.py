@@ -56,23 +56,19 @@ async def virusscan(event):
     if c.media.document is None:
        await event.reply("Thats not a file.")
        return
-    chat = "@VS_Robot"
+    chat = "@VirusTotalAV_bot"
     async with ubot.conversation(chat) as conv:
         try:
             await event.client.download_file(c, "antivirus.txt")
             response = conv.wait_event(events.NewMessage(incoming=True, from_users=299969270))
             await ubot.send_file(chat, "antivirus.txt")
             response = await response
-            fetch = response.text
-            if fetch.startswith("Please"):
-                timewait = int(re.search(r'\d+', response.text).group())
-                print(f"sleeping for {timewait}")
-                await asyncio.sleep(timewait)
-            if fetch.startswith("No") or fetch.startswith("⚠️"):
-              c = await tbot.send_message(event.chat_id, "Scanning the file ...")
-              await tbot.edit_message(c, response.text)
+            if fetch.startswith("🧬"):
+              c = await tbot.send_message(event.chat_id, response)
+              # await tbot.edit_message(c, response)
             os.remove("antivirus.txt")
         except Exception as e:
             os.remove("antivirus.txt")
+            await event.reply("Some error occurred.")
             print (e)
             return
