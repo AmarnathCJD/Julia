@@ -88,7 +88,7 @@ async def _(event):
         nurl = f"https://del.dog/v/{r['key']}"
         await event.reply("Dogged to {} in {} seconds\nGoTo Original URL: {}".format(url, ms, nurl))
     else:
-        await event.reply("Dogged to {} in {} seconds".format(url, ms))
+        await event.reply("Dogged to {} in {} seconds".format(url, ms), link_preview=False)
        
     
 @register(pattern="^/getpaste ?(.*)")
@@ -133,7 +133,7 @@ async def _(event):
                 await event.reply("Unknown error occured")
         r.raise_for_status()
 
-    await event.reply("```" + r.text+ "```", parse_mode="markdown")
+    await event.reply("```" + r.text+ "```", parse_mode="markdown", link_preview=False)
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
