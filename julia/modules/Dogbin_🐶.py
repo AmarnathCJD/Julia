@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 import requests
 from julia.events import register
-from julia import ubot, tbot, CMD_HELP
+from julia import ubot, tbot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 import asyncio
 from telethon import events
 from telethon.tl import functions
@@ -38,9 +38,6 @@ async def is_register_admin(chat, user):
         )
     return None
 
-def progress(current, total):
-    logger.info("Downloaded {} of {}\nCompleted {}".format(current, total, (current / total) * 100))
-
 BASE_URL = "https://del.dog"
 
 @register(pattern="^/paste ?(.*)")
@@ -59,8 +56,8 @@ async def _(event):
         else:
             return
     start = datetime.now()
-    if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TMP_DOWNLOAD_DIRECTORY)
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     input_str = event.pattern_match.group(1)
     message = "SYNTAX: `/paste <long text to include>`"
     if input_str:
@@ -70,9 +67,7 @@ async def _(event):
         if previous_message.media:
             downloaded_file_name = await tbot.download_media(
                 previous_message,
-                TMP_DOWNLOAD_DIRECTORY,
-                progress_callback=progress
-            )
+                TMP_DOWNLOAD_DIRECTORY)
             m_list = None
             with open(downloaded_file_name, "rb") as fd:
                 m_list = fd.readlines()
