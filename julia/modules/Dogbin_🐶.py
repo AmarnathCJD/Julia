@@ -88,10 +88,10 @@ async def _(event):
         nurl = f"https://del.dog/v/{r['key']}"
         await event.reply("Dogged to {} in {} seconds\nGoTo Original URL: {}".format(url, ms, nurl))
     else:
-        await event.reply("Some Error Occurred.")
-        
-        
-@register(pattern="^/pastestats ?(.*)")
+        await event.reply("Dogged to {} in {} seconds".format(url, ms))
+       
+    
+@register(pattern="^/getpaste ?(.*)")
 async def _(event):
     args = event.pattern_match.group(1)
     approved_userss = approved_users.find({})
@@ -105,46 +105,9 @@ async def _(event):
             pass
         else:
             return
+
     if len(args) >= 1:
-        key = args[0]
-    else:
-        await event.reply("Please supply a paste key!")
-        return
-
-    format_normal = f"{BASE_URL}/"
-    format_view = f"{BASE_URL}/v/"
-
-    if key.startswith(format_view):
-        key = key[len(format_view):]
-    elif key.startswith(format_normal):
-        key = key[len(format_normal):]
-
-    r = requests.get(f"{BASE_URL}/documents/{key}")
-
-    if r.status_code != 200:
-        try:
-            res = r.json()
-            await event.reply(res["message"])
-        except Exception:
-            if r.status_code == 404:
-                await event.reply("Failed to reach dogbin")
-            else:
-                await event.reply("Unknown error occured")
-        r.raise_for_status()
-
-    document = r.json()["document"]
-    key = document["_id"]
-    views = document["viewCount"]
-    reply = f"Stats for **[/{key}]({BASE_URL}/{key})**:\nViews: `{views}`"
-    await event.reply(reply, parse_mode="markdown")
-    
-    
-@register(pattern="^/getpaste ?(.*)")
-async def _(event):
-    args = event.pattern_match.group(1)
-    
-    if len(args) >= 1:
-        key = args[0]
+        key=args
     else:
         await event.reply("Please supply a paste key!")
         return
@@ -180,7 +143,6 @@ file_helpo = file_help.replace("_", " ")
 __help__ = """
  - /paste: Create a paste or a shortened url using del.dog
  - /getpaste: Get the content of a paste or shortened url from del.dog
- - /pastestats: Get stats of a paste or shortened url from del.dog
 """
 
 CMD_HELP.update({
