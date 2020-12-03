@@ -63,7 +63,7 @@ async def virusscan(event):
             response = conv.wait_event(events.NewMessage(incoming=True, from_users=299969270))
             await ubot.send_file(chat, "antivirus.txt")
             response = await response
-            if fetch.startswith("🧬"):
+            if response.startswith("🧬"):
               c = await tbot.send_message(event.chat_id, response)
               # await tbot.edit_message(c, response)
             os.remove("antivirus.txt")
