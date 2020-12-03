@@ -1,6 +1,6 @@
 import threading
 
-from sqlalchemy import Integer, Column, String, UnicodeText, func, distinct, Boolean
+from sqlalchemy import Integer, Column, String, UnicodeText, func, distinct
 
 from julia.modules.sql import SESSION, BASE
 
