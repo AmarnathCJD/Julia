@@ -87,7 +87,7 @@ def generate_time(to_find: str, findtype: List[str]) -> str:
     return result
 
 
-@register(pattern="^/datetime")
+@register(pattern="^/datetime (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -102,13 +102,15 @@ async def _(event):
             pass
         else:
             return
-    message = event.text
+
+    gay = event.pattern_match.group(1)
 
     try:
-        query = message.strip().split(" ", 1)[1]
+        query = message
     except BaseException:
         await event.reply("Provide a country name/abbreviation/timezone to find.")
         return
+
     send_message = await event.reply(
         f"Finding timezone info for <b>{query}</b>", parse_mode="html"
     )
