@@ -68,7 +68,7 @@ async def virusscan(event):
       response = await y.wait_event(events.MessageEdited(from_users=o.id))
       response = await y.wait_event(events.MessageEdited(from_users=o.id))
       bbc = await tbot.send_message(event.chat_id, "Scanning the file ...")
-      await tbot.edit_messages(bbc, response.message)
+      await tbot.edit_message(bbc, response.message)
      except Exception as e:
       os.remove(virus)
       await event.reply("Some error occurred.")
