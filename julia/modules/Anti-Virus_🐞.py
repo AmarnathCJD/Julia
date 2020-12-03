@@ -12,6 +12,7 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
+scanfile = db.filescan
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -34,6 +35,54 @@ async def is_register_admin(chat, user):
         )
     return None
 
+@register(pattern="^/autoscanit(?: |$)(.*)")
+async def cleanservice(event):
+    if event.fwd_from:
+        return
+    if event.is_private:
+        return
+    if MONGO_DB_URI is None:
+        return
+    if not await can_change_info(message=event):
+        return
+    input = event.pattern_match.group(1)
+    chats = scanfile.find({})
+    if not input:
+        for c in chats:
+            if event.chat_id == c["id"]:
+                await event.reply(
+                    "Please provide some input yes or no.\n\nCurrent setting is : **on**"
+                )
+                return
+        await event.reply(
+            "Please provide some input yes or no.\n\nCurrent setting is : **off**"
+        )
+        return
+    if input in "on":
+        if event.is_group:
+            chats = scanfile.find({})
+            for c in chats:
+                if event.chat_id == c["id"]:
+                    await event.reply(
+                        "Autofilescan is already enabled for this chat.")
+                    return
+            scanfile.insert_one({"id": event.chat_id})
+            await event.reply("I will scan all incoming files for viruses from now.")
+    if input in "off":
+        if event.is_group:
+            chats = scanfile.find({})
+            for c in chats:
+                if event.chat_id == c["id"]:
+                    scanfile.delete_one({"id": event.chat_id})
+                    await event.reply(
+                        "I will not check incoming files for viruses from now.")
+                    return
+        await event.reply(
+                    "Autofilescan isn't enabled for this chat.")       
+    
+    if not input == "on" and not input == "off":
+        await event.reply("I only understand by on or off")
+        return
 
 @register(pattern="^/scanit$")
 async def virusscan(event):
