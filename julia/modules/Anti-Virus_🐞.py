@@ -60,10 +60,10 @@ async def virusscan(event):
     async with ubot.conversation(chat) as conv:
         try:
             await event.client.download_file(c, "virus")
-            response = conv.wait_event(events.NewMessage(incoming=True, from_users=299969270))
+            response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
             await ubot.send_file(chat, "virus")
             response = await response
-            if response.startswith("🧬"):
+            if response.text.startswith("🧬"):
               c = await tbot.send_message(event.chat_id, response)
               # await tbot.edit_message(c, response)
             os.remove("virus")
