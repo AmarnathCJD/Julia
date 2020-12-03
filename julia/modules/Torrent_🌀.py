@@ -73,6 +73,17 @@ async def tor_search(event):
         "Magnet Links for {}:\n\nhttps://telegra.ph/{}".format(str, response["path"]),
         link_preview=False,
     )
+
+@register(pattern="^/helptorrent$")
+async def howdoi(event):
+    if event.fwd_from:
+        return
+    if not event.is_private:
+        return
+    os.system("youtube-dl https://vimeo.com/486829727")
+    await tbot.send_file(event.chat_id, "Torrent-486829727.mp4")
+    os.remove("Torrent-486829727.mp4")
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
