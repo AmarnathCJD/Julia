@@ -106,7 +106,7 @@ async def _(event):
     gay = event.pattern_match.group(1)
 
     try:
-        query = message
+        query = gay
     except BaseException:
         await event.reply("Provide a country name/abbreviation/timezone to find.")
         return
