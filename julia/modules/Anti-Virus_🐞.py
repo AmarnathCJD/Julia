@@ -1,5 +1,6 @@
 import re
 import os
+import time
 from julia import ubot
 from julia import tbot
 from julia import CMD_HELP
@@ -148,8 +149,13 @@ async def virusscan(event):
       await event.client.download_file(c, virus)
       await y.send_file(file=virus)
       response = await y.wait_event(events.MessageEdited(from_users=o.id))
-      response = await y.wait_event(events.MessageEdited(from_users=o.id))
-      response = await y.wait_event(events.MessageEdited(from_users=o.id))
+      if not response: # ping the bot
+         return
+      while True:
+         response = await y.wait_event(events.MessageEdited(from_users=o.id))
+         if response.text.startswith("🧬"):
+            break 
+         time.sleep(1)
       await tbot.send_message(event.chat_id, response.message, reply_to=sender_id)
      except Exception as e:
       os.remove(virus)
