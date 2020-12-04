@@ -1,22 +1,14 @@
-from julia import CMD_HELP
 from random import randint
-from telethon.tl.types import DocumentAttributeFilename
 from PIL import ImageEnhance, ImageOps
 from random import uniform
-from julia import GOOGLE_CHROME_BIN
-from julia import CHROME_DRIVER
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
-from julia import MONGO_DB_URI
-from telethon import types
-from julia import tbot
 import asyncio
 import io
 import os
 import random
 import re
 import string
-
 import nltk
 from PIL import Image
 from zalgo_text import zalgo
@@ -37,7 +29,6 @@ from pymongo import MongoClient
 from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
-
 from julia import *
 
 nltk.download("punkt")
