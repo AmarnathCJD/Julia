@@ -155,7 +155,7 @@ async def download_song(v_url):
                                        title=str(rip_data['title']),
                                        performer=str(rip_data['uploader']))
             ])
-        await y.forward_to(JULIASONG, y)
+        await y.forward_to(JULIASONG)
         os.system("rm -rf *.mp3")
         os.system("rm -rf *.webp")
 
@@ -257,7 +257,7 @@ async def download_video(v_url):
             supports_streaming=True,
             caption=rip_data['title'])
 
-        await y.forward_to(JULIAVSONG, y)
+        await y.forward_to(JULIAVSONG)
         os.system("rm -rf *.mp4")
         os.system("rm -rf *.webp")
 
