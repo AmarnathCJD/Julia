@@ -129,7 +129,7 @@ async def virusscan(event):
     o = await ubot.get_entity("@VirusTotalAV_bot")
     async with ubot.conversation(o) as y:
      try:
-      c = event.media.document
+      c = c.media.document
       virus = c.file.name
       await event.client.download_file(c, virus)
       await y.send_file(file=virus)
@@ -154,7 +154,7 @@ async def virusscann(event):
     elif event.sticker:
        return
     else:
-      return
+       return
 
     c = event.media.document
     o = await ubot.get_entity("@VirusTotalAV_bot")
