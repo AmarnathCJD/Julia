@@ -7,6 +7,7 @@ from telethon.tl import types
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from julia.events import register
+from telethon.custom import Message as customMessage
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -45,6 +46,13 @@ async def can_change_info(message):
     p = result.participant
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
+
+
+def is_sticker(event: customMessage):
+    return True if event.sticker else False
+
+customMessage.is_sticker = is_sticker
+
 
 @register(pattern="^/autoscanit(?: |$)(.*)")
 async def autoscanit(event):
@@ -115,9 +123,7 @@ async def virusscan(event):
        await event.reply("Reply to a file to scan it.")
        return
     c = await event.get_reply_message()
-    try:
-       c.file
-    except:
+    if not c.file and is_sticker(c):
        await event.reply("Thats not a file.")
        return
     o = await ubot.get_entity("@VirusTotalAV_bot")
@@ -141,9 +147,7 @@ async def virusscann(event):
     if event.fwd_from:
         return
     sender_id = event.message
-    try:
-       event.media.document
-    except:
+    if not c.file and is_sticker(event):
        # await event.reply("Thats not a file.")
        return
     c = event.media.document
@@ -159,7 +163,6 @@ async def virusscann(event):
       await tbot.send_message(event.chat_id, response.message, reply_to=sender_id)
      except Exception as e:
       os.remove(virus)
-      await event.reply("Some error occurred.")
       print (e)
       return
 
