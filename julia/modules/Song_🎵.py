@@ -47,6 +47,8 @@ async def is_register_admin(chat, user):
         )
     return None
 
+JULIASONG = "@MissJuliaRobotMP3"
+JULIAVSONG = "@MissJuliaRobotMP4"
 
 @register(pattern="^/song (.*)")
 async def download_song(v_url):
@@ -142,7 +144,7 @@ async def download_song(v_url):
     if song:
         await rkp.edit(f"`Sending the song ...`")
 
-        await v_url.client.send_file(
+        y = await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp3",
             supports_streaming=False,
@@ -153,6 +155,7 @@ async def download_song(v_url):
                                        title=str(rip_data['title']),
                                        performer=str(rip_data['uploader']))
             ])
+        await y.forward_to(JULIASONG, y)
         os.system("rm -rf *.mp3")
         os.system("rm -rf *.webp")
 
@@ -248,11 +251,13 @@ async def download_video(v_url):
     if video:
         await rkp.edit(f"`Sending the video song ...`")
 
-        await v_url.client.send_file(
+        y = await v_url.client.send_file(
             v_url.chat_id,
             f"{rip_data['id']}.mp4",
             supports_streaming=True,
             caption=rip_data['title'])
+
+        await y.forward_to(JULIAVSONG, y)
         os.system("rm -rf *.mp4")
         os.system("rm -rf *.webp")
 
