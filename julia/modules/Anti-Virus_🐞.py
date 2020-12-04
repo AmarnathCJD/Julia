@@ -144,13 +144,12 @@ async def virusscan(event):
        return
    
     o = await ubot.get_entity("@VirusTotalAV_bot")
-    async with ubot.conversation(o) as y:
-     try:
+    try:
       virus = c.file.name
       await event.client.download_file(c, virus)
-      await y.send_file(file=virus)    
+      await ubot.send_file("@VirusTotalAV_bot", file=virus)    
       os.remove(virus)
-     except Exception:
+    except Exception:
       os.remove(virus)
       await tbot.send_message(event.chat_id, "Some error occurred.", reply_to=sender_id)
       return
