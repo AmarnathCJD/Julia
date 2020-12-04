@@ -123,12 +123,13 @@ async def virusscan(event):
        await event.reply("Reply to a file to scan it.")
        return
     c = await event.get_reply_message()
-    if not c.file and is_sticker(c):
+    if not c.file and c.sticker:
        await event.reply("Thats not a file.")
        return
     o = await ubot.get_entity("@VirusTotalAV_bot")
     async with ubot.conversation(o) as y:
      try:
+      c = event.media.document
       virus = c.file.name
       await event.client.download_file(c, virus)
       await y.send_file(file=virus)
