@@ -155,7 +155,8 @@ async def virusscan(event):
       return
 
 @ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
-async def virusscan(event):
+async def virusscanner(event):
+    print(event.text)
     try:
        if event.text.startswith("🧬"):
           await tbot.send_message(event.chat_id, event.text, reply_to=sender_id)
