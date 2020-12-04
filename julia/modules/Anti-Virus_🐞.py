@@ -105,7 +105,7 @@ async def virusscan(event):
     if event.fwd_from:
         return
     global sender_id
-    sender_id = event.message
+    sender_id = event.sender_id
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
