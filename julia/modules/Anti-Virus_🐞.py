@@ -118,20 +118,29 @@ async def virusscan(event):
     if not event.reply_to_msg_id:
        await event.reply("Reply to a file to scan it.")
        return
+
     c = await event.get_reply_message()
 
-    if c.media.document:
-       pass
-    elif c.sticker:
+    if not event.media.document:
        await event.reply("Thats not a file.")
        return
-    elif c.audio:
+       return
+    if c.sticker:
        await event.reply("Thats not a file.")
        return
-    else:
-      await event.reply("Thats not a file.")
-      return
-      
+    if c.audio:
+       await event.reply("Thats not a file.")
+       return
+    if event.gif:
+       await event.reply("Thats not a file.")
+       return
+    if event.photo:
+       await event.reply("Thats not a file.")
+       return
+    if event.video:
+       await event.reply("Thats not a file.")
+       return
+
     o = await ubot.get_entity("@VirusTotalAV_bot")
     async with ubot.conversation(o) as y:
      try:
@@ -155,13 +164,17 @@ async def virusscann(event):
         return
     sender_id = event.message
 
-    if event.media.document:
-       pass
-    elif event.sticker:
+    if not event.media.document:
        return
-    elif event.audio:
+    if event.sticker:
        return
-    else:
+    if event.audio:
+       return
+    if event.gif:
+       return
+    if event.photo:
+       return
+    if event.video:
        return
 
     c = event.media.document
