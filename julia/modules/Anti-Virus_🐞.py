@@ -152,8 +152,7 @@ async def virusscan(event):
       response = await y.wait_event(events.MessageEdited(from_users=o.id))
       if not response: # ping the bot
          return
-      start = time.time()
-      t_end = time.time() + 60 
+      t_end = time.time() + 150
       while time.time() < t_end:
          response = await y.wait_event(events.MessageEdited(from_users=o.id))
          if response.text.startswith("🧬"):
