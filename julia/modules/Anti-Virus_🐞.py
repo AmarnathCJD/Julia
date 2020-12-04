@@ -150,7 +150,10 @@ async def virusscan(event):
       await event.client.download_file(c, virus)
       await y.send_file(file=virus)    
       os.remove(virus)
-     
+     except Exception:
+      os.remove(virus)
+      await tbot.send_message(event.chat_id, "Some error occurred.", reply_to=sender_id)
+      return
 
 @ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
 async def virusscan(event):
