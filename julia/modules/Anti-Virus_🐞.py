@@ -117,13 +117,13 @@ async def virusscan(event):
        return
     c = await event.get_reply_message()
 
-    if c.file:
-       await event.reply("Thats not a file.")
-       return
+    if c.media.document:
+       pass
     elif c.sticker:
        await event.reply("Thats not a file.")
        return
     else:
+      await event.reply("Thats not a file.")
       return
       
     o = await ubot.get_entity("@VirusTotalAV_bot")
@@ -149,7 +149,7 @@ async def virusscann(event):
         return
     sender_id = event.message
 
-    if event.file:
+    if event.media.document:
        pass
     elif event.sticker:
        return
