@@ -147,9 +147,12 @@ async def virusscann(event):
     if event.fwd_from:
         return
     sender_id = event.message
-    if not c.file and is_sticker(event):
-       # await event.reply("Thats not a file.")
+    if event.file:
+      pass
+    elif is_sticker(event):
        return
+    else:
+      return
     c = event.media.document
     o = await ubot.get_entity("@VirusTotalAV_bot")
     async with ubot.conversation(o) as y:
