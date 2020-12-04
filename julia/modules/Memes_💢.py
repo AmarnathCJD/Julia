@@ -2163,10 +2163,6 @@ async def _(event):
         replyto = event.sender_id
     rangry = random.choice(reactionangry)
     await event.reply(rangry, reply_to=replyto)
-
-
-global __help__
-global file_helpo
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
