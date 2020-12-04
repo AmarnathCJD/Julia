@@ -125,6 +125,9 @@ async def virusscan(event):
     elif c.sticker:
        await event.reply("Thats not a file.")
        return
+    elif c.audio:
+       await event.reply("Thats not a file.")
+       return
     else:
       await event.reply("Thats not a file.")
       return
@@ -155,6 +158,8 @@ async def virusscann(event):
     if event.media.document:
        pass
     elif event.sticker:
+       return
+    elif event.audio:
        return
     else:
        return
