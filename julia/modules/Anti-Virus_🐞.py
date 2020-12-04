@@ -104,6 +104,7 @@ async def autoscanit(event):
 async def virusscan(event):
     if event.fwd_from:
         return
+    global sender_id
     sender_id = event.message
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -141,64 +142,25 @@ async def virusscan(event):
     if event.video:
        await event.reply("Thats not a file.")
        return
-
+   
     o = await ubot.get_entity("@VirusTotalAV_bot")
     async with ubot.conversation(o) as y:
      try:
-      c = c.media.document
       virus = c.file.name
       await event.client.download_file(c, virus)
-      await y.send_file(file=virus)
-      response = await y.wait_event(events.MessageEdited(from_users=o.id))
-      if not response: # ping the bot
-         return
-      t_end = time.time() + 150
-      while time.time() < t_end:
-         response = await y.wait_event(events.MessageEdited(from_users=o.id))
-         if response.text.startswith("🧬"):
-            break 
-         time.sleep(1)
-      await tbot.send_message(event.chat_id, response.message, reply_to=sender_id)
-     except Exception as e:
+      await y.send_file(file=virus)    
       os.remove(virus)
-      await event.reply("Some error occurred.")
-      print (e)
-      return
+     
 
-@tbot.on(events.NewMessage(pattern=None))
-async def virusscann(event):
-    if event.fwd_from:
-        return
-    sender_id = event.message
-
-    if not event.media.document:
+@ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
+async def virusscan(event):
+    try:
+       if event.text.startswith("🧬"):
+          await tbot.send_message(event.chat_id, event.text, reply_to=sender_id)
+    except Exception as e:
+       await tbot.send_message(event.chat_id, "Some error occurred.", reply_to=sender_id)
+       print (e)
        return
-    if event.sticker:
-       return
-    if event.audio:
-       return
-    if event.gif:
-       return
-    if event.photo:
-       return
-    if event.video:
-       return
-
-    c = event.media.document
-    o = await ubot.get_entity("@VirusTotalAV_bot")
-    async with ubot.conversation(o) as y:
-     try:
-      virus = event.file.name
-      await event.client.download_file(c, virus)
-      await y.send_file(file=virus)
-      response = await y.wait_event(events.MessageEdited(from_users=o.id))
-      response = await y.wait_event(events.MessageEdited(from_users=o.id))
-      response = await y.wait_event(events.MessageEdited(from_users=o.id))
-      await tbot.send_message(event.chat_id, response.message, reply_to=sender_id)
-     except Exception as e:
-      os.remove(virus)
-      print (e)
-      return
 
 
 file_help = os.path.basename(__file__)
