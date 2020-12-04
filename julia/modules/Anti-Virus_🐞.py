@@ -1,5 +1,8 @@
-import re, os
-from julia import ubot, tbot, CMD_HELP
+import re
+import os
+from julia import ubot
+from julia import tbot
+from julia import CMD_HELP
 import asyncio
 from telethon import events
 from telethon.tl import functions
