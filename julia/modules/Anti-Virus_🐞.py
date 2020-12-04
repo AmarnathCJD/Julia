@@ -124,7 +124,6 @@ async def virusscan(event):
     if not event.media.document:
        await event.reply("Thats not a file.")
        return
-       return
     if c.sticker:
        await event.reply("Thats not a file.")
        return
