@@ -152,9 +152,8 @@ async def virusscan(event):
          response = await response 
          response = await response
          response = await response
-      try:
-        if response.text.startswith("__**🧬"):
-           await event.reply(msg.text)
+      if response.text.startswith("__**🧬"):
+            await event.reply(msg.text)
       except Exception as e:
         await event.reply("Some error occurred.")
         print (e)
