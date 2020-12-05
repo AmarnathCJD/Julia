@@ -142,23 +142,21 @@ async def virusscan(event):
        return
    
     try:
-      virus = c.file.name
-      await event.client.download_file(c, virus)
-      await ubot.send_file("@VirusTotalAV_bot", file=virus)    
-      os.remove(virus)
-      chat = "@VirusTotalAV_bot"
-      async with ubot.conversation(chat) as conv:
-         response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
-         response = await response 
-         response = await response
-         response = await response
-      if response.text.startswith("__**🧬"):
-            await event.reply(msg.text)
-      except Exception as e:
-        await event.reply("Some error occurred.")
-        print (e)
-        return
-
+      async with ubot.conversation("@VirusTotalAV_bot") as y:
+        virus = c.file.name
+        await event.client.download_file(c, virus)
+        await y.send_file("@VirusTotalAV_bot", file=virus)
+        response = await y.wait_event(events.MessageEdited(from_users=o.id))
+        if response:
+         t_end = time.time() + 150 
+         while time.time() < t_end: 
+          response = await y.wait_event(events.MessageEdited(from_users=o.id))
+          response = await y.wait_event(events.MessageEdited(from_users=o.id))
+          response = await y.wait_event(events.MessageEdited(from_users=o.id))    
+          if 
+             break
+          time.sleep(1)
+        await tbot.send_message(event.chat_id, response.message, reply_to=sender_id)     
     except Exception:
       os.remove(virus)
       await event.reply("Some error occurred.")
