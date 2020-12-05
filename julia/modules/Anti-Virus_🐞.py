@@ -158,6 +158,8 @@ async def virusscanner(msg):
  async with ubot.conversation(chat) as conv:
     response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
     response = await response 
+    response = await response
+    response = await response
     try:
        if msg.text.startswith("__**🧬"):
           await msg.reply(msg.text)
