@@ -3,7 +3,7 @@ import os
 import time
 from julia import ubot
 from julia import tbot
-from julia import CMD_HELP
+from julia import CMD_HELP, OWNER_USERNAME
 import asyncio
 from telethon import events
 from telethon.tl import functions
@@ -152,11 +152,15 @@ async def virusscan(event):
       await event.reply("Some error occurred.")
       return
 
-@ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
+
 async def virusscanner(msg):    
+ chat = "@MissJulia_Robot"
+ async with ubot.conversation(chat) as conv:
+    response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
+    response = await response 
     try:
        if msg.text.startswith("__**🧬"):
-          await msg.reply(event.text)
+          await msg.reply(msg.text)
     except Exception as e:
        await msg.reply("Some error occurred.")
        print (e)
