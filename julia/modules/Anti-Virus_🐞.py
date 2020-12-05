@@ -154,7 +154,7 @@ async def virusscan(event):
 
 
 async def virusscanner(msg):    
- chat = "@MissJulia_Robot"
+ chat = "@VirusTotalAV_bot"
  async with ubot.conversation(chat) as conv:
     response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
     response = await response 
