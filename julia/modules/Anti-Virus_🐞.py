@@ -152,8 +152,8 @@ async def virusscan(event):
       await event.reply("Some error occurred.")
       return
 
-async def virusscanner(msg):
-    @ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
+@ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
+async def virusscanner(msg):    
     try:
        if event.text.startswith("__**🧬"):
           await event.reply(event.text)
