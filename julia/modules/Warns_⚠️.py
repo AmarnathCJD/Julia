@@ -109,7 +109,7 @@ async def _(event):
     chat_id = event.chat_id
     rules = rulesql.get_rules(chat_id)
     if rules:
-        await event.reply(reply, buttons=[[Button.inline('Remove Warn ✖️', data=f"rm_warn-{reply_message.sender_id}"), Button.inline('Rules', data=f'start-ruleswarn-{reply_message.sender_id}')]], parse_mode="html")
+        await event.reply(reply, buttons=[[Button.inline('Remove Warn ✖️', data=f"rm_warn-{reply_message.sender_id}"), Button.inline('Rules ✝️', data=f'start-ruleswarn-{reply_message.sender_id}')]], parse_mode="html")
     else:    
         await event.reply(reply, buttons=[[Button.inline('Remove Warn ✖️', data=f"rm_warn-{reply_message.sender_id}")]], parse_mode="html")
 
