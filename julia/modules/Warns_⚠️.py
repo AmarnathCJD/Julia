@@ -10,7 +10,7 @@ from telethon.tl import functions
 from telethon.tl import types
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon.tl.types import *
-
+import julia.modules.sql.rules_sql as rulesql
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -107,7 +107,7 @@ async def _(event):
         if warn_reason:
             reply += "\nReason: {}".format(html.escape(warn_reason))
     chat_id = event.chat_id
-    rules = sql.get_rules(chat_id)
+    rules = rulesql.get_rules(chat_id)
     if rules:
         await event.reply(reply, buttons=[[Button.inline('Remove Warn ✖️', data=f"rm_warn-{reply_message.sender_id}"), Button.inline('Rules', data=f'start-ruleswarn-{reply_message.sender_id}')]], parse_mode="html")
     else:    
@@ -115,7 +115,7 @@ async def _(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"start-ruleswarn-(\d+)"))
 async def rm_warn(event):
-    rules = sql.get_rules(event.chat_id)
+    rules = rulesql.get_rules(event.chat_id)
     if not rules:
        rules = "The group admins haven't set any rules for that chat yet.\nThis probably doesn't mean it's lawless though...!"
     user_id = int(event.pattern_match.group(1))        
