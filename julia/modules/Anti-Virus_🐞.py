@@ -105,7 +105,9 @@ async def virusscan(event):
     if event.fwd_from:
         return
     global sender_id
+    global chat_id
     sender_id = event.message.id
+    chat_id = event_chat.id
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
@@ -156,7 +158,8 @@ async def virusscan(event):
 
 @ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
 async def virusscanner(event):
-    print (sender_id)
+    print(chat_id)
+    print(sender_id)
     try:
        if event.text.startswith("__**🧬"):
           await tbot.send_message(event.chat_id, event.text, reply_to=sender_id)
