@@ -146,27 +146,24 @@ async def virusscan(event):
       await event.client.download_file(c, virus)
       await ubot.send_file("@VirusTotalAV_bot", file=virus)    
       os.remove(virus)
-      await virusscanner(msg=event)
+      chat = "@VirusTotalAV_bot"
+      async with ubot.conversation(chat) as conv:
+         response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
+         response = await response 
+         response = await response
+         response = await response
+      try:
+        if response.text.startswith("__**🧬"):
+           await event.reply(msg.text)
+      except Exception as e:
+        await event.reply("Some error occurred.")
+        print (e)
+        return
+
     except Exception:
       os.remove(virus)
       await event.reply("Some error occurred.")
       return
-
-
-async def virusscanner(msg):    
- chat = "@VirusTotalAV_bot"
- async with ubot.conversation(chat) as conv:
-    response = conv.wait_event(events.NewMessage(incoming=True, from_users=1356559037))
-    response = await response 
-    response = await response
-    response = await response
-    try:
-       if msg.text.startswith("__**🧬"):
-          await msg.reply(msg.text)
-    except Exception as e:
-       await msg.reply("Some error occurred.")
-       print (e)
-       return
 
 
 file_help = os.path.basename(__file__)
