@@ -104,10 +104,6 @@ async def autoscanit(event):
 async def virusscan(event):
     if event.fwd_from:
         return
-    global sender_id
-    global chat_id
-    sender_id = event.message.id
-    chat_id = event.chat_id
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
@@ -145,24 +141,24 @@ async def virusscan(event):
        await event.reply("Thats not a file.")
        return
    
-    o = await ubot.get_entity("@VirusTotalAV_bot")
     try:
       virus = c.file.name
       await event.client.download_file(c, virus)
       await ubot.send_file("@VirusTotalAV_bot", file=virus)    
       os.remove(virus)
+      await virusscanner(msg=event)
     except Exception:
       os.remove(virus)
-      await tbot.send_message(event.chat_id, "Some error occurred.", reply_to=sender_id)
+      await event.reply("Some error occurred.")
       return
 
-@ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
-async def virusscanner(event):
+async def virusscanner(msg):
+    @ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
     try:
        if event.text.startswith("__**🧬"):
-          await tbot.send_message(event.chat_id, event.text, reply_to=sender_id)
+          await event.reply(event.text)
     except Exception as e:
-       await tbot.send_message(event.chat_id, "Some error occurred.", reply_to=sender_id)
+       await event.reply("Some error occurred.")
        print (e)
        return
 
