@@ -153,10 +153,10 @@ async def virusscan(event):
           response = await y.wait_event(events.MessageEdited(from_users=o.id))
           response = await y.wait_event(events.MessageEdited(from_users=o.id))
           response = await y.wait_event(events.MessageEdited(from_users=o.id))    
-          if 
+          if response.text.startswith("__**🧬"):
              break
           time.sleep(1)
-        await tbot.send_message(event.chat_id, response.message, reply_to=sender_id)     
+        await event.reply(response.message)     
     except Exception:
       os.remove(virus)
       await event.reply("Some error occurred.")
