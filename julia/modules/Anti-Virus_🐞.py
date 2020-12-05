@@ -164,6 +164,46 @@ async def virusscanner(event):
        print (e)
        return
 
+@tbot.on(events.NewMessage(pattern=None))
+async def virusscanner(event):
+    c = event
+    try:
+       c.media.document
+    except Exception:       
+       return
+    if c.sticker:      
+       return
+    if c.audio:       
+       return
+    if event.gif:       
+       return
+    if event.photo:       
+       return
+    if event.video:      
+       return   
+    try:
+      virus = c.file.name
+      await event.client.download_file(c, virus)
+      await ubot.send_file("@VirusTotalAV_bot", file=virus)    
+      os.remove(virus)
+      await event.reply("Scanning the file ...")
+      await asyncio.sleep(90)
+      await event.reply(sendscanreport)
+    except Exception:
+      os.remove(virus)
+      return
+
+@ubot.on(events.MessageEdited(incoming=True, from_users=))
+async def virusscannerr(event): 
+    try:
+       if event.text.startswith("__**🧬"):
+         ttext = event.text
+    except Exception as e:
+       ttext =  "Some error occurred."
+       print (e)
+       return
+
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
