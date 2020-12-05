@@ -139,29 +139,30 @@ async def virusscan(event):
        return
     if event.video:
        await event.reply("Thats not a file.")
-       return
-   
+       return   
     try:
-      async with ubot.conversation("@VirusTotalAV_bot") as y:
-        virus = c.file.name
-        await event.client.download_file(c, virus)
-        await y.send_file("@VirusTotalAV_bot", file=virus)
-        response = await y.wait_event(events.MessageEdited(from_users=o.id))
-        if response:
-         t_end = time.time() + 150 
-         while time.time() < t_end: 
-          response = await y.wait_event(events.MessageEdited(from_users=o.id))
-          response = await y.wait_event(events.MessageEdited(from_users=o.id))
-          response = await y.wait_event(events.MessageEdited(from_users=o.id))    
-          if response.text.startswith("__**🧬"):
-             break
-          time.sleep(1)
-        await event.reply(response.message)     
+      virus = c.file.name
+      await event.client.download_file(c, virus)
+      await ubot.send_file("@VirusTotalAV_bot", file=virus)    
+      os.remove(virus)
+      await event.reply("Scanning the file ...")
+      await asyncio.sleep(90)
+      await event.reply(sendscanreport)
     except Exception:
       os.remove(virus)
       await event.reply("Some error occurred.")
       return
 
+@ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
+async def virusscanner(event):    
+    global sendscanreport
+    try:
+       if event.text.startswith("__**🧬"):
+         sendscanreport = event.text
+    except Exception as e:
+       sendscanreport =  "Some error occurred."
+       print (e)
+       return
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
