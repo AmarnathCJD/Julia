@@ -3,7 +3,7 @@ import os
 import time
 from julia import ubot
 from julia import tbot
-from julia import CMD_HELP, OWNER_USERNAME
+from julia import CMD_HELP, OWNER_USERNAME, VIRUS_API_KEY
 import asyncio
 from telethon import events
 from telethon.tl import functions
@@ -11,7 +11,11 @@ from telethon.tl import types
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from julia.events import register
+import cloudmersive_virus_api_client
+from cloudmersive_virus_api_client.rest import ApiException
+from pprint import pprint
 
+    
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
@@ -100,6 +104,10 @@ async def autoscanit(event):
     if not input == "on" and not input == "off":
         await event.reply("I only understand by on or off")
         return
+      
+api_instance = cloudmersive_virus_api_client.ScanApi()
+api_instance.api_client.configuration.api_key = {}
+api_instance.api_client.configuration.api_key['Apikey'] = VIRUS_API_KEY
 
 @register(pattern="^/scanit$")
 async def virusscan(event):
@@ -145,32 +153,20 @@ async def virusscan(event):
       virus = c.file.name
       await event.client.download_file(c, virus)
       await ubot.send_file("@VirusTotalAV_bot", file=virus)    
-      os.remove(virus)
-      await event.reply("Scanning the file ...")
-      await asyncio.sleep(90)
-      if not c.file.name in sendscanreport:
-        await event.reply("Some error occurred.")
-        sendscanreport = ""
-        return
+
+      gg= await event.reply("Scanning the file ...")
+
+      api_response = api_instance.scan_file(c.file.name)
+      
+      if api_response.clean_result == "False":
+       await gg.edit("This file is safe 🛡️\nNo virus detected 🐞")
       else:
-        return
-      await event.reply(sendscanreport)
-      sendscanreport = ""
+       await gg.edit("This file is Dangerous ☠️️\nVirus detected 🐞")
     except Exception:
       os.remove(virus)
       await event.reply("Some error occurred.")
-      sendscanreport = ""
       return
 
-@ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
-async def virusscanner(event):    
-    try:
-       if event.text.startswith("__**🧬"):
-         sendscanreport = event.text
-    except Exception as e:
-       sendscanreport =  "Some error occurred."
-       print (e)
-       return
      
 
 file_help = os.path.basename(__file__)
@@ -178,7 +174,7 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /scanit: Scan a file for virus with the help of virustotal.com
+ - /scanit: Scan a file for virus 
 """
 
 CMD_HELP.update({
