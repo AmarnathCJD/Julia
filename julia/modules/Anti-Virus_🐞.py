@@ -148,8 +148,10 @@ async def virusscan(event):
       os.remove(virus)
       await event.reply("Scanning the file ...")
       await asyncio.sleep(90)
-      if c.file.name in sendscanreport:
-        pass
+      if not c.file.name in sendscanreport:
+        await event.reply("Some error occurred.")
+        sendscanreport = ""
+        return
       else:
         return
       await event.reply(sendscanreport)
@@ -170,8 +172,6 @@ async def virusscanner(event):
        print (e)
        return
      
-   
-
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
