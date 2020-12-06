@@ -50,6 +50,7 @@ async def can_change_info(message):
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
+global sendscanreport
 
 @register(pattern="^/autoscanit(?: |$)(.*)")
 async def autoscanit(event):
@@ -147,15 +148,20 @@ async def virusscan(event):
       os.remove(virus)
       await event.reply("Scanning the file ...")
       await asyncio.sleep(90)
+      if c.file.name in sendscanreport:
+        pass
+      else:
+        return
       await event.reply(sendscanreport)
+      sendscanreport = ""
     except Exception:
       os.remove(virus)
       await event.reply("Some error occurred.")
+      sendscanreport = ""
       return
 
 @ubot.on(events.MessageEdited(incoming=True, from_users=1356559037))
 async def virusscanner(event):    
-    global sendscanreport
     try:
        if event.text.startswith("__**🧬"):
          sendscanreport = event.text
@@ -163,45 +169,8 @@ async def virusscanner(event):
        sendscanreport =  "Some error occurred."
        print (e)
        return
-
-@tbot.on(events.NewMessage(pattern=None))
-async def virusscanner(event):
-    c = event
-    try:
-       c.media.document
-    except Exception:       
-       return
-    if c.sticker:      
-       return
-    if c.audio:       
-       return
-    if event.gif:       
-       return
-    if event.photo:       
-       return
-    if event.video:      
-       return   
-    try:
-      virus = c.file.name
-      await event.client.download_file(c, virus)
-      await ubot.send_file("@VirusTotalAV_bot", file=virus)    
-      os.remove(virus)
-      await event.reply("Scanning the file ...")
-      await asyncio.sleep(90)
-      await event.reply(sendscanreport)
-    except Exception:
-      os.remove(virus)
-      return
-
-@ubot.on(events.MessageEdited(incoming=True, from_users=))
-async def virusscannerr(event): 
-    try:
-       if event.text.startswith("__**🧬"):
-         ttext = event.text
-    except Exception as e:
-       ttext =  "Some error occurred."
-       print (e)
-       return
+     
+   
 
 
 file_help = os.path.basename(__file__)
@@ -210,7 +179,6 @@ file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /scanit: Scan a file for virus with the help of virustotal.com
- - /autofilescan <on/off>: Automatically scans all incoming files in your group sent by peoples
 """
 
 CMD_HELP.update({
