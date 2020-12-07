@@ -143,21 +143,27 @@ async def virusscan(event):
     if event.gif:
        await event.reply("Thats not a file.")
        return
-    if event.photo:
+    if c.photo:
        await event.reply("Thats not a file.")
        return
-    if event.video:
+    if c.video:
        await event.reply("Thats not a file.")
        return   
+    if c.poll:
+       await event.reply("Thats not a file.")
+       return
+    if c.geo:
+       await event.reply("Thats not a file.")
+       return
+    if c.game:
+       await event.reply("Thats not a file.")
+       return
+   
     try:
       virus = c.file.name
       await event.client.download_file(c, virus)
-      await ubot.send_file("@VirusTotalAV_bot", file=virus)    
-
       gg= await event.reply("Scanning the file ...")
-
       api_response = api_instance.scan_file(c.file.name)
-      
       if api_response.clean_result == "False":
        await gg.edit("This file is safe 🛡️\nNo virus detected 🐞")
       else:
@@ -165,9 +171,45 @@ async def virusscan(event):
        os.remove(virus)
     except Exception:
       os.remove(virus)
-      await event.reply("Some error occurred.")
+      await gg.edit("Some error occurred.")
       return
 
+@tbot.on(events.NewMessage(pattern=None))
+async def virusscanner(event):
+    c = event.message
+    try:
+       c.media.document
+    except Exception:
+       return
+    if c.sticker:
+       return
+    if c.audio:
+       return
+    if c.gif:
+       return
+    if c.photo:
+       return
+    if c.video:
+       return   
+    if c.poll:
+       return
+    if c.geo:
+       return
+    if c.game:
+       return
+    try:
+      virus = c.file.name
+      await event.client.download_file(c, virus)
+      gg= await event.reply("Scanning the file ...")
+      api_response = api_instance.scan_file(c.file.name)
+      if api_response.clean_result == "False":
+       await gg.edit("This file is safe 🛡️\nNo virus detected 🐞")
+      else:
+       await gg.edit("This file is Dangerous ☠️️\nVirus detected 🐞")
+       os.remove(virus)
+    except Exception:
+      os.remove(virus)
+      return
      
 
 file_help = os.path.basename(__file__)
