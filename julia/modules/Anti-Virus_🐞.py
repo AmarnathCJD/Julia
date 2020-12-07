@@ -1,10 +1,6 @@
-import re
 import os
-import time
-from julia import ubot
 from julia import tbot
-from julia import CMD_HELP, OWNER_USERNAME, VIRUS_API_KEY
-import asyncio
+from julia import CMD_HELP, VIRUS_API_KEY
 from telethon import events
 from telethon.tl import functions
 from telethon.tl import types
@@ -12,7 +8,6 @@ from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from julia.events import register
 import cloudmersive_virus_api_client
-from cloudmersive_virus_api_client.rest import ApiException
     
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
