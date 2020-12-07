@@ -13,8 +13,6 @@ from julia import MONGO_DB_URI
 from julia.events import register
 import cloudmersive_virus_api_client
 from cloudmersive_virus_api_client.rest import ApiException
-from pprint import pprint
-
     
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -205,7 +203,7 @@ async def virusscanner(event):
       await event.client.download_file(c, virus)
       gg= await event.reply("Scanning the file ...")
       api_response = api_instance.scan_file(c.file.name)
-      if api_response.clean_result == "False":
+      if api_response.clean_result == "True":
        await gg.edit("This file is safe 🛡️\nNo virus detected 🐞")
       else:
        await gg.edit("This file is Dangerous ☠️️\nVirus detected 🐞")
