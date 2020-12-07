@@ -83,39 +83,38 @@ async def msg(event):
     if reply_text is None:
         await event.reply("Reply to a message to make meme.")
         return
-    else:
-        faces = [
-            "(・`ω´・)",
-            ";;w;;",
-            "owo",
-            "UwU",
-            ">w<",
-            "^w^",
-            r"\(^o\) (/o^)/",
-            "( ^ _ ^)∠☆",
-            "(ô_ô)",
-            "~:o",
-            ";____;",
-            "(*^*)",
-            "(>_",
-            "(♥_♥)",
-            "*(^O^)*",
-            "((+_+))",
-        ]
-        text = re.sub(r"[rl]", "w", reply_text)
-        text = re.sub(r"[ｒｌ]", "ｗ", reply_text)
-        text = re.sub(r"[RL]", "W", text)
-        text = re.sub(r"[ＲＬ]", "Ｗ", text)
-        text = re.sub(r"n([aeiouａｅｉｏｕ])", r"ny\1", text)
-        text = re.sub(r"ｎ([ａｅｉｏｕ])", r"ｎｙ\1", text)
-        text = re.sub(r"N([aeiouAEIOU])", r"Ny\1", text)
-        text = re.sub(r"Ｎ([ａｅｉｏｕＡＥＩＯＵ])", r"Ｎｙ\1", text)
-        text = re.sub(r"\!+", " " + random.choice(faces), text)
-        text = re.sub(r"！+", " " + random.choice(faces), text)
-        text = text.replace("ove", "uv")
-        text = text.replace("ｏｖｅ", "ｕｖ")
-        text += " " + random.choice(faces)
-        await event.reply(text)
+    faces = [
+        "(・`ω´・)",
+        ";;w;;",
+        "owo",
+        "UwU",
+        ">w<",
+        "^w^",
+        r"\(^o\) (/o^)/",
+        "( ^ _ ^)∠☆",
+        "(ô_ô)",
+        "~:o",
+        ";____;",
+        "(*^*)",
+        "(>_",
+        "(♥_♥)",
+        "*(^O^)*",
+        "((+_+))",
+    ]
+    text = re.sub(r"[rl]", "w", reply_text)
+    text = re.sub(r"[ｒｌ]", "ｗ", reply_text)
+    text = re.sub(r"[RL]", "W", text)
+    text = re.sub(r"[ＲＬ]", "Ｗ", text)
+    text = re.sub(r"n([aeiouａｅｉｏｕ])", r"ny\1", text)
+    text = re.sub(r"ｎ([ａｅｉｏｕ])", r"ｎｙ\1", text)
+    text = re.sub(r"N([aeiouAEIOU])", r"Ny\1", text)
+    text = re.sub(r"Ｎ([ａｅｉｏｕＡＥＩＯＵ])", r"Ｎｙ\1", text)
+    text = re.sub(r"\!+", " " + random.choice(faces), text)
+    text = re.sub(r"！+", " " + random.choice(faces), text)
+    text = text.replace("ove", "uv")
+    text = text.replace("ｏｖｅ", "ｕｖ")
+    text += " " + random.choice(faces)
+    await event.reply(text)
 
 
 @register(pattern="^/copypasta$")
@@ -136,54 +135,53 @@ async def msg(event):
     if rtext is None:
         await event.reply("Reply to a message tto make meme.")
         return
-    else:
-        emojis = [
-            "😂",
-            "😂",
-            "👌",
-            "✌",
-            "💞",
-            "👍",
-            "👌",
-            "💯",
-            "🎶",
-            "👀",
-            "😂",
-            "👓",
-            "👏",
-            "👐",
-            "🍕",
-            "💥",
-            "🍴",
-            "💦",
-            "💦",
-            "🍑",
-            "🍆",
-            "😩",
-            "😏",
-            "👉👌",
-            "👀",
-            "👅",
-            "😩",
-            "🚰",
-        ]
-        reply_text = random.choice(emojis)
-        b_char = random.choice(rtext).lower()
-        for c in rtext:
-            if c == " ":
-                reply_text += random.choice(emojis)
-            elif c in emojis:
-                reply_text += c
-                reply_text += random.choice(emojis)
-            elif c.lower() == b_char:
-                reply_text += "🅱️"
+    emojis = [
+        "😂",
+        "😂",
+        "👌",
+        "✌",
+        "💞",
+        "👍",
+        "👌",
+        "💯",
+        "🎶",
+        "👀",
+        "😂",
+        "👓",
+        "👏",
+        "👐",
+        "🍕",
+        "💥",
+        "🍴",
+        "💦",
+        "💦",
+        "🍑",
+        "🍆",
+        "😩",
+        "😏",
+        "👉👌",
+        "👀",
+        "👅",
+        "😩",
+        "🚰",
+    ]
+    reply_text = random.choice(emojis)
+    b_char = random.choice(rtext).lower()
+    for c in rtext:
+        if c == " ":
+            reply_text += random.choice(emojis)
+        elif c in emojis:
+            reply_text += c
+            reply_text += random.choice(emojis)
+        elif c.lower() == b_char:
+            reply_text += "🅱️"
+        else:
+            if bool(random.getrandbits(1)):
+                reply_text += c.upper()
             else:
-                if bool(random.getrandbits(1)):
-                    reply_text += c.upper()
-                else:
-                    reply_text += c.lower()
-        reply_text += random.choice(emojis)
-        await event.reply(reply_text)
+                reply_text += c.lower()
+    reply_text += random.choice(emojis)
+    await event.reply(reply_text)
 
 
 @register(pattern="^/bmoji$")
@@ -204,10 +202,9 @@ async def msg(event):
     if rtext is None:
         await event.reply("Reply to a message to make meme.")
         return
-    else:
-        b_char = random.choice(rtext).lower()
-        reply_text = rtext.replace(b_char, "🅱️").replace(b_char.upper(), "🅱️")
-        await event.reply(reply_text)
+    b_char = random.choice(rtext).lower()
+    reply_text = rtext.replace(b_char, "🅱️").replace(b_char.upper(), "🅱️")
+    await event.reply(reply_text)
 
 
 @register(pattern="^/clapmoji$")
@@ -228,11 +225,10 @@ async def msg(event):
     if rtext is None:
         await event.reply("Reply to a message to make meme.")
         return
-    else:
-        reply_text = "👏 "
-        reply_text += rtext.replace(" ", " 👏 ")
-        reply_text += " 👏"
-        await event.reply(reply_text)
+    reply_text = "👏 "
+    reply_text += rtext.replace(" ", " 👏 ")
+    reply_text += " 👏"
+    await event.reply(reply_text)
 
 
 @register(pattern="^/stretch$")
@@ -253,12 +249,11 @@ async def msg(event):
     if rtext is None:
         await event.reply("Reply to a message to make meme.")
         return
-    else:
-        count = random.randint(3, 10)
-        reply_text = re.sub(
-            r"([aeiouAEIOUａｅｉｏｕＡＥＩＯＵ])", (r"\1" * count), rtext
-        )
-        await event.reply(reply_text)
+    count = random.randint(3, 10)
+    reply_text = re.sub(
+        r"([aeiouAEIOUａｅｉｏｕＡＥＩＯＵ])", (r"\1" * count), rtext
+    )
+    await event.reply(reply_text)
 
 
 @register(pattern="^/vapor(?: |$)(.*)")
@@ -307,9 +302,8 @@ async def msg(event):
     if rtext is None:
         await event.reply("Reply to a message to make meme.")
         return
-    else:
-        reply_text = zalgo.zalgo().zalgofy(rtext)
-        await event.reply(reply_text)
+    reply_text = zalgo.zalgo().zalgofy(rtext)
+    await event.reply(reply_text)
 
 
 @register(pattern="^/forbesify$")
@@ -330,8 +324,7 @@ async def msg(event):
     if rtext is None:
         await event.reply("Reply to a message to make meme.")
         return
-    else:
-        data = rtext
+    data = rtext
 
     data = data.lower()
     accidentals = ["VB", "VBD", "VBG", "VBN"]
@@ -608,8 +601,7 @@ async def check_media(reply_message):
         return False
     if not data or data is None:
         return False
-    else:
-        return data
+    return data
 
 
 @register(pattern="^/type (.*)")
@@ -1220,10 +1212,9 @@ async def emoji_fetch(emoji):
         img = emojis[emoji]
         return await transparent(
             urllib.request.urlretrieve(img, "resources/emoji.png")[0])
-    else:
-        img = emojis["⛔"]
-        return await transparent(
-            urllib.request.urlretrieve(img, "resources/emoji.png")[0])
+    img = emojis["⛔"]
+    return await transparent(
+        urllib.request.urlretrieve(img, "resources/emoji.png")[0])
 
 
 async def transparent(emoji):

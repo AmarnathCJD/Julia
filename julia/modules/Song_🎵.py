@@ -279,25 +279,24 @@ async def download_lyrics(v_url):
     if not query:
         await v_url.reply("You haven't specified which song to look for!")
         return
+    song = Song.find_song(query)
+    if song:
+        if song.lyrics:
+            reply = song.format()
+        else:
+            reply = "Couldn't find any lyrics for that song!"
     else:
-        song = Song.find_song(query)
-        if song:
-            if song.lyrics:
-                reply = song.format()
-            else:
-                reply = "Couldn't find any lyrics for that song!"
-        else:
-            reply = "Song not found!"
-        if len(reply) > 4090:
-            with open("lyrics.txt", "w") as f:
-                f.write(f"{reply}")
-            with open("lyrics.txt", "rb") as f:
-                await v_url.client.send_file(
-                    v_url.chat_id,
-                    file=f,
-                    caption="Message length exceeded max limit! Sending as a text file.")
-        else:
-            await v_url.reply(reply)
+        reply = "Song not found!"
+    if len(reply) > 4090:
+        with open("lyrics.txt", "w") as f:
+            f.write(f"{reply}")
+        with open("lyrics.txt", "rb") as f:
+            await v_url.client.send_file(
+                v_url.chat_id,
+                file=f,
+                caption="Message length exceeded max limit! Sending as a text file.")
+    else:
+        await v_url.reply(reply)
 
 global __help__
 file_help = os.path.basename(__file__)

@@ -77,7 +77,7 @@ async def _(event):
                 limit, reply_message.sender_id)
             await event.reply(reply, parse_mode="html")
             return
-        elif sql.get_warn_strength(event.chat_id) == "ban":
+        if sql.get_warn_strength(event.chat_id) == "ban":
          BANNED_RIGHTS = ChatBannedRights(
            until_date=None,
            view_messages=True,
@@ -94,7 +94,7 @@ async def _(event):
             limit, reply_message.sender_id)
          await event.reply(reply, parse_mode="html")
          return
-        elif sql.get_warn_strength(event.chat_id) == "mute":
+        if sql.get_warn_strength(event.chat_id) == "mute":
          MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
          await tbot(EditBannedRequest(event.chat_id, reply_message.sender_id, MUTE_RIGHTS))      
          reply = "{} warnings, <u><a href='tg://user?id={}'>user</a></u> has been muted!".format(
