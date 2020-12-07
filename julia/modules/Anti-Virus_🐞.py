@@ -203,6 +203,7 @@ async def virusscanner(event):
       await event.client.download_file(c, virus)
       gg= await event.reply("Scanning the file ...")
       api_response = api_instance.scan_file(c.file.name)
+      print(api_response)
       if api_response.clean_result == "True":
        await gg.edit("This file is safe ✔️\nNo virus detected 🐞")
       else:
