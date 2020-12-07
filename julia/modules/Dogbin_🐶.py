@@ -1,10 +1,8 @@
-from telethon import events
-import asyncio
 from datetime import datetime
 import os
 import requests
 from julia.events import register
-from julia import ubot, tbot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
+from julia import tbot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
 import asyncio
 from telethon import events
 from telethon.tl import functions
