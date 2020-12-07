@@ -69,3 +69,4 @@ validators==0.18.1
 youtube-search-python==1.3.2
 textblob==0.15.3
 mtranslate==1.7
+cloudmersive_virus_api_client==3.0.1
