@@ -52,8 +52,6 @@ async def can_change_info(message):
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
-global sendscanreport
-
 @register(pattern="^/autoscanit(?: |$)(.*)")
 async def autoscanit(event):
     if event.fwd_from:
