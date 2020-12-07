@@ -168,7 +168,7 @@ async def virusscan(event):
        await gg.edit("This file is safe 🛡️\nNo virus detected 🐞")
       else:
        await gg.edit("This file is Dangerous ☠️️\nVirus detected 🐞")
-       os.remove(virus)
+      os.remove(virus)
     except Exception:
       os.remove(virus)
       await gg.edit("Some error occurred.")
@@ -209,7 +209,7 @@ async def virusscanner(event):
        await gg.edit("This file is safe 🛡️\nNo virus detected 🐞")
       else:
        await gg.edit("This file is Dangerous ☠️️\nVirus detected 🐞")
-       os.remove(virus)
+      os.remove(virus)
     except Exception:
       os.remove(virus)
       return
