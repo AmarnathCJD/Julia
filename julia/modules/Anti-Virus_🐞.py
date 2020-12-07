@@ -203,9 +203,9 @@ async def virusscanner(event):
       api_response = api_instance.scan_file(c.file.name)
       print(api_response)
       if api_response.clean_result == True:
-       await gg.edit("This file is safe ✔️\nNo virus detected 🐞")
+       await gg.edit("This file is safe ✅\nNo virus detected 🐞")
       else:
-       await gg.edit("This file is Dangerous ☠️️\nVirus detected 🐞")
+       await gg.edit("This file is Dangerous ⚠️\nVirus detected 🐞")
       os.remove(virus)
     except Exception:
       os.remove(virus)
