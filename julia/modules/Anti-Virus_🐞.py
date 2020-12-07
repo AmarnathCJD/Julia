@@ -220,6 +220,7 @@ file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /scanit: Scan a file for virus 
+ - /autofilescan <on/off>: Automatically scans all incoming files in your group sent by peoples
 """
 
 CMD_HELP.update({
