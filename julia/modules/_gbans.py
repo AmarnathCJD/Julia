@@ -116,10 +116,9 @@ async def _(event):
 async def join_ban(event):
     if event.chat_id == "-1001158277850":
         return
-    elif event.chat_id == "-1001342790946":
+    if event.chat_id == "-1001342790946":
         return
-    else:
-        pass
+    pass
     if event.user_joined:
         try:
             user = await event.get_user()
@@ -138,10 +137,9 @@ async def join_ban(event):
 async def type_ban(event):
     if event.chat_id == "-1001158277850":
         return
-    elif event.chat_id == "-1001342790946":
+    if event.chat_id == "-1001342790946":
         return
-    else:
-        pass
+    pass
     chats = gbanned.find({})
     for c in chats:
         if event.sender_id == c["user"]:
