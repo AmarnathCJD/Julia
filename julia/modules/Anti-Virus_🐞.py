@@ -176,6 +176,9 @@ async def virusscan(event):
 
 @tbot.on(events.NewMessage(pattern=None))
 async def virusscanner(event):
+ chats = scanfile.find({})
+ for c in chats:
+  if event.chat_id == c["id"]:
     c = event.message
     try:
        c.media.document
