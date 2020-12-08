@@ -152,12 +152,13 @@ async def virusscan(event):
        return
    
     try:
-      fsize = size(c.file.size)
-      if not fsize <= "3.5M":
-         return
       virus = c.file.name
       await event.client.download_file(c, virus)
       gg= await event.reply("Scanning the file ...")
+      fsize = size(c.file.size)
+      if not fsize <= "3.5M":
+         await gg.edit("File size exceeds 3.5MB")
+         return
       api_response = api_instance.scan_file(c.file.name)
       if api_response.clean_result is True:
        await gg.edit("This file is safe ✔️\nNo virus detected 🐞")
