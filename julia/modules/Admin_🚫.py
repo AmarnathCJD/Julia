@@ -257,7 +257,7 @@ async def promote(promt):
     # If Telethon spit BadRequestError, assume
     # we don't have Promote permission
     except Exception:
-        await event.reply("Failed to promote that user !")
+        await event.reply("Failed to promote.")
         return
 
 
@@ -302,14 +302,14 @@ async def demote(dmod):
     try:
         await tbot(
             EditAdminRequest(dmod.chat_id, user.id, newrights, "Admin"))
+        await dmod.reply("Demoted Successfully!")
 
     # If we catch BadRequestError from Telethon
     # Assume we don't have permission to demote
     except Exception:
-        await dmod.reply("Can't demote, maybe you tried to demote an admin whom I haven't promoted !")
+        await dmod.reply("Failed to demote.")
         return
-    await dmod.reply("Demoted Successfully!")
-
+    
 
 @register(pattern="^/pin(?: |$)(.*)")
 async def pin(msg):
@@ -340,7 +340,7 @@ async def pin(msg):
             UpdatePinnedMessageRequest(msg.to_id, to_pin, is_silent))
         await msg.reply("Pinned Successfully!")
     except Exception:
-        await msg.reply("Failed to pin the message !")
+        await msg.reply("Failed to pin.")
         return
 
 @register(pattern="^/unpin$")
@@ -410,6 +410,8 @@ async def set_group_photo(gpic):
             await gpic.reply(PP_TOO_SMOL)
         except ImageProcessFailedError:
             await gpic.reply(PP_ERROR)
+        except:
+            await gpic.reply("Failed to set group pic.")
 
 
 @register(pattern="^/settitle ?(.*)")
@@ -450,7 +452,7 @@ async def settitle(promt):
         await promt.reply("Title set successfully !")
 
     except Exception:
-        await promt.reply("Failed to set title for that user !")
+        await promt.reply("Failed to set title.")
         return
 
 
@@ -684,6 +686,7 @@ async def ban(bon):
         await bon.reply("Banned Successfully")
 
     except Exception as e:
+        await bon.reply("Failed to ban.")
         print(e)
         return
 
@@ -722,6 +725,7 @@ async def kick(bon):
         await bon.reply("Kicked Successfully")
 
     except BaseException:
+        await bon.reply("Failed to kick.")
         return
 
 
@@ -759,6 +763,7 @@ async def unban(bon):
         await bon.reply("Unbanned Successfully")
 
     except BaseException:
+        await bon.reply("Failed to unban.")
         return
 
 
@@ -841,8 +846,8 @@ async def spider(spdr):
         await spdr.reply("Muted Successfully !")
 
     except BaseException:
-        return await spdr.reply("Couldn't fetch that user !")
-
+        await bon.reply("Failed to mute.")
+        return
 
 @register(pattern="^/unmute(?: |$)(.*)")
 async def spiderr(spdr):
@@ -882,8 +887,8 @@ async def spiderr(spdr):
         await spdr.reply("Unmuted Successfully !")
 
     except BaseException:
-        return await spdr.reply("Couldn't fetch that user !")
-
+        await bon.reply("Failed to unmute.")
+        return
 
 @register(pattern="^/lock ?(.*)")
 async def locks(event):
