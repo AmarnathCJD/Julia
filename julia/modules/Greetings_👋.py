@@ -19,7 +19,9 @@ import julia.modules.sql.rules_sql as sql
 from telethon import *
 from telethon.tl import *
 from julia import *
-
+from random import randint
+from PIL import Image, ImageDraw, ImageFont
+ 
 async def can_change_info(message):
     result = await tbot(
         functions.channels.GetParticipantRequest(
@@ -103,6 +105,8 @@ async def _(event):
              )
              update_previous_welcome(event.chat_id, current_message.id)
 
+# -- @MissJulia_Robot
+
 @tbot.on(events.CallbackQuery(pattern=r"start-rules-(\d+)"))
 async def rm_warn(event):
     rules = sql.get_rules(event.chat_id)
@@ -131,11 +135,14 @@ async def rm_warn(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     try:
-       await tbot.send_message(
-            user_id,
-            text,
-            parse_mode="markdown",
-            link_preview=False)
+      num= random.randint(1,9)
+      img = Image.new('RGB', (300, 200), color ="white") 
+      fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+      d = ImageDraw.Draw(img)
+      d.text((110,50), str(num), font=fnt, fill="black")
+      img.save('checkbot.png')
+      button=[[Button.inline('1', data=f'1-{userid}'), Button.inline('2', data=f'2-{userid}'), Button.inline('3', data=f'3-{userid}')], [Button.inline('4', data=f'4-{userid}'), Button.inline('5', data=f'5-{userid}'), Button.inline('6', data=f'6-{userid}')], [Button.inline('7', data=f'7-{userid}'), Button.inline('8', data=f'8-{userid}'), Button.inline('9', data=f'9-{userid}')]]
+      await tbot.send_file(event.chat_id, "checkbot.png", caption="See the above image and press the exact button corresponding to the number in the image", buttons=button)
     except Exception:
         await event.answer("Sorry I don't have permission to unmute you please contact some adminstrator.", alert=True)
 
