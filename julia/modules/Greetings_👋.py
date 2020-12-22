@@ -32,25 +32,6 @@ async def can_change_info(message):
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
 
-@tbot.on(events.CallbackQuery(pattern=r"start-rules-(\d+)"))
-async def rm_warn(event):
-    rules = sql.get_rules(event.chat_id)
-    # print(rules)
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
-       await event.answer("You haven't send that command !")
-       return
-    text = f"The rules for **{event.chat.title}** are:\n\n{rules}"
-    try:
-        await tbot.send_message(
-            user_id,
-            text,
-            parse_mode="markdown",
-            link_preview=False)
-    except Exception:
-        await event.answer("I can't send you the rules as you haven't started me in PM, first start me !", alert=True)
-
-
 @tbot.on(events.ChatAction())  # pylint:disable=E0602
 async def _(event):
     cws = get_current_welcome_settings(event.chat_id)
@@ -88,8 +69,9 @@ async def _(event):
             userid = a_user.id
             current_saved_welcome_message = cws.custom_welcome_message
             mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-           
-            current_message = await event.reply(
+            rules = sql.get_rules(chat_id)
+            if rules:
+             current_message = await event.reply(
                 current_saved_welcome_message.format(
                     mention=mention,
                     title=title,
@@ -101,8 +83,44 @@ async def _(event):
                     userid=userid,
                 ),
                 file=cws.media_file_id,
-            )
-            update_previous_welcome(event.chat_id, current_message.id)
+                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')]]
+             )
+             update_previous_welcome(event.chat_id, current_message.id)
+
+             
+            else:
+             current_message = await event.reply(
+                current_saved_welcome_message.format(
+                    mention=mention,
+                    title=title,
+                    count=count,
+                    first=first,
+                    last=last,
+                    fullname=fullname,
+                    username=username,
+                    userid=userid,
+                ),
+                file=cws.media_file_id,
+             )
+             update_previous_welcome(event.chat_id, current_message.id)
+
+@tbot.on(events.CallbackQuery(pattern=r"start-rules-(\d+)"))
+async def rm_warn(event):
+    rules = sql.get_rules(event.chat_id)
+    # print(rules)
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You haven't send that command !")
+       return
+    text = f"The rules for **{event.chat.title}** are:\n\n{rules}"
+    try:
+        await tbot.send_message(
+            user_id,
+            text,
+            parse_mode="markdown",
+            link_preview=False)
+    except Exception:
+        await event.answer("I can't send you the rules as you haven't started me in PM, first start me !", alert=True)
 
 
 @register(pattern="^/setwelcome")  # pylint:disable=E0602
