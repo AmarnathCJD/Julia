@@ -213,9 +213,15 @@ __help__ = """
  - /checkwelcome: Check whether you have a welcome note in the chat.
  - /clearwelcome: Deletes the welcome note for the current chat.
 
+**Goodbye**
+ - /setgoodbye <goodbye message> or <reply to a text>: Saves the message as a goodbye note in the chat.
+ - /checkgoodbye: Check whether you have a goodbye note in the chat.
+ - /cleargoodbye: Deletes the goodbye note for the current chat.
+
 **Available variables for formatting greeting message:**
 `{mention}, {title}, {count}, {first}, {last}, {fullname}, {userid}, {username}, {my_first}, {my_fullname}, {my_last}, {my_mention}, {my_username}`
-"""
+
+**Note**: __You can't set new welcome message before deleting the previous one.__"""
 
 CMD_HELP.update({
     file_helpo: [
