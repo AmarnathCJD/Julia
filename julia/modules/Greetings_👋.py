@@ -98,7 +98,7 @@ async def _(event):
     cws = get_current_welcome_settings(event.chat_id)
     if hasattr(cws, "custom_welcome_message"):
         await event.reply(
-           "This chat's welcome message is\n\n`{}`.".format(cws.custom_welcome_message)
+           "This chat's welcome message is\n\n`{}`".format(cws.custom_welcome_message)
         )
     else:
         await event.reply("No welcome message found for this chat")
