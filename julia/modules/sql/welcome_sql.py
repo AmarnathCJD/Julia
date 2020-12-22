@@ -25,9 +25,33 @@ class Welcome(BASE):
         self.should_clean_welcome = should_clean_welcome
         self.previous_welcome = previous_welcome
 
+class Goodbye(BASE):
+    __tablename__ = "goodbye"
+    chat_id = Column(String(14), primary_key=True)
+    custom_goodbye_message = Column(UnicodeText)
+    media_file_id = Column(UnicodeText)
+    should_clean_goodbye = Column(Boolean, default=False)
+    previous_goodbye = Column(BigInteger)
+
+    def __init__(
+        self,
+        chat_id,
+        custom_goodbye_message,
+        should_clean_goodbye,
+        previous_goodbye,
+        media_file_id=None,
+    ):
+        self.chat_id = chat_id
+        self.custom_goodbye_message = custom_goodbye_message
+        self.media_file_id = media_file_id
+        self.should_clean_goodbye = should_clean_goodbye
+        self.previous_goodbye = previous_goodbye
+
+
+
 
 Welcome.__table__.create(checkfirst=True)
-
+Goodbye.__table__.create(checkfirst=True)
 
 def get_current_welcome_settings(chat_id):
     try:
