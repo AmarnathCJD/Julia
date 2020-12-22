@@ -83,7 +83,7 @@ async def _(event):
                     userid=userid,
                 ),
                 file=cws.media_file_id,
-                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')]]
+                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
              )
              update_previous_welcome(event.chat_id, current_message.id)           
             else:
@@ -99,6 +99,7 @@ async def _(event):
                     userid=userid,
                 ),
                 file=cws.media_file_id,
+                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
              )
              update_previous_welcome(event.chat_id, current_message.id)
 
