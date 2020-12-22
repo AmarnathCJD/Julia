@@ -69,7 +69,7 @@ async def _(event):
             userid = a_user.id
             current_saved_welcome_message = cws.custom_welcome_message
             mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-            rules = sql.get_rules(chat_id)
+            rules = sql.get_rules(event.chat_id)
             if rules:
              current_message = await event.reply(
                 current_saved_welcome_message.format(
@@ -85,9 +85,7 @@ async def _(event):
                 file=cws.media_file_id,
                 buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')]]
              )
-             update_previous_welcome(event.chat_id, current_message.id)
-
-             
+             update_previous_welcome(event.chat_id, current_message.id)           
             else:
              current_message = await event.reply(
                 current_saved_welcome_message.format(
