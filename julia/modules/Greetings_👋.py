@@ -87,7 +87,7 @@ async def _(event):
     rm_welcome_setting(event.chat_id)
     await event.reply(
         "Welcome message cleared. "
-        + "The previous welcome message was `{}`.".format(cws.custom_welcome_message)
+        + "The previous welcome message was `{}`".format(cws.custom_welcome_message)
     )
 
 
