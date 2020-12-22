@@ -120,6 +120,18 @@ async def rm_warn(event):
     except Exception:
         await event.answer("I can't send you the rules as you haven't started me in PM, first start me !", alert=True)
 
+@tbot.on(events.CallbackQuery(pattern=r"check-bot-(\d+)"))
+async def rm_warn(event):
+    if event.via_bot_id:
+       return        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    try:
+        ...
+    except Exception:
+        await event.answer("Sorry I don't have permission to unmute you please contact some adminstrator.", alert=True)
+
 
 @register(pattern="^/setwelcome")  # pylint:disable=E0602
 async def _(event):
