@@ -105,7 +105,7 @@ def add_goodbye_setting(
     media_file_id,
 ):
     # adder = SESSION.query(Goodbye).get(chat_id)
-    adder = goodbye(
+    adder = Goodbye(
         chat_id,
         custom_goodbye_message,
         should_clean_goodbye,
