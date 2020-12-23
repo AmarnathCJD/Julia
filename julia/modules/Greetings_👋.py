@@ -209,6 +209,7 @@ async def cbot(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
+   print ("boomer")
    try:
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
