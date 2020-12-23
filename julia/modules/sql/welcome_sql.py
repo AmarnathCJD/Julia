@@ -25,6 +25,7 @@ class Welcome(BASE):
         self.should_clean_welcome = should_clean_welcome
         self.previous_welcome = previous_welcome
 
+
 class Goodbye(BASE):
     __tablename__ = "goodbye"
     chat_id = Column(String(14), primary_key=True)
@@ -51,6 +52,7 @@ class Goodbye(BASE):
 Welcome.__table__.create(checkfirst=True)
 Goodbye.__table__.create(checkfirst=True)
 
+
 def get_current_welcome_settings(chat_id):
     try:
         return SESSION.query(Welcome).filter(Welcome.chat_id == str(chat_id)).one()
@@ -58,6 +60,7 @@ def get_current_welcome_settings(chat_id):
         return None
     finally:
         SESSION.close()
+
 
 def add_welcome_setting(
     chat_id,
@@ -77,17 +80,20 @@ def add_welcome_setting(
     SESSION.add(adder)
     SESSION.commit()
 
+
 def rm_welcome_setting(chat_id):
     rem = SESSION.query(Welcome).get(str(chat_id))
     if rem:
         SESSION.delete(rem)
         SESSION.commit()
 
+
 def update_previous_welcome(chat_id, previous_welcome):
     row = SESSION.query(Welcome).get(str(chat_id))
     row.previous_welcome = previous_welcome
     # commit the changes to the DB
     SESSION.commit()
+
 
 def get_current_goodbye_settings(chat_id):
     try:
@@ -96,6 +102,7 @@ def get_current_goodbye_settings(chat_id):
         return None
     finally:
         SESSION.close()
+
 
 def add_goodbye_setting(
     chat_id,
@@ -114,13 +121,15 @@ def add_goodbye_setting(
     )
     SESSION.add(adder)
     SESSION.commit()
-    
+
+
 def rm_goodbye_setting(chat_id):
     rem = SESSION.query(Goodbye).get(str(chat_id))
     if rem:
         SESSION.delete(rem)
         SESSION.commit()
-        
+
+
 def update_previous_goodbye(chat_id, previous_goodbye):
     row = SESSION.query(Goodbye).get(str(chat_id))
     row.previous_goodbye = previous_goodbye
