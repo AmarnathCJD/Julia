@@ -180,8 +180,7 @@ async def rules_st(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"check-bot-(\d+)"))
 async def cbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     chat_id = event.chat_id
     chat_title = event.chat.title
@@ -210,8 +209,7 @@ async def cbot(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -240,8 +238,7 @@ async def checkbot(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -269,8 +266,7 @@ async def checkbot(event):
           
 @tbot.on(events.CallbackQuery(pattern=r"3-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -298,8 +294,7 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"4-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -327,8 +322,7 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"5-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -356,8 +350,7 @@ async def checkbot(event):
         
 @tbot.on(events.CallbackQuery(pattern=r"6-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -385,8 +378,7 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"7-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -414,8 +406,7 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"8-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
@@ -443,8 +434,7 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"9-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    if event.sender.bot:
-       return        
+
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
