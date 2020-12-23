@@ -176,6 +176,7 @@ async def cbot(event):
     if event.sender.bot:
        return        
     user_id = int(event.pattern_match.group(1))        
+    chat_id = event.chat_id
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -185,9 +186,12 @@ async def cbot(event):
     d = ImageDraw.Draw(img)
     d.text((110,50), str(num), font=fnt, fill="black")
     img.save('checkbot.png')
-    button=[[Button.inline('1', data=f'1-{userid}-{num}'), Button.inline('2', data=f'2-{userid}-{num}'), Button.inline('3', data=f'3-{userid}-{num}')], [Button.inline('4', data=f'4-{userid}-{num}'), Button.inline('5', data=f'5-{userid}-{num}'), Button.inline('6', data=f'6-{userid}-{num}')], [Button.inline('7', data=f'7-{userid}-{num}'), Button.inline('8', data=f'8-{userid}-{num}'), Button.inline('9', data=f'9-{userid}-{num}')]]
-    await tbot.send_file(user_id, "checkbot.png", caption="See the above image and press the exact button corresponding to the number in the image", buttons=button)
-        
+    button=[[Button.inline('1', data=f'1-{userid}-{num}-{chatid}'), Button.inline('2', data=f'2-{userid}-{num}-{chatid}'), Button.inline('3', data=f'3-{userid}-{num}-{chatid}')], [Button.inline('4', data=f'4-{userid}-{num}-{chatid}'), Button.inline('5', data=f'5-{userid}-{num}-{chatid}'), Button.inline('6', data=f'6-{userid}-{num}-{chatid}')], [Button.inline('7', data=f'7-{userid}-{num}-{chatid}'), Button.inline('8', data=f'8-{userid}-{num}-{chatid}'), Button.inline('9', data=f'9-{userid}-{num}-{chatid}')]]
+    try:
+      await tbot.send_file(user_id, "checkbot.png", caption="See the above image and press the exact button corresponding to the number in the image", buttons=button)
+    except Exception:
+      await event.answer("I can't send you the captcha as you haven't started me in PM, first start me !", alert=True)
+
 @tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
@@ -203,11 +207,11 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.send_message(user_id, "Yep you are verified as a human being, you are unmuted in that chat.")
-      except:
-       await event.answer("Sorry I don't have permission to unmute you please contact some adminstrator.", alert=True)
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
        await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
-       await event.answer(
+       
 
 @tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)"))
 async def checkbot(event):
