@@ -32,6 +32,12 @@ botcheck = db.checkbot
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
 UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 
+imgg = Image.new('RGB', (300, 200), color ="white") 
+fntt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 50)
+dd = ImageDraw.Draw(imgg)
+dd.text((50,50), "Loading ...", font=fntt, fill="black")
+imgg.save('loadcheckbot.png')
+
 async def can_change_info(message):
     result = await tbot(
         functions.channels.GetParticipantRequest(
@@ -187,12 +193,12 @@ async def cbot(event):
     d = ImageDraw.Draw(img)
     d.text((110,50), str(num), font=fnt, fill="black")
     img.save('checkbot.png')
-    try:
-      text = f"Hi, please solve the below captcha to start speaking in **{chat_title}**"
+    try:      
+      await tbot.send_message(user_id, "Hi, please solve the below captcha to start speaking in **{chat_title}**")
       miid = await tbot.send_message(
             user_id,
             "Loading ...",
-            file="checkbot.png",
+            file="loadcheckbot.png",
             parse_mode="markdown")
       tid = miid
       button=[[Button.inline('1', data=f'1-{userid}-{num}-{chatid}-{tid}'), Button.inline('2', data=f'2-{userid}-{num}-{chatid}-{tid}'), Button.inline('3', data=f'3-{userid}-{num}-{chatid}-{tid}')], [Button.inline('4', data=f'4-{userid}-{num}-{chatid}-{tid}'), Button.inline('5', data=f'5-{userid}-{num}-{chatid}-{tid}'), Button.inline('6', data=f'6-{userid}-{num}-{chatid}-{tid}')], [Button.inline('7', data=f'7-{userid}-{num}-{chatid}-{tid}'), Button.inline('8', data=f'8-{userid}-{num}-{chatid}-{tid}'), Button.inline('9', data=f'9-{userid}-{num}-{chatid}-{tid}')]]   
