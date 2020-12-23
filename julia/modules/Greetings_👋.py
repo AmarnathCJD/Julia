@@ -105,10 +105,10 @@ async def _(event):
              )
              update_previous_welcome(event.chat_id, current_message.id)
 
-# -- @MissJulia_Robot
+# -- @MissJulia_Robot (sassiet captcha ever) --#
 
 @tbot.on(events.CallbackQuery(pattern=r"start-rules-(\d+)"))
-async def rm_warn(event):
+async def rules_st(event):
     rules = sql.get_rules(event.chat_id)
     # print(rules)
     user_id = int(event.pattern_match.group(1))        
@@ -128,14 +128,15 @@ async def rm_warn(event):
 # -- @MissJulia_Robot -- #
 
 @tbot.on(events.CallbackQuery(pattern=r"check-bot-(\d+)"))
-async def rm_warn(event):
+async def cbot(event):
     if event.sender.bot:
        return        
+    user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     try:
-      num= random.randint(1,9)
+      num = random.randint(1,9)
       img = Image.new('RGB', (300, 200), color ="white") 
       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
       d = ImageDraw.Draw(img)
@@ -146,6 +147,96 @@ async def rm_warn(event):
     except Exception:
         await event.answer("Sorry I don't have permission to unmute you please contact some adminstrator.", alert=True)
 
+@tbot.on(events.CallbackQuery(pattern=r"1-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 1
+
+@tbot.on(events.CallbackQuery(pattern=r"2-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 2
+    
+@tbot.on(events.CallbackQuery(pattern=r"3-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 3
+
+@tbot.on(events.CallbackQuery(pattern=r"4-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 4
+
+@tbot.on(events.CallbackQuery(pattern=r"5-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 5
+    
+@tbot.on(events.CallbackQuery(pattern=r"6-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 6
+    
+@tbot.on(events.CallbackQuery(pattern=r"7-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 7
+
+@tbot.on(events.CallbackQuery(pattern=r"8-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 8
+    
+@tbot.on(events.CallbackQuery(pattern=r"9-(\d+)"))
+async def checkbot(event):
+    if event.sender.bot:
+       return        
+    user_id = int(event.pattern_match.group(1))        
+    if not event.sender_id == user_id:
+       await event.answer("You aren't the person whom should be verified.")
+       return
+    cnum = 9
+    
 
 @register(pattern="^/setwelcome")  # pylint:disable=E0602
 async def _(event):
