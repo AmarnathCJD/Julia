@@ -48,8 +48,6 @@ class Goodbye(BASE):
         self.previous_goodbye = previous_goodbye
 
 
-
-
 Welcome.__table__.create(checkfirst=True)
 Goodbye.__table__.create(checkfirst=True)
 
@@ -60,16 +58,6 @@ def get_current_welcome_settings(chat_id):
         return None
     finally:
         SESSION.close()
-
-
-def get_current_goodbye_settings(chat_id):
-    try:
-        return SESSION.query(Welcome).filter(Welcome.chat_id == str(chat_id)).one()
-    except:
-        return None
-    finally:
-        SESSION.close()
-
 
 def add_welcome_setting(
     chat_id,
@@ -89,39 +77,11 @@ def add_welcome_setting(
     SESSION.add(adder)
     SESSION.commit()
 
-
-def add_goodbye_setting(
-    chat_id,
-    custom_welcome_message,
-    should_clean_welcome,
-    previous_welcome,
-    media_file_id,
-):
-    # adder = SESSION.query(Welcome).get(chat_id)
-    adder = Welcome(
-        chat_id,
-        custom_welcome_message,
-        should_clean_welcome,
-        previous_welcome,
-        media_file_id,
-    )
-    SESSION.add(adder)
-    SESSION.commit()
-
-
 def rm_welcome_setting(chat_id):
     rem = SESSION.query(Welcome).get(str(chat_id))
     if rem:
         SESSION.delete(rem)
         SESSION.commit()
-
-
-def rm_goodbye_setting(chat_id):
-    rem = SESSION.query(Welcome).get(str(chat_id))
-    if rem:
-        SESSION.delete(rem)
-        SESSION.commit()
-
 
 def update_previous_welcome(chat_id, previous_welcome):
     row = SESSION.query(Welcome).get(chat_id)
@@ -129,9 +89,40 @@ def update_previous_welcome(chat_id, previous_welcome):
     # commit the changes to the DB
     SESSION.commit()
 
+def get_current_goodbye_settings(chat_id):
+    try:
+        return SESSION.query(Goodbye).filter(Goodbye.chat_id == str(chat_id)).one()
+    except:
+        return None
+    finally:
+        SESSION.close()
 
-def update_previous_goodbye(chat_id, previous_welcome):
-    row = SESSION.query(Welcome).get(chat_id)
-    row.previous_welcome = previous_welcome
+def add_goodbye_setting(
+    chat_id,
+    custom_goodbye_message,
+    should_clean_goodbye,
+    previous_goodbye,
+    media_file_id,
+):
+    # adder = SESSION.query(Goodbye).get(chat_id)
+    adder = goodbye(
+        chat_id,
+        custom_goodbye_message,
+        should_clean_goodbye,
+        previous_goodbye,
+        media_file_id,
+    )
+    SESSION.add(adder)
+    SESSION.commit()
+    
+def rm_goodbye_setting(chat_id):
+    rem = SESSION.query(Goodbye).get(str(chat_id))
+    if rem:
+        SESSION.delete(rem)
+        SESSION.commit()
+        
+def update_previous_goodbye(chat_id, previous_goodbye):
+    row = SESSION.query(Goodbye).get(chat_id)
+    row.previous_goodbye = previous_goodbye
     # commit the changes to the DB
     SESSION.commit()
