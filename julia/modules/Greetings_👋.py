@@ -207,7 +207,7 @@ async def cbot(event):
       print(e)
       await event.answer("I can't send you the captcha as you haven't started me in PM, first start me !", alert=True)
 
-@tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"1-(\d+)"))
 async def checkbot(event):
    print ("boomer")
    try:
