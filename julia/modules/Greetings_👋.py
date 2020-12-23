@@ -195,7 +195,7 @@ async def cbot(event):
     d.text((110,50), str(num), font=fnt, fill="black")
     img.save('checkbot.png')
     try:      
-      await tbot.send_message(user_id, "Hi, please solve the below captcha to start speaking in **{chat_title}**")
+      await tbot.send_message(user_id, f"Hi, please solve the below captcha to start speaking in **{chat_title}**")
       miid = await tbot.send_message(
             user_id,
             "Loading ...",
@@ -204,7 +204,8 @@ async def cbot(event):
       tid = miid
       button=[[Button.inline('1', data=f'1-{userid}-{num}-{chatid}-{tid}'), Button.inline('2', data=f'2-{userid}-{num}-{chatid}-{tid}'), Button.inline('3', data=f'3-{userid}-{num}-{chatid}-{tid}')], [Button.inline('4', data=f'4-{userid}-{num}-{chatid}-{tid}'), Button.inline('5', data=f'5-{userid}-{num}-{chatid}-{tid}'), Button.inline('6', data=f'6-{userid}-{num}-{chatid}-{tid}')], [Button.inline('7', data=f'7-{userid}-{num}-{chatid}-{tid}'), Button.inline('8', data=f'8-{userid}-{num}-{chatid}-{tid}'), Button.inline('9', data=f'9-{userid}-{num}-{chatid}-{tid}')]]   
       await tbot.edit_message(tid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
-    except Exception:
+    except Exception as e:
+      print(e)
       await event.answer("I can't send you the captcha as you haven't started me in PM, first start me !", alert=True)
 
 @tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)-(\d+)"))
