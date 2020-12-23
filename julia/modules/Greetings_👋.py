@@ -201,7 +201,7 @@ async def cbot(event):
             file="loadcheckbot.png",
             parse_mode="markdown")
       tid = miid.id
-      button=[[Button.inline('1', data=f'1-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('2', data=f'2-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('3', data=f'3-{user_id}-{num}-{chat_id}-{tid}')], [Button.inline('4', data=f'4-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('5', data=f'5-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('6', data=f'6-{user_id}-{num}-{chat_id}-{tid}')], [Button.inline('7', data=f'7-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('8', data=f'8-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('9', data=f'9-{user_id}-{num}-{chat_id}-{tid}')]]   
+      button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{tid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{tid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{tid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{tid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{tid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{tid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{tid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{tid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{tid}')]]   
       await tbot.edit_message(user_id, tid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
     except Exception as e:
       print(e)
@@ -209,16 +209,17 @@ async def cbot(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"1-(\d+)"))
 async def checkbot(event):
-   print ("boomer")
-   try:
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 1
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -233,22 +234,24 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
    except Exception as e:
        print (e)     
 
 @tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
-    user_id = int(event.pattern_match.group(1))        
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
+    msgid = msgid.strip()
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 2
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -263,20 +266,22 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
           
 @tbot.on(events.CallbackQuery(pattern=r"3-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 3
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -291,20 +296,22 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"4-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 4
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -319,20 +326,22 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"5-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 5
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -347,20 +356,22 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
         
 @tbot.on(events.CallbackQuery(pattern=r"6-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 6
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -375,20 +386,22 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"7-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 7
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -403,20 +416,22 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"8-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 8
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -431,20 +446,22 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"9-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-
+    meta = event.pattern_match.group(1)    
+    if "|" in meta:
+        user_id, onum, chat_id, msgid = quew.split("|")
+    user_id = user_id.strip()
+    chat_id = chat_id.strip()
+    onum = onum.strip()
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 9
-    onum = int(event.pattern_match.group(2))
-    chat_id = int(event.pattern_match.group(3))
-    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
@@ -459,7 +476,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{user_id}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{user_id}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{user_id}-{onum}-{chat_id}-{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @register(pattern="^/setwelcome")  # pylint:disable=E0602
