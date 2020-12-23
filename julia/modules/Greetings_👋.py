@@ -211,7 +211,7 @@ async def cbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -243,7 +243,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -273,7 +273,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -303,7 +303,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -333,7 +333,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -363,7 +363,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -393,7 +393,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -423,7 +423,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
@@ -453,7 +453,7 @@ async def checkbot(event):
 async def checkbot(event):
     meta = event.pattern_match.group(1)    
     if "|" in meta:
-        user_id, onum, chat_id, msgid = quew.split("|")
+        user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
