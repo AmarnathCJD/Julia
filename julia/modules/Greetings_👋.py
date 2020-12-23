@@ -19,7 +19,7 @@ import julia.modules.sql.rules_sql as sql
 from telethon import *
 from telethon.tl import *
 from julia import *
-from random import randint
+import random
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.functions.channels import EditBannedRequest
 from pymongo import MongoClient
