@@ -191,15 +191,16 @@ async def cbot(event):
       text = f"Hi, please solve the below captcha to start speaking in **{chat_title}**"
       miid = await tbot.send_message(
             user_id,
-            text,
+            "Loading ...",
+            file="checkbot.png",
             parse_mode="markdown")
-      tid = miid.id
+      tid = miid
       button=[[Button.inline('1', data=f'1-{userid}-{num}-{chatid}-{tid}'), Button.inline('2', data=f'2-{userid}-{num}-{chatid}-{tid}'), Button.inline('3', data=f'3-{userid}-{num}-{chatid}-{tid}')], [Button.inline('4', data=f'4-{userid}-{num}-{chatid}-{tid}'), Button.inline('5', data=f'5-{userid}-{num}-{chatid}-{tid}'), Button.inline('6', data=f'6-{userid}-{num}-{chatid}-{tid}')], [Button.inline('7', data=f'7-{userid}-{num}-{chatid}-{tid}'), Button.inline('8', data=f'8-{userid}-{num}-{chatid}-{tid}'), Button.inline('9', data=f'9-{userid}-{num}-{chatid}-{tid}')]]   
-      await tbot.edit_message(user_id, file="checkbot.png", caption="See the above image and press the exact button corresponding to the number in the image", buttons=button)
+      await tbot.edit_message(tid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
     except Exception:
       await event.answer("I can't send you the captcha as you haven't started me in PM, first start me !", alert=True)
 
-@tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -210,10 +211,11 @@ async def checkbot(event):
     cnum = 1
     onum = int(event.pattern_match.group(2))
     chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.send_message(user_id, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
