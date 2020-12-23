@@ -83,25 +83,10 @@ async def _(event):
             mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
             rules = sql.get_rules(event.chat_id)
             if rules:
-            ...
-             current_message = await event.reply(
-                current_saved_welcome_message.format(
-                    mention=mention,
-                    title=title,
-                    count=count,
-                    first=first,
-                    last=last,
-                    fullname=fullname,
-                    username=username,
-                    userid=userid,
-                ),
-                file=cws.media_file_id,
-                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
-             )
-             await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
-             update_previous_welcome(event.chat_id, current_message.id)           
-            else:
-             current_message = await event.reply(
+             chats = botcheck.find({})
+             for c in chats:
+              if event.chat_id == c["id"]:
+               current_message = await event.reply(
                 current_saved_welcome_message.format(
                     mention=mention,
                     title=title,
@@ -113,9 +98,56 @@ async def _(event):
                     userid=userid),
                 file=cws.media_file_id,
                 buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
-             )
-             await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
-             update_previous_welcome(event.chat_id, current_message.id)
+               )
+               await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
+               update_previous_welcome(event.chat_id, current_message.id)           
+              else:
+               current_message = await event.reply(
+                current_saved_welcome_message.format(
+                    mention=mention,
+                    title=title,
+                    count=count,
+                    first=first,
+                    last=last,
+                    fullname=fullname,
+                    username=username,
+                    userid=userid),
+                file=cws.media_file_id,
+                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')]],
+               )
+               update_previous_welcome(event.chat_id, current_message.id)
+            else:
+             chats = botcheck.find({})
+             for c in chats:
+              if event.chat_id == c["id"]:
+               current_message = await event.reply(
+                current_saved_welcome_message.format(
+                    mention=mention,
+                    title=title,
+                    count=count,
+                    first=first,
+                    last=last,
+                    fullname=fullname,
+                    username=username,
+                    userid=userid),
+                file=cws.media_file_id,
+                buttons=[[Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
+               )
+               await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
+               update_previous_welcome(event.chat_id, current_message.id)
+              else:
+               current_message = await event.reply(
+                current_saved_welcome_message.format(
+                    mention=mention,
+                    title=title,
+                    count=count,
+                    first=first,
+                    last=last,
+                    fullname=fullname,
+                    username=username,
+                    userid=userid),
+                file=cws.media_file_id)
+               update_previous_welcome(event.chat_id, current_message.id)
 
 # -- @MissJulia_Robot (sassiet captcha ever) --#
 
