@@ -23,6 +23,7 @@ from random import randint
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.functions.channels import EditBannedRequest
 from pymongo import MongoClient
+from telethon.tl.types import ChatBannedRights
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
