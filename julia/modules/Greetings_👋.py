@@ -202,7 +202,7 @@ async def cbot(event):
             file="loadcheckbot.png",
             parse_mode="markdown")
       tid = miid
-      button=[[Button.inline('1', data=f'1-{user_id}-{num}-{chat_id}-{tid}''), Button.inline('2', data=f'2-{user_id}-{num}-{chat_id}-{tid}''), Button.inline('3', data=f'3-{user_id}-{num}-{chat_id}-{tid}'')], [Button.inline('4', data=f'4-{user_id}-{num}-{chat_id}-{tid}''), Button.inline('5', data=f'5-{user_id}-{num}-{chat_id}-{tid}''), Button.inline('6', data=f'6-{user_id}-{num}-{chat_id}-{tid}'')], [Button.inline('7', data=f'7-{user_id}-{num}-{chat_id}-{tid}''), Button.inline('8', data=f'8-{user_id}-{num}-{chat_id}-{tid}''), Button.inline('9', data=f'9-{user_id}-{num}-{chat_id}-{tid}'')]]   
+      button=[[Button.inline('1', data=f'1-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('2', data=f'2-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('3', data=f'3-{user_id}-{num}-{chat_id}-{tid}')], [Button.inline('4', data=f'4-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('5', data=f'5-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('6', data=f'6-{user_id}-{num}-{chat_id}-{tid}')], [Button.inline('7', data=f'7-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('8', data=f'8-{user_id}-{num}-{chat_id}-{tid}'), Button.inline('9', data=f'9-{user_id}-{num}-{chat_id}-{tid}')]]   
       await tbot.edit_message(tid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
     except Exception as e:
       print(e)
