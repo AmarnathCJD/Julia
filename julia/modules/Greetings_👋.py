@@ -22,6 +22,12 @@ from julia import *
 from random import randint
 from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.functions.channels import EditBannedRequest
+from pymongo import MongoClient
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client["missjuliarobot"]
+botcheck = db.checkbot
 
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
 UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
@@ -77,6 +83,7 @@ async def _(event):
             mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
             rules = sql.get_rules(event.chat_id)
             if rules:
+            ...
              current_message = await event.reply(
                 current_saved_welcome_message.format(
                     mention=mention,
@@ -412,7 +419,7 @@ async def welcome_verify(event):
     if not await can_change_info(message=event):
         return
     input = event.pattern_match.group(1)
-    chats = scanfile.find({})
+    chats = botcheck.find({})
     if not input:
         for c in chats:
             if event.chat_id == c["id"]:
@@ -426,25 +433,25 @@ async def welcome_verify(event):
         return
     if input in "on":
         if event.is_group:
-            chats = scanfile.find({})
+            chats = botcheck.find({})
             for c in chats:
                 if event.chat_id == c["id"]:
                     await event.reply(
-                        "Autofilescan is already enabled for this chat.")
+                        "Welcome Captcha is already enabled for this chat.")
                     return
-            scanfile.insert_one({"id": event.chat_id})
-            await event.reply("I will scan all incoming files for viruses from now.")
+            botcheck.insert_one({"id": event.chat_id})
+            await event.reply("Welcome Captcha enabled for this chat.")
     if input in "off":
         if event.is_group:
-            chats = scanfile.find({})
+            chats = botcheck.find({})
             for c in chats:
                 if event.chat_id == c["id"]:
-                    scanfile.delete_one({"id": event.chat_id})
+                    botcheck.delete_one({"id": event.chat_id})
                     await event.reply(
-                        "I will not check incoming files for viruses from now.")
+                        "Welcome Captcha disabled for this chat.")
                     return
         await event.reply(
-                    "Autofilescan isn't enabled for this chat.")       
+                    "Welcome Captcha enabled for this chat.")       
     
     if not input == "on" and not input == "off":
         await event.reply("I only understand by on or off")
