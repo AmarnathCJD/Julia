@@ -401,6 +401,7 @@ __help__ = """
  - /setwelcome <welcome message> or <reply to a text>: Saves the message as a welcome note in the chat.
  - /checkwelcome: Check whether you have a welcome note in the chat.
  - /clearwelcome: Deletes the welcome note for the current chat.
+ - /welcomecaptcha <on/off>: Mutes a user on joining and unmutes as he/she solves a image captcha.
 
 **Goodbye**
  - /setgoodbye <goodbye message> or <reply to a text>: Saves the message as a goodbye note in the chat.
