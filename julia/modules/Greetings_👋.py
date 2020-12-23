@@ -226,9 +226,17 @@ async def checkbot(event):
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
        await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
-       
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+      
 
-@tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -238,8 +246,26 @@ async def checkbot(event):
        return
     cnum = 2
     onum = int(event.pattern_match.group(2))
-    
-@tbot.on(events.CallbackQuery(pattern=r"3-(\d+)-(\d+)"))
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+          
+@tbot.on(events.CallbackQuery(pattern=r"3-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -249,8 +275,26 @@ async def checkbot(event):
        return
     cnum = 3
     onum = int(event.pattern_match.group(2))
-
-@tbot.on(events.CallbackQuery(pattern=r"4-(\d+)-(\d+)"))
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+      
+@tbot.on(events.CallbackQuery(pattern=r"4-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -260,8 +304,26 @@ async def checkbot(event):
        return
     cnum = 4
     onum = int(event.pattern_match.group(2))
-
-@tbot.on(events.CallbackQuery(pattern=r"5-(\d+)-(\d+)"))
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+      
+@tbot.on(events.CallbackQuery(pattern=r"5-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -271,8 +333,26 @@ async def checkbot(event):
        return
     cnum = 5
     onum = int(event.pattern_match.group(2))
-  
-@tbot.on(events.CallbackQuery(pattern=r"6-(\d+)-(\d+)"))
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+        
+@tbot.on(events.CallbackQuery(pattern=r"6-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -282,8 +362,26 @@ async def checkbot(event):
        return
     cnum = 6
     onum = int(event.pattern_match.group(2))
-
-@tbot.on(events.CallbackQuery(pattern=r"7-(\d+)-(\d+)"))
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+      
+@tbot.on(events.CallbackQuery(pattern=r"7-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -293,8 +391,26 @@ async def checkbot(event):
        return
     cnum = 7
     onum = int(event.pattern_match.group(2))
-
-@tbot.on(events.CallbackQuery(pattern=r"8-(\d+)-(\d+)"))
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+      
+@tbot.on(events.CallbackQuery(pattern=r"8-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -304,8 +420,26 @@ async def checkbot(event):
        return
     cnum = 8
     onum = int(event.pattern_match.group(2))
-
-@tbot.on(events.CallbackQuery(pattern=r"9-(\d+)-(\d+)"))
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+      
+@tbot.on(events.CallbackQuery(pattern=r"9-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -315,7 +449,25 @@ async def checkbot(event):
        return
     cnum = 9
     onum = int(event.pattern_match.group(2))
-
+    chat_id = int(event.pattern_match.group(3))
+    msgid= int(event.pattern_match.group(4))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.edit_message(msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except Exception:
+       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       num = random.randint(1,9)
+       img = Image.new('RGB', (300, 200), color ="white") 
+       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+       d = ImageDraw.Draw(img)
+       d.text((110,50), str(num), font=fnt, fill="black")
+       img.save('checkbot.png')
+       button=[[Button.inline('1', data=f'1-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('2', data=f'2-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('3', data=f'3-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('4', data=f'4-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('5', data=f'5-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('6', data=f'6-{userid}-{onum}-{chat_id}-{msgid}')], [Button.inline('7', data=f'7-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('8', data=f'8-{userid}-{onum}-{chat_id}-{msgid}'), Button.inline('9', data=f'9-{userid}-{onum}-{chat_id}-{msgid}')]]    
+       await tbot.edit_message(msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
+      
 @register(pattern="^/setwelcome")  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
