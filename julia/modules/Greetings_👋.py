@@ -9,7 +9,7 @@ from julia.modules.sql.welcome_sql import (
     rm_welcome_setting,
     update_previous_welcome,
 )
-from julia.modules.sql.goodbye_sql import (
+from julia.modules.sql.welcome_sql import (
     add_goodbye_setting,
     get_current_goodbye_settings,
     rm_goodbye_setting,
@@ -24,7 +24,6 @@ from PIL import Image, ImageDraw, ImageFont
 from telethon.tl.functions.channels import EditBannedRequest
 
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
-
 UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 
 async def can_change_info(message):
@@ -104,8 +103,7 @@ async def _(event):
                     last=last,
                     fullname=fullname,
                     username=username,
-                    userid=userid,
-                )+"\n\n**Note**: Please verify that you are  a human by clicking on "I am not a bot ✔️ to start talking in the chat.",
+                    userid=userid),
                 file=cws.media_file_id,
                 buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
              )
@@ -264,6 +262,8 @@ async def checkbot(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not await can_change_info(message=event):
+        return
     msg = await event.get_reply_message()
     if msg and msg.media:
         tbot_api_file_id = pack_bot_file_id(msg.media)
@@ -279,6 +279,8 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not await can_change_info(message=event):
+        return
     cws = get_current_welcome_settings(event.chat_id)
     rm_welcome_setting(event.chat_id)
     await event.reply(
@@ -290,6 +292,8 @@ async def _(event):
 @register(pattern="^/checkwelcome$")  # pylint:disable=E0602
 async def _(event):
     if event.fwd_from:
+        return
+    if not await can_change_info(message=event):
         return
     cws = get_current_welcome_settings(event.chat_id)
     if hasattr(cws, "custom_welcome_message"):
@@ -356,6 +360,8 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not await can_change_info(message=event):
+        return
     msg = await event.get_reply_message()
     if msg and msg.media:
         tbot_api_file_id = pack_bot_file_id(msg.media)
@@ -371,6 +377,8 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not await can_change_info(message=event):
+        return
     cws = get_current_goodbye_settings(event.chat_id)
     rm_goodbye_setting(event.chat_id)
     await event.reply(
@@ -383,6 +391,8 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
+    if not await can_change_info(message=event):
+        return
     cws = get_current_goodbye_settings(event.chat_id)
     if hasattr(cws, "custom_goodbye_message"):
         await event.reply(
@@ -391,6 +401,55 @@ async def _(event):
     else:
         await event.reply("No goodbye message found for this chat")
 
+@register(pattern="^/welcomecaptcha(?: |$)(.*)")
+async def welcome_verify(event):
+    if event.fwd_from:
+        return
+    if event.is_private:
+        return
+    if MONGO_DB_URI is None:
+        return
+    if not await can_change_info(message=event):
+        return
+    input = event.pattern_match.group(1)
+    chats = scanfile.find({})
+    if not input:
+        for c in chats:
+            if event.chat_id == c["id"]:
+                await event.reply(
+                    "Please provide some input yes or no.\n\nCurrent setting is : **on**"
+                )
+                return
+        await event.reply(
+            "Please provide some input yes or no.\n\nCurrent setting is : **off**"
+        )
+        return
+    if input in "on":
+        if event.is_group:
+            chats = scanfile.find({})
+            for c in chats:
+                if event.chat_id == c["id"]:
+                    await event.reply(
+                        "Autofilescan is already enabled for this chat.")
+                    return
+            scanfile.insert_one({"id": event.chat_id})
+            await event.reply("I will scan all incoming files for viruses from now.")
+    if input in "off":
+        if event.is_group:
+            chats = scanfile.find({})
+            for c in chats:
+                if event.chat_id == c["id"]:
+                    scanfile.delete_one({"id": event.chat_id})
+                    await event.reply(
+                        "I will not check incoming files for viruses from now.")
+                    return
+        await event.reply(
+                    "Autofilescan isn't enabled for this chat.")       
+    
+    if not input == "on" and not input == "off":
+        await event.reply("I only understand by on or off")
+        return
+      
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
@@ -411,7 +470,8 @@ __help__ = """
 **Available variables for formatting greeting message:**
 `{mention}, {title}, {count}, {first}, {last}, {fullname}, {userid}, {username}, {my_first}, {my_fullname}, {my_last}, {my_mention}, {my_username}`
 
-**Note**: __You can't set new welcome message before deleting the previous one.__"""
+**Note**: __You can't set new welcome message before deleting the previous one.__
+"""
 
 CMD_HELP.update({
     file_helpo: [
