@@ -210,7 +210,8 @@ async def cbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"1-(\d+)"))
 async def checkbot(event):
    try:
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -243,7 +244,8 @@ async def checkbot(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")    
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -273,7 +275,8 @@ async def checkbot(event):
           
 @tbot.on(events.CallbackQuery(pattern=r"3-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")    
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -303,7 +306,8 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"4-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -333,7 +337,8 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"5-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")    
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -363,7 +368,8 @@ async def checkbot(event):
         
 @tbot.on(events.CallbackQuery(pattern=r"6-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -393,7 +399,8 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"7-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -423,7 +430,8 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"8-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")    
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
@@ -453,7 +461,8 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"9-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
-    meta = event.pattern_match.group(1)    
+    data = event.pattern_match.group(1)    
+    meta = data.replace("1-")
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
