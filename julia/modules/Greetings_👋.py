@@ -21,7 +21,12 @@ from telethon.tl import *
 from julia import *
 from random import randint
 from PIL import Image, ImageDraw, ImageFont
- 
+from telethon.tl.functions.channels import EditBannedRequest
+
+MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
+
+UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
+
 async def can_change_info(message):
     result = await tbot(
         functions.channels.GetParticipantRequest(
@@ -87,6 +92,7 @@ async def _(event):
                 file=cws.media_file_id,
                 buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
              )
+             await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
              update_previous_welcome(event.chat_id, current_message.id)           
             else:
              current_message = await event.reply(
@@ -99,10 +105,11 @@ async def _(event):
                     fullname=fullname,
                     username=username,
                     userid=userid,
-                ),
+                )+"\n\n**Note**: Please verify that you are  a human by clicking on "I am not a bot ✔️ to start talking in the chat.",
                 file=cws.media_file_id,
                 buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
              )
+             await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
              update_previous_welcome(event.chat_id, current_message.id)
 
 # -- @MissJulia_Robot (sassiet captcha ever) --#
@@ -135,19 +142,16 @@ async def cbot(event):
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
-    try:
-      num = random.randint(1,9)
-      img = Image.new('RGB', (300, 200), color ="white") 
-      fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
-      d = ImageDraw.Draw(img)
-      d.text((110,50), str(num), font=fnt, fill="black")
-      img.save('checkbot.png')
-      button=[[Button.inline('1', data=f'1-{userid}'), Button.inline('2', data=f'2-{userid}'), Button.inline('3', data=f'3-{userid}')], [Button.inline('4', data=f'4-{userid}'), Button.inline('5', data=f'5-{userid}'), Button.inline('6', data=f'6-{userid}')], [Button.inline('7', data=f'7-{userid}'), Button.inline('8', data=f'8-{userid}'), Button.inline('9', data=f'9-{userid}')]]
-      await tbot.send_file(event.chat_id, "checkbot.png", caption="See the above image and press the exact button corresponding to the number in the image", buttons=button)
-    except Exception:
-        await event.answer("Sorry I don't have permission to unmute you please contact some adminstrator.", alert=True)
-
-@tbot.on(events.CallbackQuery(pattern=r"1-(\d+)"))
+    num = random.randint(1,9)
+    img = Image.new('RGB', (300, 200), color ="white") 
+    fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
+    d = ImageDraw.Draw(img)
+    d.text((110,50), str(num), font=fnt, fill="black")
+    img.save('checkbot.png')
+    button=[[Button.inline('1', data=f'1-{userid}-{num}'), Button.inline('2', data=f'2-{userid}-{num}'), Button.inline('3', data=f'3-{userid}-{num}')], [Button.inline('4', data=f'4-{userid}-{num}'), Button.inline('5', data=f'5-{userid}-{num}'), Button.inline('6', data=f'6-{userid}-{num}')], [Button.inline('7', data=f'7-{userid}-{num}'), Button.inline('8', data=f'8-{userid}-{num}'), Button.inline('9', data=f'9-{userid}-{num}')]]
+    await tbot.send_file(user_id, "checkbot.png", caption="See the above image and press the exact button corresponding to the number in the image", buttons=button)
+        
+@tbot.on(events.CallbackQuery(pattern=r"1-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -156,8 +160,19 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 1
+    onum = int(event.pattern_match.group(2))
+    chat_id = int(event.pattern_match.group(3))
+    if cnum == onum:
+      try:
+       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
+       await tbot.send_message(user_id, "Yep you are verified as a human being, you are unmuted in that chat.")
+      except:
+       await event.answer("Sorry I don't have permission to unmute you please contact some adminstrator.", alert=True)
+    else:
+       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
+       await event.answer(
 
-@tbot.on(events.CallbackQuery(pattern=r"2-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -166,8 +181,9 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 2
+    onum = int(event.pattern_match.group(2))
     
-@tbot.on(events.CallbackQuery(pattern=r"3-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"3-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -176,8 +192,9 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 3
+    onum = int(event.pattern_match.group(2))
 
-@tbot.on(events.CallbackQuery(pattern=r"4-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"4-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -186,8 +203,9 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 4
+    onum = int(event.pattern_match.group(2))
 
-@tbot.on(events.CallbackQuery(pattern=r"5-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"5-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -196,8 +214,9 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 5
-    
-@tbot.on(events.CallbackQuery(pattern=r"6-(\d+)"))
+    onum = int(event.pattern_match.group(2))
+  
+@tbot.on(events.CallbackQuery(pattern=r"6-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -206,8 +225,9 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 6
-    
-@tbot.on(events.CallbackQuery(pattern=r"7-(\d+)"))
+    onum = int(event.pattern_match.group(2))
+
+@tbot.on(events.CallbackQuery(pattern=r"7-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -216,8 +236,9 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 7
+    onum = int(event.pattern_match.group(2))
 
-@tbot.on(events.CallbackQuery(pattern=r"8-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"8-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -226,8 +247,9 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 8
-    
-@tbot.on(events.CallbackQuery(pattern=r"9-(\d+)"))
+    onum = int(event.pattern_match.group(2))
+
+@tbot.on(events.CallbackQuery(pattern=r"9-(\d+)-(\d+)"))
 async def checkbot(event):
     if event.sender.bot:
        return        
@@ -236,7 +258,7 @@ async def checkbot(event):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 9
-    
+    onum = int(event.pattern_match.group(2))
 
 @register(pattern="^/setwelcome")  # pylint:disable=E0602
 async def _(event):
