@@ -626,12 +626,13 @@ async def _(event):
 
 @tbot.on(events.ChatAction())  # pylint:disable=E0602
 async def _(event):
+ try:
     cws = get_current_goodbye_settings(event.chat_id)
     if cws:
         # logger.info(event.stringify())
         """user_added=False,
-        user_joined=True,
-        user_left=False,
+        user_joined=False,
+        user_left=True,
         user_kicked=False,"""
         if event.user_left:
             if cws.should_clean_goodbye:
@@ -676,6 +677,8 @@ async def _(event):
                 file=cws.media_file_id,
             )
             update_previous_goodbye(event.chat_id, current_message.id)
+ except Exception as e:
+    print(e)
 
 @register(pattern="^/setgoodbye")  # pylint:disable=E0602
 async def _(event):
