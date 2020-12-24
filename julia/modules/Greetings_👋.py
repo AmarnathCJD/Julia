@@ -113,7 +113,10 @@ async def _(event):
                 file=cws.media_file_id,
                 buttons=[[Button.inline('Rules ✝️', data=f'start-ruless-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
                )
-               await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
+               chats = verified_user.find({})
+               for c in chats:
+                if not chat_id == c["id"] and user_id == c["user"]:
+                   await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)           
               else:
                current_message = await event.reply(
@@ -147,7 +150,10 @@ async def _(event):
                 file=cws.media_file_id,
                 buttons=[[Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
                )
-               await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
+               chats = verified_user.find({})
+               for c in chats:
+                if not chat_id == c["id"] and user_id == c["user"]:                  
+                   await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)
               else:
                current_message = await event.reply(
