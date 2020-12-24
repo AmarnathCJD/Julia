@@ -237,7 +237,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
           
 @tbot.on(events.CallbackQuery(pattern=r"2(\-(.*))"))
@@ -270,7 +270,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
           
 @tbot.on(events.CallbackQuery(pattern=r"3(\-(.*))"))
@@ -303,7 +303,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"4(\-(.*))"))
@@ -336,7 +336,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"5(\-(.*))"))
@@ -369,7 +369,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
         
 @tbot.on(events.CallbackQuery(pattern=r"6(\-(.*))"))
@@ -402,7 +402,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"7(\-(.*))"))
@@ -435,7 +435,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"8(\-(.*))"))
@@ -468,7 +468,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @tbot.on(events.CallbackQuery(pattern=r"9(\-(.*))"))
@@ -501,7 +501,7 @@ async def checkbot(event):
        d = ImageDraw.Draw(img)
        d.text((110,50), str(num), font=fnt, fill="black")
        img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
+       button=[[Button.inline('1', data=f'1-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{num}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{num}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{num}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
 @register(pattern="^/setwelcome")  # pylint:disable=E0602
