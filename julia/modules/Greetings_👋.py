@@ -206,7 +206,7 @@ async def cbot(event):
       print(e)
       await event.answer("I can't send you the captcha as you haven't started me in PM, first start me !", alert=True)
 
-@tbot.on(events.CallbackQuery(pattern=r"1-(\.*)"))
+@tbot.on(events.CallbackQuery(pattern=r"1-(\d+++++++)"))
 async def checkbot(event):
     data = str(event.pattern_match.group(1))
     print (data)
