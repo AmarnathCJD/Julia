@@ -776,11 +776,13 @@ __help__ = """
  - /checkwelcome: Check whether you have a welcome note in the chat.
  - /clearwelcome: Deletes the welcome note for the current chat.
  - /welcomecaptcha <on/off>: Mutes a user on joining and unmutes as he/she solves a image captcha.
+ - /cleanwelcome <on/off>: Clean previous welcome message before welcoming a new user
 
 **Goodbye**
  - /setgoodbye <goodbye message> or <reply to a text>: Saves the message as a goodbye note in the chat.
  - /checkgoodbye: Check whether you have a goodbye note in the chat.
  - /cleargoodbye: Deletes the goodbye note for the current chat.
+ - /cleangoodbye <on/off>: Clean previous goodbye message before farewelling a new user
 
 **Available variables for formatting greeting message:**
 `{mention}, {title}, {count}, {first}, {last}, {fullname}, {userid}, {username}, {my_first}, {my_fullname}, {my_last}, {my_mention}, {my_username}`
