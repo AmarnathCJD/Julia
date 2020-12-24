@@ -226,7 +226,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -259,7 +259,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -292,7 +292,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -325,7 +325,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -358,7 +358,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -391,7 +391,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -424,7 +424,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -457,7 +457,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -490,7 +490,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
