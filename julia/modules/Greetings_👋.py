@@ -220,7 +220,7 @@ async def checkbot(event):
     msgid = msgid.strip()
     print(event.sender_id)
     print(user_id)
-    if not event.sender_id == user_id:
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 1
