@@ -211,15 +211,13 @@ async def checkbot(event):
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
-    print(meta)
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
     msgid = msgid.strip()
-    print(event.sender_id)
-    print(user_id)
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -241,17 +239,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
           
-@tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"2(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
     msgid = msgid.strip()
-    if not event.sender_id == user_id:
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 2
@@ -272,17 +272,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
           
-@tbot.on(events.CallbackQuery(pattern=r"3-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"3(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
+    msgid = msgid.strip()
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 3
@@ -303,17 +305,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
-@tbot.on(events.CallbackQuery(pattern=r"4-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"4(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
+    msgid = msgid.strip()
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 4
@@ -334,17 +338,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
-@tbot.on(events.CallbackQuery(pattern=r"5-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"5(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
+    msgid = msgid.strip()
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 5
@@ -365,17 +371,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
         
-@tbot.on(events.CallbackQuery(pattern=r"6-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"6(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
+    msgid = msgid.strip()
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 6
@@ -396,17 +404,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
-@tbot.on(events.CallbackQuery(pattern=r"7-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"7(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
+    msgid = msgid.strip()
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 7
@@ -427,17 +437,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
-@tbot.on(events.CallbackQuery(pattern=r"8-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"8(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
+    msgid = msgid.strip()
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 8
@@ -458,17 +470,19 @@ async def checkbot(event):
        button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
        await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
       
-@tbot.on(events.CallbackQuery(pattern=r"9-(\d+)-(\d+)-(\d+)-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"9(\-(.*))"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
-    meta = data.replace("1-", "")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
-    user_id = int(event.pattern_match.group(1))        
-    if not event.sender_id == user_id:
+    msgid = msgid.strip()
+    if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 9
