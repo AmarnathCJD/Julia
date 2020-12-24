@@ -206,11 +206,11 @@ async def cbot(event):
       print(e)
       await event.answer("I can't send you the captcha as you haven't started me in PM, first start me !", alert=True)
 
-@tbot.on(events.CallbackQuery(pattern=r"1(\-(.*))"))
+@tbot.on(events.CallbackQuery(pattern=r"1-(\(.*))"))
 async def checkbot(event):
     tata = event.pattern_match.group(1)
     data = tata.decode()
-    print (data)
+    print(data)
 
 @tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
