@@ -105,7 +105,7 @@ async def _(event):
                     username=username,
                     userid=userid),
                 file=cws.media_file_id,
-                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
+                buttons=[[Button.inline('Rules ✝️', data=f'start-ruless-{userid}')], [Button.inline('I am not a bot ✔️', data=f'check-bot-{userid}')]],
                )
                await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)           
@@ -121,7 +121,7 @@ async def _(event):
                     username=username,
                     userid=userid),
                 file=cws.media_file_id,
-                buttons=[[Button.inline('Rules ✝️', data=f'start-rules-{userid}')]],
+                buttons=[[Button.inline('Rules ✝️', data=f'start-ruless-{userid}')]],
                )
                update_previous_welcome(event.chat_id, current_message.id)
             else:
@@ -159,7 +159,7 @@ async def _(event):
 
 # -- @MissJulia_Robot (sassiet captcha ever) --#
 
-@tbot.on(events.CallbackQuery(pattern=r"start-rules-(\d+)"))
+@tbot.on(events.CallbackQuery(pattern=r"start-ruless-(\d+)"))
 async def rules_st(event):
     rules = sql.get_rules(event.chat_id)
     # print(rules)
@@ -209,6 +209,11 @@ async def cbot(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"1(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -219,6 +224,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -242,6 +248,11 @@ async def checkbot(event):
           
 @tbot.on(events.CallbackQuery(pattern=r"2(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -252,6 +263,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -275,6 +287,11 @@ async def checkbot(event):
           
 @tbot.on(events.CallbackQuery(pattern=r"3(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -285,6 +302,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -308,6 +326,11 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"4(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -318,6 +341,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -341,6 +365,11 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"5(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -351,6 +380,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -374,6 +404,11 @@ async def checkbot(event):
         
 @tbot.on(events.CallbackQuery(pattern=r"6(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -384,6 +419,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -407,6 +443,11 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"7(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -417,6 +458,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -440,6 +482,11 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"8(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -450,6 +497,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -473,6 +521,11 @@ async def checkbot(event):
       
 @tbot.on(events.CallbackQuery(pattern=r"9(\-(.*))"))
 async def checkbot(event):
+    chats = verified_user.find({})
+    for c in chats:
+        if event.chat_id == c["id"] and iid == c["user"]:
+            await event.reply("You are already verified !")
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -483,6 +536,7 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
