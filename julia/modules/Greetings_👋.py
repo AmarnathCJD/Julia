@@ -202,7 +202,7 @@ async def cbot(event):
        return
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
     num = random.randint(1,9)
     img = Image.new('RGB', (300, 200), color ="white") 
@@ -239,13 +239,12 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -254,6 +253,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -282,9 +282,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -293,6 +292,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -321,9 +321,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -332,6 +331,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -360,9 +360,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -371,6 +370,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -399,9 +399,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -410,6 +409,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -438,9 +438,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -449,6 +448,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -477,9 +477,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -488,6 +487,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -516,9 +516,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -527,6 +526,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -555,9 +555,8 @@ async def checkbot(event):
     msgid = int(msgid.strip())
     for c in chats:
         if chat_id == c["id"] and user_id == c["user"]:
-            await event.reply("You are already verified !")
+            await event.answer("You are already verified !")
             return
-    verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -566,6 +565,7 @@ async def checkbot(event):
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
        await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
+       verified_user.insert_one({"id": chat_id, "user": user_id})
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
