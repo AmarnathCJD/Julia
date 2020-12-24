@@ -211,13 +211,15 @@ async def checkbot(event):
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
-    print(data)
+    print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()
     msgid = msgid.strip()
+    print(event.sender_id)
+    print(user_id)
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
