@@ -164,7 +164,7 @@ async def rules_st(event):
     # print(rules)
     user_id = int(event.pattern_match.group(1))        
     if not event.sender_id == user_id:
-       await event.answer("You haven't send that command !")
+       await event.answer("You aren't a new user!")
        return
     text = f"The rules for **{event.chat.title}** are:\n\n{rules}"
     try:
@@ -180,7 +180,6 @@ async def rules_st(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"check-bot-(\d+)"))
 async def cbot(event):
-
     user_id = int(event.pattern_match.group(1))        
     chat_id = event.chat_id
     chat_title = event.chat.title
@@ -211,35 +210,6 @@ async def cbot(event):
 async def checkbot(event):
     data = str(event.pattern_match.group(1))
     print (data)
-    meta = data.replace("1-", "")
-    if "|" in meta:
-        user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()        
-    #print(user_id)
-    #print(chat_id)
-    if not event.sender_id == user_id:
-       await event.answer("You aren't the person whom should be verified.")
-       return
-    cnum = 1
-    if cnum == onum:
-      try:
-       await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.")
-      except Exception:
-       await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
-    else:
-       await event.answer("Sorry you have selected a wrong button.\nTry Again !", alert=True)
-       num = random.randint(1,9)
-       img = Image.new('RGB', (300, 200), color ="white") 
-       fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
-       d = ImageDraw.Draw(img)
-       d.text((110,50), str(num), font=fnt, fill="black")
-       img.save('checkbot.png')
-       button=[[Button.inline('1', data=f'1-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('2', data=f'2-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('3', data=f'3-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('4', data=f'4-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('5', data=f'5-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('6', data=f'6-{user_id}|{onum}|{chat_id}|{msgid}')], [Button.inline('7', data=f'7-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('8', data=f'8-{user_id}|{onum}|{chat_id}|{msgid}'), Button.inline('9', data=f'9-{user_id}|{onum}|{chat_id}|{msgid}')]]    
-       await tbot.edit_message(user_id, msgid, "See the above image and press the exact button corresponding to the number in the image", file="checkbot.png", buttons=button)
-   
 
 @tbot.on(events.CallbackQuery(pattern=r"2-(\d+)-(\d+)-(\d+)-(\d+)"))
 async def checkbot(event):
