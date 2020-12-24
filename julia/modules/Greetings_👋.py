@@ -169,6 +169,62 @@ async def _(event):
                 file=cws.media_file_id)
                update_previous_welcome(event.chat_id, current_message.id)
 
+@tbot.on(events.ChatAction())  # pylint:disable=E0602
+async def _(event):
+ try:
+    cws = get_current_goodbye_settings(event.chat_id)
+    if cws:
+        # logger.info(event.stringify())
+        """user_added=False,
+        user_joined=False,
+        user_left=True,
+        user_kicked=False,"""
+        if event.user_left:
+            if cws.should_clean_goodbye:
+                try:
+                    await tbot.delete_messages(  # pylint:disable=E0602
+                        event.chat_id, cws.previous_goodbye
+                    )
+                except Exception as e:  # pylint:disable=C0103,W0703
+                    print(e)  # pylint:disable=E0602
+            a_user = await event.get_user()
+            chat = await event.get_chat()
+            me = await tbot.get_me()
+
+            title = chat.title if chat.title else "this chat"
+            participants = await event.client.get_participants(chat)
+            count = len(participants)
+            mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
+            first = a_user.first_name
+            last = a_user.last_name
+            if last:
+                fullname = f"{first} {last}"
+            else:
+                fullname = first
+            username = (
+                f"@{me.username}" if me.username else f"[Me](tg://user?id={me.id})"
+            )
+            userid = a_user.id
+            current_saved_goodbye_message = cws.custom_goodbye_message
+            mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
+
+            current_message = await event.reply(
+                current_saved_goodbye_message.format(
+                    mention=mention,
+                    title=title,
+                    count=count,
+                    first=first,
+                    last=last,
+                    fullname=fullname,
+                    username=username,
+                    userid=userid,
+                ),
+                file=cws.media_file_id,
+            )
+            update_previous_goodbye(event.chat_id, current_message.id)
+ except Exception as e:
+    print(e)
+
 # -- @MissJulia_Robot (sassiet captcha ever) --#
 
 @tbot.on(events.CallbackQuery(pattern=r"start-ruless-(\d+)"))
@@ -623,62 +679,6 @@ async def _(event):
         )
     else:
         await event.reply("No welcome message found for this chat")
-
-@tbot.on(events.ChatAction())  # pylint:disable=E0602
-async def _(event):
- try:
-    cws = get_current_goodbye_settings(event.chat_id)
-    if cws:
-        # logger.info(event.stringify())
-        """user_added=False,
-        user_joined=False,
-        user_left=True,
-        user_kicked=False,"""
-        if event.user_left:
-            if cws.should_clean_goodbye:
-                try:
-                    await tbot.delete_messages(  # pylint:disable=E0602
-                        event.chat_id, cws.previous_goodbye
-                    )
-                except Exception as e:  # pylint:disable=C0103,W0703
-                    print(e)  # pylint:disable=E0602
-            a_user = await event.get_user()
-            chat = await event.get_chat()
-            me = await tbot.get_me()
-
-            title = chat.title if chat.title else "this chat"
-            participants = await event.client.get_participants(chat)
-            count = len(participants)
-            mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-            first = a_user.first_name
-            last = a_user.last_name
-            if last:
-                fullname = f"{first} {last}"
-            else:
-                fullname = first
-            username = (
-                f"@{me.username}" if me.username else f"[Me](tg://user?id={me.id})"
-            )
-            userid = a_user.id
-            current_saved_goodbye_message = cws.custom_goodbye_message
-            mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-
-            current_message = await event.reply(
-                current_saved_goodbye_message.format(
-                    mention=mention,
-                    title=title,
-                    count=count,
-                    first=first,
-                    last=last,
-                    fullname=fullname,
-                    username=username,
-                    userid=userid,
-                ),
-                file=cws.media_file_id,
-            )
-            update_previous_goodbye(event.chat_id, current_message.id)
- except Exception as e:
-    print(e)
 
 @register(pattern="^/setgoodbye")  # pylint:disable=E0602
 async def _(event):
