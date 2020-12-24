@@ -217,8 +217,8 @@ async def checkbot(event):
     user_id = user_id.strip()
     chat_id = chat_id.strip()
     onum = onum.strip()        
-    print(user_id)
-    print(chat_id)
+    #print(user_id)
+    #print(chat_id)
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
