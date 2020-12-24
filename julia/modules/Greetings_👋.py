@@ -43,7 +43,7 @@ imgg.save('loadcheckbot.png')
 imggg = Image.new('RGB', (300, 200), color ="white") 
 fnttt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 50)
 ddd = ImageDraw.Draw(imggg)
-ddd.text((60,60), "Verified", font=fnttt, fill="black")
+ddd.text((60,60), "Verified", font=fnttt, fill="green")
 imggg.save('verifiedperson.png')
 
 async def can_change_info(message):
