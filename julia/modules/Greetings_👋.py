@@ -187,12 +187,17 @@ async def rules_st(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"check-bot-(\d+)"))
 async def cbot(event):
+    chats = verified_user.find({})
     user_id = int(event.pattern_match.group(1))        
     chat_id = event.chat_id
     chat_title = event.chat.title
     if not event.sender_id == user_id:
        await event.answer("You aren't the person whom should be verified.")
        return
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     num = random.randint(1,9)
     img = Image.new('RGB', (300, 200), color ="white") 
     fnt = ImageFont.truetype("./.apt/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf", 100)
@@ -216,10 +221,6 @@ async def cbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"1(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -230,6 +231,14 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -238,7 +247,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -255,10 +264,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"2(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -269,6 +274,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -277,7 +286,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -294,10 +303,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"3(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -308,6 +313,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -316,7 +325,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -333,10 +342,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"4(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -347,6 +352,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -355,7 +364,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -372,10 +381,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"5(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -386,6 +391,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -394,7 +403,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -411,10 +420,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"6(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -425,6 +430,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -433,7 +442,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -450,10 +459,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"7(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -464,6 +469,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -472,7 +481,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -489,10 +498,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"8(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -503,6 +508,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -511,7 +520,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
@@ -528,10 +537,6 @@ async def checkbot(event):
 @tbot.on(events.CallbackQuery(pattern=r"9(\-(.*))"))
 async def checkbot(event):
     chats = verified_user.find({})
-    for c in chats:
-        if event.chat_id == c["id"] and iid == c["user"]:
-            await event.reply("You are already verified !")
-            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -542,6 +547,10 @@ async def checkbot(event):
     chat_id = int(chat_id.strip())
     onum = int(onum.strip())
     msgid = int(msgid.strip())
+    for c in chats:
+        if chat_id == c["id"] and user_id == c["user"]:
+            await event.reply("You are already verified !")
+            return
     verified_user.insert_one({"id": chat_id, "user": user_id})
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
@@ -550,7 +559,7 @@ async def checkbot(event):
     if cnum == onum:
       try:
        await tbot(EditBannedRequest(chat_id, user_id, UNMUTE_RIGHTS))
-       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file=None)
+       await tbot.edit_message(user_id, msgid, "Yep you are verified as a human being, you are unmuted in that chat.", file="verifiedperson.png")
       except Exception:
        await event.answer("Sorry I don't have permission to unmute you please contact some administrator.", alert=True)
     else:
