@@ -214,10 +214,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -247,10 +247,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -280,10 +280,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -313,10 +313,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -346,10 +346,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -379,10 +379,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -412,10 +412,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -445,10 +445,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
@@ -478,10 +478,10 @@ async def checkbot(event):
     #print(meta)
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
-    user_id = user_id.strip()
-    chat_id = chat_id.strip()
-    onum = onum.strip()
-    msgid = msgid.strip()
+    user_id = int(user_id.strip())
+    chat_id = int(chat_id.strip())
+    onum = int(onum.strip())
+    msgid = int(msgid.strip())
     if not int(event.sender_id) == int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
