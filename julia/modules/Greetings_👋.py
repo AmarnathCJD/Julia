@@ -115,7 +115,7 @@ async def _(event):
                )
                chats = verified_user.find({})
                for c in chats:
-                if not chat_id == c["id"] and user_id == c["user"]:
+                if not event.chat_id == c["id"] and userid == c["user"]:
                    await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)           
               else:
@@ -152,7 +152,7 @@ async def _(event):
                )
                chats = verified_user.find({})
                for c in chats:
-                if not chat_id == c["id"] and user_id == c["user"]:                  
+                if not event.chat_id == c["id"] and userid == c["user"]:                  
                    await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)
               else:
