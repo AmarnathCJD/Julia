@@ -209,7 +209,8 @@ async def cbot(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"1-(\d+)"))
 async def checkbot(event):
-    data = event.pattern_match.group(1)    
+    data = str(event.pattern_match.group(1))
+    print (data)
     meta = data.replace("1-", "")
     if "|" in meta:
         user_id, onum, chat_id, msgid = meta.split("|")
