@@ -78,7 +78,6 @@ async def _(event):
             a_user = await event.get_user()
             chat = await event.get_chat()
             me = await tbot.get_me()
-
             title = chat.title if chat.title else "this chat"
             participants = await event.client.get_participants(chat)
             count = len(participants)
@@ -121,8 +120,8 @@ async def _(event):
                await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)        
                return # needy as we are in for loop
-              else:
-               current_message = await event.reply(
+             # for loop
+             current_message = await event.reply(
                 current_saved_welcome_message.format(
                     mention=mention,
                     title=title,
@@ -134,9 +133,8 @@ async def _(event):
                     userid=userid),
                 file=cws.media_file_id,
                 buttons=[[Button.inline('Rules ✝️', data=f'start-ruless-{userid}')]],
-               )
-               update_previous_welcome(event.chat_id, current_message.id)
-               return # needy as we are in for loop
+             )
+             update_previous_welcome(event.chat_id, current_message.id)
             else:
              chats = botcheck.find({})
              for c in chats:
@@ -162,8 +160,8 @@ async def _(event):
                await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)
                return # needy as we are in for loop
-              else:
-               current_message = await event.reply(
+             # for loop
+             current_message = await event.reply(
                 current_saved_welcome_message.format(
                     mention=mention,
                     title=title,
@@ -174,7 +172,7 @@ async def _(event):
                     username=username,
                     userid=userid),
                 file=cws.media_file_id)
-               update_previous_welcome(event.chat_id, current_message.id)
+             update_previous_welcome(event.chat_id, current_message.id)
 
 @tbot.on(events.ChatAction())  # pylint:disable=E0602
 async def _(event):
