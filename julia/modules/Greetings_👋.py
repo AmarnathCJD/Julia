@@ -175,6 +175,7 @@ async def _(event):
 
 @tbot.on(events.ChatAction())  # pylint:disable=E0602
 async def _(event):
+ print("yo")
  try:
     cws = get_current_goodbye_settings(event.chat_id)
     if cws:
@@ -184,6 +185,7 @@ async def _(event):
         user_left=True,
         user_kicked=False,"""
         if event.user_left:
+            print ("1")
             if cws.should_clean_goodbye:
                 try:
                     await tbot.delete_messages(  # pylint:disable=E0602
@@ -211,7 +213,7 @@ async def _(event):
             userid = a_user.id
             current_saved_goodbye_message = cws.custom_goodbye_message
             mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-
+            print(current_saved_goodbye_message)
             current_message = await event.reply(
                 current_saved_goodbye_message.format(
                     mention=mention,
@@ -225,6 +227,7 @@ async def _(event):
                 ),
                 file=cws.media_file_id,
             )
+            print (current_message)
             update_previous_goodbye(event.chat_id, current_message.id)
  except Exception as e:
     print(e)
@@ -648,11 +651,11 @@ async def _(event):
     msg = await event.get_reply_message()
     if msg and msg.media:
         tbot_api_file_id = pack_bot_file_id(msg.media)
-        add_welcome_setting(event.chat_id, msg.message, True, 0, tbot_api_file_id)
+        add_welcome_setting(event.chat_id, msg.message, False, 0, tbot_api_file_id)
         await event.reply("Welcome message saved. ")
     else:
         input_str = event.text.split(None, 1)
-        add_welcome_setting(event.chat_id, input_str[1], True, 0, None)
+        add_welcome_setting(event.chat_id, input_str[1], False, 0, None)
         await event.reply("Welcome message saved. ")
 
 
@@ -693,11 +696,11 @@ async def _(event):
     msg = await event.get_reply_message()
     if msg and msg.media:
         tbot_api_file_id = pack_bot_file_id(msg.media)
-        add_goodbye_setting(event.chat_id, msg.message, True, 0, tbot_api_file_id)
+        add_goodbye_setting(event.chat_id, msg.message, False, 0, tbot_api_file_id)
         await event.reply("Goodbye message saved. ")
     else:
         input_str = event.text.split(None, 1)
-        add_goodbye_setting(event.chat_id, input_str[1], True, 0, None)
+        add_goodbye_setting(event.chat_id, input_str[1], False, 0, None)
         await event.reply("Goodbye message saved. ")
 
 
