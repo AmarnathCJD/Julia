@@ -119,7 +119,8 @@ async def _(event):
                    update_previous_welcome(event.chat_id, current_message.id)
                    return
                await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
-               update_previous_welcome(event.chat_id, current_message.id)           
+               update_previous_welcome(event.chat_id, current_message.id)        
+               return # needy as we are in for loop
               else:
                current_message = await event.reply(
                 current_saved_welcome_message.format(
@@ -135,6 +136,7 @@ async def _(event):
                 buttons=[[Button.inline('Rules ✝️', data=f'start-ruless-{userid}')]],
                )
                update_previous_welcome(event.chat_id, current_message.id)
+               return # needy as we are in for loop
             else:
              chats = botcheck.find({})
              for c in chats:
