@@ -257,7 +257,7 @@ async def promote(promt):
     # If Telethon spit BadRequestError, assume
     # we don't have Promote permission
     except Exception:
-        await event.reply("Failed to promote.")
+        await promt.reply("Failed to promote.")
         return
 
 
@@ -847,7 +847,7 @@ async def spider(spdr):
 
     except Exception as e:
         print(e)
-        await bon.reply("Failed to mute.")
+        await spdr.reply("Failed to mute.")
         return
 
 @register(pattern="^/unmute(?: |$)(.*)")
@@ -888,7 +888,7 @@ async def spiderr(spdr):
         await spdr.reply("Unmuted Successfully !")
 
     except BaseException:
-        await bon.reply("Failed to unmute.")
+        await spdr.reply("Failed to unmute.")
         return
 
 @register(pattern="^/lock ?(.*)")
