@@ -185,14 +185,16 @@ async def _(event):
         user_left=True,
         user_kicked=True,"""
         if event.user_kicked:
-            #print ("1")
+            print ("1")
             if cws.should_clean_goodbye:
+                print ("2")
                 try:
                     await tbot.delete_messages(  # pylint:disable=E0602
                         event.chat_id, cws.previous_goodbye
                     )
                 except Exception as e:  # pylint:disable=C0103,W0703
                     print(e)  # pylint:disable=E0602
+            print ("3")
             a_user = await event.get_user()
             chat = await event.get_chat()
             me = await tbot.get_me()
@@ -213,7 +215,7 @@ async def _(event):
             userid = a_user.id
             current_saved_goodbye_message = cws.custom_goodbye_message
             mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-            #print(current_saved_goodbye_message)
+            print(current_saved_goodbye_message)
             current_message = await event.reply(
                 current_saved_goodbye_message.format(
                     mention=mention,
@@ -227,7 +229,7 @@ async def _(event):
                 ),
                 file=cws.media_file_id,
             )
-            #print (current_message)
+            print (current_message)
             update_previous_goodbye(event.chat_id, current_message.id)
 
 # -- @MissJulia_Robot (sassiet captcha ever) --#
