@@ -159,6 +159,7 @@ async def _(event):
                    return
                await tbot(EditBannedRequest(event.chat_id, userid, MUTE_RIGHTS))
                update_previous_welcome(event.chat_id, current_message.id)
+               return # needy as we are in for loop
               else:
                current_message = await event.reply(
                 current_saved_welcome_message.format(
