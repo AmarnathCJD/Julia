@@ -175,8 +175,7 @@ async def _(event):
 
 @tbot.on(events.ChatAction())  # pylint:disable=E0602
 async def _(event):
- print("yo")
- try:
+    #print("yo")
     cws = get_current_goodbye_settings(event.chat_id)
     if cws:
         print("gotcha")
@@ -184,9 +183,9 @@ async def _(event):
         """user_added=False,
         user_joined=False,
         user_left=True,
-        user_kicked=False,"""
-        if event.user_left:
-            print ("1")
+        user_kicked=True,"""
+        if event.user_kicked:
+            #print ("1")
             if cws.should_clean_goodbye:
                 try:
                     await tbot.delete_messages(  # pylint:disable=E0602
@@ -214,7 +213,7 @@ async def _(event):
             userid = a_user.id
             current_saved_goodbye_message = cws.custom_goodbye_message
             mention = "[{}](tg://user?id={})".format(a_user.first_name, a_user.id)
-            print(current_saved_goodbye_message)
+            #print(current_saved_goodbye_message)
             current_message = await event.reply(
                 current_saved_goodbye_message.format(
                     mention=mention,
@@ -228,10 +227,8 @@ async def _(event):
                 ),
                 file=cws.media_file_id,
             )
-            print (current_message)
+            #print (current_message)
             update_previous_goodbye(event.chat_id, current_message.id)
- except Exception as e:
-    print(e)
 
 # -- @MissJulia_Robot (sassiet captcha ever) --#
 
