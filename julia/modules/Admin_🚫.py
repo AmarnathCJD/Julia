@@ -784,7 +784,7 @@ async def banme(bon):
         await bon.reply("Ok Banned !")
 
     except Exception as e:
-        print(e)
+        await bon.reply("Failed to ban !")
         return
 
 
@@ -804,7 +804,7 @@ async def kickme(bon):
         await bon.reply("Ok Banned !")
 
     except Exception as e:
-        print(e)
+        await bon.reply("Failed to kick !")
         return
 
 
