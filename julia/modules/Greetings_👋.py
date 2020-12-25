@@ -179,6 +179,7 @@ async def _(event):
  try:
     cws = get_current_goodbye_settings(event.chat_id)
     if cws:
+        print("gotcha")
         # logger.info(event.stringify())
         """user_added=False,
         user_joined=False,
