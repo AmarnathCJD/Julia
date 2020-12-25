@@ -845,7 +845,8 @@ async def spider(spdr):
 
         await spdr.reply("Muted Successfully !")
 
-    except BaseException:
+    except Exception as e:
+        print(e)
         await bon.reply("Failed to mute.")
         return
 
