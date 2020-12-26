@@ -8,7 +8,6 @@ from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from julia.events import register
 import cloudmersive_virus_api_client
-from hurry.filesize import size
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -155,8 +154,8 @@ async def virusscan(event):
       virus = c.file.name
       await event.client.download_file(c, virus)
       gg= await event.reply("Scanning the file ...")
-      fsize = size(c.file.size)
-      if not fsize <= "3.5M":
+      fsize = c.file.size
+      if not fsize <= 3500000:
          await gg.edit("File size exceeds 3.5MB")
          return
       api_response = api_instance.scan_file(c.file.name)
@@ -197,8 +196,8 @@ async def virusscanner(event):
     if c.game:
        return
     try:
-      fsize = size(c.file.size)
-      if not fsize <= "3.5M":
+      fsize = c.file.size
+      if not fsize <= 3500000:
          return
       virus = c.file.name
       await event.client.download_file(c, virus)
