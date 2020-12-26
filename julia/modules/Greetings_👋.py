@@ -793,8 +793,17 @@ async def _(event):
     if hasattr(cws, "custom_welcome_message"):
         pass
     else:
-        await event.reply("")
-        return
+        if input in "on":
+           add_welcome_setting(event.chat_id, "", True, 0, None)
+           await event.reply("I will clean old welcone messages from now.")
+           return
+        if input in "off":
+           add_welcome_setting(event.chat_id, "", False, 0, None)
+           await event.reply("I will not clean old welcone messages from now.")    
+           return
+        if not input == "on" and not input == "off":
+           await event.reply("I only understand by on or off")
+           return
     mssg = cws.custom_welcome_message
     pvw = cws.previous_welcome
     mfid = cws.media_file_id
@@ -808,11 +817,10 @@ async def _(event):
     if input in "off":
        rm_welcome_setting(event.chat_id)
        add_welcome_setting(event.chat_id, mssg, False, pvw, mfid)
-       await event.reply("I will clean old welcone messages from now.")    
+       await event.reply("I will not clean old welcone messages from now.")    
     if not input == "on" and not input == "off":
        await event.reply("I only understand by on or off")
        return
-
 
 
 
