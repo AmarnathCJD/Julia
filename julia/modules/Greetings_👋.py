@@ -822,6 +822,45 @@ async def _(event):
        await event.reply("I only understand by on or off")
        return
 
+@register(pattern="^/cleangoodbye(?: |$)(.*)")  # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
+        return
+    if not await can_change_info(message=event):
+        return
+    input = event.pattern_match.group(1)
+    cws = get_current_goodbye_settings(event.chat_id)
+    if hasattr(cws, "custom_goodbye_message"):
+        pass
+    else:
+        if input in "on":
+           add_goodbye_setting(event.chat_id, "", True, 0, None)
+           await event.reply("I will clean old welcone messages from now.")
+           return
+        if input in "off":
+           add_goodbye_setting(event.chat_id, "", False, 0, None)
+           await event.reply("I will not clean old welcone messages from now.")    
+           return
+        if not input == "on" and not input == "off":
+           await event.reply("I only understand by on or off")
+           return
+    mssg = cws.custom_goodbye_message
+    pvw = cws.previous_goodbye
+    mfid = cws.media_file_id
+    if cws.should_clean_goodbye == True:
+       await event.reply("I am already cleaning old welcone messages.")
+       return
+    if input in "on":
+       rm_goodbye_setting(event.chat_id)
+       add_goodbye_setting(event.chat_id, mssg, True, pvw, mfid)
+       await event.reply("I will clean old welcone messages from now.")    
+    if input in "off":
+       rm_goodbye_setting(event.chat_id)
+       add_goodbye_setting(event.chat_id, mssg, False, pvw, mfid)
+       await event.reply("I will not clean old welcone messages from now.")    
+    if not input == "on" and not input == "off":
+       await event.reply("I only understand by on or off")
+       return
 
 
 file_help = os.path.basename(__file__)
