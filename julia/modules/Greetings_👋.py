@@ -781,7 +781,27 @@ async def welcome_verify(event):
     if not input == "on" and not input == "off":
         await event.reply("I only understand by on or off")
         return
-      
+
+@register(pattern="^/cleanwelcome$")  # pylint:disable=E0602
+async def _(event):
+    if event.fwd_from:
+        return
+    if not await can_change_info(message=event):
+        return
+    cws = get_current_welcome_settings(event.chat_id)
+    mssg = cws.custom_welcome_message
+    boolclean = cws.should_clean_welcome
+    pvw = cws.previous_welcome
+    mfid = cws.media_file_id
+    if cws.should_clean_welcome == True:
+       await event.reply("I am already cleaning old welcone messages.")
+       return
+    add_welcome_setting(event.chat_id, mssg, True, pvw, mfid)
+    await event.reply("I will clean old welcone messages from now.")
+
+
+
+
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
