@@ -790,14 +790,14 @@ async def _(event):
         return
     input = event.pattern_match.group(1)
     cws = get_current_welcome_settings(event.chat_id)
-    mssg = cws.custom_welcome_message
-    boolclean = cws.should_clean_welcome
-    pvw = cws.previous_welcome
-    mfid = cws.media_file_id
     if hasattr(cws, "custom_welcome_message"):
         pass
     else:
         await event.reply("")
+        return
+    mssg = cws.custom_welcome_message
+    pvw = cws.previous_welcome
+    mfid = cws.media_file_id
     if cws.should_clean_welcome == True:
        await event.reply("I am already cleaning old welcone messages.")
        return
