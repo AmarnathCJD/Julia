@@ -56,10 +56,9 @@ async def _(event):
         title = news.title.text
         text = news.link.text
         date = news.pubDate.text
-        seperator = "-" * 50
-        l = "\n"
-        lastisthis = title + l + text + l + date + l + seperator
-        await event.reply(lastisthis)
+        lastisthis = f"[{title}]({text})" + l + l + date 
+        await event.reply(lastisthis, link_preview=False)
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
