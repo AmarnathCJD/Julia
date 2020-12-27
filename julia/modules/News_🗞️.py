@@ -47,7 +47,7 @@ async def _(event):
         return
     country = event.pattern_match.group(1)
     lang = event.pattern_match.group(2)
-    country = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
+    news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
     Client = urlopen(news_url)
     xml_page = Client.read()
     Client.close()
