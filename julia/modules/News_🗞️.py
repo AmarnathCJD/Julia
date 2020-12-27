@@ -41,12 +41,13 @@ async def is_register_admin(chat, user):
     return False
 
 
-@register(pattern="^/news$")
+@register(pattern="^/news (.*) (.*)")
 async def _(event):
     if event.is_group:
         return
-
-    news_url = "https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en"
+    country = event.pattern_match.group(1)
+    lang = event.pattern_match.group(2)
+    country = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
     Client = urlopen(news_url)
     xml_page = Client.read()
     Client.close()
@@ -56,7 +57,8 @@ async def _(event):
         title = news.title.text
         text = news.link.text
         date = news.pubDate.text
-        lastisthis = f"[{title}]({text})" + l + l + date 
+        l = "\n"
+        lastisthis = f"[{title}]({text})"+ l + l + date 
         await event.reply(lastisthis, link_preview=False)
 
 file_help = os.path.basename(__file__)
