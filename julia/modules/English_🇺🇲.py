@@ -71,11 +71,12 @@ async def _(event):
     try:
         translated = translator.translate(text,lang_tgt=lan)  
         after_tr_text = translated
+        detect_result = detector.detect(text)
         output_str = (
             "**TRANSLATED** from {} to {}\n\n"
             "{}"
         ).format(
-            translated.src,
+            detect_result[0],
             lan,
             after_tr_text
         )
