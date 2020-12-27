@@ -66,7 +66,9 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /news: Returns today's American News Headlines (ONLY WORKS IN PM)
+ - /news <country code> <LanguageCode>: Returns today's American News Headlines (ONLY WORKS IN PM)
+**Example:**
+ - /news US en: This will return news for US in english language.
 """
 
 CMD_HELP.update({
