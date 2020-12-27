@@ -69,7 +69,7 @@ async def _(event):
     lan = lan.strip()
     translator = google_translator()  
     try:
-        translate_text = translator.translate(text,lang_tgt=lan)  
+        translated = translator.translate(text,lang_tgt=lan)  
         after_tr_text = translated.text
         output_str = (
             "**TRANSLATED** from {} to {}\n\n"
