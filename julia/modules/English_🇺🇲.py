@@ -1,4 +1,4 @@
-from mtranslate import translate
+from google_trans_new import google_translator  
 from julia import tbot
 import json
 import requests
@@ -42,7 +42,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-@register(pattern="^/tr (.*)")
+@register(pattern="^/tr ?(.*)")
 async def _(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -59,14 +59,29 @@ async def _(event):
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
-        lan = input_str
-    
+        lan = input_str or "en"
+    elif "|" in input_str:
+        lan, text = input_str.split("|")
+    else:
+        await event.reply("`/tr LanguageCode` as reply to a message")
+        return
+    text = text.strip()
+    lan = lan.strip()
+    translator = google_translator()  
     try:
-        translated = translate(text,lan,"auto")
-        await event.reply(translated)
+        translate_text = translator.translate(text,lang_tgt=lan)  
+        after_tr_text = translated.text
+        output_str = (
+            "**TRANSLATED** from {} to {}\n\n"
+            "{}"
+        ).format(
+            translated.src,
+            lan,
+            after_tr_text
+        )
+        await event.reply(output_str)
     except Exception as exc:
-        print(exc)
-        await event.reply("**Server Error !**\nTry Again.")
+        await event.reply(str(exc))
 
 
 API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
