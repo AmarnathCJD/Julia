@@ -63,7 +63,7 @@ async def _(event):
     elif "|" in input_str:
         lan, text = input_str.split("|")
     else:
-        await event.reply("`/tr LanguageCode` as reply to a message")
+        await event.reply("`/tr <LanguageCode>` as reply to a message or `/tr <LanguageCode> | <text>`")
         return
     text = text.strip()
     lan = lan.strip()
@@ -231,7 +231,7 @@ file_helpo = file_help.replace("_", " ")
 __help__ = """
  - /spell: while replying to a message, will reply with a grammar corrected version
  - /forbesify: Correct your punctuations better use the advanged spell module
- - /tr <language code>: Type in reply to a message to get it's translation in the destination language
+ - /tr <language code> or /tr <language code> | <text>: Type in reply to a message or (`/tr <language code> | <text>`) to get it's translation in the destination language
  - /define <text>: Type the word or expression you want to search\nFor example /define Gay
  - /emotion: Type in reply to a message to check emotions
  - /synonyms <word>: Find the synonyms of a word
