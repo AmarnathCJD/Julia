@@ -11,15 +11,6 @@ import glob
 import sys
 from julia import ubot
 
-from pymongo import MongoClient
-from julia import MONGO_DB_URI
-
-client = MongoClient()
-client = MongoClient(MONGO_DB_URI)
-dbb = client["missjuliarobot"]
-leechers = dbb.leecher
-
-
 def register(**args):
     pattern = args.get("pattern")
     r_pattern = r"^[/]"
@@ -61,17 +52,6 @@ def register(**args):
             else:
                 print("i don't work in channels")
                 return
-
-            spammers = leechers.find({})
-            for c in spammers:
-                if check.sender_id == c["id"]:
-                    painkiller = c["time"]
-                    spamtimecheck = time.time() - painkiller
-                    if (time.strftime("%H", time.gmtime(spamtimecheck))) >= "10":
-                        leechers.delete_one({"id": check.sender_id})
-                    else:
-                        return
-
             try:
                 await func(check)
                 try:
@@ -124,7 +104,6 @@ def juliabot(**args):
             if check.edit_date and check.is_channel and not check.is_group:
                 return
             if group_only and not check.is_group:
-                await check.respond("`Are you sure this is a group?`")
                 return
             if check.via_bot_id and not insecure and check.out:
                 # Ignore outgoing messages via inline bots for security reasons
