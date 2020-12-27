@@ -71,7 +71,7 @@ async def _(event):
     try:
         translated = translator.translate(text,lang_tgt=lan)  
         after_tr_text = translated
-        detect_result = detector.detect(text)
+        detect_result = translator.detect(text)
         output_str = (
             "**TRANSLATED** from {} to {}\n\n"
             "{}"
