@@ -22,7 +22,7 @@ class HerokuBadge:
                 resp.body = f.read()
                 return
 
-        app = os.environ.get("HEROKU_APP_NAME")
+        app = HEROKU_APP_NAME
         path = "/"
 
         if not app:
