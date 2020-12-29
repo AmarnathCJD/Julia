@@ -51,7 +51,7 @@ if ENV:
     WOLFRAM_ID = os.environ.get("WOLFRAM_ID", None)
 
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
-    tbot = TelegramClient("missjuliarobot", API_KEY, API_HASH)
+    tbot = TelegramClient("julia", API_KEY, API_HASH)
 
     SUDO_USERS = list(SUDO_USERS)
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
