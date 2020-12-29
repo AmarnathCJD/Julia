@@ -3,6 +3,7 @@ import io
 import falcon
 import requests
 from datetime import datetime, timezone, timedelta
+from julia import HEROKU_APP_NAME
 
 ALLOWED_STYLES = ("flat-square", "plastic")
 
@@ -28,7 +29,7 @@ class HerokuBadge:
                 resp.body = f.read()
                 return
 
-        app = "missjuliarobot"
+        app = os.environ.get("HEROKU_APP_NAME")
         path = "/"
 
         if not app:
