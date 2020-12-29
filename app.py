@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 from julia import HEROKU_APP_NAME
 
 
-def get_badge(name: str, style: str = None):
+def get_badge(name: str):
     image_path = os.path.join(os.getcwd(), f"img/{name}.svg")
     stream = io.open(image_path, "rb")
     content_length = os.path.getsize(image_path)
@@ -43,18 +43,17 @@ class HerokuBadge:
 
         except requests.exceptions.Timeout:
             resp.stream, resp.content_length = get_badge(
-                name="timeout", style=style)
+                name="timeout")
         else:
             if r.status_code == 200:
                 resp.stream, resp.content_length = get_badge(
-                    name="deployed", style=style)
+                    name="deployed")
             elif r.status_code == 404:
                 resp.stream, resp.content_length = get_badge(
-                    name="not_found", style=style)
+                    name="not_found")
             else:
                 resp.stream, resp.content_length = get_badge(
-                    name="failed", style=style)
-
+                    name="failed")
 
 application = falcon.API()
 application.add_route("/", HerokuBadge())
