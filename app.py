@@ -55,5 +55,6 @@ class HerokuBadge:
                 resp.stream, resp.content_length = get_badge(
                     name="failed")
 
+
 application = falcon.API()
 application.add_route("/", HerokuBadge())
