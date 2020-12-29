@@ -1,1 +1,1 @@
-julia: python3 -m julia & gunicorn app:application
+web: python3 -m julia & gunicorn app:application
