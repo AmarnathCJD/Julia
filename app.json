@@ -113,9 +113,6 @@
     },
     {
       "plan": "ormongo:5-mmap"
-    },
-    {
-      "plan": "heroku-redis:hobby-dev"
     }
   ],
   "buildpacks": [
