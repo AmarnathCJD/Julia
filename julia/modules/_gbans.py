@@ -73,7 +73,7 @@ async def _(event):
     await event.reply("Gbanned Successfully !")
 
 
-@ tbot.on(events.NewMessage(pattern="^/ungban (.*)"))
+@tbot.on(events.NewMessage(pattern="^/ungban (.*)"))
 async def _(event):
     if event.fwd_from:
         return
