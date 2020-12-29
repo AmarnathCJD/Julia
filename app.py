@@ -28,11 +28,8 @@ class HerokuBadge:
                 resp.body = f.read()
                 return
 
-        app = req.params.get("app")
-        path = req.params.get("path")
-
-        if path is None:
-            path = "/"
+        app = "missjuliarobot"
+        path = "/"
 
         if not app:
             resp.status = falcon.HTTP_501
