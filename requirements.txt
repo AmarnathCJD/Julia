@@ -1,4 +1,4 @@
-wheel==0.35.1
+wheel==0.36.2
 lxml==4.6.1
 cryptg==0.2.post2
 chromedriver==2.24.1
