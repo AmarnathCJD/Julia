@@ -112,7 +112,7 @@ async def _(event):
     await event.reply("Is that user even gbanned ?")
 
 
-@ tbot.on(events.ChatAction())
+@tbot.on(events.ChatAction())
 async def join_ban(event):
     if event.chat_id == "-1001158277850":
         return
@@ -133,7 +133,7 @@ async def join_ban(event):
             return
 
 
-@ tbot.on(events.NewMessage(pattern=None))
+@tbot.on(events.NewMessage(pattern=None))
 async def type_ban(event):
     if event.chat_id == "-1001158277850":
         return
