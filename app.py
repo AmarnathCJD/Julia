@@ -56,5 +56,5 @@ class HerokuBadge:
                     name="failed")
 
 
-app = falcon.API()
-app.add_route("/", HerokuBadge())
+application = falcon.API()
+application.add_route("/", HerokuBadge())
