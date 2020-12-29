@@ -5,18 +5,10 @@ import requests
 from datetime import datetime, timezone, timedelta
 from julia import HEROKU_APP_NAME
 
-ALLOWED_STYLES = ("flat-square", "plastic")
-
-
-def get_badge(name: str, style: str = None):
-    if style and style in ALLOWED_STYLES:
-        image_path = os.path.join(os.getcwd(), f"img/{name}-{style}.svg")
-    else:
-        image_path = os.path.join(os.getcwd(), f"img/{name}.svg")
-
+def get_badge(name: str, style: str = None):   
+    image_path = os.path.join(os.getcwd(), f"img/{name}.svg")
     stream = io.open(image_path, "rb")
     content_length = os.path.getsize(image_path)
-
     return stream, content_length
 
 
