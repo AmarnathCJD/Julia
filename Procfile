@@ -1,1 +1,1 @@
-worker: python3 -m julia
+web: python3 -m julia
