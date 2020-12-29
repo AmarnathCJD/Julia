@@ -16,6 +16,11 @@
       "value": "",
       "required": true
     },
+    "HEROKU_APP_NAME": {
+      "description": "This is same as the heroku application name",
+      "value": "",
+      "required": true
+    },
     "STRING_SESSION": {
       "description": "Get this value by running python3 GenerateStringSession.py locally",
       "value": "",
