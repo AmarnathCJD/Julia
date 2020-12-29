@@ -14,7 +14,7 @@ if __name__ != '__main__':
     app.logger.handlers = gunicorn_logger.handlers
     app.logger.setLevel(gunicorn_logger.level)
 
-BADGE_DIR = './badges'
+BADGE_DIR = './botstatus'
 CACHE_TIMEOUT_DEFAULT = 900
 REDIS_CONNECT_TIMEOUT = 10
 BADGES_ENUM = ('succeeded', 'failed', 'errored')
