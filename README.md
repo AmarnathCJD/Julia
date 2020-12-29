@@ -14,7 +14,7 @@
 [![DeepSource](https://static.deepsource.io/deepsource-badge-light-mini.svg)](https://deepsource.io/gh/MissJuliaRobot/MissJuliaRobot/?ref=repository-badge)
 [![Maintenance](https://img.shields.io/badge/maintained-yes-yellow.svg)](https://github.com/MissJuliaRobot/MissJuliaRobot)
 
-**Blazingly fast Telegram Group Management Bot based on [Telethon](https://github.com/LonamiWebs/Telethon) coupled with [Sqlalchemy](https://github.com/sqlalchemy/sqlalchemy) and [MongoDB](https://github.com/mongodb/mongo)**
+**Blazingly fast Telegram Group Management Bot based on [Telethon](https://github.com/LonamiWebs/Telethon) coupled with [Sqlalchemy](https://github.com/sqlalchemy/sqlalchemy), [MongoDB](https://github.com/mongodb/mongo) and [gunicorn](https://github.com/benoitc/gunicorn)**
 
 Can be found on telegram as [Julia](https://t.me/MissJuliaRobot)
 
