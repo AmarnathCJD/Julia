@@ -38,7 +38,6 @@ async def _(event):
       return
     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
     time = ttime # exchange
-    print (ltime)
     print (ttime)
     resent = datetime.datetime.now()
     present = resent.strftime("%d-%m-%Y %H:%M:%S")
