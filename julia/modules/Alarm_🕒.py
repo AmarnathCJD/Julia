@@ -23,12 +23,15 @@ async def _(event):
             iid, reasonn = quew.split("|")
     time = iid.strip()
     reason = reasonn.strip()
-    ttime = dateparser.parse(time)  
-    time = ttime # exchange
     if len(time) != 19:
-      await event.reply("Please enter valid date and time")
+      await event.reply("Please enter valid date and time.")
       return
-    
+    ttime = dateparser.parse(time)  
+    time = ttime # exchange    
+    present = datetime.datetime.now()
+    if time < present:
+      await event.reply("Please enter valid date and time.")
+      return
     if not reason:
         reason = "No reason given"
     chats = alarms.find({})
