@@ -107,7 +107,7 @@ async def make_qr(qrcode):
 
     start = datetime.now()
     input_str = qrcode.pattern_match.group(1)
-    message = "SYNTAX: `.makeqr <long text to include>`"
+    message = "SYNTAX: `/makeqr <long text to include>`"
     reply_msg_id = None
     if input_str:
         message = input_str
@@ -147,7 +147,7 @@ size=200x200&charset-source=UTF-8&charset-target=UTF-8\
     os.remove(required_file_name)
     duration = (datetime.now() - start).seconds
     await qrcode.reply("Created QRCode in {} seconds".format(duration))
-    await sleep(5)
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
