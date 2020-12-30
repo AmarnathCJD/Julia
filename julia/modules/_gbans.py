@@ -122,18 +122,18 @@ async def join_ban(event):
     user = await event.get_user()
     chats = gbanned.find({})
     for c in chats:
-     if user.id == c["user"]:
-      if event.user_joined:
-        try:
-            chat = await event.get_chat()
-            to_check = get_reason(id=user.id)
-            reason = to_check["reason"]
-            bannerid = to_check["bannerid"]
-            await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
-            await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
-        except Exception as e:
-            print(e)
-            return
+        if user.id == c["user"]:
+            if event.user_joined:
+                try:
+                    chat = await event.get_chat()
+                    to_check = get_reason(id=user.id)
+                    reason = to_check["reason"]
+                    bannerid = to_check["bannerid"]
+                    await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
+                    await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
+                except Exception as e:
+                    print(e)
+                    return
 
 
 @tbot.on(events.NewMessage(pattern=None))
