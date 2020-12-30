@@ -41,7 +41,8 @@ async def _(event):
     time = ttime # exchange
     print (ltime)
     print(ttime)
-    present = datetime.datetime.now()
+    resent = datetime.datetime.now()
+    present = resent.strftime("%Y-%m-%d %H:%M:%S")
     gtime = convert_datetime_timezone(str(present), "America/New_York", zone)
     print(gtime)
     if gtime <= present:
