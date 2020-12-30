@@ -328,6 +328,7 @@ async def _(event):
     args = int(event.pattern_match.group(1))
 
     await event.reply(str(math.log(int(args))))
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
@@ -348,7 +349,7 @@ Solves complex math problems using https://newton.now.sh
  - /arcsin: Inverse Sine `/arcsin 0`
  - /arctan: Inverse Tangent `/arctan 0`
  - /abs: Absolute Value `/abs -1`
- - /log: Logarithm `/log 2l8`
+ - /log: Logarithm `/log 28`
 
 _Keep in mind_: To find the tangent line of a function at a certain x value, send the request as c|f(x) where c is the given x value and f(x) is the function expression, the separator is a vertical bar '|'. See the table above for an example request.
 To find the area under a function, send the request as c:d|f(x) where c is the starting x value, d is the ending x value, and f(x) is the function under which you want the curve between the two x values.
