@@ -39,7 +39,7 @@ async def _(event):
     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
     time = ttime # exchange
     resent = datetime.datetime.now(pytz.timezone(zone))
-    present = resent.strftime("%Y-%m-%d %H:%M:%S")
+    present = resent.strptime("%Y-%m-%d %H:%M:%S")
     # gtime = convert_datetime_timezone(str(resent), "America/New_York", zone)
     print(ttime)
     print(present)
