@@ -45,7 +45,6 @@ async def _(event):
     if not reason:
         reason = "No reason given"
     chats = alarms.find({})
-
     for c in chats:
         if event.chat_id == c["chat"] and time == c["time"]:
             to_check = get_reason(id=event.chat_id)
@@ -53,7 +52,7 @@ async def _(event):
                                "$set": {"reason": reason, "zone": zone}})
             await event.reply("This alarm is already set.\nI am updating the reason(and zone) of the alarm with the new reason(and zone).")
             return
-    alarms.insert_one({"chat": event.chat_id, "user": event.sender_id, "time": time, "zone": zone, "reason": reason})
+    alarms.insert_one({"chat": event.chat_id, "user": f"[user](tg://user?id={event.sender_id})", "time": time, "zone": zone, "reason": reason})
     await event.reply("Alarm set successfully !")
 
 @tbot.on(events.NewMessage(pattern=None))
