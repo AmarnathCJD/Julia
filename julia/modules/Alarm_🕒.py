@@ -36,11 +36,10 @@ async def _(event):
     if len(time) != 22:
       await event.reply("Please enter valid date and time.")
       return
-    ltime = f"'{time}'"+", settings={'TIMEZONE': "+f"'{zone}'"+"}"
-    ttime = dateparser.parse(ltime) 
+    ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
     time = ttime # exchange
     print (ltime)
-    print(ttime)
+    print (ttime)
     resent = datetime.datetime.now()
     present = resent.strftime("%d-%m-%Y %H:%M:%S")
     gtime = convert_datetime_timezone(str(present), "America/New_York", zone)
