@@ -27,10 +27,13 @@ async def _(event):
     if len(time) != 22:
       await event.reply("Please enter valid date and time.")
       return
-    ltime = time+", settings={'TIMEZONE': "+f"'{zone}'"+"}"
+    ltime = str(time)+", settings={'TIMEZONE': "+f"'{zone}'"+"}"
     ttime = dateparser.parse(ltime) 
     time = ttime # exchange
+    print (ltime)
+    print(ttime)
     present = datetime.datetime.now(pytz.timezone(zone))
+    print(present)
     if ttime <= present:
       await event.reply("Please enter valid date and time.")
       return
