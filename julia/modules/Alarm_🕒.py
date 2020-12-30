@@ -46,6 +46,7 @@ async def _(event):
     await event.reply("Alarm set successfully !")
 
 @tbot.on(events.NewMessage(pattern=None))
+@tbot.on(events.ChatAction())
 async def tikclock(event):
     chats = alarms.find({})
     for c in chats:
