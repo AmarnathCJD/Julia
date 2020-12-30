@@ -42,7 +42,7 @@ async def _(event):
     print (ltime)
     print(ttime)
     present = datetime.datetime.now()
-    gtime = convert_datetime_timezone(present, "America/New_York", zone)
+    gtime = convert_datetime_timezone(str(present), "America/New_York", zone)
     print(gtime)
     if gtime <= present:
       await event.reply("Please enter valid date and time.")
