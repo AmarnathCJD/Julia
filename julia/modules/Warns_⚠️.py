@@ -141,6 +141,7 @@ async def rm_warn(event):
             pass
         else:
             await event.answer("You need to be an admin to do this", alert=False)
+            return
         sender = await event.get_sender()
         sid= sender.id
         user_id = int(event.pattern_match.group(1))
