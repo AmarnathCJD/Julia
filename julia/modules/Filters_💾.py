@@ -210,8 +210,6 @@ async def on_snip_list(event):
                 reply_to=event,
             )
 
-            await event.delete()
-
     else:
 
         await event.reply(OUT_STR)
