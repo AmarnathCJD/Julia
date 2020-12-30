@@ -16,7 +16,7 @@ def get_reason(id):
 def convert_datetime_timezone(dt, tz1, tz2):
     tz1 = pytz.timezone(tz1)
     tz2 = pytz.timezone(tz2)
-    dt = datetime.datetime.strptime(dt,"%Y-%m-%d %H:%M:%S")
+    dt = datetime.datetime.strftime(dt,"%Y-%m-%d %H:%M:%S")
     dt = tz1.localize(dt)
     dt = dt.astimezone(tz2)
     dt = dt.strftime("%Y-%m-%d %H:%M:%S")
@@ -29,7 +29,7 @@ async def _(event):
         return    
     quew = event.pattern_match.group(1)
     if "|" in quew:
-            iid, zonee, reasonn = quew.split("|")
+        iid, zonee, reasonn = quew.split("|")
     time = iid.strip()
     reason = reasonn.strip()
     zone = zonee.strip()
@@ -39,11 +39,12 @@ async def _(event):
     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
     time = ttime # exchange
     resent = datetime.datetime.now(pytz.timezone(zone))
-    present = resent.strptime("%Y-%m-%d %H:%M:%S")
+    present = resent.strftime("%Y-%m-%d %H:%M:%S")
+    kk = datetime.datetime.strptime(str(present), "%Y-%m-%d %H:%M:%S")
     # gtime = convert_datetime_timezone(str(resent), "America/New_York", zone)
     print(ttime)
     print(present)
-    if not present >= ttime:
+    if not kk >= ttime:
       await event.reply("Please enter valid date and time.")
       return
     if not reason:
