@@ -3,7 +3,7 @@ from telethon import *
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from julia.events import register
-import dateparser, datetime
+import dateparser, datetime, pytz 
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -20,11 +20,15 @@ async def _(event):
     quew = event.pattern_match.group(1)
     
     if "|" in quew:
-            iid, reasonn = quew.split("|")
+            iid, zonee, reasonn = quew.split("|")
     time = iid.strip()
     reason = reasonn.strip()
+    zone = zonee.strip()
     if len(time) != 19:
       await event.reply("Please enter valid date and time.")
+      return
+    if len(zone) != 3:
+      await event.reply("Please enter valid timezone (length=3).")
       return
     ttime = dateparser.parse(time)  
     time = ttime # exchange    
