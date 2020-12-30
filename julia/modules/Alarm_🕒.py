@@ -13,6 +13,15 @@ alarms = db.alarm
 def get_reason(id):
     return alarms.find_one({"chat": id})
 
+def convert_datetime_timezone(dt, tz1, tz2):
+    tz1 = pytz.timezone(tz1)
+    tz2 = pytz.timezone(tz2)
+    dt = datetime.datetime.strptime(dt,"%Y-%m-%d %H:%M:%S")
+    dt = tz1.localize(dt)
+    dt = dt.astimezone(tz2)
+    dt = dt.strftime("%Y-%m-%d %H:%M:%S")
+    return dt
+
 @register(pattern="^/setalarm (.*)")
 async def _(event):
  try:
@@ -27,14 +36,15 @@ async def _(event):
     if len(time) != 22:
       await event.reply("Please enter valid date and time.")
       return
-    ltime = str(time)+", settings={'TIMEZONE': "+f"'{zone}'"+"}"
+    ltime = f"'{time}'"+", settings={'TIMEZONE': "+f"'{zone}'"+"}"
     ttime = dateparser.parse(ltime) 
     time = ttime # exchange
     print (ltime)
     print(ttime)
-    present = datetime.datetime.now(pytz.timezone(zone))
-    print(present)
-    if ttime <= present:
+    present = datetime.datetime.now()
+    gtime = convert_datetime_timezone(present, "America/New_York", zone)
+    print(gtime)
+    if gtime <= present:
       await event.reply("Please enter valid date and time.")
       return
     if not reason:
