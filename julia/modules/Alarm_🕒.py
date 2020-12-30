@@ -16,10 +16,10 @@ def get_reason(id):
 def convert_datetime_timezone(dt, tz1, tz2):
     tz1 = pytz.timezone(tz1)
     tz2 = pytz.timezone(tz2)
-    dt = datetime.datetime.strptime(dt,"%d-%m-%Y %H:%M:%S")
+    dt = datetime.datetime.strptime(dt,"%Y-%m-%d %H:%M:%S")
     dt = tz1.localize(dt)
     dt = dt.astimezone(tz2)
-    dt = dt.strftime("%d-%m-%Y %H:%M:%S")
+    dt = dt.strftime("%Y-%m-%d %H:%M:%S")
     return dt
 
 @register(pattern="^/setalarm (.*)")
@@ -40,7 +40,7 @@ async def _(event):
     time = ttime # exchange
     print (ttime)
     resent = datetime.datetime.now()
-    present = resent.strftime("%d-%m-%Y %H:%M:%S")
+    present = resent.strftime("%Y-%m-%d %H:%M:%S")
     gtime = convert_datetime_timezone(str(present), "America/New_York", zone)
     print(gtime)
     if gtime <= present:
