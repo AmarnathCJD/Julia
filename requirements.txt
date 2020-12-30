@@ -19,7 +19,7 @@ future==0.18.2
 geopy==2.0.0
 googletrans==3.0.0
 hurry.filesize==0.9
-markdown2==2.3.10
+markdown==3.3.3
 nltk==3.5
 pillow==8.0.1
 psycopg2-binary==2.8.6
