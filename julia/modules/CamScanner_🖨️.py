@@ -66,15 +66,9 @@ async def asciiart(event):
     let = f"{downloaded_file_name}"
     subprocess.run(["python", "scan.py", "--image", let])
     await tbot.send_file(event.chat_id, "./scanned.jpg")
-    directory = "./"
-    test = os.listdir(directory)
-    for item in test:
-        if item.endswith(".jpg"):
-            os.remove(os.path.join(directory, item))
-        elif item.endswith(".png"):
-            os.remove(os.path.join(directory, item))
-        elif item.endswith(".jpeg"):
-            os.remove(os.path.join(directory, item))
+    os.remove(f"{downloaded_file_name}")
+    os.remove("./scanned.jpg")
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
