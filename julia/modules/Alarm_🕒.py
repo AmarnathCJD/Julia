@@ -30,7 +30,7 @@ async def _(event):
     ttime = dateparser.parse(time)  
     time = ttime # exchange
     present = datetime.datetime.now(pytz.timezone(zone))
-    if ptime < present:
+    if ttime <= present:
       await event.reply("Please enter valid date and time.")
       return
     if not reason:
