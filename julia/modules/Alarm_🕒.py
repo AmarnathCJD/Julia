@@ -36,14 +36,14 @@ async def _(event):
     if len(time) != 22:
       await event.reply("Please enter valid date and time.")
       return
-    ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
+    ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'RETURN_AS_TIMEZONE_AWARE': True}) 
     time = ttime # exchange
-    resent = datetime.datetime.now()
+    resent = datetime.datetime.now(pytz.timezone(zone))
     present = resent.strftime("%Y-%m-%d %H:%M:%S")
-    gtime = convert_datetime_timezone(present, "America/New_York", zone)
-    kk = datetime.datetime.strptime(str(gtime), "%Y-%m-%d %H:%M:%S")
+    kk = datetime.datetime.strptime(str(present), "%Y-%m-%d %H:%M:%S")
+    # gtime = convert_datetime_timezone(str(resent), "America/New_York", zone)
     print(ttime)
-    print(kk)
+    print(present)
     if not kk >= ttime:
       await event.reply("Please enter valid date and time.")
       return
