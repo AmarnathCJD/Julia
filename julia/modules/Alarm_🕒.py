@@ -36,7 +36,7 @@ async def _(event):
     if len(time) != 22:
       await event.reply("Please enter valid date and time.")
       return
-    ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}') 
+    ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
     time = ttime # exchange
     resent = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}'}) 
     present = resent.strftime("%Y-%m-%d %H:%M:%S")
