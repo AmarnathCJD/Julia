@@ -62,10 +62,11 @@ async def tikclock(event):
                 user = to_check["user"]
                 time = to_check["time"]
                 zone = to_check["zone"]
-                # present = datetime.datetime.now(pytz.timezone(zone))
-                # if time >= present:                   
-                   # await event.reply(f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
-                   # alarms.delete_one({"chat": event.chat_id})
-                   # return
+                present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'RETURN_AS_TIMEZONE_AWARE': True}) 
+                ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'RETURN_AS_TIMEZONE_AWARE': True}) 
+                if ttime >= present:                   
+                   await event.reply(f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
+                   alarms.delete_one({"chat": event.chat_id})
+                   return
       except Exception as e:
          print(e)
