@@ -185,7 +185,7 @@ async def _(event):
         user_joined=False,
         user_left=True,
         user_kicked=True,"""
-        if event.user_kicked:
+        if event.user_kicked or event.user_left:
             #print ("1")
             if cws.should_clean_goodbye:
                 #print ("2")
