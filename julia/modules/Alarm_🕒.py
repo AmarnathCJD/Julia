@@ -54,8 +54,7 @@ async def _(event):
 @tbot.on(events.ChatAction())
 async def tikclock(event):
     chats = alarms.find({})
-    spammers = leechers.find({})
-    for c in spammers:
+    for c in chats:
      #print(c)
      chat = c["chat"]
      user = c["user"]
