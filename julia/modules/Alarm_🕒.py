@@ -3,7 +3,7 @@ from telethon import *
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from julia.events import register
-import dateparser, datetime, pytz 
+import dateparser 
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -12,15 +12,6 @@ alarms = db.alarm
 
 def get_reason(id):
     return alarms.find_one({"chat": id})
-
-def convert_datetime_timezone(dt, tz1, tz2):
-    tz1 = pytz.timezone(tz1)
-    tz2 = pytz.timezone(tz2)
-    dt = datetime.datetime.strftime(dt,"%Y-%m-%d %H:%M:%S")
-    dt = tz1.localize(dt)
-    dt = dt.astimezone(tz2)
-    dt = dt.strftime("%Y-%m-%d %H:%M:%S")
-    return dt
 
 @register(pattern="^/setalarm (.*)")
 async def _(event):
@@ -71,10 +62,10 @@ async def tikclock(event):
                 user = to_check["user"]
                 time = to_check["time"]
                 zone = to_check["zone"]
-                present = datetime.datetime.now(pytz.timezone(zone))
-                if time >= present:                   
-                   await event.reply(f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
-                   alarms.delete_one({"chat": event.chat_id})
-                   return
+                # present = datetime.datetime.now(pytz.timezone(zone))
+                # if time >= present:                   
+                   # await event.reply(f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
+                   # alarms.delete_one({"chat": event.chat_id})
+                   # return
       except Exception as e:
          print(e)
