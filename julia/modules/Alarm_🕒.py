@@ -40,7 +40,7 @@ async def _(event):
     time = ttime # exchange
     resent = datetime.datetime.now()
     present = resent.strftime("%Y-%m-%d %H:%M:%S")
-    gtime = convert_datetime_timezone(str(present), "America/New_York", zone)
+    gtime = convert_datetime_timezone(present, "America/New_York", zone)
     kk = datetime.datetime.strptime(str(gtime), "%Y-%m-%d %H:%M:%S")
     print(ttime)
     print(kk)
