@@ -65,5 +65,7 @@ async def tikclock(event):
      #print(ttime)
      #print(present)
      #print (zone)
-     if  ttime >= present:
-        print ("yo")
+     if ttime <= present:
+        await tbot.send_message(chat, "")
+        await alarms.delete_one({"time": time})
+        return
