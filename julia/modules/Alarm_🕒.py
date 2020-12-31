@@ -54,17 +54,17 @@ async def _(event):
 @tbot.on(events.ChatAction())
 async def tikclock(event):
     chats = alarms.find({})
-    for c in chats:
-      try:
-        if event.chat_id == c["chat"]:
-                to_check = get_reason(id=event.chat_id)
-                reason = to_check["reason"]
-                user = to_check["user"]
-                time = to_check["time"]
-                zone = to_check["zone"]
-                present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'RETURN_AS_TIMEZONE_AWARE': True}) 
-                ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'RETURN_AS_TIMEZONE_AWARE': True}) 
-                if ttime >= present:                   
-                   print ("sbsrbsfnsgnsg ")
-      except Exception as e:
-         print(e)
+    spammers = leechers.find({})
+    for c in spammers:
+     #print(c)
+     chat = c["chat"]
+     user = c["user"]
+     time = c["time"]
+     zone = c["zone"]
+     present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'RETURN_AS_TIMEZONE_AWARE': True}) 
+     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'RETURN_AS_TIMEZONE_AWARE': True}) 
+     #print(ttime)
+     #print(present)
+     #print (zone)
+     if  ttime >= present:
+        print ("yo")
