@@ -38,7 +38,7 @@ async def _(event):
       return
     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}') 
     time = ttime # exchange
-    resent = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}') 
+    resent = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}'}) 
     present = resent.strftime("%Y-%m-%d %H:%M:%S")
     kk = datetime.datetime.strptime(str(present), "%Y-%m-%d %H:%M:%S")
     # gtime = convert_datetime_timezone(str(resent), "America/New_York", zone)
