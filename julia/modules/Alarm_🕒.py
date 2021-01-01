@@ -30,8 +30,8 @@ async def _(event):
     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
     time = ttime # exchange
     present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}'}) 
-    print(ttime)
-    print(present)
+    #print(ttime)
+    #print(present)
     if not time > present:
       await event.reply("Please enter valid date and time.")
       return
