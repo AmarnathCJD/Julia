@@ -2,6 +2,7 @@ import io
 import falcon
 from julia import HEROKU_APP_NAME
 
+
 class MissJuliaRobot:
     def on_get(self, req, resp):
         if not req.params:
@@ -17,6 +18,7 @@ class MissJuliaRobot:
         if not app:
             resp.status = falcon.HTTP_501
             return
+
 
 application = falcon.API()
 application.add_route("/", MissJuliaRobot())
