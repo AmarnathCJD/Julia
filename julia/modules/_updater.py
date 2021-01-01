@@ -6,7 +6,6 @@ from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 import heroku3
 from julia import OWNER_ID, tbot
-import os
 
 
 UPSTREAM_REPO_URL = "https://github.com/MissJuliaRobot/MissJuliaRobot.git"
