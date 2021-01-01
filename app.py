@@ -2,7 +2,7 @@ import io
 import falcon
 from julia import HEROKU_APP_NAME
 
-class HerokuBadge:
+class MissJuliaRobot:
     def on_get(self, req, resp):
         if not req.params:
             resp.content_type = "text/html"
@@ -19,4 +19,4 @@ class HerokuBadge:
             return
 
 application = falcon.API()
-application.add_route("/", HerokuBadge())
+application.add_route("/", MissJuliaRobot())
