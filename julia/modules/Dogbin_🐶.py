@@ -3,8 +3,6 @@ import os
 import requests
 from julia.events import register
 from julia import tbot, CMD_HELP, TEMP_DOWNLOAD_DIRECTORY
-import asyncio
-from telethon import events
 from telethon.tl import functions
 from telethon.tl import types
 from pymongo import MongoClient
