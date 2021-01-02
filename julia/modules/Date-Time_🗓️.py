@@ -134,7 +134,9 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /datetime <city>: Get the present date and time information
+ - /datetime <timezone>: Get the present date and time information
+
+**You can check out this [link](https://timezonedb.com/time-zones) for the available timezones**
 """
 
 CMD_HELP.update({
