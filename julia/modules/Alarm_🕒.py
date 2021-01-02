@@ -50,6 +50,7 @@ async def _(event):
  except Exception as e:
     print (e)
 
+global chat, user, time, zone, reason, present, ttime
 @tbot.on(events.NewMessage(pattern=None))
 @tbot.on(events.ChatAction())
 async def tikclock(event):
