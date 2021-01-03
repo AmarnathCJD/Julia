@@ -67,9 +67,9 @@ async def tikclock(event):
      #print(ttime)
      #print(present)
      #print (zone)
-    if not present >= ttime:
+     if not present >= ttime:
        return
-    print("loop passing")
-    await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
-    alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
-    
+     #print("loop passing")
+     await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
+     alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
+     
