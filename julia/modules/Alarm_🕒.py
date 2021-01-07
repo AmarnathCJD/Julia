@@ -66,7 +66,7 @@ async def tikclock(event):
      #print(ttime)
      #print(present)
      #print (zone)
-     print(present>=time)
+     #print(present>=time)
      if not present >= ttime:
        return
      await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
