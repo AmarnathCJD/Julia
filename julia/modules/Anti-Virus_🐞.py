@@ -96,9 +96,13 @@ async def autoscanit(event):
         await event.reply("I only understand by on or off")
         return
       
-api_instance = cloudmersive_virus_api_client.ScanApi()
-api_instance.api_client.configuration.api_key = {}
-api_instance.api_client.configuration.api_key['Apikey'] = VIRUS_API_KEY
+configuration = cloudmersive_virus_api_client.Configuration()
+configuration.api_key['Apikey'] = VIRUS_API_KEY
+api_instance = cloudmersive_virus_api_client.ScanApi(cloudmersive_virus_api_client.ApiClient(configuration))
+allow_executables = True 
+allow_invalid_files = True 
+allow_scripts = True 
+allow_password_protected_files = True 
 
 @register(pattern="^/scanit$")
 async def virusscan(event):
@@ -148,8 +152,7 @@ async def virusscan(event):
        return
     if c.game:
        await event.reply("Thats not a file.")
-       return
-   
+       return   
     try:
       virus = c.file.name
       await event.client.download_file(c, virus)
@@ -158,7 +161,7 @@ async def virusscan(event):
       if not fsize <= 3670015: # MAX = 3.5MB
          await gg.edit("File size exceeds 3.5MB")
          return
-      api_response = api_instance.scan_file(c.file.name)
+      api_response = api_instance.scan_file_advanced(c.file.name, allow_executables=allow_executables, allow_invalid_files=allow_invalid_files, allow_scripts=allow_scripts, allow_password_protected_files=allow_password_protected_files)
       if api_response.clean_result is True:
        await gg.edit("This file is safe ✔️\nNo virus detected 🐞")
       else:
@@ -202,8 +205,7 @@ async def virusscanner(event):
       virus = c.file.name
       await event.client.download_file(c, virus)
       gg= await event.reply("Scanning the file ...")
-      api_response = api_instance.scan_file(c.file.name)
-      print(api_response)
+      api_response = api_instance.scan_file_advanced(c.file.name, allow_executables=allow_executables, allow_invalid_files=allow_invalid_files, allow_scripts=allow_scripts, allow_password_protected_files=allow_password_protected_files)
       if api_response.clean_result is True:
        await gg.edit("This file is safe ✅\nNo virus detected 🐞")
       else:
