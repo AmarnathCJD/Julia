@@ -43,23 +43,40 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/news (.*) (.*)")
 async def _(event):
-    if event.is_group:
-        return
+    sender = event.sender_id
     country = event.pattern_match.group(1)
     lang = event.pattern_match.group(2)
+    index = 0
+    chatid = event.chat_id
+    msg = await tbot.send_message(chatid, "Loading ...")
+    msgid = msg.id
+    await tbot.send_message("Click on the below button to read the latest news headlines 👇", buttons=[[Button.inline('▶️', data=f'news-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+
+@tbot.on(events.CallbackQuery(pattern=r"news(\-(.*))"))
+async def paginate_news(event):
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
+    if "|" in meta:
+        sender, country, lang, index, chatid, msgid = meta.split("|")
+    sender = int(sender.strip())
+    country = country.strip()
+    lang = lang.strip()
+    index = index.strip()
+    chatid = int(chatid.strip())
+    msgid = int(msgid.strip())
     news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
     Client = urlopen(news_url)
     xml_page = Client.read()
     Client.close()
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
     news_list = soup_page.find_all("item")
-    for news in news_list:
-        title = news.title.text
-        text = news.link.text
-        date = news.pubDate.text
-        l = "\n"
-        lastisthis = f"[{title}]({text})"+ l + l + date 
-        await event.reply(lastisthis, link_preview=False)
+    title = news_list[f"{num}"].title.text
+    text = news_list[f"{num}"].link.text
+    date = news_list[f"{num}"].pubDate.text
+    lastisthis = f"[{title}]({text})"+"\n\n"+ f"{date}"
+    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False) # buttons=[[Button.inline('▶️', data=f'news-en-{sender}')]])
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
