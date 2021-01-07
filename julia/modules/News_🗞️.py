@@ -109,7 +109,7 @@ async def paginate_prevnews(event):
     news_list = soup_page.find_all("item")
     vector = len(news_list)
     if num < 0:
-       num = vector
+       num = vector - 1
     print(vector)
     print(num)
     header = f"**#{num} **"
@@ -144,7 +144,7 @@ async def paginate_nextnews(event):
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
     news_list = soup_page.find_all("item")
     vector = len(news_list)
-    if num > vector:
+    if num > vector - 1:
        num = 0
     header = f"**#{num} **"
     title = news_list[int(num)].title.text
