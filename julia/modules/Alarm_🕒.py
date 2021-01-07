@@ -50,9 +50,8 @@ async def _(event):
  except Exception as e:
     print (e)
 
-global chat, user, time, zone, reason, present, ttime
 @tbot.on(events.NewMessage(pattern=None))
-@tbot.on(events.ChatAction())
+#@tbot.on(events.ChatAction())
 async def tikclock(event):
     chats = alarms.find({})
     for c in chats:
@@ -69,7 +68,7 @@ async def tikclock(event):
      #print (zone)
      if not present >= ttime:
        return
-     #print("loop passing")
-     await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
-     alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
-     
+     else:
+      await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
+      alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
+      return
