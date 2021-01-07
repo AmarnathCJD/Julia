@@ -77,9 +77,9 @@ async def paginate_news(event):
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
     news_list = soup_page.find_all("item")
     header = f"**#{num} **"
-    title = news_list[f"{num}"].title.text
-    text = news_list[f"{num}"].link.text
-    date = news_list[f"{num}"].pubDate.text
+    title = news_list[num].title.text
+    text = news_list[num].link.text
+    date = news_list[num].pubDate.text
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
     await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
 
@@ -111,9 +111,9 @@ async def paginate_prevnews(event):
     if num < 0:
        num = vector
     header = f"**#{num} **"
-    title = news_list[f"{num}"].title.text
-    text = news_list[f"{num}"].link.text
-    date = news_list[f"{num}"].pubDate.text
+    title = news_list[num].title.text
+    text = news_list[num].link.text
+    date = news_list[num].pubDate.text
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
     await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
 
@@ -145,9 +145,9 @@ async def paginate_nextnews(event):
     if num > vector:
        num = 0
     header = f"**#{num} **"
-    title = news_list[f"{num}"].title.text
-    text = news_list[f"{num}"].link.text
-    date = news_list[f"{num}"].pubDate.text
+    title = news_list[num].title.text
+    text = news_list[num].link.text
+    date = news_list[num].pubDate.text
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
     await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
 
