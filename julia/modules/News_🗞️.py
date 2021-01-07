@@ -110,8 +110,8 @@ async def paginate_prevnews(event):
     vector = len(news_list)
     if num < 0:
        num = vector - 1
-    print(vector)
-    print(num)
+    #print(vector)
+    #print(num)
     header = f"**#{num} **"
     title = news_list[int(num)].title.text
     text = news_list[int(num)].link.text
