@@ -50,7 +50,7 @@ async def _(event):
     chatid = event.chat_id
     msg = await tbot.send_message(chatid, "Loading ...")
     msgid = msg.id
-    await tbot.send_message("Click on the below button to read the latest news headlines 👇", buttons=[[Button.inline('▶️', data=f'news-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+    await tbot.edit_message(chatid, msgid, "Click on the below button to read the latest news headlines 👇", buttons=[[Button.inline('▶️', data=f'news-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
 
 @tbot.on(events.CallbackQuery(pattern=r"news(\-(.*))"))
 async def paginate_news(event):
