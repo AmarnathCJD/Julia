@@ -44,7 +44,7 @@ async def _(event):
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
-    entity = await tbot.get_entity(cid)
+    entity = await tbot.get_input_entity(cid)
     r_sender_id = entity.id
 
     if not reason:
@@ -90,7 +90,7 @@ async def _(event):
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
-    entity = await tbot.get_entity(cid)
+    entity = await tbot.get_input_entity(cid)
     r_sender_id = entity.id
 
     if not reason:
