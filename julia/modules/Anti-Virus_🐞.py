@@ -158,8 +158,8 @@ async def virusscan(event):
       await event.client.download_file(c, virus)
       gg= await event.reply("Scanning the file ...")
       fsize = c.file.size
-      if not fsize <= 3670000: # MAX = 3.5MB
-         await gg.edit("File size exceeds 3.5MB")
+      if not fsize <= 3145700 # MAX = 3MB
+         await gg.edit("File size exceeds 3MB")
          return
       api_response = api_instance.scan_file_advanced(c.file.name, allow_executables=allow_executables, allow_invalid_files=allow_invalid_files, allow_scripts=allow_scripts, allow_password_protected_files=allow_password_protected_files)
       if api_response.clean_result is True:
@@ -201,7 +201,7 @@ async def virusscanner(event):
        return
     try:
       fsize = c.file.size
-      if not fsize <= 3670000: # MAX = 3.5MB
+      if not fsize <= 3145700: # MAX = 3MB
          return
       virus = c.file.name
       await event.client.download_file(c, virus)
