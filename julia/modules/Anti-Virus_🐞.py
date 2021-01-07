@@ -222,8 +222,8 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /scanit: Scan a file for virus (MAX SIZE = 3.5MB)
- - /autofilescan <on/off>: Automatically scans all incoming files(MAX SIZE = 3.5MB) in your group sent by peoples
+ - /scanit: Scan a file for virus (MAX SIZE = 3MB)
+ - /autofilescan <on/off>: Automatically scans all incoming files(MAX SIZE = 3MB) in your group sent by peoples
 """
 
 CMD_HELP.update({
