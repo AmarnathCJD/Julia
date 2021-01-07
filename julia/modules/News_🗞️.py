@@ -61,6 +61,9 @@ async def paginate_news(event):
     if "|" in meta:
         sender, country, lang, index, chatid, msgid = meta.split("|")
     sender = int(sender.strip())
+    if not event.sender_id == sender:
+       await event.answer("You haven't send that command !")
+       return
     country = country.strip()
     lang = lang.strip()
     index = index.strip()
