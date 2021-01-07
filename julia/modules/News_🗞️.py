@@ -43,6 +43,17 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/news (.*) (.*)")
 async def _(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.chat_id, event.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
     sender = event.sender_id
     country = event.pattern_match.group(1)
     lang = event.pattern_match.group(2)
@@ -54,6 +65,17 @@ async def _(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"news(\-(.*))"))
 async def paginate_news(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.chat_id, event.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -85,6 +107,17 @@ async def paginate_news(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"prevnews(\-(.*))"))
 async def paginate_prevnews(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.chat_id, event.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -121,6 +154,17 @@ async def paginate_prevnews(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"nextnews(\-(.*))"))
 async def paginate_nextnews(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.chat_id, event.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
@@ -155,6 +199,17 @@ async def paginate_nextnews(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"newsstop(\-(.*))"))
 async def newsstop(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.chat_id, event.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
     tata = event.pattern_match.group(1)
     data = tata.decode()
     meta = data.split('-', 1)[1]
