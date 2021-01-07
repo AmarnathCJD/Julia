@@ -66,7 +66,7 @@ async def paginate_news(event):
        return
     country = country.strip()
     lang = lang.strip()
-    index = index.strip()
+    index = int(index.strip())
     num = index
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
@@ -81,7 +81,7 @@ async def paginate_news(event):
     text = news_list[int(num)].link.text
     date = news_list[int(num)].pubDate.text
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
-    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('❌', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
 
 @tbot.on(events.CallbackQuery(pattern=r"prevnews(\-(.*))"))
 async def paginate_prevnews(event):
@@ -97,7 +97,7 @@ async def paginate_prevnews(event):
        return
     country = country.strip()
     lang = lang.strip()
-    index = index.strip()
+    index = int(index.strip())
     num = index - 1
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
@@ -115,7 +115,7 @@ async def paginate_prevnews(event):
     text = news_list[int(num)].link.text
     date = news_list[int(num)].pubDate.text
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
-    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('❌', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
 
 @tbot.on(events.CallbackQuery(pattern=r"nextnews(\-(.*))"))
 async def paginate_nextnews(event):
@@ -131,7 +131,7 @@ async def paginate_nextnews(event):
        return
     country = country.strip()
     lang = lang.strip()
-    index = index.strip()
+    index = int(index.strip())
     num = index + 1
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
@@ -149,7 +149,7 @@ async def paginate_nextnews(event):
     text = news_list[int(num)].link.text
     date = news_list[int(num)].pubDate.text
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
-    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('❌', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
 
 @tbot.on(events.CallbackQuery(pattern=r"nextstop(\-(.*))"))
 async def newsstop(event):
