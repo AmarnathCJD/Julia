@@ -67,6 +67,7 @@ async def paginate_news(event):
     country = country.strip()
     lang = lang.strip()
     index = index.strip()
+    num = int(index)
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
     news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
@@ -75,10 +76,11 @@ async def paginate_news(event):
     Client.close()
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
     news_list = soup_page.find_all("item")
+    header = f"**#{num} **"
     title = news_list[f"{num}"].title.text
     text = news_list[f"{num}"].link.text
     date = news_list[f"{num}"].pubDate.text
-    lastisthis = f"[{title}]({text})"+"\n\n"+ f"{date}"
+    lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
     await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False) # buttons=[[Button.inline('▶️', data=f'news-en-{sender}')]])
 
 file_help = os.path.basename(__file__)
