@@ -165,8 +165,6 @@ async def newsstop(event):
     if not event.sender_id == sender:
        await event.answer("You haven't send that command !")
        return
-    chatid = int(chatid.strip())
-    msgid = int(msgid.strip())
     await tbot.edit_message(chatid, msgid, "Thanks for reading.\n❤️ from Google News !")
 
 file_help = os.path.basename(__file__)
