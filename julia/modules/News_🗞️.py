@@ -67,7 +67,7 @@ async def paginate_news(event):
     country = country.strip()
     lang = lang.strip()
     index = index.strip()
-    num = int(index)
+    num = index
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
     news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
@@ -81,7 +81,78 @@ async def paginate_news(event):
     text = news_list[f"{num}"].link.text
     date = news_list[f"{num}"].pubDate.text
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
-    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False) # buttons=[[Button.inline('▶️', data=f'news-en-{sender}')]])
+    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+
+@tbot.on(events.CallbackQuery(pattern=r"prevnews(\-(.*))"))
+async def paginate_prevnews(event):
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
+    if "|" in meta:
+        sender, country, lang, index, chatid, msgid = meta.split("|")
+    sender = int(sender.strip())
+    if not event.sender_id == sender:
+       await event.answer("You haven't send that command !")
+       return
+    country = country.strip()
+    lang = lang.strip()
+    index = index.strip()
+    num = index - 1
+    chatid = int(chatid.strip())
+    msgid = int(msgid.strip())
+    news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
+    Client = urlopen(news_url)
+    xml_page = Client.read()
+    Client.close()
+    soup_page = bs4.BeautifulSoup(xml_page, 'xml')
+    news_list = soup_page.find_all("item")
+    vector = len(news_list)
+    if num < 0:
+       num = vector
+    header = f"**#{num} **"
+    title = news_list[f"{num}"].title.text
+    text = news_list[f"{num}"].link.text
+    date = news_list[f"{num}"].pubDate.text
+    lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
+    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+
+@tbot.on(events.CallbackQuery(pattern=r"nextnews(\-(.*))"))
+async def paginate_nextnews(event):
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    meta = data.split('-', 1)[1]
+    #print(meta)
+    if "|" in meta:
+        sender, country, lang, index, chatid, msgid = meta.split("|")
+    sender = int(sender.strip())
+    if not event.sender_id == sender:
+       await event.answer("You haven't send that command !")
+       return
+    country = country.strip()
+    lang = lang.strip()
+    index = index.strip()
+    num = index + 1
+    chatid = int(chatid.strip())
+    msgid = int(msgid.strip())
+    news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
+    Client = urlopen(news_url)
+    xml_page = Client.read()
+    Client.close()
+    soup_page = bs4.BeautifulSoup(xml_page, 'xml')
+    news_list = soup_page.find_all("item")
+    vector = len(news_list)
+    if num > vector:
+       num = 0
+    header = f"**#{num} **"
+    title = news_list[f"{num}"].title.text
+    text = news_list[f"{num}"].link.text
+    date = news_list[f"{num}"].pubDate.text
+    lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"{date}"
+    await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}'), Button.inline('⏹️', data=f'newsstop-{sender}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')]])
+
+
+
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
