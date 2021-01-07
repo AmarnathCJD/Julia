@@ -389,12 +389,9 @@ async def del_profanity(event):
                 await event.client.download_media(event.photo, "nudes.jpg")
                 if nude.is_nude('./nudes.jpg'):
                     await event.delete()
-                    if sender.username is None:
-                        st = sender.first_name
-                        hh = sender.id
-                        final = f"[{st}](tg://user?id={hh}) your message has been deleted due to pornographic content"
-                    else:
-                        final = f'@{let} your message has been deleted due to pornographic content'
+                    st = sender.first_name
+                    hh = sender.id
+                    final = f"[{st}](tg://user?id={hh}) you should only speak in english here !"
                     dev = await event.respond(final)
                     await asyncio.sleep(10)
                     await dev.delete()
@@ -420,13 +417,10 @@ async def del_profanity(event):
                 a = TextBlob(msg)
                 b = a.detect_language()
                 if not b == "en":
-                    await event.delete()
-                    if sender.username is None:
-                        st = sender.first_name
-                        hh = sender.id
-                        final = f"[{st}](tg://user?id={hh}) you should only speak in english here !"
-                    else:
-                        final = f'@{let} you should only speak in english here !'
+                    await event.delete()                   
+                    st = sender.first_name
+                    hh = sender.id
+                    final = f"[{st}](tg://user?id={hh}) you should only speak in english here !"
                     dev = await event.respond(final)
                     await asyncio.sleep(10)
                     await dev.delete()
