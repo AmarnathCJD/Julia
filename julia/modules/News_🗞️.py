@@ -151,7 +151,7 @@ async def paginate_nextnews(event):
     lastisthis = f"{header}[{title}]({text})"+"\n\n"+ f"`{date}`"
     await tbot.edit_message(chatid, msgid, lastisthis, link_preview=False, buttons=[[Button.inline('◀️', data=f'prevnews-{sender}|{country}|{lang}|{num}|{chatid}|{msgid}'), Button.inline('❌', data=f'newsstop-{sender}|{chatid}|{msgid}'), Button.inline('▶️', data=f'nextnews-{sender}|{country}|{lang}|{num}|{chatid}|{msgid}')]])
 
-@tbot.on(events.CallbackQuery(pattern=r"nextstop(\-(.*))"))
+@tbot.on(events.CallbackQuery(pattern=r"newsstop(\-(.*))"))
 async def newsstop(event):
     tata = event.pattern_match.group(1)
     data = tata.decode()
