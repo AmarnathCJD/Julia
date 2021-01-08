@@ -122,7 +122,6 @@ async def _(event):
 
 @tbot.on(events.NewMessage(pattern=None))
 async def _(event):
-    send = await event.get_sender()
     sender = event.sender_id
     msg = str(event.text)
     global let
@@ -137,10 +136,14 @@ async def _(event):
             for (ent, txt) in event.get_entities_text():
                 if ent.offset != 0:
                     break
-                if isinstance(ent, types.MessageEntityMention) or isinstance(ent, types.MessageEntityMentionName):
-                    c = txt
-                    a = c.split()[0]
-
+                if isinstance(ent, types.MessageEntityMention):
+                   pass
+                elif isinstance(ent, types.MessageEntityMentionName):
+                   pass
+                else:
+                   return  
+                c = txt
+                a = c.split()[0]
                 let = await tbot.get_input_entity(a)
                 userid = let.user_id
         except Exception:
