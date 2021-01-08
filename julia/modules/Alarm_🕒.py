@@ -61,8 +61,8 @@ async def tikclock(event):
      time = c["time"]
      zone = c["zone"]
      reason = c["reason"]
-     present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'DMY'}) 
-     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'YDM'}) 
+     present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'YMD'}) 
+     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
      print(ttime)
      print(present)
      #print (zone)
