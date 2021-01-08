@@ -2,7 +2,9 @@ from julia import CMD_HELP
 from julia import tbot
 import json
 import os
-
+import time
+import cloudmersive_ocr_api_client
+from cloudmersive_ocr_api_client.rest import ApiException
 from pymongo import MongoClient
 from telethon import *
 from telethon.tl import functions
@@ -18,6 +20,10 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
 
+configuration = cloudmersive_ocr_api_client.Configuration()
+configuration.api_key['Apikey'] = VIRUS_API_KEY
+api_instance = cloudmersive_ocr_api_client.ImageOcrApi(cloudmersive_ocr_api_client.ApiClient(configuration))
+image_file = '/path/to/file.txt' # file | Image file to perform OCR on.  Common file formats such as PNG, JPEG are supported.
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -39,51 +45,6 @@ async def is_register_admin(chat, user):
         )
     return None
 
-
-@register(pattern="^/img2textlang")
-async def get_ocr_languages(event):
-    if event.fwd_from:
-        return
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    languages = {}
-    languages["English"] = "eng"
-    languages["Arabic"] = "ara"
-    languages["Bulgarian"] = "bul"
-    languages["Chinese (Simplified)"] = "chs"
-    languages["Chinese (Traditional)"] = "cht"
-    languages["Croatian"] = "hrv"
-    languages["Czech"] = "cze"
-    languages["Danish"] = "dan"
-    languages["Dutch"] = "dut"
-    languages["Finnish"] = "fin"
-    languages["French"] = "fre"
-    languages["German"] = "ger"
-    languages["Greek"] = "gre"
-    languages["Hungarian"] = "hun"
-    languages["Korean"] = "kor"
-    languages["Italian"] = "ita"
-    languages["Japanese"] = "jpn"
-    languages["Polish"] = "pol"
-    languages["Portuguese"] = "por"
-    languages["Russian"] = "rus"
-    languages["Slovenian"] = "slv"
-    languages["Spanish"] = "spa"
-    languages["Swedish"] = "swe"
-    languages["Turkish"] = "tur"
-    a = json.dumps(languages, sort_keys=True, indent=4)
-    await event.reply(str(a))
-
-
 @register(pattern="^/img2text (.*)")
 async def parse_ocr_space_api(event):
     if event.fwd_from:
@@ -103,25 +64,22 @@ async def parse_ocr_space_api(event):
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     lang_code = event.pattern_match.group(1)
+    language = lang_code
     downloaded_file_name = await tbot.download_media(
         await event.get_reply_message(), TEMP_DOWNLOAD_DIRECTORY)
-    if downloaded_file_name.endswith((".webp")):
-        downloaded_file_name = conv_image(downloaded_file_name)
-    test_file = ocr_space_file(filename=downloaded_file_name,
-                               language=lang_code)
-    ParsedText = "hmm"
     try:
-        ParsedText = test_file["ParsedResults"][0]["ParsedText"]
-        ProcessingTimeInMilliseconds = str(
-            int(test_file["ProcessingTimeInMilliseconds"]) // 1000)
-    except Exception as e:
-        await event.reply(
-            "Error :\n `{}`\nReport This to @MissJuliaSupport\n\n`{}`".format(
-                str(e), json.dumps(test_file, sort_keys=True, indent=4)))
-    else:
-        await event.reply("Read Document in {} seconds. \n{}".format(
-            ProcessingTimeInMilliseconds, ParsedText))
+     api_response = api_instance.image_ocr_post(image_file, language=language)
+    except ApiException as e:
+     print(e)
+     os.remove(downloaded_file_name)
+     await event.reply("some error occurred")
+     return
+    await event.reply("{}".format(api_response))
     os.remove(downloaded_file_name)
+
+# str | Optional, language of the input document, default is English (ENG).  Possible values are ENG (English), ARA (Arabic), ZHO (Chinese - Simplified), ZHO-HANT (Chinese - Traditional), ASM (Assamese), AFR (Afrikaans), AMH (Amharic), AZE (Azerbaijani), AZE-CYRL (Azerbaijani - Cyrillic), BEL (Belarusian), BEN (Bengali), BOD (Tibetan), BOS (Bosnian), BUL (Bulgarian), CAT (Catalan; Valencian), CEB (Cebuano), CES (Czech), CHR (Cherokee), CYM (Welsh), DAN (Danish), DEU (German), DZO (Dzongkha), ELL (Greek), ENM (Archaic/Middle English), EPO (Esperanto), EST (Estonian), EUS (Basque), FAS (Persian), FIN (Finnish), FRA (French), FRK (Frankish), FRM (Middle-French), GLE (Irish), GLG (Galician), GRC (Ancient Greek), HAT (Hatian), HEB (Hebrew), HIN (Hindi), HRV (Croatian), HUN (Hungarian), IKU (Inuktitut), IND (Indonesian), ISL (Icelandic), ITA (Italian), ITA-OLD (Old - Italian), JAV (Javanese), JPN (Japanese), KAN (Kannada), KAT (Georgian), KAT-OLD (Old-Georgian), KAZ (Kazakh), KHM (Central Khmer), KIR (Kirghiz), KOR (Korean), KUR (Kurdish), LAO (Lao), LAT (Latin), LAV (Latvian), LIT (Lithuanian), MAL (Malayalam), MAR (Marathi), MKD (Macedonian), MLT (Maltese), MSA (Malay), MYA (Burmese), NEP (Nepali), NLD (Dutch), NOR (Norwegian), ORI (Oriya), PAN (Panjabi), POL (Polish), POR (Portuguese), PUS (Pushto), RON (Romanian), RUS (Russian), SAN (Sanskrit), SIN (Sinhala), SLK (Slovak), SLV (Slovenian), SPA (Spanish), SPA-OLD (Old Spanish), SQI (Albanian), SRP (Serbian), SRP-LAT (Latin Serbian), SWA (Swahili), SWE (Swedish), SYR (Syriac), TAM (Tamil), TEL (Telugu), TGK (Tajik), TGL (Tagalog), THA (Thai), TIR (Tigrinya), TUR (Turkish), UIG (Uighur), UKR (Ukrainian), URD (Urdu), UZB (Uzbek), UZB-CYR (Cyrillic Uzbek), VIE (Vietnamese), YID (Yiddish) (optional)
+
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
