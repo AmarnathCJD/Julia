@@ -141,8 +141,8 @@ async def _(event):
                     c = txt
                     a = c.split()[0]
 
-                let = await tbot.get_entity(a)
-                userid = let.id
+                let = await tbot.get_input_entity(a)
+                userid = let.user_id
         except Exception:
             return
 
@@ -161,11 +161,8 @@ async def _(event):
         if not user.reason:
             etime = user.start_time
             elapsed_time = time.time() - float(etime)
-            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
-            try:
-                fst_name = let.first_name
-            except BaseException:
-                fst_name = "This user"
+            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))           
+            fst_name = "This user"
             res = "**{} is AFK !**\n\n**Last seen**: {}".format(
                 fst_name, final)
 
@@ -173,11 +170,8 @@ async def _(event):
         else:
             etime = user.start_time
             elapsed_time = time.time() - float(etime)
-            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
-            try:
-                fst_name = let.first_name
-            except BaseException:
-                fst_name = "This user"
+            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))            
+            fst_name = "This user"
             res = "**{} is AFK !**\n\n**Reason**: {}\n\n**Last seen**: {}".format(
                 fst_name, user.reason, final)
             await event.reply(res, parse_mode="markdown")
