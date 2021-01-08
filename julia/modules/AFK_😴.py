@@ -133,15 +133,24 @@ async def _(event):
         userid = reply.sender_id
     else:
         try:
-            for (ent, txt) in event.get_entities_text():               
+            for (ent, txt) in event.get_entities_text():            
+                if ent.offset != 0:
+                    break
                 if isinstance(ent, types.MessageEntityMention):
                    pass
                 elif isinstance(ent, types.MessageEntityMentionName):
                    pass
                 else:
-                   return                  
-                print(ent.user_id)
-                userid = ent.user_id
+                   return  
+                c = txt
+                a = c.split()[0]
+                #print (a)
+                #print (c)
+                if not "@" in a:
+                  userid = int(ent.user_id)
+                else:                   
+                  let = await tbot.get_input_entity(a)
+                  userid = let.user_id
         except Exception:
             return
 
