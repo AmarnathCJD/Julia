@@ -46,10 +46,10 @@ async def _(event):
     reason = reasonn.strip()
     entity = await tbot.get_input_entity(cid)
     try:
-     r_sender_id = entity.user_id
+        r_sender_id = entity.user_id
     except Exception:
-     await event.reply("Couldn't fetch that user.")
-     return
+        await event.reply("Couldn't fetch that user.")
+        return
     if not reason:
         reason = "No reason given"
     chats = gbanned.find({})
@@ -95,10 +95,10 @@ async def _(event):
     reason = reasonn.strip()
     entity = await tbot.get_input_entity(cid)
     try:
-     r_sender_id = entity.user_id
+        r_sender_id = entity.user_id
     except Exception:
-     await event.reply("Couldn't fetch that user.")
-     return
+        await event.reply("Couldn't fetch that user.")
+        return
     if not reason:
         reason = "No reason given"
 
