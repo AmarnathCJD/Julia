@@ -23,7 +23,6 @@ approved_users = db.approve
 configuration = cloudmersive_ocr_api_client.Configuration()
 configuration.api_key['Apikey'] = VIRUS_API_KEY
 api_instance = cloudmersive_ocr_api_client.ImageOcrApi(cloudmersive_ocr_api_client.ApiClient(configuration))
-image_file = '/path/to/file.txt' # file | Image file to perform OCR on.  Common file formats such as PNG, JPEG are supported.
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
