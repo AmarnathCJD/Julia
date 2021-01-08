@@ -758,11 +758,9 @@ async def banme(bon):
 async def kickme(bon):
     if not bon.is_group:
         return
-
     try:
         await tbot.kick_participant(bon.chat_id, bon.sender_id)
-        await bon.reply("Ok Banned !")
-
+        await bon.reply("Ok Kicked !")
     except Exception as e:
         await bon.reply("Failed to kick !")
         return
@@ -1220,6 +1218,7 @@ __help__ = """
  - /zombies: counts the number of deleted account in your group
  - /kickthefools: kicks all members inactive from 1 week
 """
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
