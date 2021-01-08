@@ -148,7 +148,7 @@ async def _(event):
                 #print (c)
                 if not "@" in a:
                   userid = int(ent.user_id)
-                  print (type(ent.user_id))
+                  break
                 else:                   
                   let = await tbot.get_input_entity(a)
                   userid = let.user_id
