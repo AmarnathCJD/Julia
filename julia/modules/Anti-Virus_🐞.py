@@ -13,7 +13,6 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
-scanfile = db.filescan
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -173,57 +172,12 @@ async def virusscan(event):
       await gg.edit("Some error occurred.")
       return
 
-@tbot.on(events.NewMessage(pattern=None))
-async def virusscanner(event):
- chats = scanfile.find({})
- for c in chats:
-  if event.chat_id == c["id"]:
-    c = event.message
-    try:
-       c.media.document
-    except Exception:
-       return
-    if c.sticker:
-       return
-    if c.audio:
-       return
-    if c.gif:
-       return
-    if c.photo:
-       return
-    if c.video:
-       return   
-    if c.poll:
-       return
-    if c.geo:
-       return
-    if c.game:
-       return
-    try:
-      fsize = c.file.size
-      if not fsize <= 3145700: # MAX = 3MB
-         return
-      virus = c.file.name
-      await event.client.download_file(c, virus)
-      gg= await event.reply("Scanning the file ...")
-      api_response = api_instance.scan_file_advanced(c.file.name, allow_executables=allow_executables, allow_invalid_files=allow_invalid_files, allow_scripts=allow_scripts, allow_password_protected_files=allow_password_protected_files)
-      if api_response.clean_result is True:
-       await gg.edit("This file is safe ✅\nNo virus detected 🐞")
-      else:
-       await gg.edit("This file is Dangerous ⚠️\nVirus detected 🐞")
-      os.remove(virus)
-    except Exception:
-      os.remove(virus)
-      return
-     
-
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /scanit: Scan a file for virus (MAX SIZE = 3MB)
- - /autofilescan <on/off>: Automatically scans all incoming files(MAX SIZE = 3MB) in your group sent by peoples
 """
 
 CMD_HELP.update({
