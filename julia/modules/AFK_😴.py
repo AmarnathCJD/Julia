@@ -133,9 +133,7 @@ async def _(event):
         userid = reply.sender_id
     else:
         try:
-            for ent in event.get_entities_text():
-                if ent.offset != 0:
-                    break
+            for (ent, txt) in event.get_entities_text():               
                 if isinstance(ent, types.MessageEntityMention):
                    pass
                 elif isinstance(ent, types.MessageEntityMentionName):
