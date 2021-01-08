@@ -137,7 +137,7 @@ async def _(event):
             for (ent, txt) in event.get_entities_text():
                 if ent.offset != 0:
                     break
-                if isinstance(ent, types.MessageEntityMention):
+                if isinstance(ent, types.MessageEntityMention) or isinstance(ent, types.MessageEntityMentionName):
                     c = txt
                     a = c.split()[0]
 
