@@ -229,7 +229,7 @@ async def on_snip_delete(event):
 
     await event.reply(f"Filter **{name}** deleted successfully")
 
-@register(pattern="^/clearallfilters$")
+@register(pattern="^/stopallfilters$")
 async def on_all_snip_delete(event):
     if event.is_group:
         if not await can_change_info(message=event):
@@ -248,7 +248,7 @@ __help__ = """
  - /savefilter <word> <message>: Every time someone says "word", the bot will reply with "message"
 You can also include buttons in filters, example send `/savefilter google` in reply to `Click Here To Open Google | [Button.url('Google', 'google.com')]`
  - /stopfilter <word>: Stop that filter.
-
+ - /stopallfilters: Delete all filters in the current chat.
 **Admin+Non-Admin**
  - /listfilters: List all active filters in the chat
 """
