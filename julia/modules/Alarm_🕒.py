@@ -27,9 +27,9 @@ async def _(event):
     if len(time) != 22:
       await event.reply("Please enter valid date and time.")
       return
-    ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'DMY'}) 
+    ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
     time = ttime # exchange
-    present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'YMD'}) 
+    present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}'}) 
     print(time)
     print(present)
     if not time > present:
@@ -62,7 +62,7 @@ async def tikclock(event):
      zone = c["zone"]
      reason = c["reason"]
      present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'DMY'}) 
-     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'DMY'}) 
+     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'YMD'}) 
      print(ttime)
      print(present)
      #print (zone)
