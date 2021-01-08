@@ -215,12 +215,6 @@ def find_instance(items, class_or_tuple):
 
 @register(pattern="^/promote(?: |$)(.*)")
 async def promote(promt):
-    # Get targeted chat
-    chat = await promt.get_chat()
-    # Grab admin status or creator in a chat
-    admin = chat.admin_rights
-    creator = chat.creator
-
     if promt.is_group:
         if not await can_promote_users(message=promt):
             return
@@ -263,11 +257,6 @@ async def promote(promt):
 
 @register(pattern="^/demote(?: |$)(.*)")
 async def demote(dmod):
-    # Admin right check
-    chat = await dmod.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
     if dmod.is_group:
         if not await can_promote_users(message=dmod):
             return
@@ -313,10 +302,6 @@ async def demote(dmod):
 
 @register(pattern="^/pin(?: |$)(.*)")
 async def pin(msg):
-    # Admin or creator check
-    chat = await msg.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
     if msg.is_group:
         if not await can_pin_msg(message=msg):
             return
@@ -653,16 +638,12 @@ async def ban(bon):
     # Here laying the sanity check
 
     if not bon.is_group:
-        print("1")
+        #print("1")
         return
     if bon.is_group:
         if not await can_ban_users(message=bon):
-            print("2")
+            #print("2")
             return
-
-    chat = await bon.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
 
     user = await get_user_from_event(bon)
     if user:
@@ -702,10 +683,6 @@ async def kick(bon):
         if not await can_ban_users(message=bon):
             return
 
-    chat = await bon.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
     user = await get_user_from_event(bon)
     if user:
         pass
@@ -732,11 +709,6 @@ async def kick(bon):
 @register(pattern="^/unban(?: |$)(.*)")
 async def unban(bon):
     """ For /unban command, do a ban at targeted person """
-    # Here laying the sanity check
-    chat = await bon.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
     if not bon.is_group:
         return
     if bon.is_group:
@@ -769,12 +741,6 @@ async def unban(bon):
 
 @register(pattern="^/banme$")
 async def banme(bon):
-    # Here laying the sanity check
-    chat = await bon.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-    sender = bon.sender_id
-
     if not bon.is_group:
         return
 
@@ -790,12 +756,6 @@ async def banme(bon):
 
 @register(pattern="^/kickme$")
 async def kickme(bon):
-    # Here laying the sanity check
-    chat = await bon.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-    sender = event.sender_id
-
     if not bon.is_group:
         return
 
@@ -813,12 +773,6 @@ async def spider(spdr):
     """
     This function is basically muting peeps
     """
-
-    # Admin or creator check
-    chat = await spdr.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
     if not spdr.is_group:
         return
     if spdr.is_group:
@@ -855,12 +809,6 @@ async def spiderr(spdr):
     """
     This function is basically unmuting peeps
     """
-
-    # Admin or creator check
-    chat = await spdr.get_chat()
-    admin = chat.admin_rights
-    creator = chat.creator
-
     if not spdr.is_group:
         return
     if spdr.is_group:
