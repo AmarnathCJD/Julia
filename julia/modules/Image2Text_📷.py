@@ -91,7 +91,7 @@ async def get_ocr_languages(event):
             pass
         else:
             return
-    languages = "**These are the available languages 👇**\n\n
+    languages = """**These are the available languages 👇**\n\n
 ENG (English)
 ARA (Arabic)
 ZHO (Chinese - Simplified)
@@ -193,7 +193,7 @@ UZB (Uzbek)
 UZB-CYR (Cyrillic Uzbek)
 VIE (Vietnamese)
 YID (Yiddish) (optional)
-"""
+    """
     await event.reply(languages)
 
 file_help = os.path.basename(__file__)
