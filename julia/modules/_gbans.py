@@ -45,7 +45,7 @@ async def _(event):
     cid = iid.strip()
     reason = reasonn.strip()
     entity = await tbot.get_input_entity(cid)
-    r_sender_id = entity.id
+    r_sender_id = entity.user_id
 
     if not reason:
         reason = "No reason given"
@@ -91,7 +91,7 @@ async def _(event):
     cid = iid.strip()
     reason = reasonn.strip()
     entity = await tbot.get_input_entity(cid)
-    r_sender_id = entity.id
+    r_sender_id = entity.user_id
 
     if not reason:
         reason = "No reason given"
@@ -125,11 +125,10 @@ async def join_ban(event):
         if user.id == c["user"]:
             if event.user_joined:
                 try:
-                    chat = await event.get_chat()
                     to_check = get_reason(id=user.id)
                     reason = to_check["reason"]
                     bannerid = to_check["bannerid"]
-                    await tbot(EditBannedRequest(chat.id, user.id, BANNED_RIGHTS))
+                    await tbot(EditBannedRequest(event.chat_id, user.id, BANNED_RIGHTS))
                     await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
                 except Exception as e:
                     print(e)
