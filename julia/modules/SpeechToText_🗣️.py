@@ -43,7 +43,7 @@ async def is_register_admin(chat, user):
     return False
 
 
-@register(pattern="^/stt$")
+@register(pattern="^/stt (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -59,6 +59,7 @@ async def _(event):
         else:
             return
     start = datetime.now()
+    modelname = event.pattern_match.group(1)
     if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
 
@@ -75,6 +76,7 @@ async def _(event):
             await event.reply("Starting analysis")
             headers = {
                 "Content-Type": previous_message.media.document.mime_type,
+                "model": modelname, 
             }
             data = open(required_file_name, "rb").read()
             response = requests.post(
