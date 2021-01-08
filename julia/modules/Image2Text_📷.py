@@ -73,7 +73,7 @@ async def parse_ocr_space_api(event):
      os.remove(downloaded_file_name)
      await gg.edit("Some error occurred.")
      return
-    await gg.edit("{}".format(api_response["text_result"]))
+    await gg.edit("{}".format(api_response.text_result))
     os.remove(downloaded_file_name)
 
 @register(pattern="^/img2textlang")
