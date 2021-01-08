@@ -13,6 +13,7 @@ from julia.modules.sql.filters_sql import (
     add_filter,
     get_all_filters,
     remove_filter,
+    remove_all_filters,
 )
 
 DELETE_TIMEOUT = 0
@@ -227,6 +228,16 @@ async def on_snip_delete(event):
     remove_filter(event.chat_id, name)
 
     await event.reply(f"Filter **{name}** deleted successfully")
+
+@register(pattern="^/clearallfilters$")
+async def on_all_snip_delete(event):
+    if event.is_group:
+        if not await can_change_info(message=event):
+            return
+    else:
+        return
+    remove_all_filters(event.chat_id)
+    await event.reply(f"Filters in current chat deleted successfully !")
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
