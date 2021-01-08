@@ -144,6 +144,7 @@ async def _(event):
                    return  
                 c = txt
                 a = c.split()[0]
+                print (a)
                 let = await tbot.get_input_entity(a)
                 userid = let.user_id
         except Exception:
