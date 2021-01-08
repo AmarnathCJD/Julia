@@ -77,3 +77,4 @@ gunicorn==19.9.0
 msgpack==0.6.1
 urllib3==1.25.3
 dateparser==1.0.0
+cloudmersive-ocr-api-client==3.0.1
