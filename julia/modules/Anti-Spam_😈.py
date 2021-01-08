@@ -429,7 +429,6 @@ async def del_profanity(event):
 @tbot.on(events.ChatAction())
 async def del_cleanservice(event):
     chats = cleanservices.find({})
-    print (event.user_id)
     for c in chats:
       if event.chat_id == c['id']:       
        try:       
