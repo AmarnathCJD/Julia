@@ -30,8 +30,8 @@ async def _(event):
     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'DMY'}) 
     time = ttime # exchange
     present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'YMD'}) 
-    print(time)
-    print(present)
+    #print(time)
+    #print(present)
     if not time > present:
       await event.reply("Please enter valid date and time.")
       return
@@ -65,10 +65,11 @@ async def tikclock(event):
      ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
      print(ttime)
      print(present)
-     #print (zone)
+     print (zone)
      #print(present>=ttime)
      if not present >= ttime:
        return       
+       break
      await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
      alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
      break
