@@ -537,7 +537,14 @@ async def rm_deletedacc(show):
 async def _(event):
     if event.fwd_from:
         return
-    # Here laying the sanity check
+
+    if event.is_group:
+        if not await can_ban_users(message=event):
+            return
+    else:
+        return
+
+   # Here laying the sanity check
     chat = await event.get_chat()
     admin = chat.admin_rights.ban_users
     creator = chat.creator
@@ -546,12 +553,6 @@ async def _(event):
     if not admin and not creator:
         await event.reply("`I don't have enough permissions!`")
         return   
-
-    if event.is_group:
-        if not await can_ban_users(message=event):
-            return
-    else:
-        return
 
     c = 0
     KICK_RIGHTS = ChatBannedRights(until_date=None, view_messages=True)
@@ -585,6 +586,10 @@ async def _(event):
     if not event.is_group:
         return
 
+    if event.is_group:
+        if not await can_ban_users(message=event):
+            return
+
     # Here laying the sanity check
     chat = await event.get_chat()
     admin = chat.admin_rights.ban_users
@@ -594,10 +599,6 @@ async def _(event):
     if not admin and not creator:
         await event.reply("`I don't have enough permissions!`")
         return   
-
-    if event.is_group:
-        if not await can_ban_users(message=event):
-            return
 
     done = await event.reply("Searching Participant Lists.")
     p = 0
@@ -626,6 +627,10 @@ async def _(event):
 async def _(event):
     if not event.is_group:
         return
+    if event.is_group:
+        if not await can_ban_users(message=event):
+            return
+
     # Here laying the sanity check
     chat = await event.get_chat()
     admin = chat.admin_rights.ban_users
@@ -635,9 +640,6 @@ async def _(event):
     if not admin and not creator:
         await event.reply("`I don't have enough permissions!`")
         return   
-    if event.is_group:
-        if not await can_ban_users(message=event):
-            return
 
     done = await event.reply("Working ...")
     p = 0
