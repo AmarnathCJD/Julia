@@ -343,11 +343,10 @@ async def pin(msg):
 @register(pattern="^/adminlist$")
 async def get_admin(show):
     if show.is_group:
-        if not await can_promote_users(message=show):
-            return
+        if not await is_register_admin(show.input_chat, show.sender_id):
+           return
     else:
         return
-
     info = await tbot.get_entity(show.chat_id)
     title = info.title if info.title else "this chat"
     mentions = f'<b>Admins in {title}:</b> \n'
@@ -445,14 +444,9 @@ async def settitle(promt):
 async def get_users(show):
     if not show.is_group:
         return
-
     if show.is_group:
-        if await is_register_admin(show.input_chat, show.message.sender_id):
-            pass
-        elif show.chat_id == iid and show.sender_id == userss:
-            pass
-        else:
-            return
+       if not await is_register_admin(show.input_chat, show.sender_id):
+          return
     info = await tbot.get_entity(show.chat_id)
     title = info.title if info.title else "this chat"
     mentions = "Users in {}: \n".format(title)
@@ -486,6 +480,16 @@ async def rm_deletedacc(show):
     if show.is_group:
         if not await can_ban_users(message=show):
             return
+
+    # Here laying the sanity check
+    chat = await show.get_chat()
+    admin = chat.admin_rights.ban_users
+    creator = chat.creator
+
+    # Well
+    if not admin and not creator:
+        await show.reply("`I don't have enough permissions!`")
+        return   
 
     if con != "clean":
         await show.reply("`Searching for zombie accounts...`")
@@ -533,6 +537,15 @@ async def rm_deletedacc(show):
 async def _(event):
     if event.fwd_from:
         return
+    # Here laying the sanity check
+    chat = await event.get_chat()
+    admin = chat.admin_rights.ban_users
+    creator = chat.creator
+
+    # Well
+    if not admin and not creator:
+        await event.reply("`I don't have enough permissions!`")
+        return   
 
     if event.is_group:
         if not await can_ban_users(message=event):
@@ -571,6 +584,17 @@ async def _(event):
 async def _(event):
     if not event.is_group:
         return
+
+    # Here laying the sanity check
+    chat = await event.get_chat()
+    admin = chat.admin_rights.ban_users
+    creator = chat.creator
+
+    # Well
+    if not admin and not creator:
+        await event.reply("`I don't have enough permissions!`")
+        return   
+
     if event.is_group:
         if not await can_ban_users(message=event):
             return
@@ -602,6 +626,15 @@ async def _(event):
 async def _(event):
     if not event.is_group:
         return
+    # Here laying the sanity check
+    chat = await event.get_chat()
+    admin = chat.admin_rights.ban_users
+    creator = chat.creator
+
+    # Well
+    if not admin and not creator:
+        await event.reply("`I don't have enough permissions!`")
+        return   
     if event.is_group:
         if not await can_ban_users(message=event):
             return
