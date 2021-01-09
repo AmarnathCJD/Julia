@@ -963,7 +963,7 @@ async def locks(event):
         )
         await event.reply(f"Locked Successfully !")
     except Exception:
-        await event.reply("Failed to lock that.")
+        await event.reply("Failed to lock.")
         return
 
 
@@ -1062,7 +1062,7 @@ async def rem_locks(event):
         await tbot(EditChatDefaultBannedRightsRequest(event.chat_id, banned_rights=unlock_rights))
         await event.reply(f"Unlocked Successfully !")
     except Exception:
-        await event.reply("Failed to unlock that.")
+        await event.reply("Failed to unlock.")
         return
 
 
@@ -1234,6 +1234,8 @@ __help__ = """
  - /mute: mute a user
  - /unmute: unmutes a user
  - /kick: kicks a user
+ - /kickme: kicks yourself (non-admins)
+ - /banme: bans yourself (non-admins)
  - /settitle <entity> <title>: sets a custom title for an admin. If no <title> provided defaults to "Admin"
  - /setdescription <text>: set group description
  - /setgrouptitle <text>: set group title
