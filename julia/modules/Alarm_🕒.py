@@ -38,9 +38,15 @@ def get_reason(id):
 
 @register(pattern="^/setalarm (.*)")
 async def _(event):
- try:
     if event.fwd_from:
         return    
+    if event.is_group:
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
     quew = event.pattern_match.group(1)
     if "|" in quew:
         iid, zonee, reasonn = quew.split("|")
@@ -73,8 +79,6 @@ async def _(event):
             return
     alarms.insert_one({"chat": event.chat_id, "user": f"[user](tg://user?id={event.sender_id})", "time": time, "zone": zone, "reason": reason})
     await event.reply("Alarm set successfully !")
- except Exception as e:
-    print (e)
 
 @tbot.on(events.NewMessage(pattern=None))
 #@tbot.on(events.ChatAction())
