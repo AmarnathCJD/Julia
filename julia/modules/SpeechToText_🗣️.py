@@ -72,7 +72,7 @@ async def _(event):
                 "You need to set the required ENV variables for this module. \nModule stopping"
             )
         else:
-            await event.reply("Starting analysis")
+            # await event.reply("Starting analysis")
             headers = {
                 "Content-Type": previous_message.media.document.mime_type,
             }
@@ -99,10 +99,10 @@ async def _(event):
                 end = datetime.now()
                 ms = (end - start).seconds
                 if transcript_response != "":
-                    string_to_show = "Language: `English`\nTRANSCRIPT: `{}`\nTime Taken: {} seconds\nConfidence: `{}`".format(
+                    string_to_show = "TRANSCRIPT: `{}`\nTime Taken: {} seconds\nConfidence: `{}`".format(
                         transcript_response, ms, transcript_confidence)
                 else:
-                    string_to_show = "Language: `English`\nTime Taken: {} seconds\n**No Results Found**".format(
+                    string_to_show = "TRANSCRIPT: `Nil`\nTime Taken: {} seconds\n\n**No Results Found**".format(
                         ms)
                 await event.reply(string_to_show)
             else:
