@@ -106,7 +106,7 @@ async def tikclock(event):
       alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
       await asyncio.sleep(1)
       break
-      break
+      return
      continue
 
 file_help = os.path.basename(__file__)
