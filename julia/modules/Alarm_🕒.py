@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from julia import MONGO_DB_URI, CMD_HELP
 from julia.events import register
 import dateparser 
-import os
+import os, asyncio
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -104,6 +104,8 @@ async def tikclock(event):
      if present > ttime:
       await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
       alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
+      await asyncio.sleep(1)
+      break
       break
      continue
 
