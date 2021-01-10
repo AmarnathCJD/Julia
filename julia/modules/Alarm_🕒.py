@@ -63,9 +63,9 @@ async def tikclock(event):
      reason = c["reason"]
      present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'YMD'}) 
      ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}'}) 
-     print(ttime)
-     print(present)
-     print (zone)
+     #print(ttime)
+     #print(present)
+     #print (zone)
      #print(present>=ttime)
      if present > ttime:
       await tbot.send_message(chat, f"**DING DONG**\n\n__This is an alarm set by__ {user} __for reason -__ `{reason}`")
