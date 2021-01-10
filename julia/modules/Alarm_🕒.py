@@ -40,6 +40,10 @@ def get_reason(id):
 async def _(event):
     if event.fwd_from:
         return    
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
     if event.is_group:
         if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
