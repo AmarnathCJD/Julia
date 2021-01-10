@@ -11,7 +11,6 @@ import os
 import urllib.request
 from typing import List
 from typing import Optional
-import text2emotion as machi
 from PyDictionary import PyDictionary
 from telethon.tl import types
 from telethon.tl.types import *
@@ -197,33 +196,6 @@ async def _(event):
     await event.reply(got)
 
 
-@register(pattern="^/emotion$")
-async def _(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-
-    reply = await event.get_reply_message()
-    msg = reply.message
-    let = str(machi.get_emotion(msg))
-    # m = let.replace("'Happy'", "😀")
-    n = let.replace("{", "")
-    o = n.replace("}", "")
-    # p = o.replace("'Angry'", "😡")
-    # q = p.replace("'Sad'", "😭")
-    # r = q.replace("'Surprise'", "😮")
-    # s = r.replace("'Fear'", "")
-    t = o.replace(", ", "\n\n")
-    await event.reply(t)
-
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
@@ -234,7 +206,6 @@ __help__ = """
  - /forbesify: Correct your punctuations better use the advanged spell module
  - /tr <language code> or /tr <language code> | <text>: Type in reply to a message or (`/tr <language code> | <text>`) to get it's translation in the destination language
  - /define <text>: Type the word or expression you want to search\nFor example /define Gay
- - /emotion: Type in reply to a message to check emotions
  - /synonyms <word>: Find the synonyms of a word
  - /antonyms <word>: Find the antonyms of a word
 """
