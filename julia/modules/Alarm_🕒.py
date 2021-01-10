@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from julia import MONGO_DB_URI, CMD_HELP
 from julia.events import register
 import dateparser 
+import os
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -82,8 +83,7 @@ file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /setalarm <(date) (time)|zone|reason>: sets a alarm/reminder 
-
-**SYNTAX:** `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
+**Example:** `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
 """
 
 CMD_HELP.update({
