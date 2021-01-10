@@ -93,7 +93,11 @@ async def paginate_news(event):
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
     news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
-    Client = urlopen(news_url)
+    try:
+      Client = urlopen(news_url)
+    except Exception:
+      await event.reply("Invalid country or language code provided.")
+      return
     xml_page = Client.read()
     Client.close()
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
@@ -135,7 +139,11 @@ async def paginate_prevnews(event):
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
     news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
-    Client = urlopen(news_url)
+    try:
+      Client = urlopen(news_url)
+    except Exception:
+      await event.reply("Invalid country or language code provided.")
+      return
     xml_page = Client.read()
     Client.close()
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
@@ -182,7 +190,11 @@ async def paginate_nextnews(event):
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
     news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
-    Client = urlopen(news_url)
+    try:
+      Client = urlopen(news_url)
+    except Exception:
+      await event.reply("Invalid country or language code provided.")
+      return
     xml_page = Client.read()
     Client.close()
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
@@ -253,7 +265,11 @@ async def paginate_nextnews(event):
     chatid = int(chatid.strip())
     msgid = int(msgid.strip())
     news_url = f"https://news.google.com/rss?hl={lang}-{country}&gl={country}&ceid={country}:{lang}"
-    Client = urlopen(news_url)
+    try:
+      Client = urlopen(news_url)
+    except Exception:
+      await event.reply("Invalid country or language code provided.")
+      return
     xml_page = Client.read()
     Client.close()
     soup_page = bs4.BeautifulSoup(xml_page, 'xml')
