@@ -43,13 +43,12 @@ async def is_register_admin(chat, user):
 
 @tbot.on(events.NewMessage(pattern="^/news (.*) (.*)"))
 async def _(event):
- try:
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch['id']
         userss = ch['user']
     if event.is_group:
-        if (await is_register_admin(event.chat_id, event.sender_id)):
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -63,8 +62,6 @@ async def _(event):
     msg = await tbot.send_message(chatid, "Loading ...")
     msgid = msg.id
     await tbot.edit_message(chatid, msgid, "Click on the below button to read the latest news headlines 👇", buttons=[[Button.inline('▶️', data=f'news-{sender}|{country}|{lang}|{index}|{chatid}|{msgid}')], [Button.inline('❌', data=f'newsstop-{sender}|{chatid}|{msgid}')]])
- except Exception as e :
-   print(e)
 
 @tbot.on(events.CallbackQuery(pattern=r"news(\-(.*))"))
 async def paginate_news(event):
