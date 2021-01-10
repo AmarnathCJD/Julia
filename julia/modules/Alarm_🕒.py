@@ -1,7 +1,7 @@
 from julia import tbot
 from telethon import *
 from pymongo import MongoClient
-from julia import MONGO_DB_URI
+from julia import MONGO_DB_URI, CMD_HELP
 from julia.events import register
 import dateparser 
 
@@ -72,3 +72,20 @@ async def tikclock(event):
       alarms.delete_one({"chat": chat, "user": user, "time": time, "zone": zone, "reason": reason})
       break
      continue
+
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+ - /setalarm <date+time|zone|reason>: sets a alarm/reminder 
+
+SYNTAX: `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
+"""
+
+CMD_HELP.update({
+    file_helpo: [
+        file_helpo,
+        __help__
+    ]
+})
