@@ -35,66 +35,6 @@ async def is_register_admin(chat, user):
         )
     return None
 
-async def can_change_info(message):
-    result = await tbot(
-        functions.channels.GetParticipantRequest(
-            channel=message.chat_id,
-            user_id=message.sender_id,
-        )
-    )
-    p = result.participant
-    return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
-        p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
-
-@register(pattern="^/autoscanit(?: |$)(.*)")
-async def autoscanit(event):
-    if event.fwd_from:
-        return
-    if event.is_private:
-        return
-    if MONGO_DB_URI is None:
-        return
-    if not await can_change_info(message=event):
-        return
-    input = event.pattern_match.group(1)
-    chats = scanfile.find({})
-    if not input:
-        for c in chats:
-            if event.chat_id == c["id"]:
-                await event.reply(
-                    "Please provide some input yes or no.\n\nCurrent setting is : **on**"
-                )
-                return
-        await event.reply(
-            "Please provide some input yes or no.\n\nCurrent setting is : **off**"
-        )
-        return
-    if input in "on":
-        if event.is_group:
-            chats = scanfile.find({})
-            for c in chats:
-                if event.chat_id == c["id"]:
-                    await event.reply(
-                        "Autofilescan is already enabled for this chat.")
-                    return
-            scanfile.insert_one({"id": event.chat_id})
-            await event.reply("I will scan all incoming files for viruses from now.")
-    if input in "off":
-        if event.is_group:
-            chats = scanfile.find({})
-            for c in chats:
-                if event.chat_id == c["id"]:
-                    scanfile.delete_one({"id": event.chat_id})
-                    await event.reply(
-                        "I will not check incoming files for viruses from now.")
-                    return
-        await event.reply(
-                    "Autofilescan isn't enabled for this chat.")       
-    
-    if not input == "on" and not input == "off":
-        await event.reply("I only understand by on or off")
-        return
-      
 configuration = cloudmersive_virus_api_client.Configuration()
 configuration.api_key['Apikey'] = VIRUS_API_KEY
 api_instance = cloudmersive_virus_api_client.ScanApi(cloudmersive_virus_api_client.ApiClient(configuration))
