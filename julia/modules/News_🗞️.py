@@ -48,7 +48,7 @@ async def _(event):
         iid = ch['id']
         userss = ch['user']
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if (await is_register_admin(event.input_chat, event.sender_id)):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -70,7 +70,7 @@ async def paginate_news(event):
         iid = ch['id']
         userss = ch['user']
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if (await is_register_admin(event.input_chat, event.sender_id)):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -116,7 +116,7 @@ async def paginate_prevnews(event):
         iid = ch['id']
         userss = ch['user']
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if (await is_register_admin(event.input_chat, event.sender_id)):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -167,7 +167,7 @@ async def paginate_nextnews(event):
         iid = ch['id']
         userss = ch['user']
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if (await is_register_admin(event.input_chat, event.sender_id)):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -216,7 +216,7 @@ async def newsstop(event):
         iid = ch['id']
         userss = ch['user']
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if (await is_register_admin(event.input_chat, event.sender_id)):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -243,7 +243,7 @@ async def paginate_nextnews(event):
         iid = ch['id']
         userss = ch['user']
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if (await is_register_admin(event.input_chat, event.sender_id)):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
