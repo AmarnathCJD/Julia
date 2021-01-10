@@ -83,7 +83,8 @@ file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /setalarm <(date) (time)|zone|reason>: sets a alarm/reminder 
-**Example:** `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
+
+**Syntax:** `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
 """
 
 CMD_HELP.update({
