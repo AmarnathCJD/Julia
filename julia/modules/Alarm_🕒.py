@@ -28,6 +28,9 @@ async def _(event):
       await event.reply("Please enter valid date and time.")
       return
     ttime = dateparser.parse(f'{time}', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'DMY'}) 
+    if ttime == None:
+      await event.reply("Please enter valid date and time.")
+      return
     time = ttime # exchange
     present = dateparser.parse(f'now', settings={'TIMEZONE': f'{zone}', 'DATE_ORDER': 'YMD'}) 
     #print(time)
@@ -78,9 +81,9 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /setalarm <date+time|zone|reason>: sets a alarm/reminder 
+ - /setalarm <(date) (time)|zone|reason>: sets a alarm/reminder 
 
-SYNTAX: `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
+**SYNTAX:** `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
 """
 
 CMD_HELP.update({
