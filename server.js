@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 
+// julia/modules/__init__.py
+const app_name = process.env.HEROKU_APP_NAME;
+const app_url = `${appname}.herokuapp.com`;
+
 var http = require('http'); //importing http
 
 function startKeepAlive() {
     setInterval(function() {
         var options = {
-            host: 'missjulirobot.herokuapp.com',
+            host: app_url,
             port: 80,
             path: '/'
         };
