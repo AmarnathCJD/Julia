@@ -92,7 +92,7 @@ def main():
 
     else:
         try:
-            fortune_file = "notes"
+            fortune_file = "notes.txt"
         except KeyError:
             print("Missing fortune file.", file=sys.stderr)
             print(usage, file=sys.stderr)
