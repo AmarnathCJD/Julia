@@ -33,8 +33,8 @@ async def is_register_admin(chat, user):
         )
     return None
 
-def get_reason(id):
-    return alarms.find_one({"chat": id})
+def get_reason(id, time):
+    return alarms.find_one({"chat": id, "time": time})
 
 @register(pattern="^/setalarm (.*)")
 async def _(event):
@@ -76,7 +76,7 @@ async def _(event):
     chats = alarms.find({})
     for c in chats:
         if event.chat_id == c["chat"] and time == c["time"]:
-            to_check = get_reason(id=event.chat_id)
+            to_check = get_reason(id=event.chat_id, time=time)
             alarms.update_one({"_id": to_check["_id"], "chat": to_check["chat"], "user": to_check["user"], "time": to_check["time"], "zone": to_check["zone"], "reason": to_check["reason"]}, {
                                "$set": {"reason": reason, "zone": zone}})
             await event.reply("This alarm is already set.\nI am updating the reason(and zone) of the alarm with the new reason(and zone).")
