@@ -160,7 +160,7 @@ async def download_song(v_url):
         os.system("rm -rf *.webp")
 
 
-@register(pattern="^/video (.*)")
+@register(pattern="^/videosong (.*)")
 async def download_video(v_url):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
