@@ -46,7 +46,7 @@ async def _(event):
             )
             return
             
-        await event.reply("**You have succeeded in creating a new federation!**"\
+        await event.reply("**You have successfully created a new federation!**"\
                  "\nName: `{}`"\
                  "\nID: `{}`"
                  "\n\nUse the command below to join the federation:"
