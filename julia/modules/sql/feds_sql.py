@@ -81,10 +81,10 @@ class FedSubs(BASE):
 
 
 # Dropping db
-# Federations.__table__.drop()
-# ChatF.__table__.drop()
-# BansF.__table__.drop()
-# FedSubs.__table__.drop()
+Federations.__table__.drop()
+ChatF.__table__.drop()
+BansF.__table__.drop()
+FedSubs.__table__.drop()
 
 Federations.__table__.create(checkfirst=True)
 ChatF.__table__.create(checkfirst=True)
