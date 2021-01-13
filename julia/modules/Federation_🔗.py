@@ -25,16 +25,16 @@ from julia.events import register
 async def _(event):
     chat = event.chat
     user = event.sender
-    message = event.message
+    message = event.pattern_match.group(1)
     if not event.is_private:
         await event.reply(
             "Federations can only be created by privately messaging me.")
         return
-    if len(message.text) == 1:
+    fednam = message
+    if not fednam:
         await event.reply("Please write the name of the federation!")
         return
-    fednam = message.text.split(None, 1)[1]
-    if not fednam == '':
+    if fednam:
         fed_id = str(uuid.uuid4())
         fed_name = fednam
         #LOGGER.info(fed_id)
@@ -65,7 +65,7 @@ async def _(event):
             "Federations can only be deleted by privately messaging me.")
         return
     if args:
-        is_fed_id = args[0]
+        is_fed_id = args
         getinfo = sql.get_fed_info(is_fed_id)
         if getinfo is False:
             await event.reply(
