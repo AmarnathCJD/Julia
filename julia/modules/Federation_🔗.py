@@ -33,7 +33,7 @@ async def _(event):
         await event.reply("Please write the name of the federation!")
         return
     fednam = message.text.split(None, 1)[1]
-    if not fednam == '"':
+    if not fednam == '':
         fed_id = str(uuid.uuid4())
         fed_name = fednam
         #LOGGER.info(fed_id)
@@ -53,3 +53,44 @@ async def _(event):
     else:
         await event.reply("Please write down the name of the federation")
 
+@register(pattern="^/delfed ?(.*)")
+async def _(event):
+    args = event.pattern_match.group(1)
+    chat = event.chat
+    user = event.sender
+    message = event.message
+    if event.is_private:
+        await event.reply(
+            "Federations can only be deleted by privately messaging me.")
+        return
+    if args:
+        is_fed_id = args[0]
+        getinfo = sql.get_fed_info(is_fed_id)
+        if getinfo is False:
+            await event.reply(
+                "This federation does not exist.")
+            return
+        if int(getinfo['owner']) == int(user.id) or int(user.id) == OWNER_ID:
+            fed_id = is_fed_id
+        else:
+            await event.reply(
+                "Only federation owners can do this!")
+            return
+    else:
+        await event.reply("What should I delete?")
+        return
+
+    if is_user_fed_owner(fed_id, user.id) is False:
+        await event.reply(
+            "Only federation owners can do this!")
+        return
+
+    await event.reply(
+        "You sure you want to delete your federation? This cannot be reverted, you will lose your entire ban list, and '{}' will be permanently lost."
+        .format(getinfo['fname']),
+        buttons=InlineKeyboardMarkup([[
+            InlineKeyboardButton(
+                text="⚠️ Delete Federation ⚠️",
+                callback_data="rmfed_{}".format(fed_id))
+        ], [InlineKeyboardButton(text="Cancel",
+                                 callback_data="rmfed_cancel")]]))
