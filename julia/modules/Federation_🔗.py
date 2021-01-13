@@ -56,6 +56,7 @@ async def _(event):
 
 @register(pattern="^/delfed ?(.*)")
 async def _(event):
+ try:
     args = event.pattern_match.group(1)
     chat = event.chat
     user = event.sender
@@ -84,12 +85,11 @@ async def _(event):
         await event.reply(
             "Only federation owners can do this!")
         return
-    try:
-     await tbot.send_message(event.chat_id,
+    await tbot.send_message(event.chat_id,
         "You sure you want to delete your federation? This cannot be reverted, you will lose your entire ban list, and '{}' will be permanently lost."
         .format(getinfo['fname']),
         buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id))], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message)
-    except Exception as e:
+ except Exception as e:
      print (e)
 
 @tbot.on(events.CallbackQuery(pattern=r"rmfed_(.*)"))
