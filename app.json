@@ -118,6 +118,9 @@
     },
     {
       "plan": "ormongo:5-mmap"
+    },
+    {
+      "plan": "heroku-scheduler"
     }
   ],
   "buildpacks": [
