@@ -26,7 +26,7 @@ async def _(event):
     chat = event.chat
     user = event.sender
     message = event.message
-    if event.is_private:
+    if not event.is_private:
         await event.reply(
             "Federations can only be created by privately messaging me.")
         return
