@@ -18,6 +18,7 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 gbanned = db.gban
 
+
 def register(**args):
     pattern = args.get("pattern")
     r_pattern = r"^[/]"
@@ -58,11 +59,11 @@ def register(**args):
                 pass
             else:
                 print("i don't work in channels")
-                return            
+                return
             users = gbanned.find({})
             for c in users:
-              if check.sender_id == c["user"]:
-                 return
+                if check.sender_id == c["user"]:
+                    return
             try:
                 await func(check)
                 try:
