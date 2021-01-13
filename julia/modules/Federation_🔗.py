@@ -59,7 +59,7 @@ async def _(event):
     args = event.pattern_match.group(1)
     chat = event.chat
     user = event.sender
-    message = event.message
+    message = event.message.id
     if not event.is_private:
         await event.reply(
             "Federations can only be deleted by privately messaging me.")
@@ -68,8 +68,7 @@ async def _(event):
         is_fed_id = args
         getinfo = sql.get_fed_info(is_fed_id)
         if getinfo is False:
-            await event.reply(
-                "This federation does not exist.")
+            await event.reply("This federation does not exist.")
             return
         if int(getinfo['owner']) == int(user.id) or int(user.id) == OWNER_ID:
             fed_id = is_fed_id
@@ -85,11 +84,13 @@ async def _(event):
         await event.reply(
             "Only federation owners can do this!")
         return
-
-    await tbot.send_message(event.chat_id,
+    try:
+     await tbot.send_message(event.chat_id,
         "You sure you want to delete your federation? This cannot be reverted, you will lose your entire ban list, and '{}' will be permanently lost."
         .format(getinfo['fname']),
-        buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id))], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message.id)
+        buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id))], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message)
+    except Exception as e:
+     print (e)
 
 @tbot.on(events.CallbackQuery(pattern=r"rmfed_(.*)"))
 async def delete_fed(event):
