@@ -94,6 +94,8 @@ async def _(event):
 @tbot.on(events.CallbackQuery(pattern=r"rmfed_(.*)"))
 async def delete_fed(event):
     fed_id = event.pattern_match.group(1)
+    if not event.is_private:
+       return
     if fed_id == 'cancel':
         await event.edit("Federation deletion cancelled")
         return
