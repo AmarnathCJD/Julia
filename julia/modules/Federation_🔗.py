@@ -90,3 +90,18 @@ async def _(event):
         "You sure you want to delete your federation? This cannot be reverted, you will lose your entire ban list, and '{}' will be permanently lost."
         .format(getinfo['fname']),
         buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id))], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message.id)
+
+@tbot.on(events.CallbackQuery(pattern=r"rmfed_(.*)"))
+async def delete_fed(event):
+    fed_id = event.pattern_match.group(1)
+    if fed_id == 'cancel':
+        await event.edit("Federation deletion cancelled")
+        return
+    getfed = sql.get_fed_info(fed_id)
+    if getfed:
+        delete = sql.del_fed(fed_id)
+        if delete:
+            await event.edit(
+                "You have removed your Federation! Now all the Groups that are connected with `{}` do not have a Federation."
+                .format(getfed['fname']),
+                parse_mode='markdown')
