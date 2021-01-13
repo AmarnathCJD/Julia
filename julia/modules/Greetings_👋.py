@@ -807,7 +807,7 @@ async def _(event):
     mssg = cws.custom_welcome_message
     pvw = cws.previous_welcome
     mfid = cws.media_file_id
-    if cws.should_clean_welcome == True:
+    if cws.should_clean_welcome is True:
        await event.reply("I am already cleaning old welcone messages.")
        return
     if input in "on":
@@ -847,7 +847,7 @@ async def _(event):
     mssg = cws.custom_goodbye_message
     pvw = cws.previous_goodbye
     mfid = cws.media_file_id
-    if cws.should_clean_goodbye == True:
+    if cws.should_clean_goodbye is True:
        await event.reply("I am already cleaning old welcone messages.")
        return
     if input in "on":
