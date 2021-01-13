@@ -21,6 +21,19 @@ from julia.events import register
 # LOGGER.info("Original federation module by MrYacha, reworked by Mizukito Akito (@peaktogoo) on Telegram.")
 # ME @MissJulia_Robot has also done a lot of hard work to rewrite this in telethon so add this line as a credit. Please don't remove this if you somewhat respect me.
 
+def is_user_fed_owner(fed_id, user_id):
+    getsql = sql.get_fed_info(fed_id)
+    if getsql is False:
+        return False
+    getfedowner = eval(getsql['fusers'])
+    if getfedowner is None or getfedowner is False:
+        return False
+    getfedowner = getfedowner['owner']
+    if str(user_id) == getfedowner or int(user_id) == OWNER_ID:
+        return True
+    else:
+        return False
+
 @register(pattern="^/newfed ?(.*)")
 async def _(event):
     chat = event.chat
