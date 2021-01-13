@@ -28,6 +28,7 @@ Deploy Julia to Heroku:
 - [Uniborg](https://github.com/SpEcHiDe/UniBorg)<br />
 - [Telegram Paperplane](https://github.com/RaphielGang/Telegram-Paperplane)<br />
 - [Paperplane Extended](https://github.com/AvinashReddy3108/PaperplaneExtended)<br />
-- [TelethonianBotExt(Silvia)](https://github.com/Lonami/TelethonianBotExt)
+- [TelethonianBotExt(Silvia)](https://github.com/Lonami/TelethonianBotExt)<br />
+- [tgbot](https://github.com/PaulSonOfLars/tgbot)
 
 **And Last Of All thanks to [@lonami](http://t.me/lonami) for creating [Telethon](https://github.com/LonamiWebs/Telethon) !**
