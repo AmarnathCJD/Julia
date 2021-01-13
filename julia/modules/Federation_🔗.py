@@ -89,4 +89,4 @@ async def _(event):
     await tbot.send_message(event.chat_id,
         "You sure you want to delete your federation? This cannot be reverted, you will lose your entire ban list, and '{}' will be permanently lost."
         .format(getinfo['fname']),
-        buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id)], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message.id)
+        buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id))], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message.id)
