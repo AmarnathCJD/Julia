@@ -10,7 +10,13 @@ from julia import CMD_LIST, LOAD_PLUG, tbot
 import glob
 import sys
 from julia import ubot
+from pymongo import MongoClient
+from julia import MONGO_DB_URI
 
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client["missjuliarobot"]
+gbanned = db.gban
 
 def register(**args):
     pattern = args.get("pattern")
@@ -52,7 +58,11 @@ def register(**args):
                 pass
             else:
                 print("i don't work in channels")
-                return
+                return            
+            users = gbanned.find({})
+            for c in users:
+              if check.sender_id == c["user"]:
+                 return
             try:
                 await func(check)
                 try:
