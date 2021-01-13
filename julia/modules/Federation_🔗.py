@@ -86,12 +86,7 @@ async def _(event):
             "Only federation owners can do this!")
         return
 
-    await event.reply(
+    await tbot.send_message(event.chat_id,
         "You sure you want to delete your federation? This cannot be reverted, you will lose your entire ban list, and '{}' will be permanently lost."
         .format(getinfo['fname']),
-        buttons=InlineKeyboardMarkup([[
-            InlineKeyboardButton(
-                text="⚠️ Delete Federation ⚠️",
-                callback_data="rmfed_{}".format(fed_id))
-        ], [InlineKeyboardButton(text="Cancel",
-                                 callback_data="rmfed_cancel")]]))
+        buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id)], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message.id)
