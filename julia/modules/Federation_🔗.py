@@ -19,6 +19,7 @@ from julia.events import register
 # Time spended on updating version to v2 = 26+ hours by @AyraHikari
 # Total spended for making this features is 68+ hours
 # LOGGER.info("Original federation module by MrYacha, reworked by Mizukito Akito (@peaktogoo) on Telegram.")
+# ME @MissJulia_Robot has also done a lot of hard work to rewrite this in telethon so add this line as a credit. Please don't remove this if you somewhat respect me.
 
 @register(pattern="^/newfed ?(.*)")
 async def _(event):
