@@ -1,3 +1,25 @@
+import csv
+import json
+import os
+import re
+import time
+import uuid
+from io import BytesIO
+import julia.modules.sql.feds_sql as sql
+from telethon import *
+from julia import *
+from julia.events import register
+
+# Hello bot owner, I spended for feds many hours of my life, Please don't remove this if you still respect MrYacha and peaktogoo and AyraHikari too
+# Federation by MrYacha 2018-2019
+# Federation rework by Mizukito Akito 2019
+# Federation update v2 by Ayra Hikari 2019
+# Time spended on feds = 10h by #MrYacha
+# Time spended on reworking on the whole feds = 22+ hours by @peaktogoo
+# Time spended on updating version to v2 = 26+ hours by @AyraHikari
+# Total spended for making this features is 68+ hours
+# LOGGER.info("Original federation module by MrYacha, reworked by Mizukito Akito (@peaktogoo) on Telegram.")
+
 @register(pattern="^/newfed ?(.*)")
 async def _(event):
     chat = event.chat
