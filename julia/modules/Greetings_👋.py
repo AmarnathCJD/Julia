@@ -309,7 +309,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 1
@@ -348,7 +348,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 2
@@ -387,7 +387,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 3
@@ -426,7 +426,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 4
@@ -465,7 +465,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 5
@@ -504,7 +504,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 6
@@ -543,7 +543,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 7
@@ -582,7 +582,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 8
@@ -621,7 +621,7 @@ async def checkbot(event):
         if chat_id == c["id"] and user_id == c["user"]:
             await event.answer("You are already verified !")
             return
-    if not int(event.sender_id) == int(user_id):
+    if int(event.sender_id) != int(user_id):
        await event.answer("You aren't the person whom should be verified.")
        return
     cnum = 9
