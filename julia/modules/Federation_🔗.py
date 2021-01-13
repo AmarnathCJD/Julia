@@ -99,13 +99,13 @@ async def _(event):
             "Only federation owners can do this!")
         return
     await tbot.send_message(event.chat_id,
-        "You sure you want to delete your federation? This cannot be reverted, you will lose your entire ban list, and '{}' will be permanently lost."
+        "Are You sure you want to delete your federation ?\nThis cannot be reverted, you will lose your entire ban list, and '**{}**' will be permanently lost !"
         .format(getinfo['fname']),
         buttons=[[Button.inline("⚠️ Delete Federation", data="rmfed_{}".format(fed_id))], [Button.inline("Cancel", data="rmfed_cancel")]], reply_to=message)
  except Exception as e:
      print (e)
 
-@tbot.on(events.CallbackQuery(pattern=r"rmfed_(.*)"))
+@tbot.on(events.CallbackQuery(pattern=r"rmfed_(\.*)"))
 async def delete_fed(event):
     fed_id = event.pattern_match.group(1)
     if not event.is_private:
