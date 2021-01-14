@@ -125,3 +125,22 @@ async def delete_fed(event):
                 "You have removed your Federation! Now all the Groups that are connected with '**{}**' do not have a Federation."
                 .format(getfed['fname']),
                 parse_mode='markdown')
+
+@register(pattern="^/renamefed ?(.*) ?(.*)")
+async def _(event):
+    args = event.pattern_match.group(1)
+    fedid = event.pattern_match.group(2)    
+    if not args:
+        return await event.reply("usage: `/renamefed <fed_id> <newname>`")        
+    if not fedid:
+        return await event.reply("usage: `/renamefed <fed_id> <newname>`")
+    fed_id, newname = args, fedid
+    verify_fed = sql.get_fed_info(fed_id)
+    if not verify_fed:
+        return await event.reply("This fed not exist in my database!")
+    if is_user_fed_owner(fed_id, user.id):
+        sql.rename_fed(fed_id, user.id, newname)
+        await event.reply(f"Successfully renamed your fed name to {newname}!")
+    else:
+        await event.reply("Only federation owner can do this!")
+
