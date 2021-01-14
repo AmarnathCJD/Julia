@@ -105,9 +105,11 @@ async def _(event):
  except Exception as e:
      print (e)
 
-@tbot.on(events.CallbackQuery(pattern=r"rmfed_(\.*)"))
+@tbot.on(events.CallbackQuery(pattern=r"rmfed(\_(.*)"))
 async def delete_fed(event):
+    print("1")
     fed_id = event.pattern_match.group(1)
+    print(fed_id)
     if not event.is_private:
        return
     if fed_id == 'cancel':
