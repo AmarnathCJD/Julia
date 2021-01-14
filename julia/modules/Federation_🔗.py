@@ -242,7 +242,7 @@ async def _(event):
         return
     if not args:
        await event.reply("Where is the federation ID ?")
-            return
+       return
 
     fed_id = sql.get_fed_id(chat.id)
 
