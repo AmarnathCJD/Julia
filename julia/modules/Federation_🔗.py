@@ -229,6 +229,7 @@ async def _(event):
 
 @register(pattern="^/joinfed ?(.*)")
 async def _(event):   
+ try:
     chat = event.chat
     user = event.sender
     args = event.pattern_match.group(1)
@@ -283,3 +284,5 @@ async def _(event):
 
         await event.reply("This group has joined the federation: {}!".format(
             getfed['fname']))
+ except Exception as e:
+    print(e)
