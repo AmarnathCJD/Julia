@@ -105,7 +105,7 @@ async def _(event):
  except Exception as e:
      print (e)
 
-@tbot.on(events.CallbackQuery(pattern=r"rmfed(\_(.*)"))
+@tbot.on(events.CallbackQuery(pattern=r"rmfed(\_(.*))"))
 async def delete_fed(event):
     print("1")
     fed_id = event.pattern_match.group(1)
