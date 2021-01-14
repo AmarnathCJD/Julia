@@ -231,8 +231,8 @@ async def _(event):
 
 @register(pattern="^/joinfed ?(.*)")
 async def _(event):   
-    chat = update.effective_chat
-    user = update.effective_user
+    chat = event.chat
+    user = event.sender
     args = event.pattern_match.group(1)
 
     if event.is_private:
