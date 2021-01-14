@@ -122,6 +122,6 @@ async def delete_fed(event):
         delete = sql.del_fed(fed_id)
         if delete:
             await event.edit(
-                "You have removed your Federation! Now all the Groups that are connected with `{}` do not have a Federation."
+                "You have removed your Federation! Now all the Groups that are connected with '**{}**' do not have a Federation."
                 .format(getfed['fname']),
                 parse_mode='markdown')
