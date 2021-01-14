@@ -227,14 +227,16 @@ async def _(event):
     text += "\n{} (ID: <code>{}</code>)".format(info['fname'], fed_id)
     await event.reply(text, parse_mode="html")
 
-
-
 @register(pattern="^/joinfed ?(.*)")
 async def _(event):   
     chat = event.chat
     user = event.sender
     args = event.pattern_match.group(1)
-
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
     if event.is_private:
         await event.reply("This command is specific to the group, not to my pm !")
         return
@@ -242,16 +244,17 @@ async def _(event):
        await event.reply("Where is the federation ID ?")
             return
 
-    administrators = chat.get_administrators()
     fed_id = sql.get_fed_id(chat.id)
 
     if user.id in OWNER_ID:
         pass
     else:
-        
-        await event.reply(
+        async for user in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantAdmins):
+          if not isinstance(user.participant, types.ChannelParticipantCreator):
+             # print(user.id)
+             await event.reply(
               "Only group creators can use this command!")
-        return
+             return
     if fed_id:
         await event.reply("You cannot join two federations from one chat")
         return
