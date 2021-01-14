@@ -228,7 +228,7 @@ async def _(event):
     text += "\n{} (ID: <code>{}</code>)".format(info['fname'], fed_id)
     await event.reply(text, parse_mode="html")
 
-@register(pattern="^/joinfed ?(.*)")
+@tbot.on(events.NewMessage(pattern="^/joinfed ?(.*)"))
 async def _(event):   
  try:
     chat = event.chat
