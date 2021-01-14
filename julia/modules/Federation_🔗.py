@@ -275,7 +275,7 @@ async def _(event):
         get_fedlog = sql.get_fed_log(args)
         if get_fedlog:
             if eval(get_fedlog):
-                bot.send_message(
+                await tbot.send_message(
                     get_fedlog,
                     "Chat *{}* has joined the federation *{}*".format(
                         chat.title, getfed['fname']),
