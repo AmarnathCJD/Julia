@@ -7,6 +7,7 @@ import uuid
 from io import BytesIO
 import julia.modules.sql.feds_sql as sql
 from telethon import *
+from telethon.tl import *
 from julia import *
 from julia.events import register
 from pymongo import MongoClient
@@ -250,12 +251,16 @@ async def _(event):
     if user.id in OWNER_ID:
         pass
     else:
-        async for user in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantAdmins):
-          if not isinstance(user.participant, types.ChannelParticipantCreator):
-             # print(user.id)
-             await event.reply(
-              "Only group creators can use this command!")
-             return
+      try:
+        async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantAdmins):
+          if not isinstance(userr.participant, types.ChannelParticipantCreator):
+             aid = userr.id
+             if int(event.sender_id) == int(aid):
+                await event.reply(
+                    "Only group creators can use this command!")
+                return
+      except Exception as e:
+         print(e)
     if fed_id:
         await event.reply("You cannot join two federations from one chat")
         return
