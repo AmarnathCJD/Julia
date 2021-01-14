@@ -226,3 +226,57 @@ async def _(event):
     text = "This group is part of the following federation:"
     text += "\n{} (ID: <code>{}</code>)".format(info['fname'], fed_id)
     await event.reply(text, parse_mode="html")
+
+
+
+@register(pattern="^/joinfed ?(.*)")
+async def _(event):   
+    chat = update.effective_chat
+    user = update.effective_user
+    args = event.pattern_match.group(1)
+
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+    if not args:
+       await event.reply("Where is the federation ID ?")
+            return
+
+    administrators = chat.get_administrators()
+    fed_id = sql.get_fed_id(chat.id)
+
+    if user.id in OWNER_ID:
+        pass
+    else:
+        
+        await event.reply(
+              "Only group creators can use this command!")
+        return
+    if fed_id:
+        await event.reply("You cannot join two federations from one chat")
+        return
+
+    if len(args) >= 1:
+        getfed = sql.search_fed_by_id(args)
+        if getfed is False:
+            await event.reply("Please enter a valid federation ID")
+            return
+
+        x = sql.chat_join_fed(args, chat.title, chat.id)
+        if not x:
+            await event.reply(
+                "Failed to join federation! Please contact @MissJuliaRobotSupport should this problem persist!"
+            )
+            return
+
+        get_fedlog = sql.get_fed_log(args)
+        if get_fedlog:
+            if eval(get_fedlog):
+                bot.send_message(
+                    get_fedlog,
+                    "Chat *{}* has joined the federation *{}*".format(
+                        chat.title, getfed['fname']),
+                    parse_mode="markdown")
+
+        await event.reply("This group has joined the federation: {}!".format(
+            getfed['fname']))
