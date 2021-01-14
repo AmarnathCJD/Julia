@@ -107,9 +107,11 @@ async def _(event):
 
 @tbot.on(events.CallbackQuery(pattern=r"rmfed(\_(.*))"))
 async def delete_fed(event):
-    print("1")
-    fed_id = event.pattern_match.group(1)
-    print(fed_id)
+    #print("1")
+    tata = event.pattern_match.group(1)
+    data = tata.decode()
+    fed_id = data.split('_', 1)[1]
+    print (fed_id)
     if not event.is_private:
        return
     if fed_id == 'cancel':
