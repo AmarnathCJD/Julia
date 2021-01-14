@@ -9,6 +9,7 @@ import julia.modules.sql.feds_sql as sql
 from telethon import *
 from julia import *
 from julia.events import register
+from pymongo import MongoClient
 
 # Hello bot owner, I spended for feds many hours of my life, Please don't remove this if you still respect MrYacha and peaktogoo and AyraHikari too
 # Federation by MrYacha 2018-2019
@@ -20,6 +21,30 @@ from julia.events import register
 # Total spended for making this features is 68+ hours
 # LOGGER.info("Original federation module by MrYacha, reworked by Mizukito Akito (@peaktogoo) on Telegram.")
 # ME @MissJulia_Robot has also done a lot of hard work to rewrite this in telethon so add this line as a credit. Please don't remove this if you somewhat respect me.
+
+async def is_register_admin(chat, user):
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+        return isinstance(
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
+        )
+    if isinstance(chat, types.InputPeerChat):
+        ui = await tbot.get_peer_id(user)
+        ps = (
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+        ).full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
+        )
+    return False
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client["missjuliarobot"]
+approved_users = db.approve
 
 def is_user_fed_owner(fed_id, user_id):
     getsql = sql.get_fed_info(fed_id)
@@ -38,6 +63,17 @@ def is_user_fed_owner(fed_id, user_id):
 async def _(event):
     chat = event.chat
     user = event.sender
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, user.id)):
+            pass
+        elif event.chat_id == iid and user.id == userss:
+            pass
+        else:
+            return
     message = event.pattern_match.group(1)
     if not event.is_private:
         await event.reply(
@@ -73,6 +109,17 @@ async def _(event):
     args = event.pattern_match.group(1)
     chat = event.chat
     user = event.sender
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, user.id)):
+            pass
+        elif event.chat_id == iid and user.id == userss:
+            pass
+        else:
+            return
     message = event.message.id
     if not event.is_private:
         await event.reply(
@@ -129,7 +176,18 @@ async def delete_fed(event):
 @register(pattern="^/renamefed ?(.*) ?(.*)")
 async def _(event):
     args = event.pattern_match.group(1)
-    fedid = event.pattern_match.group(2)    
+    fedid = event.pattern_match.group(2)   
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
     if not args:
         return await event.reply("usage: `/renamefed <fed_id> <newname>`")        
     if not fedid:
@@ -144,3 +202,27 @@ async def _(event):
     else:
         await event.reply("Only federation owner can do this!")
 
+@register(pattern="^/fedinfo$")
+async def _(event):   
+    chat = event.chat
+    user = event.sender
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch['id']
+        userss = ch['user']
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    fed_id = sql.get_fed_id(chat.id)
+    if not fed_id:
+        await event.reply(
+            "This group is not in any federation!")
+        return
+    info = sql.get_fed_info(fed_id)
+    text = "This group is part of the following federation:"
+    text += "\n{} (ID: <code>{}</code>)".format(info['fname'], fed_id)
+    await event.reply(text, parse_mode="html")
