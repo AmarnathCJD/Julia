@@ -205,7 +205,7 @@ async def _(event):
 @register(pattern="^/fedinfo$")
 async def _(event):   
     chat = event.chat
-    user = event.sender
+    # user = event.sender
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch['id']
