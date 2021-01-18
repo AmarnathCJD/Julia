@@ -228,7 +228,7 @@ async def _(event):
     text += "\n{} (ID: <code>{}</code>)".format(info['fname'], fed_id)
     await event.reply(text, parse_mode="html")
 
-@tbot.on(events.NewMessage(pattern="^/joinfed ?(.*)"))
+@register(pattern="^/joinfed ?(.*)")
 async def _(event):   
  try:
     chat = event.chat
@@ -289,3 +289,49 @@ async def _(event):
 
  except Exception as e:
     print(e)
+
+
+@register(pattern="^/leavefed$")
+async def _(event):   
+    chat = event.chat
+    user = event.sender
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+
+    fed_id = sql.get_fed_id(chat.id)
+    fed_info = sql.get_fed_info(fed_id)
+
+    if user.id == OWNER_ID:
+        pass
+    else:
+      try:
+        async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantsAdmins):
+          if not isinstance(userr.participant, types.ChannelParticipantCreator):
+             aid = userr.id
+             if int(event.sender_id) == int(aid):
+                await event.reply(
+                    "Only group creators can use this command!")
+                return
+      except Exception as e:
+         print(e)        
+    if sql.chat_leave_fed(chat.id) is True:
+            get_fedlog = sql.get_fed_log(fed_id)
+            if get_fedlog:
+                    await tbot.send_message(
+                        get_fedlog,
+                        "Chat *{}* has left the federation *{}*".format(
+                            chat.title, fed_info['fname']),
+                        parse_mode="markdown")
+            await event.reply(
+                "This group has left the federation **{}**".format(
+                    fed_info['fname']))
+    else:
+            await event.reply(
+                "How can you leave a federation that you never joined ?")
+    
