@@ -271,9 +271,6 @@ async def demote(dmod):
     else:
         return
 
-    # If passing, declare that we're going to demote
-
-    user = await get_user_from_event(dmod)
     if user:
         pass
     else:
