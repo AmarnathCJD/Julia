@@ -203,7 +203,7 @@ async def _(event):
     else:
         await event.reply("Only federation owner can do this!")
 
-@register(pattern="^/fedinfo$")
+@register(pattern="^/chatfed$")
 async def _(event):   
     chat = event.chat
     # user = event.sender
@@ -248,7 +248,7 @@ async def _(event):
 
     fed_id = sql.get_fed_id(chat.id)
 
-    if user.id in OWNER_ID:
+    if user.id == OWNER_ID:
         pass
     else:
       try:
@@ -265,7 +265,7 @@ async def _(event):
         await event.reply("You cannot join two federations from one chat")
         return
 
-    if len(args) >= 1:
+    if args:
         getfed = sql.search_fed_by_id(args)
         if getfed is False:
             await event.reply("Please enter a valid federation ID")
@@ -284,11 +284,8 @@ async def _(event):
                     get_fedlog,
                     "Chat *{}* has joined the federation *{}*".format(
                         chat.title, getfed['fname']),
-                    parse_mode="markdown")
-        else:
-            await event.reply("Some error occurred !")
+                    parse_mode="markdown")       
+        await event.reply("This group has joined the federation: {}!".format(getfed['fname']))
 
-        await event.reply("This group has joined the federation: {}!".format(
-            getfed['fname']))
  except Exception as e:
     print(e)
