@@ -1,7 +1,6 @@
 import threading
 from julia.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
-from telethon.errors import BadRequestError, UnauthorizedError
 
 class Federations(BASE):
     __tablename__ = "feds"
