@@ -682,14 +682,6 @@ def get_fed_log(fed_id):
     if fed_setting.get('flog') is None:
         return False
     elif fed_setting.get('flog'):
-        try:
-            return int(fed_setting.get('flog'))
-        except BadRequestError:
-            set_fed_log(fed_id, None)
-            return False
-        except UnauthorizedError:
-            set_fed_log(fed_id, None)
-            return False
         return fed_setting.get('flog')
     else:
         return False
