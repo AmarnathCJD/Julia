@@ -1,7 +1,7 @@
 import threading
 from julia.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
-
+from telethon.errors import BadRequestError, UnauthorizedError
 
 class Federations(BASE):
     __tablename__ = "feds"
@@ -672,6 +672,27 @@ def set_feds_setting(user_id: int, setting: bool):
         FEDERATION_NOTIFICATION[str(user_id)] = setting
         SESSION.add(user_setting)
         SESSION.commit()
+
+
+def get_fed_log(fed_id):
+    fed_setting = FEDERATION_BYFEDID.get(str(fed_id))
+    if fed_setting is None:
+        fed_setting = False
+        return fed_setting
+    if fed_setting.get('flog') is None:
+        return False
+    elif fed_setting.get('flog'):
+        try:
+            dispatcher.bot.get_chat(fed_setting.get('flog'))
+        except BadRequestError:
+            set_fed_log(fed_id, None)
+            return False
+        except UnauthorizedError:
+            set_fed_log(fed_id, None)
+            return False
+        return fed_setting.get('flog')
+    else:
+        return False
 
 
 def set_fed_log(fed_id, chat_id):
