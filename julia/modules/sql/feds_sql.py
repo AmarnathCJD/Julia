@@ -3,6 +3,7 @@ from julia.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 from telethon.errors import BadRequestError, UnauthorizedError
 
+
 class Federations(BASE):
     __tablename__ = "feds"
     owner_id = Column(String(14))
@@ -314,7 +315,8 @@ def chat_join_fed(fed_id, chat_name, chat_id):
         global FEDERATION_CHATS, FEDERATION_CHATS_BYID
         r = ChatF(chat_id, chat_name, fed_id)
         SESSION.add(r)
-        FEDERATION_CHATS[str(chat_id)] = {'chat_name': chat_name, 'fid': fed_id}
+        FEDERATION_CHATS[str(chat_id)] = {
+                             'chat_name': chat_name, 'fid': fed_id}
         checkid = FEDERATION_CHATS_BYID.get(fed_id)
         if checkid is None:
             FEDERATION_CHATS_BYID[fed_id] = []
@@ -699,18 +701,18 @@ def set_fed_log(fed_id, chat_id):
     with FEDS_LOCK:
         global FEDERATION_BYOWNER, FEDERATION_BYFEDID, FEDERATION_BYNAME
         # Variables
-        getfed = FEDERATION_BYFEDID.get(str(fed_id))
-        owner_id = getfed['owner']
-        fed_name = getfed['fname']
-        fed_members = getfed['fusers']
-        fed_rules = getfed['frules']
-        fed_log = str(chat_id)
+        getfed=FEDERATION_BYFEDID.get(str(fed_id))
+        owner_id=getfed['owner']
+        fed_name=getfed['fname']
+        fed_members=getfed['fusers']
+        fed_rules=getfed['frules']
+        fed_log=str(chat_id)
         # Set user
-        FEDERATION_BYOWNER[str(owner_id)]['flog'] = fed_log
-        FEDERATION_BYFEDID[str(fed_id)]['flog'] = fed_log
-        FEDERATION_BYNAME[fed_name]['flog'] = fed_log
+        FEDERATION_BYOWNER[str(owner_id)]['flog']=fed_log
+        FEDERATION_BYFEDID[str(fed_id)]['flog']=fed_log
+        FEDERATION_BYNAME[fed_name]['flog']=fed_log
         # Set on database
-        fed = Federations(
+        fed=Federations(
             str(owner_id), fed_name, str(fed_id), fed_rules, fed_log,
             str(fed_members))
         SESSION.merge(fed)
@@ -720,17 +722,17 @@ def set_fed_log(fed_id, chat_id):
 
 
 def subs_fed(fed_id, my_fed):
-    check = get_spec_subs(fed_id, my_fed)
+    check=get_spec_subs(fed_id, my_fed)
     if check:
         return False
     with FEDS_SUBSCRIBER_LOCK:
-        subsfed = FedSubs(fed_id, my_fed)
+        subsfed=FedSubs(fed_id, my_fed)
 
         SESSION.merge(subsfed)  # merge to avoid duplicate key issues
         SESSION.commit()
         global FEDS_SUBSCRIBER
         if FEDS_SUBSCRIBER.get(fed_id, set()) == set():
-            FEDS_SUBSCRIBER[fed_id] = {my_fed}
+            FEDS_SUBSCRIBER[fed_id]={my_fed}
         else:
             FEDS_SUBSCRIBER.get(fed_id, set()).add(my_fed)
         return True
@@ -738,7 +740,7 @@ def subs_fed(fed_id, my_fed):
 
 def unsubs_fed(fed_id, my_fed):
     with FEDS_SUBSCRIBER_LOCK:
-        getsubs = SESSION.query(FedSubs).get((fed_id, my_fed))
+        getsubs=SESSION.query(FedSubs).get((fed_id, my_fed))
         if getsubs:
             if my_fed in FEDS_SUBSCRIBER.get(fed_id, set()):  # sanity check
                 FEDS_SUBSCRIBER.get(fed_id, set()).remove(my_fed)
@@ -773,13 +775,13 @@ def get_subscriber(fed_id):
 def __load_all_feds():
     global FEDERATION_BYOWNER, FEDERATION_BYFEDID, FEDERATION_BYNAME
     try:
-        feds = SESSION.query(Federations).all()
+        feds=SESSION.query(Federations).all()
         for x in feds:  # remove tuple by ( ,)
             # Fed by Owner
-            check = FEDERATION_BYOWNER.get(x.owner_id)
+            check=FEDERATION_BYOWNER.get(x.owner_id)
             if check is None:
-                FEDERATION_BYOWNER[x.owner_id] = []
-            FEDERATION_BYOWNER[str(x.owner_id)] = {
+                FEDERATION_BYOWNER[x.owner_id]=[]
+            FEDERATION_BYOWNER[str(x.owner_id)]={
                 'fid': str(x.fed_id),
                 'fname': x.fed_name,
                 'frules': x.fed_rules,
