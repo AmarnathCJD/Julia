@@ -49,6 +49,36 @@ async def is_register_admin(chat, user):
 
 # ------ THANKS TO LONAMI ------#
 
+async def get_user_from_event(event):
+    """ Get the user from argument or replied message. """
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        user_obj = await tbot.get_entity(previous_message.sender_id)
+    else:
+        user = event.pattern_match.group(1)
+
+        if user.isnumeric():
+            user = int(user)
+
+        if not user:
+            await event.reply("Pass the user's username, id or reply!")
+            return
+
+        if event.message.entities is not None:
+            probable_user_mention_entity = event.message.entities[0]
+
+            if isinstance(probable_user_mention_entity,
+                          MessageEntityMentionName):
+                user_id = probable_user_mention_entity.user_id
+                user_obj = await tbot.get_entity(user_id)
+                return user_obj
+        try:
+            user_obj = await tbot.get_entity(user)
+        except (TypeError, ValueError) as err:
+            await event.reply(str(err))
+            return None
+
+    return user_obj
 
 @register(pattern="^/approve(?: |$)(.*)")
 async def approve(event):
@@ -67,26 +97,12 @@ async def approve(event):
     else:
         return
 
-    ik = event.pattern_match.group(1)
-    if ik.isdigit():
-        input = int(ik)
+    userr = await get_user_from_event(event)
+    if userr:
+        pass
     else:
-        input = ik.replace("@", "")
-
-    if not input:
-        iid = (
-            reply_msg.sender_id
-            if event.reply_to_msg_id
-            else await event.reply("Reply To Someone's Message Or Provide Some Input")
-        )
-    elif input:
-        cunt = input
-        dent = await tbot.get_entity(cunt)
-        iid = dent.id
-    elif input and event.reply_to_msg_id:
-        cunt = input
-        dent = await tbot.get_entity(cunt)
-        iid = dent.id
+        return
+    iid = userr.id
 
     if await is_register_admin(event.input_chat, iid):
         await event.reply("Why will I approve an admin ?")
@@ -129,26 +145,12 @@ async def disapprove(event):
     else:
         return
 
-    ik = event.pattern_match.group(1)
-    if ik.isdigit():
-        input = int(ik)
+    userr = await get_user_from_event(event)
+    if userr:
+        pass
     else:
-        input = ik.replace("@", "")
-
-    if not input:
-        iid = (
-            reply_msg.sender_id
-            if event.reply_to_msg_id
-            else await event.reply("Reply To Someone's Message Or Provide Some Input")
-        )
-    elif input:
-        cunt = input
-        dent = await tbot.get_entity(cunt)
-        iid = dent.id
-    elif input and event.reply_to_msg_id:
-        cunt = input
-        dent = await tbot.get_entity(cunt)
-        iid = dent.id
+        return
+    iid = userr.id
 
     if await is_register_admin(event.input_chat, iid):
         await event.reply("Why will I disapprove an admin ?")
@@ -190,26 +192,12 @@ async def checkst(event):
     else:
         return
 
-    ik = event.pattern_match.group(1)
-    if ik.isdigit():
-        input = int(ik)
+    userr = await get_user_from_event(event)
+    if userr:
+        pass
     else:
-        input = ik.replace("@", "")
-
-    if not input:
-        iid = (
-            reply_msg.sender_id
-            if event.reply_to_msg_id
-            else await event.reply("Reply To Someone's Message Or Provide Some Input")
-        )
-    elif input:
-        cunt = input
-        dent = await tbot.get_entity(cunt)
-        iid = dent.id
-    elif input and event.reply_to_msg_id:
-        cunt = input
-        dent = await tbot.get_entity(cunt)
-        iid = dent.id
+        return
+    iid = userr.id
 
     if await is_register_admin(event.input_chat, iid):
         await event.reply("Why will check status of an admin ?")
@@ -232,10 +220,8 @@ async def checkst(event):
 async def apprlst(event):
     print("😁")
     if event.fwd_from:
-
         return
     if MONGO_DB_URI is None:
-
         return
     chat_id = event.chat.id
     sender = event.sender_id
@@ -290,6 +276,7 @@ async def disapprlst(event):
             await event.reply("Successfully disapproved everyone in the chat.")
             return
     await event.reply("No one is approved in this chat.")
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
