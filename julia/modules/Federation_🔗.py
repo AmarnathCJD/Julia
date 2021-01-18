@@ -252,7 +252,7 @@ async def _(event):
         pass
     else:
       try:
-        async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantAdmins):
+        async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantAdmin):
           if not isinstance(userr.participant, types.ChannelParticipantCreator):
              aid = userr.id
              if int(event.sender_id) == int(aid):
