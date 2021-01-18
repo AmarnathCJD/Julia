@@ -683,7 +683,7 @@ def get_fed_log(fed_id):
         return False
     elif fed_setting.get('flog'):
         try:
-            dispatcher.bot.get_chat(fed_setting.get('flog'))
+            return int(fed_setting.get('flog')))
         except BadRequestError:
             set_fed_log(fed_id, None)
             return False
