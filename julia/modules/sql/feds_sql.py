@@ -2,6 +2,7 @@ import threading
 from julia.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 
+
 class Federations(BASE):
     __tablename__ = "feds"
     owner_id = Column(String(14))
@@ -313,7 +314,8 @@ def chat_join_fed(fed_id, chat_name, chat_id):
         global FEDERATION_CHATS, FEDERATION_CHATS_BYID
         r = ChatF(chat_id, chat_name, fed_id)
         SESSION.add(r)
-        FEDERATION_CHATS[str(chat_id)] = {'chat_name': chat_name, 'fid': fed_id}
+        FEDERATION_CHATS[str(chat_id)] = {
+            'chat_name': chat_name, 'fid': fed_id}
         checkid = FEDERATION_CHATS_BYID.get(fed_id)
         if checkid is None:
             FEDERATION_CHATS_BYID[fed_id] = []
