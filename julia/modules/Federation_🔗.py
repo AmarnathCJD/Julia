@@ -252,7 +252,7 @@ async def _(event):
         pass
     else:
       try:
-        async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantAdmin):
+        async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantsAdmins):
           if not isinstance(userr.participant, types.ChannelParticipantCreator):
              aid = userr.id
              if int(event.sender_id) == int(aid):
@@ -285,7 +285,7 @@ async def _(event):
                     "Chat *{}* has joined the federation *{}*".format(
                         chat.title, getfed['fname']),
                     parse_mode="markdown")       
-        await event.reply("This group has joined the federation: {}!".format(getfed['fname']))
+        await event.reply("This group has joined the federation: **{}**".format(getfed['fname']))
 
  except Exception as e:
     print(e)
