@@ -42,6 +42,37 @@ async def is_register_admin(chat, user):
         )
     return False
 
+async def get_user_from_event(event):
+    """ Get the user from argument or replied message. """
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        user_obj = await tbot.get_entity(previous_message.sender_id)
+    else:
+        user = event.pattern_match.group(1)
+
+        if user.isnumeric():
+            user = int(user)
+
+        if not user:
+            await event.reply("Pass the user's username, id or reply!")
+            return
+
+        if event.message.entities is not None:
+            probable_user_mention_entity = event.message.entities[0]
+
+            if isinstance(probable_user_mention_entity,
+                          MessageEntityMentionName):
+                user_id = probable_user_mention_entity.user_id
+                user_obj = await tbot.get_entity(user_id)
+                return user_obj
+        try:
+            user_obj = await tbot.get_entity(user)
+        except (TypeError, ValueError) as err:
+            await event.reply(str(err))
+            return None
+
+    return user_obj
+
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
@@ -314,7 +345,7 @@ async def _(event):
         async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantsAdmins):
           if not isinstance(userr.participant, types.ChannelParticipantCreator):
              aid = userr.id
-             if int(event.sender_id) == int(aid):
+             if int(event.sender_id) != int(aid):
                 await event.reply(
                     "Only group creators can use this command!")
                 return
@@ -334,4 +365,63 @@ async def _(event):
     else:
             await event.reply(
                 "How can you leave a federation that you never joined ?")
-    
+   
+
+@register(pattern="^/fpromote(?: |$)(.*)")
+async def _(event):   
+    chat = event.chat
+    args = await get_user_from_event(event)
+    user = event.sender
+    if args:
+        pass
+    else:
+        return   
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+
+    fed_id = sql.get_fed_id(chat.id)
+
+    if is_user_fed_owner(fed_id, user.id) or user.id == OWNER_ID:
+        userid = args
+        if not userid:
+            await event.reply("Reply to a message or give a entity to promote")
+            return
+        user_id = userid.id        
+        getuser = sql.search_user_in_fed(fed_id, user_id)
+        fed_id = sql.get_fed_id(chat.id)
+        info = sql.get_fed_info(fed_id)
+        get_owner = eval(info['fusers'])['owner']
+        try:
+          async for userr in tbot.iter_participants(event.chat_id, filter=types.ChannelParticipantsAdmins):
+            if not isinstance(userr.participant, types.ChannelParticipantCreator):
+             aid = userr.id
+             if int(aid) == int(get_owner):
+               await event.reply(
+                  "Hey that's the federation owner !"
+               )
+               return
+        except Exception as e:
+                print(e)
+        if getuser:
+            await event.reply(
+                "I cannot promote users who are already federation admins! Can remove them if you want!"
+            )
+            return
+        if int(user_id) == BOT_ID:
+            await event.reply(
+                "I already am a federation admin in all federations!")
+            return
+        res = sql.user_join_fed(fed_id, user_id)
+        if res:
+            await event.reply("Successfully Promoted!")
+        else:
+            await event.reply("Failed to promote!")
+    else:
+        await event.reply(
+            "Only federation owners can do this!")
