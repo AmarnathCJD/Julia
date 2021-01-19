@@ -219,14 +219,23 @@ async def useridgetter(target):
         else:
             return
     message = await target.get_reply_message()
+    if not message:
+       self_user = await event.get_sender()
+       user_id = self_user.id
+       if self_user.username:
+                name = "@" + self_user.username
+       else:
+                name = "**" + self_user.first_name + "**"
+       await target.reply("**Name:** {} \n**User ID:** `{}`".format(
+            name, user_id))
+  
     if message:
         if not message.forward:
             user_id = message.sender.id
             if message.sender.username:
                 name = "@" + message.sender.username
             else:
-                name = "**" + message.sender.first_name + "**"
-
+                name = "**" + message.sender.first_name + "**"            
         else:
             user_id = message.forward.sender.id
             if message.forward.sender.username:
@@ -458,7 +467,7 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /userid: If replied to user's message gets that user's id.
+ - /userid: If replied to user's message gets that user's id otherwise get sender's id.
  - /chatid: Get the current chat id.
  - /runs: Reply a random string from an array of replies.
  - /info: Get information about a user.
