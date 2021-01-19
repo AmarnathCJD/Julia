@@ -68,6 +68,7 @@ if ENV:
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     CONSOLE_LOGGER_VERBOSE = os.environ.get("CONSOLE_LOGGER_VERBOSE", "False")
+    BOT_ID = os.environ.get("BOT_ID", None)
 
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
