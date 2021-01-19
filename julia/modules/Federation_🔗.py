@@ -387,7 +387,7 @@ async def _(event):
 
     fed_id = sql.get_fed_id(chat.id)
 
-    if is_user_fed_owner(fed_id, user.id) or user.id == OWNER_ID:
+    if is_user_fed_owner(fed_id, user.id):
         userid = args
         if not userid:
             await event.reply("Reply to a message or give a entity to promote")
@@ -425,3 +425,47 @@ async def _(event):
     else:
         await event.reply(
             "Only federation owners can do this!")
+
+@register(pattern="^/fdemote(?: |$)(.*)")
+async def _(event):   
+    chat = event.chat
+    args = await get_user_from_event(event)
+    user = event.sender
+    if args:
+        pass
+    else:
+        return
+
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+
+    fed_id = sql.get_fed_id(chat.id)
+
+    if is_user_fed_owner(fed_id, user.id):
+        userid = args
+        if not userid:
+            await event.reply("Reply to a message or give a entity to promote")
+            return
+        user_id = userid.id        
+
+        if user_id == BOT_ID:
+            await event.reply(
+                "You can't demote me from a federation created by me !"
+            )
+            return
+
+        if sql.search_user_in_fed(fed_id, user_id) is False:
+            await event.reply(
+                "I cannot demote people who are not federation admins!")
+            return
+
+        res = sql.user_demote_fed(fed_id, user_id)
+        if res is True:
+            await event.reply("Demoted from Fed Admin!")
+        else:
+            await event.reply("Demotion failed!")
+    else:
+        await event.reply(
+            "Only federation owners can do this!")
+        return
