@@ -220,7 +220,7 @@ async def useridgetter(target):
             return
     message = await target.get_reply_message()
     if not message:
-       self_user = await event.get_sender()
+       self_user = await target.get_sender()
        user_id = self_user.id
        if self_user.username:
                 name = "@" + self_user.username
