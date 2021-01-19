@@ -478,7 +478,7 @@ async def _(event):
             "Only a federation admin can do this!")
         return
 
-    owner = await tbot.get_entity(info['owner'])
+    owner = await tbot.get_entity(int(info['owner']))
     try:
         owner_name = owner.first_name + " " + owner.last_name
     except:
