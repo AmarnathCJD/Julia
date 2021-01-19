@@ -111,13 +111,14 @@ async def _(event):
 
     res = sql.rm_afk(sender.id)
     if res:
-
         firstname = sender.first_name
         try:
             text = "**{} is no longer AFK !**".format(firstname)
             await event.reply(text, parse_mode="markdown")
         except BaseException:
             return
+    else:
+        await event.reply("Are you even AFK ?")
 
 
 @tbot.on(events.NewMessage(pattern=None))
