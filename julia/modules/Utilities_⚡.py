@@ -53,7 +53,7 @@ async def is_register_admin(chat, user):
 TMP_DOWNLOAD_DIRECTORY = "./"
 
 
-@tbot.on(events.NewMessage(pattern="^/info(?: |$)(.*)"))
+@register(pattern="^/info(?: |$)(.*)")
 async def who(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -112,7 +112,7 @@ async def get_user(event):
             user = int(user)
 
         if not user:
-            self_user = await tbot.get_me()
+            self_user = await event.get_sender()
             user = self_user.id
 
         if event.message.entities is not None:
@@ -452,22 +452,6 @@ async def _(event):
     else:
         await event.reply(final_output)
  
-@register(pattern="^/cmdlist$")
-async def cmndlist(event):
-    if event.fwd_from:
-        return
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    await event.reply("Click on the below button to get the list of commands 👇", buttons=[[Button.url('Command List', 'https://telegra.ph/Command-List-11-25')]])
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
@@ -478,7 +462,6 @@ __help__ = """
  - /chatid: Get the current chat id.
  - /runs: Reply a random string from an array of replies.
  - /info: Get information about a user.
- - /cmdlist: Lists all the available commands of @MissJuliaRobot until now.
 """
 
 CMD_HELP.update({
