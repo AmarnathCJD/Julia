@@ -413,7 +413,7 @@ async def _(event):
                 "I cannot promote users who are already federation admins! Can remove them if you want!"
             )
             return
-        if int(user_id) == BOT_ID:
+        if int(user_id) == int(BOT_ID):
             await event.reply(
                 "I already am a federation admin in all federations!")
             return
