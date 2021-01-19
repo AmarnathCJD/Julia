@@ -94,16 +94,10 @@ def is_user_fed_owner(fed_id, user_id):
 @register(pattern="^/newfed ?(.*)")
 async def _(event):
     chat = event.chat
-    user = event.sender
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch['id']
-        userss = ch['user']
+    user = event.sender    
     if event.is_group:
         if (await is_register_admin(event.input_chat, user.id)):
-            pass
-        elif event.chat_id == iid and user.id == userss:
-            pass
+            pass        
         else:
             return
     message = event.pattern_match.group(1)
@@ -140,15 +134,9 @@ async def _(event):
  try:
     args = event.pattern_match.group(1)
     chat = event.chat
-    user = event.sender
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch['id']
-        userss = ch['user']
+    user = event.sender    
     if event.is_group:
         if (await is_register_admin(event.input_chat, user.id)):
-            pass
-        elif event.chat_id == iid and user.id == userss:
             pass
         else:
             return
@@ -208,15 +196,9 @@ async def delete_fed(event):
 @register(pattern="^/renamefed ?(.*) ?(.*)")
 async def _(event):
     args = event.pattern_match.group(1)
-    fedid = event.pattern_match.group(2)   
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch['id']
-        userss = ch['user']
+    fedid = event.pattern_match.group(2)       
     if event.is_group:
         if (await is_register_admin(event.input_chat, event.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
             pass
         else:
             return
@@ -238,15 +220,9 @@ async def _(event):
 async def _(event):   
     chat = event.chat
     # user = event.sender
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch['id']
-        userss = ch['user']
     if event.is_group:
         if (await is_register_admin(event.input_chat, event.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
+            pass        
         else:
             return
     fed_id = sql.get_fed_id(chat.id)
@@ -436,6 +412,12 @@ async def _(event):
     else:
         return
 
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
+
     if event.is_private:
         await event.reply("This command is specific to the group, not to my pm !")
         return
@@ -469,3 +451,51 @@ async def _(event):
         await event.reply(
             "Only federation owners can do this!")
         return
+
+@register(pattern="^/fedinfo ?(.*)")
+async def _(event):   
+    chat = event.chat
+    args = event.pattern_match.group(1)
+    user = event.sender
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
+    if args:
+        fed_id = args
+        info = sql.get_fed_info(fed_id)
+    else:
+        fed_id = sql.get_fed_id(chat.id)
+        if not fed_id:
+            await event.reply(
+                         "This group is not in any federation!")
+            return
+        info = sql.get_fed_info(fed_id)
+    
+    if is_user_fed_admin(fed_id, user.id) is False:
+        await event.reply(
+            "Only a federation admin can do this!")
+        return
+
+    owner = await tbot.get_entity(info['owner'])
+    try:
+        owner_name = owner.first_name + " " + owner.last_name
+    except:
+        owner_name = owner.first_name
+    FEDADMIN = sql.all_fed_users(fed_id)
+    TotalAdminFed = len(FEDADMIN)
+
+    text = "<b>ℹ️ Federation Information:</b>"
+    text += "\nFedID: <code>{}</code>".format(fed_id)
+    text += "\nName: {}".format(info['fname'])
+    text += "\nCreator: {}".format(mention_html(owner.id, owner_name))
+    text += "\nAll Admins: <code>{}</code>".format(TotalAdminFed)
+    getfban = sql.get_all_fban_users(fed_id)
+    text += "\nTotal banned users: <code>{}</code>".format(len(getfban))
+    getfchat = sql.all_fed_chats(fed_id)
+    text += "\nNumber of groups in this federation: <code>{}</code>".format(
+        len(getfchat))
+
+    await event.reply(text, parse_mode="html")
+
