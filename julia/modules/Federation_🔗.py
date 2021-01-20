@@ -543,7 +543,7 @@ async def _(event):
             "Couldn't find information about that federation!")
        return
 
-    print(fed_id+"\n"+user.id)
+    # print(fed_id+"\n"+user.id)
     if is_user_fed_admin(fed_id, user.id) is False:
         await event.reply(
             "Only federation admins can do this!")
