@@ -1,4 +1,4 @@
-from julia import CMD_HELP
+from julia import CMD_HELP, BOT_ID
 import os
 from julia import tbot
 from pymongo import MongoClient
@@ -113,7 +113,7 @@ async def approve(event):
         print("6")
         return
 
-    if event.sender_id == 1246850012 or iid == 1246850012:
+    if event.sender_id == BOT_ID or iid == BOT_ID:
         await event.reply("I am not gonna approve myself")
         print("7")
         return
@@ -161,7 +161,7 @@ async def disapprove(event):
         print("6")
         return
 
-    if event.sender_id == 1246850012 or iid == 1246850012:
+    if event.sender_id == BOT_ID or iid == BOT_ID:
         await event.reply("I am not gonna disapprove myself")
         print("7")
         return
@@ -203,7 +203,7 @@ async def checkst(event):
         await event.reply("Why will check status of an admin ?")
         return
 
-    if event.sender_id == 1246850012 or iid == 1246850012:
+    if event.sender_id == BOT_ID or iid == BOT_ID:
         await event.reply("I am not gonna check my status")
         print("7")
         return
