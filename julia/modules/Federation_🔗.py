@@ -454,6 +454,7 @@ async def _(event):
 
 @tbot.on(events.NewMessage(pattern="^/fedinfo ?(.*)"))
 async def _(event):   
+ try:
     chat = event.chat
     args = event.pattern_match.group(1)
     user = event.sender
@@ -504,4 +505,5 @@ async def _(event):
         len(getfchat))
 
     await event.reply(text, parse_mode="html")
-
+ except Exception as e :
+    print (e)
