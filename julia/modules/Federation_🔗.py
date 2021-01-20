@@ -479,7 +479,7 @@ async def _(event):
         fed_id = sql.get_fed_id(chat.id)
         if not fed_id:
             await event.reply(
-                         "This group is not in any federation!")
+                         "This chat is not in any federation!")
             return
         info = sql.get_fed_info(fed_id)
 
@@ -512,7 +512,63 @@ async def _(event):
     getfchat = sql.all_fed_chats(fed_id)
     text += "\nNumber of groups in this federation: <code>{}</code>".format(
         len(getfchat))
-
     await event.reply(text, parse_mode="html")
  except Exception as e :
     print (e)
+
+@tbot.on(events.NewMessage(pattern="^/fedadmins?(.*)"))
+async def _(event):   
+ try:
+    chat = event.chat
+    args = event.pattern_match.group(1)
+    user = event.sender
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return           
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+        
+    if args:
+        fed_id = args
+        info = sql.get_fed_info(fed_id)
+    else:
+        fed_id = sql.get_fed_id(chat.id)
+        if not fed_id:
+            await event.reply(
+                         "This chat is not in any federation!")
+            return
+        info = sql.get_fed_info(fed_id)
+
+
+    if is_user_fed_admin(fed_id, user.id) is False:
+        await event.reply(
+            "Only federation admins can do this!")
+        return
+
+    text = "<b>Federation Admin {}:</b>\n\n".format(info['fname'])
+    text += "👑 Owner:\n"
+    owner = await tbot.get_entity(int(info['owner']))
+    try:
+        owner_name = owner.first_name + " " + owner.last_name
+    except:
+        owner_name = owner.first_name
+    text += " • <p><a href='tg://user?id={owner.id}'>{owner_name}</a></p>\n"
+
+    members = sql.all_fed_members(fed_id)
+    if len(members) == 0:
+        text += "\n🔱 There are no admins in this federation"
+    else:
+        text += "\n🔱 Admin:\n"
+        for x in members:
+            user = await tbot.get_entity(int(x))
+            text += " • <p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>\n"
+
+    await event.reply(text, parse_mode="html")
+
+ except Exception as e :
+    print (e)
+   
+    
