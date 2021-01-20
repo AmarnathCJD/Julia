@@ -340,7 +340,7 @@ async def stop(event):
 
     msg = await event.get_reply_message()
 
-    if str(msg.sender_id) != "BOT_ID":
+    if str(msg.sender_id) != str(BOT_ID):
         await event.reply(
             "I can't do this operation on this poll.\nProbably it's not created by me"
         )
