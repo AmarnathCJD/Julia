@@ -551,7 +551,7 @@ async def _(event):
         owner_name = owner.first_name + " " + owner.last_name
     except:
         owner_name = owner.first_name
-    text += " • <p><a href='tg://user?id={owner.id}'>{owner_name}</a></p>\n"
+    text += f" • <p><a href='tg://user?id={owner.id}'>{owner_name}</a></p>\n"
 
     members = sql.all_fed_members(fed_id)
     if len(members) == 0:
@@ -560,7 +560,8 @@ async def _(event):
         text += "\n🔱 Admin:\n"
         for x in members:
             user = await tbot.get_entity(int(x))
-            text += " • <p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>\n"
+            unamee = user.first_name
+            text += f" • <p><a href='tg://user?id={user.id}'>{unamee}</a></p>\n"
 
     await event.reply(text, parse_mode="html")
 
