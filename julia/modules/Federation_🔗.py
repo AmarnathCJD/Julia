@@ -538,7 +538,12 @@ async def _(event):
             return
         info = sql.get_fed_info(fed_id)
 
+    if not info:
+       await event.reply(
+            "Couldn't find information about that federation!")
+       return
 
+    print(fed_id+"\n"+user.id)
     if is_user_fed_admin(fed_id, user.id) is False:
         await event.reply(
             "Only federation admins can do this!")
