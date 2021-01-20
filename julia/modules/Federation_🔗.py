@@ -461,7 +461,7 @@ def is_user_fed_admin(fed_id, user_id):
     else:
         return False
 
-@tbot.on(events.NewMessage(pattern="^/fedinfo ?(.*)"))
+@register(pattern="^/fedinfo ?(.*)")
 async def _(event):   
  try:
     chat = event.chat
@@ -516,7 +516,7 @@ async def _(event):
  except Exception as e :
     print (e)
 
-@tbot.on(events.NewMessage(pattern="^/fedadmins ?(.*)"))
+@register(pattern="^/fedadmins ?(.*)")
 async def _(event):   
  try:
     chat = event.chat
