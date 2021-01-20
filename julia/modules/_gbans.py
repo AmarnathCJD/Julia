@@ -110,7 +110,7 @@ async def _(event):
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
                 GBAN_LOGS,
-                "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
+                "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason)
             )
             await event.reply("Ungbanned Successfully !")
