@@ -1,4 +1,4 @@
-from julia import CMD_HELP
+from julia import CMD_HELP, BOT_ID
 import nude
 import html
 import asyncio
@@ -194,7 +194,7 @@ async def _(event):
         pass
     else:
         return
-    if str(event.sender_id) == "1246850012":
+    if str(event.sender_id) == "BOT_ID":
         return
     if event.sender_id == OWNER_ID:
         return
