@@ -40,6 +40,8 @@ def get_reason(id, time, user):
 async def _(event):
     if event.fwd_from:
         return    
+    if not event.is_private:
+       return   
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
@@ -116,6 +118,8 @@ __help__ = """
  - /setalarm <(date) (time)|zone|reason>: sets a alarm/reminder 
 
 **Syntax:** `/setalarm 01/01/2000 10:00:00 AM | America/New_York | breakfast`
+
+**NOTE:** Please turn on notifications for @MissJuliaRobot otherwise you will not get notification for the alarm !
 """
 
 CMD_HELP.update({
