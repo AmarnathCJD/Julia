@@ -452,7 +452,7 @@ async def _(event):
             "Only federation owners can do this!")
         return
 
-@register(pattern="^/fedinfo ?(.*)")
+@tbot.on(events.NewMessage(pattern="^/fedinfo ?(.*)"))
 async def _(event):   
     chat = event.chat
     args = event.pattern_match.group(1)
@@ -472,6 +472,12 @@ async def _(event):
                          "This group is not in any federation!")
             return
         info = sql.get_fed_info(fed_id)
+
+    if not info:
+       await event.reply(
+            "Couldn't find information about that federation !")
+        return
+
     
     if is_user_fed_admin(fed_id, user.id) is False:
         await event.reply(
