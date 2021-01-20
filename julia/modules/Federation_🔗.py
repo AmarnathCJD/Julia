@@ -475,8 +475,8 @@ async def _(event):
 
     if not info:
        await event.reply(
-            "Couldn't find information about that federation !")
-        return
+            "Couldn't find information about that federation!")
+       return
 
     
     if is_user_fed_admin(fed_id, user.id) is False:
