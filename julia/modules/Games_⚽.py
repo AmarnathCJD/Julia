@@ -1,4 +1,4 @@
-from julia import CMD_HELP
+from julia import CMD_HELP, OWNER_ID
 import os
 from julia import tbot
 from telethon import *
@@ -90,7 +90,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/gameed")
             response = await response
@@ -126,7 +126,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/jsusxjxhxhxshsjs")
             response = await response
@@ -163,7 +163,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/jsuskhfkhdxjzhsjs")
             response = await response
@@ -199,7 +199,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/jslgggfsslaxvuoqdjlxvqs")
             response = await response
@@ -236,7 +236,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/jsdndbbduoqdjlxvqs")
             response = await response
@@ -273,7 +273,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/jsdndbafjaffajlxvqs")
             response = await response
@@ -310,7 +310,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/jsddjdhiwws")
             response = await response
@@ -347,7 +347,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/whwyywwhewws")
             response = await response
@@ -384,7 +384,7 @@ async def ramdomgamess(event):
     async with tbot.conversation(chat) as conv:
         try:
             response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=1248815845))
+                events.NewMessage(incoming=True, from_users=OWNER_ID))
             entity = await tbot.get_entity(OWNER_USERNAME)
             await tbot.send_message(entity, "/wssksskxxskss")
             response = await response
