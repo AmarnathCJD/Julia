@@ -1,4 +1,4 @@
-from julia import CMD_HELP
+from julia import CMD_HELP, BOT_ID
 import os
 from julia import tbot
 from telethon import *
@@ -340,7 +340,7 @@ async def stop(event):
 
     msg = await event.get_reply_message()
 
-    if str(msg.sender_id) != "1246850012":
+    if str(msg.sender_id) != "BOT_ID":
         await event.reply(
             "I can't do this operation on this poll.\nProbably it's not created by me"
         )
@@ -390,10 +390,10 @@ async def stop(event):
                 await event.reply("Done you can now create a new poll.")
             except Exception:
                 await event.reply("Seems like you haven't created any poll yet !")
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
-
 
 __help__ = """
 You can now send polls anonymously with Julia
