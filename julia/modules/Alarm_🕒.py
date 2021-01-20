@@ -41,6 +41,7 @@ async def _(event):
     if event.fwd_from:
         return    
     if not event.is_private:
+       await event.reply("Alarms can only be set in my pm .")
        return   
     approved_userss = approved_users.find({})
     for ch in approved_userss:
