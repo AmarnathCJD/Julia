@@ -526,11 +526,7 @@ async def _(event):
         if (await is_register_admin(event.input_chat, event.sender_id)):
             pass
         else:
-            return           
-    if event.is_private:
-        await event.reply("This command is specific to the group, not to my pm !")
-        return
-        
+            return                 
     if args:
         fed_id = args
         info = sql.get_fed_info(fed_id)
