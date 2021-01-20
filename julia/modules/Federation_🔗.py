@@ -516,7 +516,7 @@ async def _(event):
  except Exception as e :
     print (e)
 
-@tbot.on(events.NewMessage(pattern="^/fedadmins?(.*)"))
+@tbot.on(events.NewMessage(pattern="^/fedadmins ?(.*)"))
 async def _(event):   
  try:
     chat = event.chat
