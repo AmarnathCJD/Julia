@@ -1,4 +1,4 @@
-from julia import CMD_HELP
+from julia import CMD_HELP, BOT_ID
 import os
 from julia import tbot
 from time import time
@@ -85,7 +85,7 @@ async def check_message(event):
     if message.lower() == "julia":
         return True
     if reply_msg:
-        if reply_msg.sender_id == 1246850012:
+        if reply_msg.sender_id == BOT_ID:
             return True
     else:
         return False
