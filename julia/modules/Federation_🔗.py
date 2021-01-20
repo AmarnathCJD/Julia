@@ -452,6 +452,15 @@ async def _(event):
             "Only federation owners can do this!")
         return
 
+def is_user_fed_admin(fed_id, user_id):
+    fed_admins = sql.all_fed_users(fed_id)
+    if fed_admins is False:
+        return False
+    if int(user_id) in fed_admins or int(user_id) == OWNER_ID:
+        return True
+    else:
+        return False
+
 @tbot.on(events.NewMessage(pattern="^/fedinfo ?(.*)"))
 async def _(event):   
  try:
