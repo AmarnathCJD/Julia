@@ -62,7 +62,7 @@ async def _(event):
             await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
             await event.client.send_message(
                 GBAN_LOGS,
-                "**GLOBAL BAN REASON UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(r_sender_id, reason))
+                "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`**\nREASON:** `{}`".format(r_sender_id, event.sender_id, reason))
             return
 
     gbanned.insert_one({"bannerid": event.sender_id,
@@ -70,8 +70,8 @@ async def _(event):
 
     await event.client.send_message(
         GBAN_LOGS,
-        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
-            r_sender_id, reason)
+        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
+            r_sender_id, event.sender_id, reason)
     )
     await event.reply("Gbanned Successfully !")
 
@@ -110,8 +110,8 @@ async def _(event):
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
                 GBAN_LOGS,
-                "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REASON:** `{}`".format(
-                    r_sender_id, reason)
+                "**REMOVAL OF GLOBAN BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
+                    r_sender_id, event.sender_id, reason)
             )
             await event.reply("Ungbanned Successfully !")
             return
