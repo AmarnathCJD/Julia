@@ -194,7 +194,7 @@ async def _(event):
         pass
     else:
         return
-    if str(event.sender_id) == "BOT_ID":
+    if str(event.sender_id) == str(BOT_ID):
         return
     if event.sender_id == OWNER_ID:
         return
