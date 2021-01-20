@@ -62,7 +62,7 @@ async def _(event):
             await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
             await event.client.send_message(
                 GBAN_LOGS,
-                "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`**\nREASON:** `{}`".format(r_sender_id, event.sender_id, reason))
+                "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(r_sender_id, event.sender_id, reason))
             return
 
     gbanned.insert_one({"bannerid": event.sender_id,
