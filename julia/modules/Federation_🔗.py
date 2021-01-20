@@ -505,7 +505,7 @@ async def _(event):
     text = "<b>ℹ️ Federation Information:</b>"
     text += "\nFedID: <code>{}</code>".format(fed_id)
     text += "\nName: {}".format(info['fname'])
-    text += "\nCreator: {}".format(mention_html(owner.id, owner_name))
+    text += f"\nCreator: [{owner_name}](tg://user?id={owner.id})"
     text += "\nAll Admins: <code>{}</code>".format(TotalAdminFed)
     getfban = sql.get_all_fban_users(fed_id)
     text += "\nTotal banned users: <code>{}</code>".format(len(getfban))
