@@ -118,11 +118,11 @@ async def _(event):
         except ValueError:
             pass
         try:
-            async with tbot.action(event.chat, 'typing'):
+            async with tbot.action(event.chat_id, 'typing'):
                 rep = api_client.think_thought(sesh, query)
                 await event.reply(rep)
         except CFError as e:
-            await tbot.send_message(OWNER_ID, f"Chatbot error: {e} occurred in {chat.id}!")
+            print(e)
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
