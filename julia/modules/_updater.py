@@ -5,10 +5,10 @@ import sys
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 import heroku3
-from julia import OWNER_ID, tbot
+from julia import OWNER_ID, tbot, UPSTREAM_REPO_URL
 
 
-UPSTREAM_REPO_URL = "https://github.com/MissJuliaRobot/MissJuliaRobot.git"
+# UPSTREAM_REPO_URL = "https://github.com/MissJuliaRobot/MissJuliaRobot.git"
 HEROKU_APP_NAME = None
 HEROKU_API_KEY = None
 
