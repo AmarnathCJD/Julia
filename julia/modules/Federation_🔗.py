@@ -650,9 +650,9 @@ async def _(event):
         fban_user_name = user_chat.first_name
         fban_user_lname = user_chat.last_name
         fban_user_uname = user_chat.username
-    except BadRequest as excp:
+    except Exception as e:
         if not str(user_id).isdigit():
-            await event.reply(excp.message)
+            await event.reply(e)
             return
         elif len(str(user_id)) != 9:
             await event.reply("That's not a user!")
@@ -663,7 +663,7 @@ async def _(event):
         fban_user_lname = None
         fban_user_uname = None
 
-    if isvalid and user_chat.type != 'private': ##
+    if isvalid and not isinstance(user_chat, User): 
         await event.reply("That's not a user!")
         return
 
