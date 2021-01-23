@@ -168,9 +168,6 @@ async def howdoi(event):
     str = event.pattern_match.group(1)
     jit = subprocess.check_output(["howdoi", f"{str}"])
     pit = jit.decode()
-    if not pit:
-       await event.reply("Sorry found no results.")
-       return   
     await event.reply(pit)
 
 file_help = os.path.basename(__file__)
