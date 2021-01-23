@@ -64,7 +64,10 @@ async def _(event):
         appid = WOLFRAM_ID
         server = f"https://api.wolframalpha.com/v1/spoken?appid={appid}&i={i}"
         res = get(server)
-        await event.reply(f"**{i}**\n\n" + res.text, parse_mode="Markdown")
+        if res == "Wolfram Alpha did not understand your input":
+           await event.reply("Sorry I can't understand")
+           return   
+        await event.reply(f"**{i}**\n\n" + res.text, parse_mode="markdown")
 
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
@@ -120,9 +123,9 @@ async def _(event):
                             reply_to=event.id,
                         )
                     os.remove("results.mp3")
-                else:
+                elif transcript_response == "Wolfram Alpha did not understand your input":
                     try:
-                        answer = "Sorry I can't recognise your query"
+                        answer = "Sorry I can't understand"
                         tts = gTTS(answer, tld="com", lang="en")
                         tts.save("results.mp3")
                     except AssertionError:
@@ -165,7 +168,11 @@ async def howdoi(event):
     str = event.pattern_match.group(1)
     jit = subprocess.check_output(["howdoi", f"{str}"])
     pit = jit.decode()
+    if not pit:
+       await event.reply("Sorry found no results.")
+       return   
     await event.reply(pit)
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
