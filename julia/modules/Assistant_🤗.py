@@ -123,6 +123,7 @@ async def _(event):
                             reply_to=event.id,
                         )
                     os.remove("results.mp3")
+                    os.remove(required_file_name)
                 elif transcript_response == "Wolfram Alpha did not understand your input":
                     try:
                         answer = "Sorry I can't understand"
@@ -144,6 +145,7 @@ async def _(event):
                             reply_to=event.id,
                         )
                     os.remove("results.mp3")
+                    os.remove(required_file_name)
             else:
                 await event.reply("API Failure !")
                 os.remove(required_file_name)
