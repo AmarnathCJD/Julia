@@ -573,4 +573,208 @@ async def _(event):
  except Exception as e :
     print (e)
    
-    
+@register(pattern="^/fedadmins ?(.*)")
+async def _(event):   
+ try:
+    chat = event.chat
+    args = event.pattern_match.group(1)
+    user = event.sender
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+
+    fed_id = sql.get_fed_id(chat.id)
+
+    if not fed_id:
+        await event.reply(
+            "This group is not a part of any federation!")
+        return
+
+    info = sql.get_fed_info(fed_id)
+    getfednotif = sql.user_feds_report(info['owner'])
+
+    if is_user_fed_admin(fed_id, user.id) is False:
+        await event.reply(
+            "Only federation admins can do this!")
+        return
+
+    message = update.effective_message
+
+    user_id, reason = extract_unt_fedban(message, args)
+
+    fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user_id)
+
+    if not user_id:
+        await event.reply("You don't seem to be referring to a user")
+        return
+
+    if user_id == BOT_ID:
+        await event.reply(
+            "Haha you can't fban me.)
+        return
+
+    if is_user_fed_owner(fed_id, user_id) is True:
+        await event.reply("You are the fed owner.\nI will not fban you !")
+        return
+
+    if is_user_fed_admin(fed_id, user_id) is True:
+        await event.reply("That's a federation admin, I can't fban.")
+        return
+
+    if user_id == OWNER_ID:
+        await event.reply("Haha i will never fban my owner !")
+        return
+
+    if user_id in [777000, 1087968824]:
+        await event.reply("Fool! You can't attack Telegram's native tech!")
+        return
+
+    try:
+        user_chat = await tbot.get_entity(user_id)
+        isvalid = True
+        fban_user_id = user_chat.id
+        fban_user_name = user_chat.first_name
+        fban_user_lname = user_chat.last_name
+        fban_user_uname = user_chat.username
+    except BadRequest as excp:
+        if not str(user_id).isdigit():
+            await event.reply(excp.message)
+            return
+        elif len(str(user_id)) != 9:
+            await event.reply("That's not a user!")
+            return
+        isvalid = False
+        fban_user_id = int(user_id)
+        fban_user_name = "user({})".format(user_id)
+        fban_user_lname = None
+        fban_user_uname = None
+
+    if isvalid and user_chat.type != 'private': ##
+        await event.reply("That's not a user!")
+        return
+
+    if isvalid:
+        user_target = f"<p><a href='tg://user?id={fban_user_id}'>{fban_user_name}</a></p>"
+    else:
+        user_target = fban_user_name
+
+    if fban:
+        fed_name = info['fname']
+        temp = sql.un_fban_user(fed_id, fban_user_id)
+        if not temp:
+            await event.reply("Failed to update the reason for fedban!")
+            return
+        x = sql.fban_user(fed_id, fban_user_id, fban_user_name, fban_user_lname,
+                          fban_user_uname, reason, int(time.time()))
+        if not x:
+            await event.reply(
+                "Failed to ban from the federation! If this problem continues, contact @MissJuliaRobotSupport."
+            )
+            return
+
+        fed_chats = sql.all_fed_chats(fed_id)
+        # Will send to current chat
+        await tbot.send_message(chat.id, "<b>FedBan reason updated</b>" \
+              "\n<b>Federation:</b> {}" \
+              "\n<b>Federation Admin:</b> {}" \
+              "\n<b>User:</b> {}" \
+              "\n<b>User ID:</b> <code>{}</code>" \
+              "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+        # Send message to owner if fednotif is enabled
+        if getfednotif:
+            await tbot.send_message(info['owner'], "<b>FedBan reason updated</b>" \
+                 "\n<b>Federation:</b> {}" \
+                 "\n<b>Federation Admin:</b> {}" \
+                 "\n<b>User:</b> {}" \
+                 "\n<b>User ID:</b> <code>{}</code>" \
+                 "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+        # If fedlog is set, then send message, except fedlog is current chat
+        get_fedlog = sql.get_fed_log(fed_id)
+        if get_fedlog:
+            if int(get_fedlog) != int(chat.id):
+                await tbot.send_message(get_fedlog, "<b>FedBan reason updated</b>" \
+                    "\n<b>Federation:</b> {}" \
+                    "\n<b>Federation Admin:</b> {}" \
+                    "\n<b>User:</b> {}" \
+                    "\n<b>User ID:</b> <code>{}</code>" \
+                    "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+        for fedschat in fed_chats:
+            try:
+                await tbot.kick_participant(fedschat, fban_user_id)
+            except Exception as e:
+                 print (e)                                  
+
+        # Fban for fed subscriber
+        subscriber = list(sql.get_subscriber(fed_id))
+        if len(subscriber) != 0:
+            for fedsid in subscriber:
+                all_fedschat = sql.all_fed_chats(fedsid)
+                for fedschat in all_fedschat:
+                    try:
+                        await tbot.kick_participant(fedschat, fban_user_id)
+                    except Exception as e:                                
+                                print (e)
+                                continue
+        return
+
+    fed_name = info['fname']
+
+    x = sql.fban_user(fed_id, fban_user_id, fban_user_name, fban_user_lname,
+                      fban_user_uname, reason, int(time.time()))
+    if not x:
+        await event.reply(
+            "Failed to ban from the federation! If this problem continues, contact @OnePunchSupport."
+        )
+        return
+
+    fed_chats = sql.all_fed_chats(fed_id)
+    # Will send to current chat
+    await tbot.send_message(chat.id, "<b>FedBan reason updated</b>" \
+          "\n<b>Federation:</b> {}" \
+          "\n<b>Federation Admin:</b> {}" \
+          "\n<b>User:</b> {}" \
+          "\n<b>User ID:</b> <code>{}</code>" \
+          "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+    # Send message to owner if fednotif is enabled
+    if getfednotif:
+        await tbot.send_message(info['owner'], "<b>FedBan reason updated</b>" \
+             "\n<b>Federation:</b> {}" \
+             "\n<b>Federation Admin:</b> {}" \
+             "\n<b>User:</b> {}" \
+             "\n<b>User ID:</b> <code>{}</code>" \
+             "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+    # If fedlog is set, then send message, except fedlog is current chat
+    get_fedlog = sql.get_fed_log(fed_id)
+    if get_fedlog:
+        if int(get_fedlog) != int(chat.id):
+            await tbot.send_message(get_fedlog, "<b>FedBan reason updated</b>" \
+                "\n<b>Federation:</b> {}" \
+                "\n<b>Federation Admin:</b> {}" \
+                "\n<b>User:</b> {}" \
+                "\n<b>User ID:</b> <code>{}</code>" \
+                "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+    chats_in_fed = 0
+    for fedschat in fed_chats:
+        chats_in_fed += 1
+        try:
+            await bot.kick_participant(fedschat, fban_user_id)
+        except Exception as e:
+            print (e)
+
+        # Fban for fed subscriber
+        subscriber = list(sql.get_subscriber(fed_id))
+        if len(subscriber) != 0:
+            for fedsid in subscriber:
+                all_fedschat = sql.all_fed_chats(fedsid)
+                for fedschat in all_fedschat:
+                    try:
+                        await tbot.kick_participant(fedschat, fban_user_id)
+                    except Exception as e:
+                        print (e)
+ except Exception as e:
+       print (e)                          
