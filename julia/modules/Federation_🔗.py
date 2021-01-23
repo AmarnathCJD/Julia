@@ -573,7 +573,7 @@ async def _(event):
  except Exception as e :
     print (e)
    
-@register(pattern="^/fedadmins ?(.*)")
+@register(pattern="^/fban (.*)")
 async def _(event):   
  try:
     chat = event.chat
@@ -603,9 +603,18 @@ async def _(event):
             "Only federation admins can do this!")
         return
 
-    message = update.effective_message
-
-    user_id, reason = extract_unt_fedban(message, args)
+    if "|" in args:
+        iid, reasonn = quew.split("|")
+    cid = iid.strip()
+    reason = reasonn.strip()
+    entity = await tbot.get_input_entity(cid)
+    try:
+        user_id = entity.user_id
+    except Exception:
+        await event.reply("Couldn't fetch that user.")
+        return
+    if not reason:
+        reason = "No reason given"
 
     fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user_id)
 
@@ -762,7 +771,7 @@ async def _(event):
     for fedschat in fed_chats:
         chats_in_fed += 1
         try:
-            await bot.kick_participant(fedschat, fban_user_id)
+            await tbot.kick_participant(fedschat, fban_user_id)
         except Exception as e:
             print (e)
 
