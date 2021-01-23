@@ -26,6 +26,11 @@
       "value": "",
       "required": true
     },
+    "TOKEN": {
+      "description": "Get your bot token from @BotFather",
+      "value": "",
+      "required": true
+    },
     "OPENWEATHERMAP_ID": {
       "description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
       "required": false
@@ -103,6 +108,11 @@
     },
     "WALL_API": {
       "description": "Get one from https://wall.alphacoders.com/api.php",
+      "value": "",
+      "required": false
+    },
+    "VIRUS_API_KEY": {
+      "description": "Get one from https://cloudmersive.com/virus-api",
       "value": "",
       "required": false
     },
