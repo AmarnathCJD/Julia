@@ -31,6 +31,11 @@
       "value": "",
       "required": true
     },
+    "UPSTREAM_REPO_URL": {
+      "description": "Copy paste the repository url here (fork/official)",
+      "value": "https://github.com/MissJuliaRobot/MissJuliaRobot",
+      "required": false
+    },
     "OPENWEATHERMAP_ID": {
       "description": "Get your own APPID from https://api.openweathermap.org/data/2.5/weather",
       "required": false
