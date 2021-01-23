@@ -624,7 +624,7 @@ async def _(event):
 
     if user_id == BOT_ID:
         await event.reply(
-            "Haha you can't fban me.)
+            "Haha you can't fban me.")
         return
 
     if is_user_fed_owner(fed_id, user_id) is True:
