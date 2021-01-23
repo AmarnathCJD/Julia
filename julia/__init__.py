@@ -53,6 +53,7 @@ if ENV:
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
+    UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL", None)
     CONSOLE_LOGGER_VERBOSE = os.environ.get("CONSOLE_LOGGER_VERBOSE", "False")
     BOT_ID = int(os.environ.get("BOT_ID", None))
     if CONSOLE_LOGGER_VERBOSE:
