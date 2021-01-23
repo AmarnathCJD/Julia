@@ -57,7 +57,7 @@
       "required": false
     },
     "SUDO_USERS": {
-      "description": "List of user id's who will have SUDO rights in your bot(they can't be banned/warned etc. by the bot)",
+      "description": "List of user id's who will have SUDO rights in your bot(they can gban/ungban users)",
       "value": "",
       "required": false
     },
@@ -72,7 +72,12 @@
       "required": true
     },
     "OWNER_USERNAME": {
-      "description": "Your username",
+      "description": "Your username without @",
+      "value": "",
+      "required": true
+    },
+    "BOT_ID": {
+      "description": "userid of the bot itself, use any other bot to get it",
       "value": "",
       "required": true
     },
