@@ -1574,8 +1574,20 @@ EARS = [
     ["(∩", ")⊃━☆ﾟ.*"],
 ]
 OWNER = (
-    "My Owner Is @RoseloverX",
+    "My Owner Is @RoseLoverX",
 )
+
+RAPE = (
+    "Teri Ma Ka Bochlike",
+    "Tera Papa Ka Chotta he",
+    "Hi Ramdii Wen Sax",
+    "Tera Khada Ni Hota Sale",
+)
+TOSS = (
+    "Heads",
+    "Tails",
+)
+
 
 @register(pattern="^/roll$")
 async def msg(event):
@@ -1592,6 +1604,22 @@ async def msg(event):
             return
     await event.reply(str(random.choice(range(1, 7))))
 
+
+@register(pattern="^/toss$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(random.choice(TOSS))
+
 @register(pattern="^/owner$")
 async def msg(event):
     approved_userss = approved_users.find({})
@@ -1605,7 +1633,23 @@ async def msg(event):
             pass
         else:
             return
-    await event.reply(str(random.choice(OWNER))
+    await event.reply(random.choice(OWNER))
+
+@register(pattern="^/rape$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(random.choice(RAPE))
+
 
 
 @register(pattern="^/abuse$")
@@ -1648,28 +1692,6 @@ async def msg(event):
     else:
         replyto = event.sender_id
     await tbot.send_message(event.chat_id, "/BLUE /TEXT /MUST /CLICK /I /AM /A /STUPID /ANIMAL /THAT /IS /ATTRACTED /TO /COLORS", reply_to=replyto)
-
-RANDI = (
-     "Teri Ma Randi",
-     "Accha Bosadikke",
-     "Teri Dada Ka Chotta He",
-)
-
-@register(pattern="^/randi$")
-async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    await event.reply(str(random.choice(RANDI))
-
 
 
 @register(pattern="^/rlg$")
@@ -2181,6 +2203,7 @@ __help__ = """
  - /table: get flip/unflip :v.
  - /decide: Randomly answers yes/no/maybe
  - /bluetext: Must type for fun
+ - /toss: Tosses A coin
  - /abuse: Abuses the cunt
  - /insult: Insult the cunt
  - /slap: Slaps the cunt
