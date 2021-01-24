@@ -1578,7 +1578,9 @@ TOSS = (
     "Heads",
     "Tails",
 )
-
+OWNER = (
+    "My Owner Is @RoseloverX",
+)
 
 @register(pattern="^/roll$")
 async def msg(event):
@@ -1594,6 +1596,21 @@ async def msg(event):
         else:
             return
     await event.reply(str(random.choice(range(1, 7))))
+
+@register(pattern="^/owner$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(str(random.choice(OWNER))
 
 
 @register(pattern="^/toss$")
@@ -1652,6 +1669,28 @@ async def msg(event):
     else:
         replyto = event.sender_id
     await tbot.send_message(event.chat_id, "/BLUE /TEXT /MUST /CLICK /I /AM /A /STUPID /ANIMAL /THAT /IS /ATTRACTED /TO /COLORS", reply_to=replyto)
+
+RANDI = (
+     "Teri Ma Randi",
+     "Accha Bosadikke",
+     "Teri Dada Ka Chotta He",
+)
+
+@register(pattern="^/randi$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(str(random.choice(RANDI))
+
 
 
 @register(pattern="^/rlg$")
