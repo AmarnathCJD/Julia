@@ -23,6 +23,7 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get("ENV", True))
+updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
 dispatcher = updater.dispatcher
 if ENV:
     TOKEN = os.environ.get("TOKEN", None)
