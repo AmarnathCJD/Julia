@@ -23,7 +23,7 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get("ENV", True))
-
+dispatcher = updater.dispatcher
 if ENV:
     TOKEN = os.environ.get("TOKEN", None)
     OWNER_ID = int(os.environ.get("OWNER_ID", None))
