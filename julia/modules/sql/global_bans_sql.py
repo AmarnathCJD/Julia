@@ -1,6 +1,6 @@
 import threading
 
-from LEGEND.modules.sql import BASE, SESSION
+from julia.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, Integer, String, UnicodeText
 
 
