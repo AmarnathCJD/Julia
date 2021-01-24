@@ -1574,7 +1574,7 @@ EARS = [
     ["(∩", ")⊃━☆ﾟ.*"],
 ]
 OWNER = (
-    "My Owner Is @RoseLoverX",
+    "Testing Updater.....😜",
 )
 
 RAPE = (
