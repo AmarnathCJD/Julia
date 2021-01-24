@@ -1,6 +1,7 @@
 wheel==0.34.2
 lxml==4.6.1
 cryptg==0.2.post2
+python-telegram-bot==12.8
 chromedriver==2.24.1
 numpy==1.19.4
 mapper==0.1.17
