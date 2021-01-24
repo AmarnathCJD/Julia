@@ -44,7 +44,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-@register(pattern=r"^/julia(?: |$)([\s\S]*)")
+@register(pattern=r"^/anie(?: |$)([\s\S]*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -151,7 +151,7 @@ async def _(event):
                 os.remove(required_file_name)
 
 
-@register(pattern="^/howdoi (.*)")
+@register(pattern="^/eval (.*)")
 async def howdoi(event):
     if event.fwd_from:
         return
