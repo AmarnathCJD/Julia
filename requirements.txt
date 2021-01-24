@@ -36,7 +36,7 @@ pyfiglet==0.8.post1
 beautifulsoup4==4.9.3
 pytz==2020.4
 youtube_dl==2020.12.29
-google-api-python-client==1.12.5
+google-api-python-client==1.12.8
 pyDownload==0.0.1.dev4
 telegraph==1.4.1
 cowpy==1.1.0
