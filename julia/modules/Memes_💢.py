@@ -1573,11 +1573,6 @@ EARS = [
     ["ᕕ(", ")ᕗ"],
     ["(∩", ")⊃━☆ﾟ.*"],
 ]
-
-TOSS = (
-    "Heads",
-    "Tails",
-)
 OWNER = (
     "My Owner Is @RoseloverX",
 )
@@ -1611,22 +1606,6 @@ async def msg(event):
         else:
             return
     await event.reply(str(random.choice(OWNER))
-
-
-@register(pattern="^/toss$")
-async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    await event.reply(random.choice(TOSS))
 
 
 @register(pattern="^/abuse$")
@@ -2202,7 +2181,6 @@ __help__ = """
  - /table: get flip/unflip :v.
  - /decide: Randomly answers yes/no/maybe
  - /bluetext: Must type for fun
- - /toss: Tosses A coin
  - /abuse: Abuses the cunt
  - /insult: Insult the cunt
  - /slap: Slaps the cunt
