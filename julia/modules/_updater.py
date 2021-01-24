@@ -8,7 +8,7 @@ import heroku3
 from julia import OWNER_ID, tbot, UPSTREAM_REPO_URL
 
 
-# UPSTREAM_REPO_URL = "https://github.com/MissJuliaRobot/MissJuliaRobot.git"
+# UPSTREAM_REPO_URL = "https://github.com/Amarnathcdj/Julia.git"
 HEROKU_APP_NAME = None
 HEROKU_API_KEY = None
 
@@ -145,7 +145,7 @@ async def upstream(ups):
                 break
         if heroku_app is None:
             await lol.edit(
-                f"{txt}\n`Invalid Heroku credentials for updating userbot dyno.`"
+                f"{txt}\n`Invalid Heroku credentials for updating bot dyno.`"
             )
             repo.__del__()
             return
