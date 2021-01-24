@@ -14,7 +14,7 @@ StartTime = time.time()
 CMD_LIST = {}
 CMD_HELP = {}
 LOAD_PLUG = {}
-BOT_VERSION = "1.0.9"
+BOT_VERSION = "1.6.2"
 
 # enable logging
 logging.basicConfig(
@@ -23,8 +23,6 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get("ENV", True))
-updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
-dispatcher = updater.dispatcher
 if ENV:
     TOKEN = os.environ.get("TOKEN", None)
     OWNER_ID = int(os.environ.get("OWNER_ID", None))
