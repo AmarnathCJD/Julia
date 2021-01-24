@@ -604,7 +604,7 @@ async def _(event):
         return
 
     if "|" in args:
-        iid, reasonn = quew.split("|")
+        iid, reasonn = args.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
     entity = await tbot.get_input_entity(cid)
@@ -614,8 +614,8 @@ async def _(event):
         await event.reply("Couldn't fetch that user.")
         return
     if not reason:
-        reason = "No reason given"
-
+        await event.reply("Need a reason for fban.")
+        return
     fban, fbanreason, fbantime = sql.get_fban_user(fed_id, user_id)
 
     if not user_id:
