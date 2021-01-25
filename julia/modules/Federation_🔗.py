@@ -8,6 +8,7 @@ from io import BytesIO
 import julia.modules.sql.feds_sql as sql
 from telethon import *
 from telethon.tl import *
+from telethon.tl.types import User
 from julia import *
 from julia.events import register
 from pymongo import MongoClient
@@ -516,11 +517,11 @@ async def _(event):
  except Exception as e :
     print (e)
 
-@register(pattern="^/fedadmins ?(.*)")
+@register(pattern="^/fedadmins$")
 async def _(event):   
  try:
     chat = event.chat
-    args = event.pattern_match.group(1)
+    args = False
     user = event.sender
     if event.is_group:
         if (await is_register_admin(event.input_chat, event.sender_id)):
@@ -569,7 +570,6 @@ async def _(event):
             text += f" • <p><a href='tg://user?id={user.id}'>{unamee}</a></p>\n"
 
     await event.reply(text, parse_mode="html")
-
  except Exception as e :
     print (e)
    
@@ -607,6 +607,8 @@ async def _(event):
         iid, reasonn = args.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
+    if cid.isnumeric():
+       cid = int(cid)
     entity = await tbot.get_input_entity(cid)
     try:
         user_id = entity.user_id
@@ -693,7 +695,7 @@ async def _(event):
               "\n<b>Federation Admin:</b> {}" \
               "\n<b>User:</b> {}" \
               "\n<b>User ID:</b> <code>{}</code>" \
-              "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+              "\n<b>Reason:</b> {}".format(fed_name, f"<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
         # Send message to owner if fednotif is enabled
         if getfednotif:
             await tbot.send_message(info['owner'], "<b>FedBan reason updated</b>" \
@@ -701,7 +703,7 @@ async def _(event):
                  "\n<b>Federation Admin:</b> {}" \
                  "\n<b>User:</b> {}" \
                  "\n<b>User ID:</b> <code>{}</code>" \
-                 "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+                 "\n<b>Reason:</b> {}".format(fed_name, f"<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
         # If fedlog is set, then send message, except fedlog is current chat
         get_fedlog = sql.get_fed_log(fed_id)
         if get_fedlog:
@@ -711,7 +713,7 @@ async def _(event):
                     "\n<b>Federation Admin:</b> {}" \
                     "\n<b>User:</b> {}" \
                     "\n<b>User ID:</b> <code>{}</code>" \
-                    "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+                    "\n<b>Reason:</b> {}".format(fed_name, f"<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
         for fedschat in fed_chats:
             try:
                 await tbot.kick_participant(fedschat, fban_user_id)
@@ -748,7 +750,7 @@ async def _(event):
           "\n<b>Federation Admin:</b> {}" \
           "\n<b>User:</b> {}" \
           "\n<b>User ID:</b> <code>{}</code>" \
-          "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+          "\n<b>Reason:</b> {}".format(fed_name, f"<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
     # Send message to owner if fednotif is enabled
     if getfednotif:
         await tbot.send_message(info['owner'], "<b>FedBan reason updated</b>" \
@@ -756,7 +758,7 @@ async def _(event):
              "\n<b>Federation Admin:</b> {}" \
              "\n<b>User:</b> {}" \
              "\n<b>User ID:</b> <code>{}</code>" \
-             "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+             "\n<b>Reason:</b> {}".format(fed_name, f"<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
     # If fedlog is set, then send message, except fedlog is current chat
     get_fedlog = sql.get_fed_log(fed_id)
     if get_fedlog:
@@ -766,7 +768,7 @@ async def _(event):
                 "\n<b>Federation Admin:</b> {}" \
                 "\n<b>User:</b> {}" \
                 "\n<b>User ID:</b> <code>{}</code>" \
-                "\n<b>Reason:</b> {}".format(fed_name, "<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
+                "\n<b>Reason:</b> {}".format(fed_name, f"<p><a href='tg://user?id={user.id}'>{user.first_name}</a></p>", user_target, fban_user_id, reason), parse_mode="html")
     chats_in_fed = 0
     for fedschat in fed_chats:
         chats_in_fed += 1
@@ -787,3 +789,99 @@ async def _(event):
                         print (e)
  except Exception as e:
        print (e)                          
+
+@register(pattern="^/frules$")
+async def _(event):   
+    chat = event.chat
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+
+    fed_id = sql.get_fed_id(chat.id)
+    if not fed_id:
+        await event.reply(
+            "This group is not in any federation!")
+        return
+
+    rules = sql.get_frules(fed_id)
+    text = "**Rules for this fed:**\n\n"
+    text += rules
+    await event.reply(text)
+
+@register(pattern="^/setfrules ?(.*)")
+async def _(event):   
+ try:
+    chat = event.chat
+    user = event.sender
+    args = event.pattern_match.group(1)
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.sender_id)):
+            pass
+        else:
+            return
+    if event.is_private:
+        await event.reply("This command is specific to the group, not to my pm !")
+        return
+
+    fed_id = sql.get_fed_id(chat.id)
+
+    if not fed_id:
+        await event.reply(
+            "This group is not in any federation!")
+        return
+
+    if is_user_fed_admin(fed_id, user.id) is False:
+        await event.reply("Only fed admins can do this!")
+        return
+
+    if args:
+        x = sql.set_frules(fed_id, args)
+        if not x:
+            await event.reply(
+                "There was an error while setting federation rules!\nPlease go to @MissJuliaRobotSupport to report this."
+            )
+            return
+
+        rules = sql.get_fed_info(fed_id)['frules']
+        getfed = sql.get_fed_info(fed_id)
+        get_fedlog = sql.get_fed_log(fed_id)
+        if get_fedlog:
+            if eval(get_fedlog):
+                await tbot.send_message(
+                    get_fedlog,
+                    "**{}** has updated federation rules for fed **{}**".format(
+                        user.first_name, getfed['fname']),
+                    parse_mode="markdown")
+        await event.reply(
+            f"Rules have been changed to :\n{rules}!")
+    else:
+        await event.reply(
+            "Please give some rules to set.")
+ except Exception as e:
+    print (e)
+
+"""
+ - /newfed <fed_name>: Creates a Federation, one allowed per user.
+ - /renamefed <fed_id> <new_fed_name>: Renames the fed id to a new name.
+ - /delfed <fed_id>: Delete a Federation, and any information related to it. 
+ - /fpromote <user>: Assigns the user as a federation admin. 
+ - /fdemote <user>: Drops the user from the federation admin to a normal user.
+ - /fban (<user>|<reason>): Fed bans a user. Syntax: `fban 12345 | testing`, `fban @MissJuliaRobot | testing`.
+ - /unfban <user> <reason>: Removes a user from a fed ban.
+ - /fedinfo <fed_id>: Information about the specified Federation.
+ - /joinfed <fed_id>: Join the current chat to the Federation. 
+ - /leavefed <fed_id>: Leave the Federation given. 
+ - /setfrules <rules>: Arrange Federation rules.
+ - /fedadmins: Show Federation admin.
+ - /fbanlist: Displays all users who are victimized at the Federation at this time.
+ - /fedchats: Get all the chats that are connected in the Federation.
+ - /chatfed : See the Federation in the current chat.
+ - /fbanstat: Shows if you/or the user you are replying to or their username/id is fbanned somewhere or not.
+ - /fednotif <on/off>: Should the bot send notifications for fban/unfban in PM.
+ - /frules: See the current federation rules.
+"""
