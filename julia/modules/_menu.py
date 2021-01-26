@@ -44,8 +44,8 @@ async def is_register_admin(chat, user):
     return None
 
 
-PM_START_TEXT = "[Julia](https://telegra.ph/MissJulieRobot-10-24)" + \
-    " "+"**"+"V"+BOT_VERSION+"**"
+PM_START_TEXT = "[Tedza](https://telegra.ph/file/faeb476bacf81da2471bc.jpg)" + \
+    " "+"**"+"V 6969**"
 
 
 @register(pattern="^/start$")
