@@ -2,6 +2,7 @@ import logging
 import os
 import sys
 import time
+import telegram.ext as tg
 from logging import basicConfig
 from logging import DEBUG
 from logging import getLogger
@@ -64,7 +65,11 @@ if ENV:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=INFO
         )
     LOGS = getLogger(__name__)
-
+    updater = tg.Updater(TOKEN, workers=WORKERS)
+    dispatcher = updater.dispatcher
+    tg.RegexHandler = CustomRegexHandler
+    tg.CommandHandler = CustomCommandHandler
+    tg.MessageHandler = CustomMessageHandler
     if STRING_SESSION:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
     else:
