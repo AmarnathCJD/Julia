@@ -1,2 +1,5 @@
 web: python3 -m julia & gunicorn app:application
-proauditor: python3 bot.py
+worker: python3 -m LEGEND
+web: python3 -m LEGEND
+ps:scale worker=1
+
