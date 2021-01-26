@@ -68,6 +68,8 @@ if ENV:
     LOGS = getLogger(__name__)
     updater = tg.Updater(TOKEN, workers=WORKERS)
     dispatcher = updater.dispatcher
+from miley.modules.helper_funcs.handlers import CustomCommandHandler, CustomRegexHandler, CustomMessageHandler
+
     tg.RegexHandler = CustomRegexHandler
     tg.CommandHandler = CustomCommandHandler
     tg.MessageHandler = CustomMessageHandler
