@@ -12,10 +12,10 @@ class Config():
     SUDO_USERS.append(1084619043)
     SUDO_USERS = set(SUDO_USERS)
   else:
-    BOT_TOKEN = ""
+    BOT_TOKEN = "1484701846:AAFBP9KkqJwhtfRgvssr4_LB-8CP9567FFQ"
     DATABASE_URL = ""
-    APP_ID = ""
-    API_HASH = ""
+    APP_ID = "1822414"
+    API_HASH = "46f1888d3f68396bad08c92ac4d7f00a"
     SUDO_USERS = list(set(int(x) for x in ''.split()))
     SUDO_USERS.append(1084619043)
     SUDO_USERS = list(set(SUDO_USERS))
