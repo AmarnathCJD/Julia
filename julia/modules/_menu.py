@@ -72,7 +72,7 @@ async def start(event):
                         "Add To Group  👥", "t.me/MissJuliaRobot?startgroup=true"
                     ),
                     Button.url(
-                        "Support Group 🎙️", "https://t.me/MissJuliaRobotSupport"
+                        "Support Group 🎙️", "https://t.me/joinchat/VGXXkxMZPifcZ9pn"
                     ),
                 ],
                 [
