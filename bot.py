@@ -14,8 +14,8 @@ logging.basicConfig(level=logging.INFO)
 plugins = dict(
     root="plugins",
     include=[
-        "forceSubscribe",
-        "help"
+        "forceSubscribe.py",
+        "help.py"
     ]
 )
 
