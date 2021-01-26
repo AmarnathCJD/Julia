@@ -1,5 +1,6 @@
 wheel==0.34.2
 lxml==4.6.1
+spamwatch
 cryptg==0.2.post2
 python-telegram-bot==12.8
 chromedriver==2.24.1
