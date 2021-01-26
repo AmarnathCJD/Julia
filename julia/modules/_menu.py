@@ -44,7 +44,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-PM_START_TEXT = "[Tedza](https://telegra.ph/file/faeb476bacf81da2471bc.jpg)" + \
+PM_START_TEXT = "[Tedeza](https://telegra.ph/file/faeb476bacf81da2471bc.jpg)" + \
     " "+"**"+"V 6969**"
 
 
