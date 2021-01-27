@@ -1,2 +1,1 @@
-web: python3 -m julia & gunicorn app:application
-proauditor: python3 bot.py
+web: python3 -m julia & heroku-php-apache2
