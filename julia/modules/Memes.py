@@ -1587,7 +1587,9 @@ TOSS = (
     "Heads",
     "Tails",
 )
-
+ALIVE = (
+    "★彡[ᴀɴɪᴇ]彡★",
+)
 
 @register(pattern="^/roll$")
 async def msg(event):
@@ -1634,6 +1636,21 @@ async def msg(event):
         else:
             return
     await event.reply(random.choice(OWNER))
+
+@register(pattern="^/alive$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(random.choice(ALIVE))
 
 @register(pattern="^/rape$")
 async def msg(event):
