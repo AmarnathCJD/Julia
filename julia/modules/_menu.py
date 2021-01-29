@@ -157,7 +157,7 @@ async def help(event):
     else:
         await event.reply(
             "Contact me in PM to get the help menu",
-            buttons=[[Button.url("Help ❓", "t.me/MissJuliaRobot?start=help")]],
+            buttons=[[Button.url("Help", "t.me/MissJuliaRobot?start=help")]],
         )
 
 
