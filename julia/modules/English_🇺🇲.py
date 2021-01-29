@@ -41,7 +41,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-@register(pattern="^/tr ?(.*)")
+@register(pattern="^/tl ?(.*)")
 async def _(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
