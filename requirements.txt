@@ -35,7 +35,7 @@ gTTs-token==1.1.4
 pyfiglet==0.8.post1
 beautifulsoup4==4.9.3
 pytz==2020.4
-youtube_dl==2020.12.29
+youtube_dl==2021.1.24.1
 google-api-python-client==1.12.5
 pyDownload==0.0.1.dev4
 telegraph==1.4.1
