@@ -46,7 +46,7 @@ db = client["missjuliarobot"]
 approved_users = db.approve
 
 
-
+GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
@@ -92,7 +92,7 @@ async def msg(event):
         # https://stackoverflow.com/a/53073789/4723940
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.binary_location = Config.GOOGLE_CHROME_BIN
+        chrome_options.binary_location=GOOGLE_CHROME_BIN
         await event.reply("Starting Google Chrome BIN")
         driver = webdriver.Chrome(chrome_options=chrome_options)
         input_str = event.pattern_match.group(1)
