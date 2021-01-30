@@ -1,12 +1,48 @@
-
+from random import randint
+from PIL import ImageEnhance, ImageOps
+from random import uniform
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
+import asyncio
 import io
 import os
-import asyncio
+import random
+import re
+import string
+import nltk
+from PIL import Image
+from zalgo_text import zalgo
 from julia.events import register
+import json
+import subprocess
+import textwrap
+import urllib.request
+from random import randrange
+from typing import List
+from typing import Optional
+import emoji
+from cowpy import cow
+from fontTools.ttLib import TTFont
+from PIL import ImageDraw
+from PIL import ImageFont
+from pymongo import MongoClient
 from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
 from julia import *
+
+nltk.download("punkt")
+nltk.download("averaged_perceptron_tagger")
+
+WIDE_MAP = {i: i + 0xFEE0 for i in range(0x21, 0x7F)}
+WIDE_MAP[0x20] = 0x3000
+
+
+client = MongoClient()
+client = MongoClient(MONGO_DB_URI)
+db = client["missjuliarobot"]
+approved_users = db.approve
+
 
 
 
@@ -43,4 +79,4 @@ async def msg(event):
             pass
         else:
             return
-    await event.reply("Processing ...wait")
+        await event.reply("Processing ...wait")
