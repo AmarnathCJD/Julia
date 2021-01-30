@@ -51,5 +51,5 @@ async def msg(event):
         else:
             return
 Gey = ("Me Chakka He")
-    await event.reply(Gey)
+    await event.reply({Gey})
     
