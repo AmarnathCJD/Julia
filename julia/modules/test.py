@@ -93,26 +93,26 @@ async def msg(event):
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.binary_location = Config.GOOGLE_CHROME_BIN
-        await event.edit("Starting Google Chrome BIN")
+        await event.reply("Starting Google Chrome BIN")
         driver = webdriver.Chrome(chrome_options=chrome_options)
         input_str = event.pattern_match.group(1)
         imp = "anie"
         driver.get(input_str)
-        await event.edit("Calculating Page Dimensions")
+        await event.reply("Calculating Page Dimensions")
         height = driver.execute_script(
             "return Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
         )
         width = driver.execute_script(
             "return Math.max(document.body.scrollWidth, document.body.offsetWidth, document.documentElement.clientWidth, document.documentElement.scrollWidth, document.documentElement.offsetWidth);"
         )
-        await event.edit("Painting web-page")
+        await event.reply("Painting web-page")
         driver.set_window_size(width + 100, height + 100)
         # Add some pixels on top of the calculated dimensions
         # for good measure to make the scroll bars disappear
         im_png = driver.get_screenshot_as_png()
         # saves screenshot of entire page
         driver.close()
-        await event.edit("Stopping Google Chrome BIN")
+        await event.reply("Stopping Google Chrome BIN")
         message_id = event.message.id
         if event.reply_to_msg_id:
             message_id = event.reply_to_msg_id
@@ -129,8 +129,8 @@ async def msg(event):
             )
         end = datetime.now()
         ms = (end - start).seconds
-        await event.edit(f"Done in {ms} seconds")
+        await event.reply(f"Done in {ms} seconds")
     except Exception:
-        await event.edit(traceback.format_exc())
+        await event.reply(traceback.format_exc())
 
 
