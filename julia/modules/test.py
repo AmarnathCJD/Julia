@@ -2,7 +2,7 @@
 import io
 import os
 import asyncio
- julia.events import register
+from julia.events import register
 from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
