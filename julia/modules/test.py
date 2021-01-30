@@ -30,6 +30,7 @@ from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
 from julia import *
+from julia.Config import Config
 
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
@@ -81,5 +82,8 @@ async def msg(event):
             return
         await event.reply("Processing ...wait")
         await asyncio.sleep(3)
-        await event.reply("Done")
-        await event.reply("mu me lega?")
+        if Config.GOOGLE_CHROME_BIN is None:
+        await event.reply("need to install Google Chrome. Module Stopping.")
+        else:
+        await event.reply("Chrome Configured")
+
