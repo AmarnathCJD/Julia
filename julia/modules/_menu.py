@@ -14,7 +14,6 @@ from telethon.tl import functions
 
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
-LEGEND
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
