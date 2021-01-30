@@ -4,6 +4,7 @@ from julia import CMD_HELP, VIRUS_API_KEY
 from telethon import events
 from telethon.tl import functions
 from telethon.tl import types
+from telethon.tl.types import MessageMediaDocument, DocumentAttributeFilename
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from julia.events import register
@@ -68,30 +69,18 @@ async def virusscan(event):
     except Exception:
        await event.reply("Thats not a file.")
        return
-    if c.sticker:
+    h = c.media
+    try:
+       k = h.document.attributes
+    except Exception:
        await event.reply("Thats not a file.")
        return
-    if c.audio:
+    if not isinstance(h, MessageMediaDocument):
        await event.reply("Thats not a file.")
        return
-    if event.gif:
+    if not isinstance(k[0], DocumentAttributeFilename):
        await event.reply("Thats not a file.")
        return
-    if c.photo:
-       await event.reply("Thats not a file.")
-       return
-    if c.video:
-       await event.reply("Thats not a file.")
-       return   
-    if c.poll:
-       await event.reply("Thats not a file.")
-       return
-    if c.geo:
-       await event.reply("Thats not a file.")
-       return
-    if c.game:
-       await event.reply("Thats not a file.")
-       return   
     try:
       virus = c.file.name
       await event.client.download_file(c, virus)
