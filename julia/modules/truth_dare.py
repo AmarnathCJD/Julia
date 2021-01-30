@@ -186,5 +186,4 @@ async def msg(event):
             pass
         else:
             return
-    if Config.GOOGLgE_CHROME_BIN is None:
-        await event.edit("need to install Google Chrome. Module Stopping.")
+    await event.reply("Processing ...wait")
