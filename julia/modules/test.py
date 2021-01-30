@@ -118,7 +118,7 @@ async def msg(event):
             message_id = event.reply_to_msg_id
         with io.BytesIO(im_png) as out_file:
             out_file.name = "Anie.sshot.PNG"
-            await borg.send_file(
+            await tbot.send_file(
                 event.chat_id,
                 out_file,
                 caption=imp,
