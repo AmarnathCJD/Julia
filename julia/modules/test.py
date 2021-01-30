@@ -81,4 +81,4 @@ async def msg(event):
             return
         await event.reply("Processing ...wait")
         await asyncio.sleep(3)
-        await event.edit("Done")
+        await event.reply("Done")
