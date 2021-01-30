@@ -14,7 +14,7 @@ from telethon.tl import functions
 
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
-
+LEGEND
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
@@ -44,9 +44,9 @@ async def is_register_admin(chat, user):
     return None
 
 
-PM_START_TEXT = "[Tedeza](https://telegra.ph/file/faeb476bacf81da2471bc.jpg)" + \
+PM_START_TEXT = "TEST" + \
     " "+"**"+"V 6969**"
-
+LEGEND = "https://telegra.ph/file/84b2017bc2f3c90f2e61c.jpg"
 
 @register(pattern="^/start$")
 async def start(event):
@@ -61,10 +61,11 @@ async def start(event):
             pass
         else:
             return
-
+           
     if not event.is_group:
         await tbot.send_message(
             event.chat_id,
+            LEGEND,
             PM_START_TEXT,
             buttons=[
                 [
