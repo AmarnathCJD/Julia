@@ -1,4 +1,5 @@
 from random import randint
+#made by RoseLoverX Jo Kang Kiya Wo Mera beta Ho
 from PIL import ImageEnhance, ImageOps
 from random import uniform
 from selenium.webdriver.chrome.options import Options
