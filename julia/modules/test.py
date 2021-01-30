@@ -50,4 +50,6 @@ async def msg(event):
             pass
         else:
             return
-    await tbot.send_message("I'm gey")
+Gey = ("Me Chakka He")
+    await event.reply(Gey)
+    
