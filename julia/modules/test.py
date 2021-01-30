@@ -67,18 +67,6 @@ async def is_register_admin(chat, user):
     return None
 
 @register(pattern="^/test ?(.*)")
-async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
 async def coder_print(event):
 	a = await event.client.download_media(await event.get_reply_message(), Var.TEMP_DOWNLOAD_DIRECTORY)
 	s = open(a, 'r')
