@@ -30,7 +30,9 @@ from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
 from julia import *
-
+import pygments
+from pygments.lexers import Python3Lexer
+from pygments.formatters import ImageFormatter
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
 
