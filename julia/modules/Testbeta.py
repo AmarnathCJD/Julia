@@ -80,8 +80,8 @@ async def msg(event):
             return
     if event.fwd_from:
         return
-     input_str = event.pattern_match.group(1)
+     input_str = "india"
     lol = input_str
-    country = CountryInfo(gey)
+    country = CountryInfo(lol)
     try:
      a = country.info()
