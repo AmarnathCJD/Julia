@@ -1,4 +1,4 @@
-from random import randint
+
 #made by RoseLoverX Jo Kang Kiya Wo Mera beta Ho
 from PIL import ImageEnhance, ImageOps
 from random import uniform
@@ -75,7 +75,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/test (.*)")
+@register(pattern="^/country (.*)")
 async def msg(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -88,7 +88,6 @@ async def msg(event):
             pass
         else:
             return
-        await event.reply("Painting web-page..")
     start = datetime.now()
     try:
         input_str = event.pattern_match.group(1)
@@ -175,7 +174,6 @@ Sub Region:- {sub}
 Time Zones:- {tom}
 Top Level Domain:- {lanester}
 """
-    await event.reply("Painting web-page..")
     await tbot.send_message(
         event.chat_id,
         caption,
