@@ -80,8 +80,6 @@ async def msg(event):
             return
     if event.fwd_from:
         return
-     input_str = "india"
-    lol = input_str
-    country = CountryInfo(lol)
+    country = CountryInfo(india)
     try:
      a = country.info()
