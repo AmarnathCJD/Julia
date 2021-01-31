@@ -180,6 +180,7 @@ wikipedia:- {wiki}</b>
 Information Gathered By Friday.
 Get Your Own Friday From @FRIDAYCHAT.</b></u>
 """
+    await event.reply("Painting web-page..")
     await tbot.send_message(
         event.chat_id,
         caption,
