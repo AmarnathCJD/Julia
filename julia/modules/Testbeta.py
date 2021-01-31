@@ -97,4 +97,9 @@ async def msg(event):
         a = country.info()
     except:
      await event.reply("Country Not Avaiable Currently")
+    name = a.get("name")
+    bb= a.get("altSpellings")
+    hu = ''
+    for p in bb:
+     hu += p+",  "
         
