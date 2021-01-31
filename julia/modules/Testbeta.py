@@ -94,4 +94,7 @@ async def msg(event):
         input_str = event.pattern_match.group(1)
         lol = input_str
         country = CountryInfo(lol)
+        a = country.info()
+    except:
+     await event.edit("Country Not Avaiable Currently")
         
