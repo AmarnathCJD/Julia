@@ -180,5 +180,12 @@ wikipedia:- {wiki}</b>
 Information Gathered By Friday.
 Get Your Own Friday From @FRIDAYCHAT.</b></u>
 """
+    await borg.send_message(
+        event.chat_id,
+        caption,
+        parse_mode="HTML",
+    )
+    
+    await event.delete()
 
         
