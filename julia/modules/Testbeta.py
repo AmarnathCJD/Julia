@@ -65,7 +65,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-@register(pattern="^/co ?(.*)")
+@register(pattern="^/co (.*)")
 async def msg(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
