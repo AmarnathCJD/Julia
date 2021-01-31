@@ -173,7 +173,7 @@ async def msg(event):
     await event.reply(random.choice(DARE))
 
 GAND = (
-     "GAND successfully Blocked🤔🤔",
+    "GAND successfully Blocked🤔🤔b",
 )
 @register(pattern="^/gandban$")
 async def msg(event):
