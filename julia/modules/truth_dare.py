@@ -172,8 +172,10 @@ async def msg(event):
             return
     await event.reply(random.choice(DARE))
 
-
-@register(pattern="^/test$")
+GAND = (
+     "GAND successfully Blocked🤔🤔",
+)
+@register(pattern="^/gandban$")
 async def msg(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -189,4 +191,4 @@ async def msg(event):
     if Config.GOOGLE_CHROME_BIN is None:
         await event.reply("need to install Google Chrome. Module Stopping.")
         return
-    await event.reply("Processing ...wait")
+    await event.reply(random.choice(GAND))
