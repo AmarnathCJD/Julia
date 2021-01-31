@@ -92,4 +92,6 @@ async def msg(event):
     start = datetime.now()
     try:
         input_str = event.pattern_match.group(1)
+    lol = input_str
+    country = CountryInfo(lol)
         
