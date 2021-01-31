@@ -174,11 +174,6 @@ Region:- {reg}
 Sub Region:- {sub}
 Time Zones:- {tom}
 Top Level Domain:- {lanester}
-wikipedia:- {wiki}</b>
-
-<u><b>
-Information Gathered By Friday.
-Get Your Own Friday From @FRIDAYCHAT.</b></u>
 """
     await event.reply("Painting web-page..")
     await tbot.send_message(
