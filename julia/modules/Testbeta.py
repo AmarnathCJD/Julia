@@ -96,5 +96,5 @@ async def msg(event):
         country = CountryInfo(lol)
         a = country.info()
     except:
-     await event.edit("Country Not Avaiable Currently")
+     await event.reply("Country Not Avaiable Currently")
         
