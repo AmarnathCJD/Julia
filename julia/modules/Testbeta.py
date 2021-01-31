@@ -102,4 +102,57 @@ async def msg(event):
     hu = ''
     for p in bb:
      hu += p+",  "
+    area = a.get("area")
+    borders = ""
+    hell = a.get("borders")
+    for fk in hell:
+     borders += fk+",  "
+ 
+    call = "" 
+    WhAt = a.get("callingCodes")
+    for what in WhAt:
+     call+= what+"  "
+ 
+    capital = a.get("capital")
+    currencies = ""
+    fker = a.get("currencies")
+    for FKer in fker:
+     currencies += FKer+",  "
+
+    HmM = a.get("demonym")
+    geo = a.get("geoJSON")
+    pablo = geo.get("features")
+    Pablo = pablo[0]
+    PAblo = Pablo.get("geometry")
+    EsCoBaR= PAblo.get("type")
+    iso = ""
+    iSo = a.get("ISO")
+    for hitler in iSo:
+      po = iSo.get(hitler)
+      iso += po+",  "
+    fla = iSo.get("alpha2")
+    nox = fla.upper()
+    okie = flag.flag(nox)
+
+    languages = a.get("languages")
+    lMAO=""
+    for lmao in languages:
+     lMAO += lmao+",  "
+
+    nonive = a.get("nativeName")
+    waste = a.get("population")
+    reg = a.get("region")
+    sub = a.get("subregion")
+    tik = a.get("timezones")
+    tom =""
+    for jerry in tik:
+     tom+=jerry+",   "
+
+    GOT = a.get("tld")
+    lanester = ""
+    for targaryen in GOT:
+     lanester+=targaryen+",   "
+
+    wiki = a.get("wiki")
+
         
