@@ -108,7 +108,7 @@ async def msg(event):
     current_response = requests.get(request_url).json()
     dil_wale_puch_de_na_chaaa = current_response["rates"]
     for key, value in dil_wale_puch_de_na_chaaa.items():
-        await borg.send_message(
+        await tbot.send_message(
             ups.chat_id,
             "**List of currencies:**\n {}\n*Tip:** Use `.gs` currency_code for more details on the currency.".format(
                 key
