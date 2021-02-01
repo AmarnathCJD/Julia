@@ -86,7 +86,6 @@ async def msg(event):
         else:
             return
     start = datetime.now()
-    await event.reply("Getting Time.....")
     end = datetime.now()
     (end - start).microseconds / 1000
     lemd = datetime.now().strftime("Time: %H:%M:%S")
