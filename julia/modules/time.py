@@ -46,7 +46,7 @@ import os
 from datetime import datetime
 from PIL import Image
 from telegraph import Telegraph, exceptions, upload_file
-
+import requests
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
@@ -90,3 +90,27 @@ async def msg(event):
     (end - start).microseconds / 1000
     lemd = datetime.now().strftime("Time: %H:%M:%S")
     await event.reply(f"{lemd}")
+
+@register(pattern="^/currencies$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    request_url = "https://api.exchangeratesapi.io/latest?base=USD"
+    current_response = requests.get(request_url).json()
+    dil_wale_puch_de_na_chaaa = current_response["rates"]
+    for key, value in dil_wale_puch_de_na_chaaa.items():
+        await borg.send_message(
+            ups.chat_id,
+            "**List of currencies:**\n {}\n*Tip:** Use `.gs` currency_code for more details on the currency.".format(
+                key
+            ),
+        )
