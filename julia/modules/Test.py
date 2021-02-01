@@ -85,9 +85,11 @@ async def msg(event):
             pass
         else:
             return
+    await event.reply("Processing ...")
     if not os.path.isdir(Config.TEMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TEMP_DOWNLOAD_DIRECTORY)
     optional_title = event.pattern_match.group(2)
+    await event.reply("Processing ...")
     if event.reply_to_msg_id:
         start = datetime.now()
         r_message = await event.get_reply_message()
