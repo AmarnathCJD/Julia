@@ -91,7 +91,7 @@ async def msg(event):
     lemd = datetime.now().strftime("Time: %H:%M:%S")
     await event.reply(f"{lemd}")
 
-@register(pattern="^/currencies$")
+@register(pattern="^/currency$")
 async def msg(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
