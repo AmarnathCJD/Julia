@@ -96,3 +96,4 @@ async def msg(event):
             downloaded_file_name = await tbot.download_media(
                 r_message, TEMP_DOWNLOAD_DIRECTORY
             )
+    await event.reply("Processing ...")
