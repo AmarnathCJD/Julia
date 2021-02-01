@@ -20,6 +20,7 @@ from random import randrange
 from typing import List
 from typing import Optional
 import emoji
+import wikipedia
 from cowpy import cow
 from fontTools.ttLib import TTFont
 from PIL import ImageDraw
@@ -86,16 +87,13 @@ async def msg(event):
         else:
             return
     await event.reply("Processing ...")
-    if not os.path.isdir(Config.TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(Config.TEMP_DOWNLOAD_DIRECTORY)
-    optional_title = event.pattern_match.group(2)
-    await event.reply("Processing ...")
-    if event.reply_to_msg_id:
-        start = datetime.now()
-        r_message = await event.get_reply_message()
-        input_str = event.pattern_match.group(1)
-        if input_str == "m":
-            downloaded_file_name = await tbot.download_media(
-                r_message, TEMP_DOWNLOAD_DIRECTORY
-            )
-    await event.reply("Processing ...")
+    input_str = event.pattern_match.group(1)
+    result = ""
+    results = wikipedia.search(input_str)
+    for s in results:
+        page = wikipedia.page(s)
+        url = page.url
+        result += f"> [{s}]({url}) \n"
+    await event.reply(
+        "WikiPedia **Search**: {} \n\n **Result**: \n\n{}".format(input_str, result)
+    )
