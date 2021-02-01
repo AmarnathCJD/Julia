@@ -52,9 +52,6 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
 
-
-GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
-
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
@@ -75,7 +72,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/country (.*)")
+@register(pattern="^/test ?(.*)")
 async def msg(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
