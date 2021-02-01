@@ -91,6 +91,7 @@ async def msg(event):
     process = await asyncio.create_subprocess_shell(
         cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
     )
+    await event.reply("Processing ..cdjf.")
     stdout, stderr = await process.communicate()
     e = stderr.decode()
     if not e:
@@ -101,8 +102,20 @@ async def msg(event):
     else:
         _o = o.split("\n")
         o = "`\n".join(_o)
+    await event.reply("Processing ..cf.")
     OUTPUT = f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
     if len(OUTPUT) > Config.MAX_MESSAGE_SIZE_LIMIT:
         with io.BytesIO(str.encode(OUTPUT)) as out_file:
             out_file.name = "exec.text"
+            await tbot.send_file(
+                event.chat_id,
+                out_file,
+                force_document=True,
+                allow_cache=False,
+                caption=cmd,
+                reply_to=reply_to_id,
+            )
+            await event.delete()
+    await event.reply(OUTPUT)
+
     await event.reply("Processing ..cf.")
