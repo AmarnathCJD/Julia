@@ -8,7 +8,7 @@ from telethon import custom, events, Button
 
 from julia.events import register
 from julia import CMD_HELP, BOT_VERSION
-
+from julia import *
 from telethon import types
 from telethon.tl import functions
 
@@ -64,7 +64,7 @@ async def start(event):
             return
            
     if not event.is_group:
-        update.effective_message.reply_photo(
+        await event.client.send_file(
             event.chat_id,
             thumb_image_path,
 )
