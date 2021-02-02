@@ -67,10 +67,6 @@ async def start(event):
         await tbot.send_file(
                 event.chat_id,
                 LEGEND,
-                caption=PM_START_TEXT,
-                force_document=false,
-                allow_cache=False,
-                silent=True,
             )
     else:
         await event.reply("I am Alive 😘")
