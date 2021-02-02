@@ -102,4 +102,4 @@ async def msg(event):
     await event.reply("Ported till 105.")
     await event.reply(
     OUTPUT = f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
-    await event.reply(f"{OUTPUT}")
+)
