@@ -83,7 +83,7 @@ async def msg(event):
     cat = event.pattern_match.group(1)
     path = cat if cat else os.getcwd()
     if not exists(path):
-        await event.edit(
+        await event.reply(
             f"There is no such directory or file with the name {cat}.\n Pleasecheck again!"
         )
         return
