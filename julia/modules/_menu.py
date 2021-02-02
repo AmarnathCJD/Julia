@@ -8,12 +8,13 @@ from telethon import custom, events, Button
 
 from julia.events import register
 from julia import CMD_HELP, BOT_VERSION
-from julia import *
+
 from telethon import types
 from telethon.tl import functions
 
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
+
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
@@ -42,12 +43,10 @@ async def is_register_admin(chat, user):
         )
     return None
 
-PM_START_TEXT = """
-✨Hey {}, I am ✨ {} ~.
-Im an Anime themed + Super Group Management Bot, feel free to add me to your groups!
-You can find my list of available commands with /help.
-"""
-thumb_image_path = "./julia/IMG_20210129_233024_653.jpg"
+
+PM_START_TEXT = "[Julia](https://telegra.ph/MissJulieRobot-10-24)" + \
+    " "+"**"+"V"+BOT_VERSION+"**"
+
 
 @register(pattern="^/start$")
 async def start(event):
@@ -62,14 +61,37 @@ async def start(event):
             pass
         else:
             return
-           
+
     if not event.is_group:
-        await tbot.send_file(
-                event.chat_id,
-                LEGEND,
-            )
+        await tbot.send_message(
+            event.chat_id,
+            PM_START_TEXT,
+            buttons=[
+                [
+                    Button.url(
+                        "Add To Group  👥", "t.me/MissJuliaRobot?startgroup=true"
+                    ),
+                    Button.url(
+                        "Support Group 🎙️", "https://t.me/MissJuliaRobotSupport"
+                    ),
+                ],
+                [
+                    Button.inline("Commands ❓", data="help_menu"),
+                    Button.url(
+                        "Source 📀", "https://github.com/MissJuliaRobot/MissJuliaRobot"
+                    ),
+                ],
+                [
+                    Button.url(
+                        "Channel 🗞️", url="https://t.me/MissJuliaRobotNews/2"),
+                    Button.url("Webiste 🌐", "missjuliarobot.unaux.com"),
+                    Button.url("Donate 💲", "https://ko-fi.com/missjuliarobot"),
+                ],
+                [Button.inline("Close Menu 🔒", data="start_again")],
+            ],
+        )
     else:
-        await event.reply("I am Alive 😘")
+        await event.reply("I am Alive ^_^")
 
 
 @tbot.on(events.CallbackQuery(pattern=r"start_again"))
@@ -135,7 +157,7 @@ async def help(event):
     else:
         await event.reply(
             "Contact me in PM to get the help menu",
-            buttons=[[Button.url("Help", "t.me/MissJuliaRobot?start=help")]],
+            buttons=[[Button.url("Help ❓", "t.me/MissJuliaRobot?start=help")]],
         )
 
 
