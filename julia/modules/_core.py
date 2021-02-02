@@ -78,6 +78,7 @@ async def msg(event):
             pass
         else:
             return
+    await event.reply("starting porting")
     if event.reply_to_msg_id:
         try:
             downloaded_file_name = (
@@ -86,7 +87,7 @@ async def msg(event):
                     "julia/modules/",  # pylint:disable=E0602
                 )
             )
-      await event.reply("test 2")
+    await event.reply("test 2")
             if "(" not in downloaded_file_name:
                 path1 = Path(downloaded_file_name)
                 shortname = path1.stem
