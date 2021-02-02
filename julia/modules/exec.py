@@ -100,6 +100,5 @@ async def msg(event):
         _o = o.split("\n")
         o = "`\n".join(_o)
     await event.reply("Ported till 105.")
-    await event.reply(
-    OUTPUT = f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
+    await event.reply(f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
 )
