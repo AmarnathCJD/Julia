@@ -47,7 +47,7 @@ PM_START_TEXT = """
 Im an Anime themed + Super Group Management Bot, feel free to add me to your groups!
 You can find my list of available commands with /help.
 """
-LEGEND = "https://telegra.ph/file/84b2017bc2f3c90f2e61c.jpg"
+thumb_image_path = "./julia/IMG_20210129_233024_653.jpg"
 
 @register(pattern="^/start$")
 async def start(event):
@@ -66,7 +66,7 @@ async def start(event):
     if not event.is_group:
         update.effective_message.reply_photo(
             event.chat_id,
-            LEGEND,
+            thumb_image_path,
 )
     else:
         await event.reply("I am Alive 😘")
