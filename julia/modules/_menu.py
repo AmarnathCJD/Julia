@@ -64,34 +64,10 @@ async def start(event):
             return
            
     if not event.is_group:
-        await tbot.send_file(
+        await tbot.send_image(
             event.chat_id,
-            LEGEND,
-            PM_START_TEXT,
-            buttons=[
-                [
-                    Button.url(
-                        "Add To Group  👥", "t.me/MissJuliaRobot?startgroup=true"
-                    ),
-                    Button.url(
-                        "Support Group 🎙️", "https://t.me/joinchat/VGXXkxMZPifcZ9pn"
-                    ),
-                ],
-                [
-                    Button.inline("Commands ❓", data="help_menu"),
-                    Button.url(
-                        "Source 📀", "https://github.com/MissJuliaRobot/MissJuliaRobot"
-                    ),
-                ],
-                [
-                    Button.url(
-                        "Channel 🗞️", url="https://t.me/MissJuliaRobotNews/2"),
-                    Button.url("Webiste 🌐", "missjuliarobot.unaux.com"),
-                    Button.url("Donate 💲", "https://ko-fi.com/missjuliarobot"),
-                ],
-                [Button.inline("Close Menu 🔒", data="start_again")],
-            ],
-        )
+            LEGEND
+)
     else:
         await event.reply("I am Alive 😘")
 
