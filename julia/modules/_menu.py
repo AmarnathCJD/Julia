@@ -64,11 +64,14 @@ async def start(event):
             return
            
     if not event.is_group:
-        await event.client.send_file(
-            event.chat_id,
-            thumb_image_path,
-            PM_START_TEXT,
-)
+        await tbot.send_file(
+                event.chat_id,
+                LEGEND,
+                caption=PM_START_TEXT,
+                force_document=false,
+                allow_cache=False,
+                silent=True,
+            )
     else:
         await event.reply("I am Alive 😘")
 
