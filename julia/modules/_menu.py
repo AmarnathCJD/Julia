@@ -42,9 +42,11 @@ async def is_register_admin(chat, user):
         )
     return None
 
-
-PM_START_TEXT = "TEST" + \
-    " "+"**"+"V 6969**"
+PM_START_TEXT = """
+✨Hey {}, I am ✨ {} ~.
+Im an Anime themed + Super Group Management Bot, feel free to add me to your groups!
+You can find my list of available commands with /help.
+"""
 LEGEND = "https://telegra.ph/file/84b2017bc2f3c90f2e61c.jpg"
 
 @register(pattern="^/start$")
@@ -62,7 +64,7 @@ async def start(event):
             return
            
     if not event.is_group:
-        await tbot.send_message(
+        await tbot.send_file(
             event.chat_id,
             LEGEND,
             PM_START_TEXT,
