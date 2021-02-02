@@ -67,6 +67,7 @@ async def start(event):
         await event.client.send_file(
             event.chat_id,
             thumb_image_path,
+            PM_START_TEXT,
 )
     else:
         await event.reply("I am Alive 😘")
