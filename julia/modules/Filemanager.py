@@ -5,7 +5,7 @@ from julia.events import register
 import asyncio
 import os
 import sys
-
+from julia import *
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
