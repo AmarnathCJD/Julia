@@ -1,8 +1,4 @@
 #made by RoseLoverX Jo Kang Kiya Wo Mera beta Ho
-from PIL import ImageEnhance, ImageOps
-from random import uniform
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
 import asyncio
 import io
 import random
@@ -15,15 +11,6 @@ import json
 import subprocess
 import textwrap
 import urllib.request
-from random import randrange
-from typing import List
-from typing import Optional
-import emoji
-import wikipedia
-from cowpy import cow
-from fontTools.ttLib import TTFont
-from PIL import ImageDraw
-from PIL import ImageFont
 from pymongo import MongoClient
 from telethon import *
 from telethon.tl import functions
@@ -31,21 +18,12 @@ from telethon.tl.types import *
 from julia import *
 from julia.Config import Config
 import traceback
-nltk.download("punkt")
-nltk.download("averaged_perceptron_tagger")
-from countryinfo import CountryInfo
-import flag
-import html
 from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
-WIDE_MAP = {i: i + 0xFEE0 for i in range(0x21, 0x7F)}
-WIDE_MAP[0x20] = 0x3000
 import os
 from datetime import datetime
-from PIL import Image
-from telegraph import Telegraph, exceptions, upload_file
 import requests
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
