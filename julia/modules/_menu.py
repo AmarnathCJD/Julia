@@ -64,9 +64,9 @@ async def start(event):
             return
            
     if not event.is_group:
-        await tbot.send_image(
+        update.effective_message.reply_photo(
             event.chat_id,
-            LEGEND
+            LEGEND,
 )
     else:
         await event.reply("I am Alive 😘")
