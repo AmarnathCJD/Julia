@@ -43,13 +43,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-""" =======================CONSTANTS====================== """
 file1 = "https://telegra.ph/file/6aa39732748ed7c319943.jpg"
-file2 = "https://telegra.ph/file/a6d72504bc09e71484a54.jpg"
-file3 = "https://telegra.ph/file/3cdbede1d5d85aa2d50fc.jpg"
-file4 = "https://telegra.ph/file/3dae01973943e8b28c931.jpg"
-""" =======================CONSTANTS====================== """
-
 pm_caption = "** 𝙳𝙰𝚁𝙺 𝙲𝙾𝙱𝚁𝙰 𝙸𝚂 𝙾𝙽𝙻𝙸𝙽𝙴**"
 
 @register(pattern="^/start$")
@@ -67,9 +61,9 @@ async def start(event):
             return
 
     if not event.is_group:
-        await tbot.send_file(yes.chat_id, file=file1,caption=pm_caption)
+        await tbot.send_file(event.chat_id, file=file1,caption=pm_caption)
     else:
-        await event.reply("I am Alive ^_^")
+        await event.reply("I am Alive 🙁")
 
 
 @tbot.on(events.CallbackQuery(pattern=r"start_again"))
