@@ -114,7 +114,7 @@ async def _(event):
     if sysarg == "":
         async with tbot.conversation(bot) as conv:
             try:
-                await conv.send_message("/key ")
+                await conv.send_message("/sk ")
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
@@ -123,7 +123,7 @@ async def _(event):
     elif "@" in sysarg:
         async with tbot.conversation(bot) as conv:
             try:
-                await conv.send_message("/key " + sysarg)
+                await conv.send_message("/sk " + sysarg)
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
@@ -132,7 +132,7 @@ async def _(event):
     elif "" in sysarg:
         async with tbot.conversation(bot) as conv:
             try:
-                await conv.send_message("/key " + sysarg)
+                await conv.send_message("/sk " + sysarg)
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
