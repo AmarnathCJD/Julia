@@ -30,7 +30,7 @@ from telethon import *
 from telethon.tl import functions
 from telethon.tl.types import *
 from julia import *
-
+from julia._init_ import StartTime
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
 
@@ -142,7 +142,32 @@ DARE = (
 GAND = (
     "GAND successfully Blocked🤔🤔b",
 )
+def get_readable_time(seconds: int) -> str:
+    count = 0
+    ping_time = ""
+    time_list = []
+    time_suffix_list = ["s", "m", "h", "days"]
 
+    while count < 4:
+        count += 1
+        if count < 3:
+            remainder, result = divmod(seconds, 60)
+        else:
+            remainder, result = divmod(seconds, 24)
+        if seconds == 0 and remainder == 0:
+            break
+        time_list.append(int(result))
+        seconds = int(remainder)
+
+    for x in range(len(time_list)):
+        time_list[x] = str(time_list[x]) + time_suffix_list[x]
+    if len(time_list) == 4:
+        ping_time += time_list.pop() + ", "
+
+    time_list.reverse()
+    ping_time += ":".join(time_list)
+
+    return ping_time
 
 @register(pattern="^/truth$")
 async def msg(event):
@@ -175,7 +200,7 @@ async def msg(event):
     await event.reply(random.choice(DARE))
 
 
-@register(pattern="^/gandban$")
+@register(pattern="^/s$")
 async def msg(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
@@ -188,6 +213,14 @@ async def msg(event):
             pass
         else:
             return
-    await event.reply(random.choice(GAND))
+    start = datetime.now()
+    await event.reply("Calculating Last Update or Restart Time")
+    end = datetime.now()
+    (end - start).microseconds / 1000
+   current_time = datetime.now().strftime(
+        "ELIZA TIMEZONE \n LOCATION: IndiaðŸ‡®ðŸ‡³ \n  Time: %H:%M:%S \n  Date: %d.%m.%y)
+
+ uptime = get_readable_time((time.time() - StartTime))
+    await event.reply(f"★彡[ᴀɴɪᴇ]彡★\n\n" {uptime} ")
 
 
