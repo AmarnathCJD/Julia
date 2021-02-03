@@ -27,8 +27,9 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
-
+from telethon.errors.rpcerrorlist import YouBlockedUserError
 bot = "dclogger"
+naam = "gey"
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
