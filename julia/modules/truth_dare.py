@@ -33,7 +33,8 @@ from julia import *
 from julia._init_ import StartTime
 nltk.download("punkt")
 nltk.download("averaged_perceptron_tagger")
-
+import time
+from datetime import datetime
 WIDE_MAP = {i: i + 0xFEE0 for i in range(0x21, 0x7F)}
 WIDE_MAP[0x20] = 0x3000
 
