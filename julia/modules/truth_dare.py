@@ -201,27 +201,3 @@ async def msg(event):
     await event.reply(random.choice(DARE))
 
 
-@register(pattern="^/s$")
-async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    start = datetime.now()
-    await event.reply("Calculating Last Update or Restart Time")
-    end = datetime.now()
-    (end - start).microseconds / 1000
-   current_time = datetime.now().strftime(
-        "ELIZA TIMEZONE \n LOCATION: IndiaðŸ‡®ðŸ‡³ \n  Time: %H:%M:%S \n  Date: %d.%m.%y)
-
- uptime = get_readable_time((time.time() - StartTime))
-    await event.reply(f"★彡[ᴀɴɪᴇ]彡★\n\n" {uptime} ")
-
-
