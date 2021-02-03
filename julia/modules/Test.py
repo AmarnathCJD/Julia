@@ -94,24 +94,3 @@ async def _(event):
                 await event.delete()
             except YouBlockedUserError:
                 await event.reply("Error: unblock @Carol5_bot `and try again!")
-
-@register(pattern="^/cc")
-async def _(event):
-    if event.fwd_from:
-        return
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    cdj = an()
-    gey = cdj.name()
-    lel = cdj.address()
-    King = cdj.credit_card_full()
-    await event.reply(f"ℕ𝕒𝕞𝕖:-\n{gey}\n\n𝔸𝕕𝕕𝕣𝕖𝕤𝕤:-\n{lel}\n\nℂ𝕒𝕣𝕕:-\n{king}")
