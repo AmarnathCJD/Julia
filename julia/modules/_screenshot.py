@@ -118,7 +118,7 @@ async def msg(event):
                 event.chat_id,
                 out_file,
                 caption=imp,
-                force_document=true,
+                force_document=True,
                 reply_to=message_id,
                 allow_cache=False,
                 silent=True,
