@@ -44,7 +44,7 @@ async def is_register_admin(chat, user):
     return None
 
 file1 = "https://telegra.ph/file/f62ce5b00d093822f4e1a.jpg"
-pm_caption = "✨Hey {}, I am ✨ {} ~.
+pm_caption = "✨Hey You😜, I am ✨ Anie ~.
 Im an Anime themed + Super Group Management Bot, feel free to add me to your groups!
 You can find my list of available commands with /help."
 
