@@ -43,8 +43,10 @@ async def is_register_admin(chat, user):
         )
     return None
 
-file1 = "https://telegra.ph/file/6aa39732748ed7c319943.jpg"
-pm_caption = "** 𝙳𝙰𝚁𝙺 𝙲𝙾𝙱𝚁𝙰 𝙸𝚂 𝙾𝙽𝙻𝙸𝙽𝙴**"
+file1 = "https://telegra.ph/file/f62ce5b00d093822f4e1a.jpg"
+pm_caption = "✨Hey {}, I am ✨ {} ~.
+Im an Anime themed + Super Group Management Bot, feel free to add me to your groups!
+You can find my list of available commands with /help."
 
 @register(pattern="^/start$")
 async def start(event):
