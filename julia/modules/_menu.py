@@ -73,6 +73,7 @@ async def start(event):
                         "Support Group 🎙️", "https://t.me/MissJuliaRobotSupport"
                     ),
                 ],
+            ],
         )
     else:
         await event.reply("I am Alive 🙁")
