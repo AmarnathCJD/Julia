@@ -61,7 +61,16 @@ async def start(event):
             return
 
     if not event.is_group:
-        await tbot.send_file(event.chat_id, file=file1,caption=pm_caption)
+        await tbot.send_file(event.chat_id, file=file1,caption=pm_caption, buttons=[
+                [
+                    Button.url(
+                        "Add To Group  👥", "t.me/MissJuliaRobot?startgroup=true"
+                    ),
+                    Button.url(
+                        "Support Group 🎙️", "https://t.me/MissJuliaRobotSupport"
+                    ),
+                ],
+        )
     else:
         await event.reply("I am Alive 🙁")
 
