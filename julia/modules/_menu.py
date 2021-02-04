@@ -45,7 +45,7 @@ async def is_register_admin(chat, user):
 
 file1 = "https://telegra.ph/file/f62ce5b00d093822f4e1a.jpg"
 pm_caption = "Anie PM Under Construction 😐"
-
+PM = "X"
 @register(pattern="^/start$")
 async def start(event):
     approved_userss = approved_users.find({})
@@ -64,6 +64,7 @@ async def start(event):
         await tbot.send_file(event.chat_id, file=file1,caption=pm_caption)
         await tbot.send_message(
             event.chat_id,
+            PM,
             buttons=[
                 [
                     Button.url(
