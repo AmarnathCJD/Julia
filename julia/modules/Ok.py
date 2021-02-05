@@ -7,7 +7,7 @@ import io
 import os
 import re
 import urllib.request
-from faker import Faker as an
+from faker import Faker as dc
 import bs4
 import html2text
 import requests
@@ -49,7 +49,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/cc$")
+@register(pattern="^/dafaq$")
 async def _(event):
     if event.fwd_from:
         return
@@ -64,8 +64,8 @@ async def _(event):
             pass
         else:
             return
-    cdj = an()
-    gey = cdj.name()
-    lel = cdj.address()
-    King = cdj.credit_card_full()
-    await event.reply(f"ℕ𝕒𝕞𝕖:-\n{gey}\n\n𝔸𝕕𝕕𝕣𝕖𝕤𝕤:-\n{lel}\n\nℂ𝕒𝕣𝕕:-\n{king}")
+    cyber = dc()
+    killer = cyber.name()
+    kali = cyber.address()
+    danish = cyber.credit_card_full()
+    await dark.reply(f"ℕ𝕒𝕞𝕖:-\n`{killer}`\n\n𝔸𝕕𝕕𝕣𝕖𝕤𝕤:-\n`{kali}`\n\nℂ𝕒𝕣𝕕:-\n`{danish}`")
