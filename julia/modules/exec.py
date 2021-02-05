@@ -75,8 +75,10 @@ async def msg(event):
         pass
     elif event.sender_id == OWNER_ID:
         pass
+    elif event.sender_id not in SUDO_USERS:
+        await event.reply("This is a developer restricted command. You do not have permissions to run this.")
+        return
     else:
-    await event.reply("This is a developer restricted command. You do not have permissions to run this.")
         return
     PROCESS_RUN_TIME = 100
     cmd = event.pattern_match.group(1)
