@@ -5,6 +5,8 @@ from julia import tbot
 import glob
 import io
 import os
+import textwrap
+from PIL import Image, ImageDraw, ImageFont
 import re
 import urllib.request
 from faker import Faker as dc
@@ -12,7 +14,6 @@ import bs4
 import html2text
 import requests
 from bing_image_downloader import downloader
-from PIL import Image
 from pymongo import MongoClient
 from telethon import *
 from telethon.tl import functions
