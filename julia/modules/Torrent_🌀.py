@@ -2,13 +2,9 @@ from julia import tbot, CMD_HELP
 import os
 import requests, json
 from pymongo import MongoClient
-from telethon import *
 from telethon import events
 from telethon.tl import functions
 from telethon.tl import types
-from telethon.tl.types import *
-
-from julia import *
 from julia.events import register
 
 client = MongoClient()
