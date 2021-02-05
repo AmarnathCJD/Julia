@@ -44,7 +44,7 @@ async def can_change_info(message):
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
 
-edit_time = 4
+edit_time = 1
 @register(pattern="^/fake")
 async def _(event):
     if event.is_group:
