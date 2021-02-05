@@ -4,6 +4,8 @@ from random import uniform
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 import asyncio
+from julia import OWNER_ID
+from julia import SUDO_USERS
 import io
 import os
 import random
