@@ -69,3 +69,21 @@ async def _(event):
     kali = cyber.address()
     danish = cyber.credit_card_full()
     await event.reply(f"ռaʍɛ:-\n`{killer}`\n\naɖɖʀɛss:-\n`{kali}`\n\nᴄaʀɖ:-\n`{danish}`")
+
+@register(pattern="^/gban")
+async def _(event):
+    if event.fwd_from:
+        return
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if await is_register_admin(event.input_chat, event.message.sender_id):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(f"Gban Initiating...")
+    await event.reply(f"Cant Remove User Is Admin")
