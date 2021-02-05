@@ -117,11 +117,7 @@ async def drawText(image_path, text):
     os.remove(image_path)
     i_width, i_height = img.size
     m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
-    if ";" in text:
-        upper_text, lower_text = text.split(";")
-    else:
-        upper_text = text
-        lower_text = ""
+    upper_text = text
     draw = ImageDraw.Draw(img)
     current_h, pad = 10, 5
     if upper_text:
@@ -159,56 +155,7 @@ async def drawText(image_path, text):
                 fill=(255, 255, 255),
             )
             current_h += u_height + pad
-    if lower_text:
-        for l_text in textwrap.wrap(lower_text, width=15):
-            u_width, u_height = draw.textsize(l_text, font=m_font)
-            draw.text(
-                xy=(
-                    ((i_width - u_width) / 2) - 2,
-                    i_height - u_height - int((20 / 640) * i_width),
-                ),
-                text=l_text,
-                font=m_font,
-                fill=(0, 0, 0),
-            )
-            draw.text(
-                xy=(
-                    ((i_width - u_width) / 2) + 2,
-                    i_height - u_height - int((20 / 640) * i_width),
-                ),
-                text=l_text,
-                font=m_font,
-                fill=(0, 0, 0),
-            )
-            draw.text(
-                xy=(
-                    (i_width - u_width) / 2,
-                    (i_height - u_height - int((20 / 640) * i_width)) - 2,
-                ),
-                text=l_text,
-                font=m_font,
-                fill=(0, 0, 0),
-            )
-            draw.text(
-                xy=(
-                    (i_width - u_width) / 2,
-                    (i_height - u_height - int((20 / 640) * i_width)) + 2,
-                ),
-                text=l_text,
-                font=m_font,
-                fill=(0, 0, 0),
-            )
-
-            draw.text(
-                xy=(
-                    (i_width - u_width) / 2,
-                    i_height - u_height - int((20 / 640) * i_width),
-                ),
-                text=l_text,
-                font=m_font,
-                fill=(255, 255, 255),
-            )
-            current_h += u_height + pad
+    await event.reply("Usage:- memify upper tfukkext ; lower text")
     image_name = "memify.webp"
     webp_file = os.path.join(Config.TEMP_DOWNLOAD_DIRECTORY, image_name)
     img.save(webp_file, "webp")
