@@ -44,19 +44,11 @@ async def can_change_info(message):
 
 @register(pattern="^/fake")
 async def _(event):
-    if event.fwd_from:
-        return
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
     if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
+        if not await can_change_info(message=event):
             return
+    else:
+        return
     cyber = dc()
     killer = cyber.name()
     kali = cyber.address()
