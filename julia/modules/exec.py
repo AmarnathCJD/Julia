@@ -70,8 +70,11 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/exec (.*)")
 async def msg(event):
-    check = ups.message.sender_id
-    if int(check) != int(OWNER_ID):
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    else:
         return
     PROCESS_RUN_TIME = 100
     cmd = event.pattern_match.group(1)
