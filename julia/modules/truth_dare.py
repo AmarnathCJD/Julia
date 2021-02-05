@@ -184,7 +184,7 @@ CC = (
 async def msg(event):
     if event.sender_id == OWNER_ID:
         pass
-    elif event.sender_id not in OWNER_ID:
+    elif event.sender_id not == OWNER_ID:
         await event.reply("This is a owner restricted command. You do not have permissions to run this.")
         return
     else:
