@@ -18,6 +18,7 @@ from random import randrange
 from typing import List
 from typing import Optional
 import emoji
+from julia import OWNER_ID
 from cowpy import cow
 from fontTools.ttLib import TTFont
 from pymongo import MongoClient
@@ -69,17 +70,9 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/exec (.*)")
 async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
+    check = ups.message.sender_id
+    if int(check) != int(OWNER_ID):
+        return
     PROCESS_RUN_TIME = 100
     cmd = event.pattern_match.group(1)
     reply_to_id = event.message.id
