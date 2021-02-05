@@ -57,7 +57,7 @@ async def _(event):
     kali = cyber.address()
     danish = cyber.credit_card_full()
     await asyncio.sleep(edit_time)
-    await lol.edit(f"ռaʍɛ:-\n`{killer}`\n\naɖɖʀɛss:-\n`{kali}`\n\nᴄaʀɖ:-\n`{danish}`")
+    await lol.edit(f"𝐍𝐚𝐦𝐞:-\n`{killer}`\n\n𝐀𝐝𝐝𝐫𝐞𝐬𝐬:-\n`{kali}`\n\n𝐂𝐚𝐫𝐝:-\n`{danish}`")
 
 @register(pattern="^/iplookup (.*)")
 async def _(event):
