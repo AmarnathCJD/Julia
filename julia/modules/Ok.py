@@ -49,7 +49,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/dafaq$")
+@register(pattern="^/dafaq")
 async def _(event):
     if event.fwd_from:
         return
@@ -64,8 +64,9 @@ async def _(event):
             pass
         else:
             return
+    await event.reply("Abe sunna")
     cyber = dc()
     killer = cyber.name()
     kali = cyber.address()
     danish = cyber.credit_card_full()
-    await dark.reply(f"ℕ𝕒𝕞𝕖:-\n`{killer}`\n\n𝔸𝕕𝕕𝕣𝕖𝕤𝕤:-\n`{kali}`\n\nℂ𝕒𝕣𝕕:-\n`{danish}`")
+    await event.reply(f"ℕ𝕒𝕞𝕖:-\n`{killer}`\n\n𝔸𝕕𝕕𝕣𝕖𝕤𝕤:-\n`{kali}`\n\nℂ𝕒𝕣𝕕:-\n`{danish}`")
