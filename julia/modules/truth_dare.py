@@ -172,5 +172,26 @@ async def msg(event):
         else:
             return
     await event.reply(random.choice(DARE))
+CC = (
+    "#LIVE ◈ 5124874660020502|07|2023|830 ◈ 「Approved (͏CVV) [BlackStone",
+    "#LIVE ◈ 5124874668322108|12|2022|387 ◈ 「Approved (͏CVV) [BlackStone]」 ◈",
+    "#LIVE ◈ 5124874668825381|08|2022|640 ◈ 「Approved (͏CVV) [BlackStone]」 ◈",
+    "#LIVE ◈ 5124874660078823|05|2025|141 ◈ 「Approved (͏CVV) [BlackStone]」 ◈",
+    "#LIVE ◈ 5124874662664166|02|2025|034 ◈ 「Approved (͏CVV) [BlackStone]」 ◈",
+)
 
+@register(pattern="^/livecc$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply(random.choice(CC))
 
