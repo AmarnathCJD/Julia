@@ -51,7 +51,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/ai (.*)")
+@register(pattern="^/btc (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -70,7 +70,7 @@ async def _(event):
     if sysarg == "":
         async with tbot.conversation(bot) as conv:
             try:
-                await conv.send_message("/harem ")
+                await conv.send_message("/btc ")
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
@@ -79,7 +79,7 @@ async def _(event):
     elif "@" in sysarg:
         async with tbot.conversation(bot) as conv:
             try:
-                await conv.send_message("/harem " + sysarg)
+                await conv.send_message("/btc " + sysarg)
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
@@ -88,7 +88,7 @@ async def _(event):
     elif "" in sysarg:
         async with tbot.conversation(bot) as conv:
             try:
-                await conv.send_message("/harem " + sysarg)
+                await conv.send_message("/btc " + sysarg)
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
