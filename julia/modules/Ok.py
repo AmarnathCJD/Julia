@@ -30,7 +30,7 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-
+fnt = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 async def can_change_info(message):
     result = await tbot(
         functions.channels.GetParticipantRequest(
@@ -116,7 +116,6 @@ async def drawText(image_path, text):
     img = Image.open(image_path)
     os.remove(image_path)
     i_width, i_height = img.size
-    fnt = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
     m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
     if ";" in text:
         upper_text, lower_text = text.split(";")
