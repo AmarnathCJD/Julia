@@ -25,7 +25,8 @@ import urllib.request
 from julia import *
 from julia.Config import Config
 from julia.events import register
-
+import sys
+import traceback
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
