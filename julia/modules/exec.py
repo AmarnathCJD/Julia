@@ -19,6 +19,7 @@ from typing import List
 from typing import Optional
 import emoji
 from julia import OWNER_ID
+from julia import SUDO_USERS
 from cowpy import cow
 from fontTools.ttLib import TTFont
 from pymongo import MongoClient
