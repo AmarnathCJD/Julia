@@ -50,7 +50,7 @@ async def _(event):
         pass
     else:
         return
-    lol = await ups.reply("ohk")
+    lol = await event.reply("ohk")
     cyber = dc()
     killer = cyber.name()
     kali = cyber.address()
