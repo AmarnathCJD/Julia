@@ -64,9 +64,8 @@ async def _(event):
             pass
         else:
             return
-    await event.reply("Abe sunna")
     cyber = dc()
     killer = cyber.name()
     kali = cyber.address()
     danish = cyber.credit_card_full()
-    await event.reply(f"ℕ𝕒𝕞𝕖:-\n`{killer}`\n\n𝔸𝕕𝕕𝕣𝕖𝕤𝕤:-\n`{kali}`\n\nℂ𝕒𝕣𝕕:-\n`{danish}`")
+    await event.reply(f"ռaʍɛ:-\n`{killer}`\n\naɖɖʀɛss:-\n`{kali}`\n\nᴄaʀɖ:-\n`{danish}`")
