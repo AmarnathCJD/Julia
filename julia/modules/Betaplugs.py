@@ -1,6 +1,8 @@
 from julia import CMD_HELP
 from bs4 import BeautifulSoup
 import urllib
+from julia import OWNER_ID
+from julia import SUDO_USERS
 from julia import tbot
 import glob
 import io
