@@ -182,10 +182,12 @@ CC = (
 
 @register(pattern="^/livecc$")
 async def msg(event):
-    if event.sender_id == OWNER_ID:
+    if event.sender_id in SUDO_USERS:
         pass
-    elif event.sender_id not == OWNER_ID:
-        await event.reply("This is a owner restricted command. You do not have permissions to run this.")
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        await event.reply("Baag Ja Mewederchod Free Cc only for SuDos😑.")
         return
     else:
         return
