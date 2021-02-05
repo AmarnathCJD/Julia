@@ -112,9 +112,9 @@ async def _(event):
     await event.delete()
     await a.delete()
 
-async def drawText(image_path, text):
-    img = Image.open(image_path)
-    os.remove(image_path)
+async def drawText(file, text):
+    img = Image.open(file)
+    os.remove(file)
     await event.reply("Usage:- memify upper text ; lower text")
     i_width, i_height = img.size
     m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
