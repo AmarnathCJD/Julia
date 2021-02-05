@@ -96,7 +96,7 @@ async def _(event):
     if not reply_message.media:
         await event.reply("Reply to a image/sticker.")
         return
-    file = await tbot.download_media(reply_message, Var.TEMP_DOWNLOAD_DIRECTORY)
+    file = await tbot.download_media(reply_message, Config.TEMP_DOWNLOAD_DIRECTORY)
     a = await event.reply("Memifying this image! (」ﾟﾛﾟ)｣ ")
     text = str(event.pattern_match.group(1)).strip()
     if len(text) < 1:
