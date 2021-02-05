@@ -50,11 +50,12 @@ async def _(event):
         pass
     else:
         return
+    lol = await ups.reply("ohk")
     cyber = dc()
     killer = cyber.name()
     kali = cyber.address()
     danish = cyber.credit_card_full()
-    await event.reply(f"ռaʍɛ:-\n`{killer}`\n\naɖɖʀɛss:-\n`{kali}`\n\nᴄaʀɖ:-\n`{danish}`")
+    await lol.edit(f"ռaʍɛ:-\n`{killer}`\n\naɖɖʀɛss:-\n`{kali}`\n\nᴄaʀɖ:-\n`{danish}`")
 
 @register(pattern="^/iplookup (.*)")
 async def _(event):
