@@ -91,7 +91,6 @@ async def _(event):
                 await conv.send_message("/harem " + sysarg)
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
-                await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.reply("Error: unblock @Carol5_bot `and try again!")
