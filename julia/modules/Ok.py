@@ -104,6 +104,7 @@ async def _(event):
     text = str(event.pattern_match.group(1)).strip()
     if len(text) < 1:
         return await a.reply("Usage:- memify upper text ; lower text")
+    await event.reply("Testing Porteer")
     meme = await drawText(file, text)
     await event.reply("Testing Porter Efficiency")
     await event.client.send_file(event.chat_id, file=meme, force_document=False)
