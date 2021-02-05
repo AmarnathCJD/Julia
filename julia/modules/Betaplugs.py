@@ -218,3 +218,55 @@ async def drawText(image_path, text):
     webp_file = os.path.join(TEMP_DOWNLOAD_DIRECTORY, image_name)
     img.save(webp_file, "webp")
     return webp_file
+
+@register(pattern="^/calc (.*)")
+async def _(event):
+     if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        await event.reply("This is a developer restricted command. You do not have permissions to run this.")
+        return
+    else:
+        return
+    s = await event.reply("Processing ...")
+    cmd = event.text.split(" ", maxsplit=1)[1]
+    event.message.id
+    if event.reply_to_msg_id:
+        event.reply_to_msg_id
+
+    san = f"print({cmd})"
+    old_stderr = sys.stderr
+    old_stdout = sys.stdout
+    redirected_output = sys.stdout = io.StringIO()
+    redirected_error = sys.stderr = io.StringIO()
+    stdout, stderr, exc = None, None, None
+    try:
+        await aexec(san, event)
+    except Exception:
+        exc = traceback.format_exc()
+    stdout = redirected_output.getvalue()
+    stderr = redirected_error.getvalue()
+    sys.stdout = old_stdout
+    sys.stderr = old_stderr
+
+    evaluation = ""
+    if exc:
+        evaluation = exc
+    elif stderr:
+        evaluation = stderr
+    elif stdout:
+        evaluation = stdout
+    else:
+        evaluation = "Something went wrong"
+
+    final_output = "**EQUATION**: `{}` \n\n **SOLUTION**: \n`{}` \n".format(
+        cmd, evaluation
+    )
+    await s.edit(final_output)
+
+
+async def aexec(code, event):
+    exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
+    return await locals()["__aexec"](event)
