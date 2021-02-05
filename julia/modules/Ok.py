@@ -115,11 +115,13 @@ async def _(event):
 async def drawText(image_path, text):
     img = Image.open(image_path)
     os.remove(image_path)
+    await event.reply("Usage:- memify upper text ; lower text")
     i_width, i_height = img.size
     m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
     upper_text = text
     draw = ImageDraw.Draw(img)
     current_h, pad = 10, 5
+    await event.reply("Usage:- memify upper text ; lower text")
     if upper_text:
         for u_text in textwrap.wrap(upper_text, width=15):
             u_width, u_height = draw.textsize(u_text, font=m_font)
