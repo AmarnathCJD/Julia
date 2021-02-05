@@ -49,7 +49,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/dafaq")
+@register(pattern="^/fake")
 async def _(event):
     if event.fwd_from:
         return
