@@ -18,7 +18,8 @@ from telethon import *
 from telethon.tl import functions
 from telethon.tl import types
 from telethon.tl.types import *
-
+import json
+import urllib.request
 from julia import *
 
 from julia.events import register
