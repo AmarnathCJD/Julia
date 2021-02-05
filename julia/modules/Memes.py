@@ -1578,6 +1578,20 @@ OWNER = (
 )
 
 RAPE = (
+    "`I Know Uh ez Rendi Bhay Dont show Your Randi Pesa Here`",
+    "`Jag Suna suna laage Sab #maderchod bhay`",
+    "`you talking behind meh wew uh iz my fan now bhay`",
+    "`Wanna pass in Life Goto BRAZZER.CAM BHAY`",
+    "`Uh iz Pro i iz noob your boob is landi uh are Randi`",
+    "`Sellers Nasa calling Uh bhay😆`",
+    "`Badwoo ki yojna behan bna ke ch*da uh iz badwa its your yozja?`",
+    "`CHAND PE CHADA HAI CHANDYAAN KA GHODA TERA NAAM HAI MANSUR TU HAI BEHAN KA LOD*😂`",
+    "`Jab se dil lga baithe tanhai me maa chu*da baithe wo kho gyi kisi aur ke pyar hum apne hi jaato me aag lga baithe`",
+    "`Chadii ke ander se lal pani kha se ata hai ky teri masuka ka bhosda bhi paan khata hai😂`",
+    "`Sun bhosdi ke By anonyCrew MOHABBAT KE SIWA AUR BHI GAM HAI JAMANE ME BSDK GAND PAHAT JATI HAI PAISA KAMANE ME`",
+    "`Thaan liya tha Sayri nhi krege Unka pichwada dekha Alfaaz nikal gye`",
+    "`Ravivaar ko dekha Chand Ka Tukra Itna Baar Dekha par Jaath na Ukra`",
+    "`Katal kro Tir se Talwar me Ky Rkkha hai Maal Chodo Sari Me Salwar me Ky Rkkha hai`",
     "Teri Ma Ka Bochlike",
     "Tera Papa Ka Chotta he",
     "Hi Ramdii Wen Sax",
