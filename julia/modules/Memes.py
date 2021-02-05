@@ -1600,6 +1600,7 @@ RAPE = (
 TOSS = (
     "Heads",
     "Tails",
+    "Coin Tera Baap dega?🤔",
 )
 ALIVE = (
     "★彡[ᴀɴɪᴇ]彡★",
