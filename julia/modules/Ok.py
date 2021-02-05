@@ -8,6 +8,7 @@ import os
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
 import re
+import asyncio
 import urllib.request
 from faker import Faker as dc
 import bs4
@@ -43,18 +44,19 @@ async def can_change_info(message):
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
 
-
+edit_time = 4
 @register(pattern="^/fake")
 async def _(event):
     if event.is_group:
         pass
     else:
         return
-    lol = await event.reply("ohk")
+    lol = await event.reply("Getting Fake Details...")
     cyber = dc()
     killer = cyber.name()
     kali = cyber.address()
     danish = cyber.credit_card_full()
+    await asyncio.sleep(edit_time)
     await lol.edit(f"ռaʍɛ:-\n`{killer}`\n\naɖɖʀɛss:-\n`{kali}`\n\nᴄaʀɖ:-\n`{danish}`")
 
 @register(pattern="^/iplookup (.*)")
