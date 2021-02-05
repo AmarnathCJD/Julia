@@ -61,10 +61,10 @@ async def start(event):
             return
 
     if not event.is_group:
-        await tbot.send_file(event.chat_id, file=file1,caption=pm_caption)
+        await tbot.send_file(event.chat_id, file=file1)
         await tbot.send_message(
             event.chat_id,
-            PM,
+            pm_caption,
             buttons=[
                 [
                     Button.url(
