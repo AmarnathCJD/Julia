@@ -104,6 +104,7 @@ async def _(event):
     if len(text) < 1:
         return await a.reply("Usage:- memify upper text ; lower text")
     meme = await drawText(file, text)
+    await event.reply("Testing Porter Efficiency")
     await event.client.send_file(event.chat_id, file=meme, force_document=False)
     os.remove(meme)
     await event.delete()
