@@ -51,7 +51,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/tip (.*)")
+@register(pattern="^/ai (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -91,8 +91,6 @@ async def _(event):
                 await conv.send_message("/harem " + sysarg)
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
-                sun = await conv.get_response()
-                await tbot.send_message(event.chat_id, sun.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.reply("Error: unblock @Carol5_bot `and try again!")
