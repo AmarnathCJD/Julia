@@ -117,7 +117,7 @@ async def drawText(image_path, text):
     os.remove(image_path)
     i_width, i_height = img.size
     if os.name == "nt":
-        fnt = "arial.ttf"
+        fnt = "DejaVuSans.ttf"
     else:
         fnt = "./fonts/DejaVuSans.ttf"
     m_font = ImageFont.truetype(fnt, int((70 / 640) * i_width))
