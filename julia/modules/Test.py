@@ -51,7 +51,7 @@ async def is_register_admin(chat, user):
         )
     return None
 
-@register(pattern="^/btc (.*)")
+@register(pattern="^/btc$")
 async def _(event):
     if event.fwd_from:
         return
@@ -66,31 +66,11 @@ async def _(event):
             pass
         else:
             return
-    sysarg = event.pattern_match.group(1)
-    if sysarg == "":
         async with tbot.conversation(bot) as conv:
             try:
-                await conv.send_message("/btc ")
+                await conv.send_message("/btc")
                 audio = await conv.get_response()
                 await tbot.send_message(event.chat_id, audio.text)
                 await event.delete()
             except YouBlockedUserError:
                 await event.reply("Error: unblock @Carol5_bot and retry!")
-    elif "@" in sysarg:
-        async with tbot.conversation(bot) as conv:
-            try:
-                await conv.send_message("/btc " + sysarg)
-                audio = await conv.get_response()
-                await tbot.send_message(event.chat_id, audio.text)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.reply("Error: unblock @Carol5_bot and try again!")
-    elif "" in sysarg:
-        async with tbot.conversation(bot) as conv:
-            try:
-                await conv.send_message("/btc " + sysarg)
-                audio = await conv.get_response()
-                await tbot.send_message(event.chat_id, audio.text)
-                await event.delete()
-            except YouBlockedUserError:
-                await event.reply("Error: unblock @Carol5_bot `and try again!")
