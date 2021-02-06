@@ -3,7 +3,7 @@ lxml==4.6.1
 cryptg==0.2.post2
 chromedriver==2.24.1
 numpy==1.19.4
-apscheduler
+colour
 faker
 mapper==0.1.17
 scipy==1.5.4
