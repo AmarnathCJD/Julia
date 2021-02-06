@@ -227,3 +227,24 @@ async def drawText(image_path, text):
 async def _(event):
     input_str = event.pattern_match.group(1)
     await event.reply(f"{input_str}")
+
+@register(pattern="^/ech (.*)")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    if event.reply_to_msg_id:
+        reply = await event.get_reply_message()
+        replyto = reply.sender_id
+    else:
+        replyto = event.sender_id
+    input_str = event.pattern_match.group(1)
+    await tbot.send_message(event.chat_id, f"{input_str}")
