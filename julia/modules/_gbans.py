@@ -34,7 +34,7 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
-
+fuk = tbot
 async def can_change_info(message):
     result = await tbot(
         functions.channels.GetParticipantRequest(
@@ -51,7 +51,7 @@ async def get_full_user(event):
     extra = None
     if event.reply_to_msg_id and not len(args) == 2:
         previous_message = await event.get_reply_message()
-        user_obj = await event.client.get_entity(previous_message.sender_id)
+        user_obj = await event.fuk.get_entity(previous_message.sender_id)
         extra = event.pattern_match.group(1)
     elif len(args[0]) > 0:
         user = args[0]
@@ -67,20 +67,19 @@ async def get_full_user(event):
             if isinstance(probable_user_mention_entity,
                           MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
-                user_obj = await event.client.get_entity(user_id)
+                user_obj = await event.fuk.get_entity(user_id)
                 return user_obj
         try:
-            user_obj = await event.client.get_entity(user)
+            user_obj = await event.fuk.get_entity(user)
         except Exception as err:
             return await event.edit("Error... Please report at @Dark_cobra_support_group", str(err))           
     return user_obj, extra
 
-client = tbot
 async def get_user_from_id(user, event):
     if isinstance(user, str):
         user = int(user)
     try:
-        user_obj = await event.client.get_entity(user)
+        user_obj = await event.fuk.get_entity(user)
     except (TypeError, ValueError) as err:
         await event.edit(str(err))
         return None
@@ -90,12 +89,12 @@ async def get_user_from_id(user, event):
 async def gben(userbot):
     dc = userbot
     sender = await dc.get_sender()
-    me = await dc.client.get_me()
+    me = await dc.fuk.get_me()
     if not sender.id == me.id:
         dark = await dc.reply("Gbanning This User !")
     else:
         dark = await dc.edit("Wait Processing.....")
-    me = await userbot.client.get_me()
+    me = await userbot.fuk.get_me()
     await dark.edit(f"Trying to ban you globally..weit nd watch you nub nibba")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
@@ -125,17 +124,17 @@ async def gben(userbot):
         except:
             pass
         try:
-            await userbot.client(BlockRequest(user))
+            await userbot.fuk(BlockRequest(user))
         except:
             pass
         testuserbot = [
             d.entity.id
-            for d in await userbot.client.get_dialogs()
+            for d in await userbot.fuk.get_dialogs()
             if (d.is_group or d.is_channel)
         ]
         for i in testuserbot:
             try:
-                await userbot.client.edit_permissions(i, user, view_messages=False)
+                await userbot.fuk.edit_permissions(i, user, view_messages=False)
                 a += 1
                 await dark.edit(f"**Globally banned 🙄🙄 Total Affected Chats **: `{a}`")
             except:
