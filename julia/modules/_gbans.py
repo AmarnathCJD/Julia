@@ -92,7 +92,7 @@ async def _(event):
     )
     k = await event.reply("Initiating Gban.")
     await asyncio.sleep(edit_time)
-    await k.reply("Gbanned Successfully !")
+    await k.edit("Gbanned Successfully !")
     await event.client.send_message(
         GBAN_LOGS,
         "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
@@ -144,7 +144,7 @@ async def _(event):
             gbanned.delete_one({"user": r_sender_id})
             h = await event.reply("Initiating Ungban")
             await asyncio.sleep(edit_time)
-            await h.reply("Ungbanned Successfully !")
+            await h.edit("Ungbanned Successfully !")
             await event.client.send_message(
                 GBAN_LOGS,
                 "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
