@@ -235,7 +235,7 @@ async def _(event):
     input_str = event.pattern_match.group(1)
     await event.reply("ok")
     def main(emotion):
-        if emotion == "Sad":
+        if input_str == "Sad":
             urlhere = "http://www.imdb.com/search/title?genres=drama&title_type=feature&sort=moviemeter, asc"
 
         elif emotion == "Anticipation":
@@ -257,7 +257,7 @@ async def _(event):
             urlhere = "https://www.imdb.com/search/title/?genres=comedy"
 
         response = HTTP.get(urlhere)
-
+        await event.reply("huh")
         data = response.text
         soup = SOUP(data, "lxml")
         title = soup.find_all("a", attrs={"href": re.compile(r"\/title\/tt+\d*\/")})
