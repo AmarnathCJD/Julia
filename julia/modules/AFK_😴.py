@@ -192,6 +192,24 @@ file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
+kid = "1100231654"
+@register(pattern="^/check")
+async def _(event):
+    send = await event.get_sender()
+    sender = await tbot.get_entity(send)
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+user_id == userss
+    if user_id in kid:
+        await event.reply("Congo You Are On Team Legend")
+    else:
+        await event.reply("Sorry You Are Not On Team")
+
+
+
+
 __help__ = """
  - /afk <reason>: mark yourself as AFK(Away From Keyboard)
  - /noafk: unmark yourself as AFK(Away From Keyboard)
