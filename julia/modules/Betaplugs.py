@@ -248,8 +248,8 @@ async def _(event):
         return
     reply_message = await event.get_reply_message()
     if reply_message is None:
-         await event.edit("Reply To a Media.")
-    fuk = await event.edit("`Processing...`")
+         await event.reply("Reply To a Media.")
+    fuk = await event.reply("`Processing...`")
     file_path = await tbot.download_media(
                 reply_message, TEMP_DOWNLOAD_DIRECTORY
             )
