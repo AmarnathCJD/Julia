@@ -115,6 +115,7 @@ async def _(event):
 
     if "|" in quew:
         iid, reasonn = quew.split("|")
+
     cid = iid.strip()
     reason = reasonn.strip()
     if cid.isnumeric():
