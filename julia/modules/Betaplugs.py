@@ -45,30 +45,6 @@ async def can_change_info(message):
     p = result.participant
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
-
-async def is_register_admin(chat, user):
-    try:
-        if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-
-            return isinstance(
-                (
-                    await tbot(functions.channels.GetParticipantRequest(chat, user))
-                ).participant,
-                (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
-            )
-        if isinstance(chat, types.InputPeerChat):
-
-            ui = await tbot.get_peer_id(user)
-            ps = (
-                await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
-            ).full_chat.participants.participants
-            return isinstance(
-                next((p for p in ps if p.user_id == ui), None),
-                (types.ChatParticipantAdmin, types.ChatParticipantCreator),
-            )
-        return False
-    except Exception:
-        return False
 edit_time = 1
 @register(pattern="^/fake")
 async def _(event):
@@ -243,19 +219,3 @@ async def drawText(image_path, text):
     webp_file = os.path.join(TEMP_DOWNLOAD_DIRECTORY, image_name)
     img.save(webp_file, "webp")
     return webp_file
-kid = "1100231654"
-@register(pattern="^/check")
-async def _(event):
-    send = await event.get_sender()
-    sender = await tbot.get_entity(send)
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-user_id == userss
-    if event.fwd_from:
-        return
-    if user_id in kid:
-        await event.reply("Congo You Are On Team Legend")
-    else:
-        await event.reply("Sorry You Are Not On Team")
