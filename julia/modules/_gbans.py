@@ -119,10 +119,10 @@ async def gspider(rk):
     except BaseException:
         return await rkp.reply("**Error! Unknown user.**")
     if user:
-        if user.id == 719195224:
+        if user.id == 1221693726:
             return await rkp.reply("**Error! cant gban this user.**")
         try:
-            from telebot.plugins.sql_helper.gmute_sql import gmute
+            from julia.modules.sql.gmute_sql import gmute
         except BaseException:
             pass
         try:
