@@ -1,10 +1,10 @@
 # code of raphielgang and paperplane
-try:
-    from telebot.plugins.sql_helper import SESSION, BASE
-except ImportError:
-    raise Exception("Hello!")
+import threading
 
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, UnicodeText, distinct, func
+
+from julia.modules.sql import BASE
+from julia.modules.sql import SESSION
 
 
 class GMute(BASE):
