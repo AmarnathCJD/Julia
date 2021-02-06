@@ -227,7 +227,7 @@ async def drawText(image_path, text):
 async def _(event):
     input_str = event.pattern_match.group(1)
     await event.reply(f"{input_str}")
-
+    await event.delete()
 @register(pattern="^/ech (.*)")
 async def msg(event):
     approved_userss = approved_users.find({})
