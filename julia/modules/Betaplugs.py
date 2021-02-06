@@ -228,14 +228,14 @@ import re
 import requests as HTTP
 from bs4 import BeautifulSoup as SOUP
 
-@register(pattern="^/movie (.*)")
+@register(pattern="^/rmovie (.*)")
 async def _(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
     await event.reply("ok")
     def main(emotion):
-        if input_str == "Sad":
+        if emotion == "Sad":
             urlhere = "http://www.imdb.com/search/title?genres=drama&title_type=feature&sort=moviemeter, asc"
 
         elif emotion == "Anticipation":
@@ -286,6 +286,7 @@ async def _(event):
             if count > 11:
                 break
             count += 1
+    await event.reply("Ohio")
     await event.reply(
         f"<b><u>Below Are Your Movie Recommendations</b></u>\n\n<b>Your Emotion:- <code>{input_str}</code>\n<b>Recommended Movie List:- </b><code>{sed}</code>",
         parse_mode="HTML",
