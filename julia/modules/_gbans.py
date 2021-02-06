@@ -120,7 +120,7 @@ async def gben(userbot):
                 f"**You nub nibba..I can't gben my creator..**"
             )
         try:
-            from userbot.modules.sql_helper.gmute_sql import gmute
+            from julia.modules.sql.gmute_sql import gmute
         except:
             pass
         try:
