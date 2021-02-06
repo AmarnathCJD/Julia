@@ -228,4 +228,4 @@ async def _(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
-    await event.reply(f"{"input_str")
+    await event.reply(f"{input_str}")
