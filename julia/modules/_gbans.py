@@ -65,7 +65,7 @@ async def get_user_from_event(event):
         if user.isnumeric():
             user = int(user)
         if not user:
-            await eor(event, f"* Pass the user's username, id or reply!**")
+            await event.reply(f"* Pass the user's username, id or reply!**")
             return
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
@@ -76,7 +76,7 @@ async def get_user_from_event(event):
         try:
             user_obj = await event.client.get_entity(user)
         except Exception as err:
-            return await eor(event, "Failed \n **Error**\n", str(err))
+            return await event.reply("Failed \n **Error**\n", str(err))
     return user_obj, extra
 
 async def get_user_from_id(user, event):
@@ -85,7 +85,7 @@ async def get_user_from_id(user, event):
     try:
         user_obj = await event.client.get_entity(user)
     except (TypeError, ValueError) as err:
-        await eor(event, str(err))
+        await event.reply(str(err))
         return None
     return user_obj
 
