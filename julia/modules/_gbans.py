@@ -44,6 +44,9 @@ async def _(event):
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
+    else:
+    cid = event.pattern_match.group(1)
+    reason = "Toxic"
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
