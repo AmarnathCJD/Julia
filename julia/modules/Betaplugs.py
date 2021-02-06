@@ -262,6 +262,7 @@ async def _(event):
     ws = media_info.replace("\n", "<br>")
     response = telegraph.create_page(title_of_page, html_content=ws)
     km = response["path"]
+    await event.reply(f"{km}")
     await event.reply(f"`This MediaInfo Can Be Found` [Here](https://telegra.ph/{km})")
     if os.path.exists(file_path):
         os.remove(file_path)
