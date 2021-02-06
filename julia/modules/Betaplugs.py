@@ -101,7 +101,7 @@ async def _(event):
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-       await event.reply("Reply to a image/sticker.")
+        await event.reply("Reply to a image/sticker.")
         return
     file = await tbot.download_media(
                 reply_message, TEMP_DOWNLOAD_DIRECTORY
