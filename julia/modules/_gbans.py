@@ -90,16 +90,64 @@ async def get_user_from_id(user, event):
     return user_obj
 
 @register(pattern="^/global")
-async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+async def gspider(rk):
+    lazy = rk
+    sender = await lazy.get_sender()
+    me = await lazy.client.get_me()
+    if not sender.id == me.id:
+        rkp = await lazy.reply("`processing...`")
+    else:
+        rkp = await lazy.reply("`processing...`")
+    me = await rk.client.get_me()
+    await rkp.reply(f"**Global Banning User!!**")
+    my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+    f"@{me.username}" if me.username else my_mention
+    await rk.get_chat()
+    a = b = 0
+    if rk.is_private:
+        user = rk.chat
+        reason = rk.pattern_match.group(1)
+    else:
+        rk.chat.title
+    try:
+        user, reason = await get_user_from_event(rk)
+    except BaseException:
+        pass
+    try:
+        if not reason:
+            reason = "Private"
+    except BaseException:
+        return await rkp.reply("**Error! Unknown user.**")
+    if user:
+        if user.id == 719195224:
+            return await rkp.reply("**Error! cant gban this user.**")
+        try:
+            from telebot.plugins.sql_helper.gmute_sql import gmute
+        except BaseException:
             pass
-        elif event.chat_id == iid and event.sender_id == userss:
+        try:
+            await rk.client(BlockRequest(user))
+        except BaseException:
             pass
-        else:
-            return
-    await event.reply("Tesing....")
+        testrk = [
+            d.entity.id
+            for d in await rk.client.get_dialogs()
+            if (d.is_group or d.is_channel)
+        ]
+        await rkp.reply(f"**Gbanning user!\nIn progress...**")
+        for i in testrk:
+            try:
+                await rk.client.edit_permissions(i, user, view_messages=False)
+                a += 1
+            except BaseException:
+                b += 1
+    else:
+        await rkp.reply(f"**Reply to a user !! **")
+    try:
+        if gmute(user.id) is False:
+            return await rkp.reply(f"**Error! User probably already gbanned.**")
+    except BaseException:
+        pass
+    return await rkp.reply(
+        f"**Gbanned** [{user.first_name}](tg://user?id={user.id}) **\nChats affected - {a}\nBlocked user and added to Gban watch **"
+    )
