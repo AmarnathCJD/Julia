@@ -34,7 +34,6 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
-fuk = tbot
 async def can_change_info(message):
     result = await tbot(
         functions.channels.GetParticipantRequest(
@@ -45,13 +44,13 @@ async def can_change_info(message):
     p = result.participant
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
-
-async def get_full_user(event):  
-    args = event.pattern_match.group(1).split(':', 1)
+client = tbot
+async def get_user_from_event(event):
+    args = event.pattern_match.group(1).split(":", 1)
     extra = None
     if event.reply_to_msg_id and not len(args) == 2:
         previous_message = await event.get_reply_message()
-        user_obj = await event.fuk.get_entity(previous_message.sender_id)
+        user_obj = await event.client.get_entity(previous_message.from_id)
         extra = event.pattern_match.group(1)
     elif len(args[0]) > 0:
         user = args[0]
@@ -60,92 +59,185 @@ async def get_full_user(event):
         if user.isnumeric():
             user = int(user)
         if not user:
-            await event.edit("`Itz not possible without an user ID`")
+            await event.reply(f"* Pass the user's username, id or reply!**")
             return
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
-            if isinstance(probable_user_mention_entity,
-                          MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
-                user_obj = await event.fuk.get_entity(user_id)
+                user_obj = await event.client.get_entity(user_id)
                 return user_obj
         try:
-            user_obj = await event.fuk.get_entity(user)
+            user_obj = await event.client.get_entity(user)
         except Exception as err:
-            return await event.edit("Error... Please report at @Dark_cobra_support_group", str(err))           
+            return await event.reply("Failed \n **Error**\n", str(err))
     return user_obj, extra
+
 
 async def get_user_from_id(user, event):
     if isinstance(user, str):
         user = int(user)
     try:
-        user_obj = await event.fuk.get_entity(user)
+        user_obj = await event.client.get_entity(user)
     except (TypeError, ValueError) as err:
-        await event.edit(str(err))
+        await event.reply(str(err))
         return None
     return user_obj
 
-@register(pattern="^/gban ?(.*)")
-async def gben(userbot):
-    dc = userbot
-    sender = await dc.get_sender()
-    me = await dc.fuk.get_me()
+
+@tbot.on(ChatAction)
+async def handler(tele):
+    if tele.user_joined or tele.user_added:
+        try:
+            from julia.modules.sql.gmute_sql import is_gmuted
+
+            guser = await tele.get_user()
+            gmuted = is_gmuted(guser.id)
+        except BaseException:
+            return
+        if gmuted:
+            for i in gmuted:
+                if i.sender == str(guser.id):
+                    chat = await tele.get_chat()
+                    admin = chat.admin_rights
+                    creator = chat.creator
+                    if admin or creator:
+                        try:
+                            await client.edit_permissions(
+                                tele.chat_id, guser.id, view_messages=False
+                            )
+                            await tele.reply(
+                                f"** Gbanned User Joined!!** \n"
+                                f"**Victim Id**: [{guser.id}](tg://user?id={guser.id})\n"
+                                f"**Action **  : `Banned`"
+                            )
+                        except BaseException:
+                            return
+
+
+@register(pattern="^/gban(?: |$)(.*)"))
+async def gspider(rk):
+    lazy = rk
+    sender = await lazy.get_sender()
+    me = await lazy.client.get_me()
     if not sender.id == me.id:
-        dark = await dc.reply("Gbanning This User !")
+        rkp = await lazy.reply("`processing...`")
     else:
-        dark = await dc.edit("Wait Processing.....")
-    me = await userbot.fuk.get_me()
-    await dark.edit(f"Trying to ban you globally..weit nd watch you nub nibba")
+        rkp = await lazy.edit("`processing...`")
+    me = await rk.client.get_me()
+    await rkp.edit(f"**Global Banning User!!**")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
-    await userbot.get_chat()
+    await rk.get_chat()
     a = b = 0
-    if userbot.is_private:
-        user = userbot.chat
-        reason = userbot.pattern_match.group(1)
+    if rk.is_private:
+        user = rk.chat
+        reason = rk.pattern_match.group(1)
     else:
-        userbot.chat.title
+        rk.chat.title
     try:
-        user, reason = await get_full_user(userbot)
-    except:
+        user, reason = await get_user_from_event(rk)
+    except BaseException:
         pass
     try:
         if not reason:
             reason = "Private"
-    except:
-        return await dark.edit(f"**Something W3NT Wrong 🤔**")
+    except BaseException:
+        return await rkp.edit("**Error! Unknown user.**")
     if user:
         if user.id == 1221693726:
-            return await dark.edit(
-                f"**You nub nibba..I can't gben my creator..**"
-            )
+            return await rkp.edit("**Error! cant gban this user.**")
         try:
             from julia.modules.sql.gmute_sql import gmute
-        except:
+        except BaseException:
             pass
         try:
-            await userbot.fuk(BlockRequest(user))
-        except:
+            await rk.client(BlockRequest(user))
+        except BaseException:
             pass
-        testuserbot = [
+        testrk = [
             d.entity.id
-            for d in await userbot.fuk.get_dialogs()
+            for d in await rk.client.get_dialogs()
             if (d.is_group or d.is_channel)
         ]
-        for i in testuserbot:
+        await rkp.edit(f"**Gbanning user!\nIn progress...**")
+        for i in testrk:
             try:
-                await userbot.fuk.edit_permissions(i, user, view_messages=False)
+                await rk.client.edit_permissions(i, user, view_messages=False)
                 a += 1
-                await dark.edit(f"**Globally banned 🙄🙄 Total Affected Chats **: `{a}`")
-            except:
+            except BaseException:
                 b += 1
     else:
-        await dark.edit(f"**Reply to a user you dumbo !!**")
+        await rkp.edit(f"**Reply to a user !! **")
     try:
         if gmute(user.id) is False:
-            return await dark.edit(f"**Error! User already gbanned.**")
-    except:
+            return await rkp.edit(f"**Error! User probably already gbanned.**")
+    except BaseException:
         pass
-    return await dark.edit(
-        f"**Globally banned this nub nibba [{user.first_name}](tg://user?id={user.id}) Affected Chats😏 : {a} **"
+    return await rkp.edit(
+        f"**Gbanned** [{user.first_name}](tg://user?id={user.id}) **\nChats affected - {a}\nBlocked user and added to Gban watch **"
+    )
+
+
+@register(pattern="^/ungban(?: |$)(.*)"))
+async def gspider(rk):
+    lazy = rk
+    sender = await lazy.get_sender()
+    me = await lazy.client.get_me()
+    if not sender.id == me.id:
+        rkp = await lazy.reply("`Processing...`")
+    else:
+        rkp = await lazy.edit("`Processing...`")
+    me = await rk.client.get_me()
+    await rkp.edit(f"**Requesting  to ungban user!**")
+    my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
+    f"@{me.username}" if me.username else my_mention
+    await rk.get_chat()
+    a = b = 0
+    if rk.is_private:
+        user = rk.chat
+        reason = rk.pattern_match.group(1)
+    else:
+        rk.chat.title
+    try:
+        user, reason = await get_user_from_event(rk)
+    except BaseException:
+        pass
+    try:
+        if not reason:
+            reason = "Private"
+    except BaseException:
+        return await rkp.edit(f"**Error! Unknown user.**")
+    if user:
+        if user.id == 1221693726:
+            return await rkp.edit(f"**Error! cant ungban this user.**")
+        try:
+            from julia.modules.sql.gmute_sql import ungmute
+        except BaseException:
+            pass
+        try:
+            await rk.client(UnblockRequest(user))
+        except BaseException:
+            pass
+        testrk = [
+            d.entity.id
+            for d in await rk.client.get_dialogs()
+            if (d.is_group or d.is_channel)
+        ]
+        await rkp.edit(f"**Requesting  to ungban user!\nUnban in progress...**")
+        for i in testrk:
+            try:
+                await rk.client.edit_permissions(i, user, send_messages=True)
+                a += 1
+            except BaseException:
+                b += 1
+    else:
+        await rkp.edit(f"**Reply to a user !! **")
+    try:
+        if ungmute(user.id) is False:
+            return await rkp.edit(f"**Error! User probably already ungbanned.**")
+    except BaseException:
+        pass
+    return await rkp.edit(
+        f"**UnGbanned** [{user.first_name}](tg://user?id={user.id}) **\nChats affected - {a}\nUnBlocked and removed user from Gban watch **"
     )
