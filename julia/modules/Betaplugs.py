@@ -233,7 +233,7 @@ async def _(event):
     if event.fwd_from:
         return
     input_str = event.pattern_match.group(1)
-
+    await event.reply("ok")
     def main(emotion):
         if emotion == "Sad":
             urlhere = "http://www.imdb.com/search/title?genres=drama&title_type=feature&sort=moviemeter, asc"
