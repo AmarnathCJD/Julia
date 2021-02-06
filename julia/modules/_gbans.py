@@ -89,7 +89,7 @@ async def get_user_from_id(user, event):
         return None
     return user_obj
 
-@register(pattern="^/global")
+@register(pattern="^/gban(?: |$)(.*)")
 async def gspider(rk):
     lazy = rk
     sender = await lazy.get_sender()
