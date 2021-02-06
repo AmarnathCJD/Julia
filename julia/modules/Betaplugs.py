@@ -257,7 +257,6 @@ async def _(event):
             urlhere = "https://www.imdb.com/search/title/?genres=comedy"
 
         response = HTTP.get(urlhere)
-        await event.reply("huh")
         data = response.text
         soup = SOUP(data, "lxml")
         title = soup.find_all("a", attrs={"href": re.compile(r"\/title\/tt+\d*\/")})
