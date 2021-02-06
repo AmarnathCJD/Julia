@@ -247,4 +247,4 @@ async def msg(event):
     else:
         replyto = event.sender_id
     input_str = event.pattern_match.group(1)
-    await tbot.send_message(event.chat_id, f"{input_str}")
+    await tbot.send_message(f"{input_str}")
