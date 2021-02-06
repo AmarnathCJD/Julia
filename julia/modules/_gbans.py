@@ -89,7 +89,7 @@ async def get_user_from_id(user, event):
         return None
     return user_obj
 
-@register(pattern="^/gbantest$")
+@register(pattern="^/global")
 async def msg(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
