@@ -225,6 +225,12 @@ async def drawText(image_path, text):
 
 @register(pattern="^/echo (.*)")
 async def _(event):
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    else:
+        return
     input_str = event.pattern_match.group(1)
     await event.delete()
     await event.reply(f"{input_str}")
