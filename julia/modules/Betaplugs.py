@@ -267,9 +267,9 @@ async def msg(event):
             pass
         else:
             return
-	var = event.pattern_match.group(1)
-	print(var)	
-	uris = [var]
+	ok = event.pattern_match.group(1)
+	print(ok)	
+	uris = [ok]
 
 	#Add URL Into Queue 
 	try:	
