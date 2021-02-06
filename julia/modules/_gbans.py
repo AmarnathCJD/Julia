@@ -99,7 +99,7 @@ async def gspider(rk):
     else:
         rkp = await lazy.reply("`processing...`")
     me = await rk.client.get_me()
-    await rkp.reply(f"**Global Banning User!!**")
+    await rkp.edit(f"**Global Banning User!!**")
     my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
     f"@{me.username}" if me.username else my_mention
     await rk.get_chat()
@@ -120,7 +120,7 @@ async def gspider(rk):
         return await rkp.reply("**Error! Unknown user.**")
     if user:
         if user.id == 1221693726:
-            return await rkp.reply("**Error! cant gban this user.**")
+            return await rkp.edit("**Error! cant gban this user.**")
         try:
             from julia.modules.sql.gmute_sql import gmute
         except BaseException:
@@ -134,7 +134,7 @@ async def gspider(rk):
             for d in await rk.client.get_dialogs()
             if (d.is_group or d.is_channel)
         ]
-        await rkp.reply(f"**Gbanning user!\nIn progress...**")
+        await rkp.edit(f"**Gbanning user!\nIn progress...**")
         for i in testrk:
             try:
                 await rk.client.edit_permissions(i, user, view_messages=False)
@@ -142,12 +142,12 @@ async def gspider(rk):
             except BaseException:
                 b += 1
     else:
-        await rkp.reply(f"**Reply to a user !! **")
+        await rkp.edit(f"**Reply to a user !! **")
     try:
         if gmute(user.id) is False:
-            return await rkp.reply(f"**Error! User probably already gbanned.**")
+            return await rkp.edit(f"**Error! User probably already gbanned.**")
     except BaseException:
         pass
-    return await rkp.reply(
+    return await rkp.edit(
         f"**Gbanned** [{user.first_name}](tg://user?id={user.id}) **\nChats affected - {a}\nBlocked user and added to Gban watch **"
     )
