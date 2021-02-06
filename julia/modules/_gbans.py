@@ -46,7 +46,7 @@ async def can_change_info(message):
     p = result.participant
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
-
+from julia.modules.sql.global_bans_sql as sql
 
 
 client = tbot
@@ -90,51 +90,35 @@ async def get_user_from_id(user, event):
     return user_obj
 
 @register(pattern="^/gban(?: |$)(.*)")
-async def gspider(rk):
-    lazy = rk
+async def gspider(event):
+    lazy = event
     sender = await lazy.get_sender()
     me = await lazy.client.get_me()
 user_id=sender_id
     if not user_id:
-        message.reply_text("You don't seem to be referring to a user.")
+        await event.reply("You don't seem to be referring to a user.")
         return
     
     if int(user_id) == OWNER_ID:
-        message.reply_text("There is no way I can gban this user.He is my Owner")
-        return
-    
-    if user_id == 1118936839:
-        message.reply_text("There is no way I can gban this user.He is my Creator/Developer")
-        return
-    
-    if int(user_id) in DEV_USERS:
-        message.reply_text("There is no way I can gban this user.")
+        await event.reply("There is no way I can gban this user.He is my Owner")
         return
 
     if int(user_id) in SUDO_USERS:
-        message.reply_text("I spy, with my little eye... a sudo user war! Why are you guys turning on each other?")
-        return
-
-    if int(user_id) in SUPPORT_USERS:
-        message.reply_text("OOOH someone's trying to gban a support user! *grabs popcorn*")
-        return
-    
-    if int(user_id) in WHITELIST_USERS:
-        message.reply_text("I can't ban my master's close frd.")
+        await event.reply("I spy, with my little eye... a sudo user war! Why are you guys turning on each other?")
         return
 
     if user_id == bot.id:
-        message.reply_text("-_- So funny, lets gban myself why don't I? Nice try.")
+        await event.reply("-_- So funny, lets gban myself why don't I? Nice try.")
         return
 
     try:
-        user_chat = bot.get_chat(user_id)
+        user_chat = tbot.get_chat(user_id)
     except BadRequest as excp:
         message.reply_text(excp.message)
         return
 
     if user_chat.type != 'private':
-        message.reply_text("That's not a user!")
+        await event.reply("That's not a user!")
         return
 
     if sql.is_user_gbanned(user_id):
@@ -153,7 +137,7 @@ user_id=sender_id
 
         return
     
-    message.reply_text("⚡️ *Snaps the Banhammer* ⚡️")
+    await event.reply("⚡️ *Snaps the Banhammer* ⚡️")
     
     start_time = time.time()
     datetime_fmt = "%H:%M - %d-%m-%Y"
