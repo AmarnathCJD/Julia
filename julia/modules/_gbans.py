@@ -26,7 +26,7 @@ gbanned = db.gban
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-
+afuk = "dclogger"
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
@@ -44,9 +44,6 @@ async def _(event):
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
-    else:
-    cid = event.pattern_match.group(1)
-    reason = "Toxic"
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
@@ -82,11 +79,13 @@ async def _(event):
             await event.reply(
                 "This user is already gbanned, I am updating the reason of the gban with your reason."
             )
-            await event.client.send_message(
+            async with tbot.conversation(afuk) as conv:
+            try:
+                await conv.send_message("
                 GBAN_LOGS,
                 "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
-                ),
+                "),
             )
             return
 
