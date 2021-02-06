@@ -1,180 +1,105 @@
-from julia import SUDO_USERS, tbot, OWNER_ID
-from telethon.tl.types import ChatBannedRights
-from telethon import events
-from telethon.tl.functions.channels import EditBannedRequest
+from julia import CMD_HELP
+from bs4 import BeautifulSoup
+import urllib
+from julia import OWNER_ID
+from julia import SUDO_USERS
+from julia import tbot
+import glob
+import io
+import os
+import textwrap
+from PIL import Image, ImageDraw, ImageFont
+import re
+import asyncio
+import urllib.request
+from faker import Faker as dc
+import bs4
+import html2text
+import requests
+from bing_image_downloader import downloader
 from pymongo import MongoClient
-from julia import MONGO_DB_URI, GBAN_LOGS
-
-BANNED_RIGHTS = ChatBannedRights(
-    until_date=None,
-    view_messages=True,
-    send_messages=True,
-    send_media=True,
-    send_stickers=True,
-    send_gifs=True,
-    send_games=True,
-    send_inline=True,
-    embed_links=True,
-)
-
+from telethon import *
+from telethon.tl import functions
+from telethon.tl import types
+from telethon.tl.types import *
+import json
+import urllib.request
+from julia import *
+from julia.Config import Config
+from julia.events import register
+import sys
+import traceback
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
-gbanned = db.gban
-
-
-def get_reason(id):
-    return gbanned.find_one({"user": id})
-
-
-@tbot.on(events.NewMessage(pattern="^/gban (.*)"))
-async def _(event):
-    if event.fwd_from:
-        return
-    if event.sender_id in SUDO_USERS:
-        pass
-    elif event.sender_id == OWNER_ID:
-        pass
-    else:
-        return
-
-    quew = event.pattern_match.group(1)
-
-    if "|" in quew:
-        iid, reasonn = quew.split("|")
-    cid = iid.strip()
-    reason = reasonn.strip()
-    if cid.isnumeric():
-       cid = int(cid)
-    entity = await tbot.get_input_entity(cid)
-    try:
-        r_sender_id = entity.user_id
-    except Exception:
-        await event.reply("Couldn't fetch that user.")
-        return
-    if not reason:
-        await event.reply("Need a reason for gban.")
-        return
-    chats = gbanned.find({})
-
-    if r_sender_id == OWNER_ID:
-        await event.reply("Fool, how can I gban my master ?")
-        return
-    if r_sender_id in SUDO_USERS:
-        await event.reply("Hey that's a sudo user idiot.")
-        return
-
-    for c in chats:
-        if r_sender_id == c["user"]:
-            to_check = get_reason(id=r_sender_id)
-            gbanned.update_one({"_id": to_check["_id"], "bannerid": to_check["bannerid"], "user": to_check["user"], "reason": to_check["reason"]}, {
-                               "$set": {"reason": reason, "bannerid": event.sender_id}})
-            await event.reply("This user is already gbanned, I am updating the reason of the gban with your reason.")
-            await event.client.send_message(
-                GBAN_LOGS,
-                "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(r_sender_id, event.sender_id, reason))
-            return
-
-    gbanned.insert_one({"bannerid": event.sender_id,
-                        "user": r_sender_id, "reason": reason})
-
-    await event.client.send_message(
-        GBAN_LOGS,
-        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
-            r_sender_id, event.sender_id, reason)
+approved_users = db.approve
+from telethon.events import ChatAction
+from telethon.tl.functions.contacts import BlockRequest, UnblockRequest
+from telethon.tl.types import MessageEntityMentionName
+async def can_change_info(message):
+    result = await tbot(
+        functions.channels.GetParticipantRequest(
+            channel=message.chat_id,
+            user_id=message.sender_id,
+        )
     )
-    await event.reply("Gbanned Successfully !")
+    p = result.participant
+    return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
+        p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
 
-@tbot.on(events.NewMessage(pattern="^/ungban (.*)"))
-async def _(event):
-    if event.fwd_from:
-        return
-    if event.sender_id in SUDO_USERS:
-        pass
-    elif event.sender_id == OWNER_ID:
-        pass
-    else:
-        return
 
-    quew = event.pattern_match.group(1)
+client = tbot
 
-    if "|" in quew:
-        iid, reasonn = quew.split("|")
-    cid = iid.strip()
-    reason = reasonn.strip()
-    if cid.isnumeric():
-       cid = int(cid)
-    entity = await tbot.get_input_entity(cid)
-    try:
-        r_sender_id = entity.user_id
-    except Exception:
-        await event.reply("Couldn't fetch that user.")
-        return
-    if not reason:
-        await event.reply("Need a reason for ungban.")
-        return
-    chats = gbanned.find({})
-
-    if r_sender_id == OWNER_ID:
-        await event.reply("Fool, how can I ungban my master ?")
-        return
-    if r_sender_id in SUDO_USERS:
-        await event.reply("Hey that's a sudo user idiot.")
-        return
-
-    for c in chats:
-        if r_sender_id == c["user"]:
-            to_check = get_reason(id=r_sender_id)
-            gbanned.delete_one({"user": r_sender_id})
-            await event.client.send_message(
-                GBAN_LOGS,
-                "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
-                    r_sender_id, event.sender_id, reason)
-            )
-            await event.reply("Ungbanned Successfully !")
+async def get_user_from_event(event):
+    args = event.pattern_match.group(1).split(":", 1)
+    extra = None
+    if event.reply_to_msg_id and not len(args) == 2:
+        previous_message = await event.get_reply_message()
+        user_obj = await event.client.get_entity(previous_message.from_id)
+        extra = event.pattern_match.group(1)
+    elif len(args[0]) > 0:
+        user = args[0]
+        if len(args) == 2:
+            extra = args[1]
+        if user.isnumeric():
+            user = int(user)
+        if not user:
+            await eor(event, f"* Pass the user's username, id or reply!**")
             return
-    await event.reply("Is that user even gbanned ?")
+        if event.message.entities is not None:
+            probable_user_mention_entity = event.message.entities[0]
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
+                user_id = probable_user_mention_entity.user_id
+                user_obj = await event.client.get_entity(user_id)
+                return user_obj
+        try:
+            user_obj = await event.client.get_entity(user)
+        except Exception as err:
+            return await eor(event, "Failed \n **Error**\n", str(err))
+    return user_obj, extra
 
+async def get_user_from_id(user, event):
+    if isinstance(user, str):
+        user = int(user)
+    try:
+        user_obj = await event.client.get_entity(user)
+    except (TypeError, ValueError) as err:
+        await eor(event, str(err))
+        return None
+    return user_obj
 
-@tbot.on(events.ChatAction())
-async def join_ban(event):
-    if event.chat_id == int(-1001158277850):
-        return
-    if event.chat_id == int(-1001342790946):
-        return
-    pass
-    user = event.user_id
-    chats = gbanned.find({})
-    for c in chats:
-        if user == c["user"]:
-            if event.user_joined:
-                try:
-                    to_check = get_reason(id=user)
-                    reason = to_check["reason"]
-                    bannerid = to_check["bannerid"]
-                    await tbot(EditBannedRequest(event.chat_id, user, BANNED_RIGHTS))
-                    await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
-                except Exception as e:
-                    print(e)
-                    return
-
-
-@tbot.on(events.NewMessage(pattern=None))
-async def type_ban(event):
-    if event.chat_id == int(-1001158277850):
-        return
-    if event.chat_id == int(-1001342790946):
-        return
-    pass
-    chats = gbanned.find({})
-    for c in chats:
-        if event.sender_id == c["user"]:
-            try:
-                to_check = get_reason(id=event.sender_id)
-                reason = to_check["reason"]
-                bannerid = to_check["bannerid"]
-                await tbot(EditBannedRequest(event.chat_id, event.sender_id, BANNED_RIGHTS))
-                await event.reply("This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(bannerid, reason))
-            except Exception:
-                return
+@register(pattern="^/gbantest$")
+async def msg(event):
+    approved_userss = approved_users.find({})
+    for ch in approved_userss:
+        iid = ch["id"]
+        userss = ch["user"]
+    if event.is_group:
+        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+            pass
+        elif event.chat_id == iid and event.sender_id == userss:
+            pass
+        else:
+            return
+    await event.reply("Tesing....")
