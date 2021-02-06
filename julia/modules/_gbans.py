@@ -115,7 +115,7 @@ async def handler(tele):
                             return
 
 
-@register(pattern="^/gban(?: |$)(.*)"))
+@register(pattern="^/gban(?: |$)(.*)")
 async def gspider(rk):
     lazy = rk
     sender = await lazy.get_sender()
@@ -179,7 +179,7 @@ async def gspider(rk):
     )
 
 
-@register(pattern="^/ungban(?: |$)(.*)"))
+@register(pattern="^/ungban(?: |$)(.*)")
 async def gspider(rk):
     lazy = rk
     sender = await lazy.get_sender()
