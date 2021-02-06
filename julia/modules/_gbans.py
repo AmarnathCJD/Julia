@@ -94,60 +94,87 @@ async def gspider(rk):
     lazy = rk
     sender = await lazy.get_sender()
     me = await lazy.client.get_me()
-    if not sender.id == me.id:
-        rkp = await lazy.reply("`processing...`")
-    else:
-        rkp = await lazy.reply("`processing...`")
-    me = await rk.client.get_me()
-    await rkp.edit(f"**Global Banning User!!**")
-    my_mention = "[{}](tg://user?id={})".format(me.first_name, me.id)
-    f"@{me.username}" if me.username else my_mention
-    await rk.get_chat()
-    a = b = 0
-    if rk.is_private:
-        user = rk.chat
-        reason = rk.pattern_match.group(1)
-    else:
-        rk.chat.title
+user_id=sender_id
+    if not user_id:
+        message.reply_text("You don't seem to be referring to a user.")
+        return
+    
+    if int(user_id) == OWNER_ID:
+        message.reply_text("There is no way I can gban this user.He is my Owner")
+        return
+    
+    if user_id == 1118936839:
+        message.reply_text("There is no way I can gban this user.He is my Creator/Developer")
+        return
+    
+    if int(user_id) in DEV_USERS:
+        message.reply_text("There is no way I can gban this user.")
+        return
+
+    if int(user_id) in SUDO_USERS:
+        message.reply_text("I spy, with my little eye... a sudo user war! Why are you guys turning on each other?")
+        return
+
+    if int(user_id) in SUPPORT_USERS:
+        message.reply_text("OOOH someone's trying to gban a support user! *grabs popcorn*")
+        return
+    
+    if int(user_id) in WHITELIST_USERS:
+        message.reply_text("I can't ban my master's close frd.")
+        return
+
+    if user_id == bot.id:
+        message.reply_text("-_- So funny, lets gban myself why don't I? Nice try.")
+        return
+
     try:
-        user, reason = await get_user_from_event(rk)
-    except BaseException:
-        pass
-    try:
+        user_chat = bot.get_chat(user_id)
+    except BadRequest as excp:
+        message.reply_text(excp.message)
+        return
+
+    if user_chat.type != 'private':
+        message.reply_text("That's not a user!")
+        return
+
+    if sql.is_user_gbanned(user_id):
         if not reason:
-            reason = "Private"
-    except BaseException:
-        return await rkp.reply("**Error! Unknown user.**")
-    if user:
-        if user.id == 1221693726:
-            return await rkp.edit("**Error! cant gban this user.**")
-        try:
-            from julia.modules.sql.gmute_sql import gmute
-        except BaseException:
-            pass
-        try:
-            await rk.client(BlockRequest(user))
-        except BaseException:
-            pass
-        testrk = [
-            d.entity.id
-            for d in await rk.client.get_dialogs()
-            if (d.is_group or d.is_channel)
-        ]
-        await rkp.edit(f"**Gbanning user!\nIn progress...**")
-        for i in testrk:
-            try:
-                await rk.client.edit_permissions(i, user, view_messages=False)
-                a += 1
-            except BaseException:
-                b += 1
+            message.reply_text("This user is already gbanned; I'd change the reason, but you haven't given me one...")
+            return
+
+        old_reason = sql.update_gban_reason(user_id, user_chat.username or user_chat.first_name, reason)
+        if old_reason:
+            message.reply_text("This user is already gbanned, for the following reason:\n"
+                               "<code>{}</code>\n"
+                               "I've gone and updated it with your new reason!".format(html.escape(old_reason)),
+                               parse_mode=ParseMode.HTML)
+        else:
+            message.reply_text("This user is already gbanned, but had no reason set; I've gone and updated it!")
+
+        return
+    
+    message.reply_text("⚡️ *Snaps the Banhammer* ⚡️")
+    
+    start_time = time.time()
+    datetime_fmt = "%H:%M - %d-%m-%Y"
+    current_time = datetime.utcnow().strftime(datetime_fmt)
+
+    if chat.type != 'private':
+        chat_origin = "<b>{} ({})</b>\n".format(html.escape(chat.title), chat.id)
     else:
-        await rkp.edit(f"**Reply to a user !! **")
-    try:
-        if gmute(user.id) is False:
-            return await rkp.edit(f"**Error! User probably already gbanned.**")
-    except BaseException:
-        pass
-    return await rkp.edit(
-        f"**Gbanned** [{user.first_name}](tg://user?id={user.id}) **\nChats affected - {a}\nBlocked user and added to Gban watch **"
-    )
+        chat_origin = "<b>{}</b>\n".format(chat.id)
+        
+    banner = update.effective_user  # type: Optional[User]
+    log_message = (
+                 "<b>Global Ban</b>" \
+                 "\n#GBANNED" \
+                 "\n<b>Originated from:</b> {}" \
+                 "\n<b>Status:</b> <code>Enforcing</code>" \
+                 "\n<b>Sudo Admin:</b> {}" \
+                 "\n<b>User:</b> {}" \
+                 "\n<b>ID:</b> <code>{}</code>" \
+                 "\n<b>Event Stamp:</b> {}" \
+                 "\n<b>Reason:</b> {}".format(chat_origin, mention_html(banner.id, banner.first_name),
+                                              mention_html(user_chat.id, user_chat.first_name),
+                                                           user_chat.id, current_time, reason or "No reason given"))
+                
