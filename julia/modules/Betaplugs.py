@@ -10,7 +10,6 @@ import os
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
 import re
-import asyncio
 import urllib.request
 from faker import Faker as dc
 import bs4
@@ -24,6 +23,10 @@ from telethon.tl import types
 from telethon.tl.types import *
 import json
 import urllib.request
+from telegraph import Telegraph
+import asyncio
+import shlex
+from typing import Tuple
 from julia import *
 from julia.Config import Config
 from julia.events import register
@@ -219,3 +222,46 @@ async def drawText(image_path, text):
     webp_file = os.path.join(TEMP_DOWNLOAD_DIRECTORY, image_name)
     img.save(webp_file, "webp")
     return webp_file
+
+telegraph = Telegraph()
+tgnoob = telegraph.create_account(short_name="Friday 🇮🇳")
+
+
+async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
+    """ run command in terminal """
+    args = shlex.split(cmd)
+    process = await asyncio.create_subprocess_exec(
+        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    return (
+        stdout.decode("utf-8", "replace").strip(),
+        stderr.decode("utf-8", "replace").strip(),
+        process.returncode,
+        process.pid,
+    )
+
+
+@register(pattern="^/minfo")
+async def _(event):
+    if event.fwd_from:
+        return
+    reply_message = await event.get_reply_message()
+    if reply_message is None:
+         await event.edit("Reply To a Media.")
+    fuk = await event.edit("`Processing...`")
+    file_path = await tbot.download_media(
+                reply_message, TEMP_DOWNLOAD_DIRECTORY
+            )
+    out, err, ret, pid = await runcmd(f"mediainfo '{file_path}'")
+    media_info = f"""
+    <code>           
+    {out}                  
+    </code>"""
+    title_of_page = "Media Info 🎬"
+    ws = media_info.replace("\n", "<br>")
+    response = telegraph.create_page(title_of_page, html_content=ws)
+    km = response["path"]
+    await fuk.edit(f"`This MediaInfo Can Be Found` [Here](https://telegra.ph/{km})")
+    if os.path.exists(file_path):
+        os.remove(file_path)
