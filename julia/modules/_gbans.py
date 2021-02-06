@@ -26,7 +26,7 @@ gbanned = db.gban
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-
+edit_time = 2
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
@@ -90,14 +90,15 @@ async def _(event):
     gbanned.insert_one(
         {"bannerid": event.sender_id, "user": r_sender_id, "reason": reason}
     )
-
+    k = await event.reply("Initiating Gban.")
+    await asyncio.sleep(edit_time)
+    await k.reply("Gbanned Successfully !")
     await event.client.send_message(
         GBAN_LOGS,
         "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
             r_sender_id, event.sender_id, reason
         ),
     )
-    await event.reply("Gbanned Successfully !")
 
 
 @tbot.on(events.NewMessage(pattern="^/ungban (.*)"))
@@ -141,13 +142,15 @@ async def _(event):
         if r_sender_id == c["user"]:
             to_check = get_reason(id=r_sender_id)
             gbanned.delete_one({"user": r_sender_id})
+            h = await event.reply("Initiating Ungban")
+            await asyncio.sleep(edit_time)
+            await h.reply("Ungbanned Successfully !")
             await event.client.send_message(
                 GBAN_LOGS,
                 "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
             )
-            await event.reply("Ungbanned Successfully !")
             return
     await event.reply("Is that user even gbanned ?")
 
