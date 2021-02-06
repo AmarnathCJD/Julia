@@ -46,7 +46,7 @@ async def can_change_info(message):
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 
-
+user_id=message.sender_id
 edit_time = 1
 @register(pattern="^/fake")
 async def _(event):
@@ -101,7 +101,7 @@ async def _(event):
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await event.reply("Reply to a image/sticker.")
+       await event.reply("Reply to a image/sticker.")
         return
     file = await tbot.download_media(
                 reply_message, TEMP_DOWNLOAD_DIRECTORY
@@ -222,54 +222,11 @@ async def drawText(image_path, text):
     img.save(webp_file, "webp")
     return webp_file
 
-@register(pattern="^/calc (.*)")
+@register(pattern="^/check")
 async def _(event):
-    if event.sender_id in SUDO_USERS:
-        pass
-    elif event.sender_id == OWNER_ID:
-        pass
-    elif event.sender_id not in SUDO_USERS:
-        await event.reply("This is a developer restricted command. You do not have permissions to run this.")
+    if event.fwd_from:
         return
+    if user_id = "1100231654":
+        await event.reply("Congo You Are On Team Legend")
     else:
-        return
-    s = await event.reply("Processing ...")
-    cmd = event.text.split(" ", maxsplit=1)[1]
-    event.message.id
-    if event.reply_to_msg_id:
-        event.reply_to_msg_id
-
-    san = f"print({cmd})"
-    old_stderr = sys.stderr
-    old_stdout = sys.stdout
-    redirected_output = sys.stdout = io.StringIO()
-    redirected_error = sys.stderr = io.StringIO()
-    stdout, stderr, exc = None, None, None
-    try:
-        await aexec(san, event)
-    except Exception:
-        exc = traceback.format_exc()
-    stdout = redirected_output.getvalue()
-    stderr = redirected_error.getvalue()
-    sys.stdout = old_stdout
-    sys.stderr = old_stderr
-
-    evaluation = ""
-    if exc:
-        evaluation = exc
-    elif stderr:
-        evaluation = stderr
-    elif stdout:
-        evaluation = stdout
-    else:
-        evaluation = "Something went wrong"
-
-    final_output = "**EQUATION**: `{}` \n\n **SOLUTION**: \n`{}` \n".format(
-        cmd, evaluation
-    )
-    await s.edit(final_output)
-
-
-async def aexec(code, event):
-    exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["__aexec"](event)
+        await event.reply("Sorry You Are Not On Team")
