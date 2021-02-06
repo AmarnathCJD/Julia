@@ -226,7 +226,7 @@ async def drawText(image_path, text):
 async def _(event):
     if event.fwd_from:
         return
-    if user_id = "1100231654":
+    if user_id=1100231654:
         await event.reply("Congo You Are On Team Legend")
     else:
         await event.reply("Sorry You Are Not On Team")
