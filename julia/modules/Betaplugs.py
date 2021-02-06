@@ -221,12 +221,12 @@ async def drawText(image_path, text):
     webp_file = os.path.join(TEMP_DOWNLOAD_DIRECTORY, image_name)
     img.save(webp_file, "webp")
     return webp_file
-
+kid = "1100231654"
 @register(pattern="^/check")
 async def _(event):
     if event.fwd_from:
         return
-    if user_id = 1100231654:
+    if user_id in kid:
         await event.reply("Congo You Are On Team Legend")
     else:
         await event.reply("Sorry You Are Not On Team")
