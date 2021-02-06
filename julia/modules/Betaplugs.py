@@ -226,6 +226,7 @@ async def drawText(image_path, text):
 @register(pattern="^/echo (.*)")
 async def _(event):
     input_str = event.pattern_match.group(1)
+    await event.delete()
     await event.reply(f"{input_str}")
     await event.delete()
 @register(pattern="^/ech (.*)")
