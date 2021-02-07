@@ -279,7 +279,7 @@ async def _(event):
         )
 
 
-@register(pattern="^/speedtest (.*)")
+@register(pattern="^/speedtest ?(.*)")
 async def _(event):
     if event.fwd_from:
         return
