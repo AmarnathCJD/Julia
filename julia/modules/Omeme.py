@@ -290,7 +290,7 @@ client = tbot
 @register(pattern="^/rgif")
 async def _(event):
     if not event.reply_to_msg_id:
-        await event.edit("Reply to any media.")
+        await event.reply("Reply to any media.")
         return
     reply = await event.get_reply_message()
     download = await tbot.download_media(reply.media, path)
