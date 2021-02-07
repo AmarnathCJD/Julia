@@ -310,7 +310,7 @@ async def _(event):
     stdout, stderr = await process.communicate()
     await m.edit("```Uploading...```")
     await event.client.send_file(event.chat_id, "danish.mp4" , force_document=False, reply_to=event.reply_to_msg_id)
-    await event.delete()
+    await m.delete()
     shutil.rmtree(path)
     os.remove("danish.mp4")
     os.remove("danish.png")
