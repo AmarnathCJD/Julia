@@ -1,4 +1,3 @@
-
 from julia import CMD_HELP
 from bs4 import BeautifulSoup
 import urllib
@@ -13,11 +12,20 @@ import os
 import textwrap
 from PIL import Image, ImageDraw, ImageFont
 import re
+from telegraph import upload_file
+from telethon import events
+from telethon.tl.types import MessageMediaPhoto
+import cv2
+import numpy as np
+import PIL
+from PIL import Image, ImageDraw
+import pygments, os, asyncio, shutil, scapy, sys, requests, re, subprocess, urllib
+from pygments.lexers import Python3Lexer
+from pygments.formatters import ImageFormatter
 import urllib.request
 from faker import Faker as dc
 import bs4
 import html2text
-import requests
 from bing_image_downloader import downloader
 from pymongo import MongoClient
 from telethon import *
@@ -278,4 +286,29 @@ async def _(event):
             link_preview=True,
         )
 
-
+client = tbot
+@register(pattern="^/meme")
+async def _(event):
+    if not event.reply_to_msg_id:
+        await event.edit("Reply to any media.")
+        return
+    reply = await event.get_reply_message()
+    download = await tbot.download_media(reply.media, path)
+    img = cv2.VideoCapture(download)
+    ret, frame = img.read()
+    cv2.imwrite("danish.png", frame)
+    danish = Image.open("danish.png")
+    dark,python = danish.size
+    cobra = f"""ffmpeg -f lavfi -i color=c=ffffff00:s={dark}x{python}:d=10 -loop 1 -i danish.png -filter_complex "[1]rotate=angle=PI*t:fillcolor=none:ow='hypot(iw,ih)':oh=ow[fg];[0][fg]overlay=x=(W-w)/2:y=(H-h)/2:shortest=1:format=auto,format=yuv420p" -movflags +faststart danish.mp4 -y"""                 
+    await event.reply("```Processing ...```")
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+    process = await asyncio.create_subprocess_shell(
+        cobra, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+    stdout, stderr = await process.communicate()
+    await event.reply("```Uploading...```")
+    await event.client.send_file(event.chat_id, "danish.mp4" , force_document=False, reply_to=event.reply_to_msg_id)
+    await event.delete()
+    shutil.rmtree(path)
+    os.remove("danish.mp4")
+    os.remove("danish.png")
