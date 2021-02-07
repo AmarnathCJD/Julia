@@ -11,7 +11,6 @@ import textwrap
 from PIL import Image, ImageDraw, ImageFont
 import re
 import urllib.request
-from faker import Faker as dc
 from faker import Faker	
 from faker.providers import internet	
 import bs4
@@ -306,6 +305,6 @@ async def hi(event):
     android = fake.android_platform_token()	
     pc = fake.chrome()	
     await event.reply(	
-        f"<b><u> Fake Information Generated</b></u>\n<b>Name :-</b><code>{name}</code>\n\n<b>Address:-</b><code>{address}</code>\n\n<b>IP ADDRESS:-</b><code>{ip}</code>\n\n<b>credit card:-</b><code>{cc}</code>\n\n<b>Email Id:-</b><code>{email}</code>\n\n<b>Job:-</b><code>{job}</code>\n\n<b>android user agent:-</b><code>{android}</code>\n\n<b>Pc user agent:-</b><code>{pc}</code>",	
+        f"<b><u> Fake Information Generated</b></u>\n<b>Name :-</b><code>{name}</code>\n<b>Address:-</b><code>{address}</code>\n<b>IP ADDRESS:-</b><code>{ip}</code>\n<b>credit card:-</b><code>{cc}</code>\n<b>Email Id:-</b><code>{email}</code>\n<b>Job:-</b><code>{job}</code>\n<b>android user agent:-</b><code>{android}</code>\n<b>Pc user agent:-</b><code>{pc}</code>",	
         parse_mode="HTML",	
     )
