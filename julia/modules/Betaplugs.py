@@ -53,20 +53,6 @@ async def can_change_info(message):
     return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
         p, types.ChannelParticipantAdmin) and p.admin_rights.change_info)
 edit_time = 1
-@register(pattern="^/fake")
-async def _(event):
-    if event.is_group:
-        pass
-    else:
-        return
-    lol = await event.reply("Getting Fake Details...")
-    cyber = dc()
-    killer = cyber.name()
-    kali = cyber.address()
-    danish = cyber.credit_card_full()
-    await asyncio.sleep(edit_time)
-    await lol.edit(f"𝐍𝐚𝐦𝐞:-\n`{killer}`\n\n𝐀𝐝𝐝𝐫𝐞𝐬𝐬:-\n`{kali}`\n\n𝐂𝐚𝐫𝐝:-\n`{danish}`")
-
 @register(pattern="^/iplookup (.*)")
 async def _(event):
     if event.is_group:
@@ -304,7 +290,7 @@ async def _(event):
     image_s = r['image']
     await tbot.send_file(event.chat_id, file=image_s, caption=r['caption'])
     
-@register(pattern="^/fakegen")
+@register(pattern="^/fake")
 async def hi(event):	
     if event.fwd_from:	
         return	
