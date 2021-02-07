@@ -189,7 +189,7 @@ async def frwder(event):
     if event.is_private:
         await event.reply("I work in groups!")
         return
-    ok = await msgfrwd(GetFullUserRequest(event.sender_id))
+    ok = await tbot(GetFullUserRequest(event.sender_id))
     txt = event.text.split(" ", maxsplit=2)
     try:
         chat = txt[1]
@@ -199,13 +199,13 @@ async def frwder(event):
             return
         if chat.startswith('@'):
             try:
-                temp = await msgfrwd.get_entity(chat)
+                temp = await tbot.get_entity(chat)
                 chat = temp.id
             except UsernameNotOccupiedError as e:
                 await event.reply(str(e))
                 return
         try:
-            sent = await msgfrwd.send_message(chat, msg)
+            sent = await tbot.send_message(chat, msg)
             await sent.reply(f"Message from [{ok.user.first_name}](tg://user?id={event.sender_id})")
             temp = await event.reply("Done!")
             await asyncio.sleep(10)
