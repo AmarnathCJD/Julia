@@ -287,7 +287,7 @@ async def _(event):
         )
 
 client = tbot
-@register(pattern="^/meme")
+@register(pattern="^/rgif")
 async def _(event):
     if not event.reply_to_msg_id:
         await event.edit("Reply to any media.")
