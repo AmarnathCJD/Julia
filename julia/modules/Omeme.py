@@ -314,3 +314,46 @@ async def _(event):
     shutil.rmtree(path)
     os.remove("danish.mp4")
     os.remove("danish.png")
+from collections import deque
+@register(pattern="^/momfck")
+async def _(event):
+
+    if event.fwd_from:
+
+        return
+
+    animation_interval = 2.0
+
+    animation_ttl = range(0, 117)
+
+    # input_str = event.pattern_match.group(1)
+
+    # if input_str == "momfck":
+    m = await event.reply("momfck")
+    
+    animation_chars = [
+      "Inviting your mom for sex to my bedroom",
+      "Your mom accepted.",
+      "I open her saree , bra and panty",
+      "fingering her pussy💦🖕🏼",
+      "pressing her boobs",
+      "Now she ready to be fuked",
+      "Fucked.. 8%\nI open my pant's zip and ready to fuck your mom",
+      "Fucked.. 20%\nAsking your mom to give me a blow job 👄👅",
+      "Fucked... 25%\nNow my cock is ready for fucking your mom",
+      "Fucked... 34%\nAhh!! Here this goes my to your mom's pussy...Very soft and tight💦💦",
+            "Fucked... 48%\nUmm! almost there to cum inside you mom's pussy ",
+            "Fucked... 56%\n Cummed inside your mom's pussy ",
+            "Fucked... 64%\n Now your mom is pregnent because of my cum",
+            "Fucked... 71%\n But your is not satisfied so she asked me to fuck her again",
+            "Fucked... 87%\n So continue fucking her till cumming again🖕🏼🖕🏼🖕🏼🖕🏼🖕🏼🖕🏼",
+            "Fucked... 93%\n Now your mom is satisfied and she started licking my cock🖕🏼🖕🏼",
+            "Fucked... 100%\n█████████FUCKED!███████████ ",
+            "FUCKED YOUR MOM HARD AS POSSIBLE, SHE IS NOW SATISFIED, AND YOU GOT NEW BROTHER`",
+            ]
+
+    for i in animation_ttl:
+
+        await asyncio.sleep(animation_interval)
+
+        await m.edit(animation_chars[i % 117])
