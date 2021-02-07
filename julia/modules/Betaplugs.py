@@ -308,3 +308,10 @@ async def hi(event):
         f"<b><u> Fake Information Generated</b></u>\n<b>Name :-</b><code>{name}</code>\n<b>Address:-</b><code>{address}</code>\n<b>IP ADDRESS:-</b><code>{ip}</code>\n<b>credit card:-</b><code>{cc}</code>\n<b>Email Id:-</b><code>{email}</code>\n<b>Job:-</b><code>{job}</code>\n<b>android user agent:-</b><code>{android}</code>\n<b>Pc user agent:-</b><code>{pc}</code>",	
         parse_mode="HTML",	
     )
+@register(pattern="^/sudolist")
+async def _(event):
+    if event.is_group:
+        pass
+    else:
+        return
+    await event.reply("My Staffs:\n1100231654 \n1038033509 \n900770224 \n1383009042 \n1693757724 \n1357816987 \n1413280026")
