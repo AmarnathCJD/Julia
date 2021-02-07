@@ -290,3 +290,15 @@ async def _(event):
         await tfsir.edit(data_is, parse_mode="HTML")
     except:
         await tfsir.edit("Not a Valid Bin Or Don't Have Enough Info.")
+
+
+@register(pattern="^/rmeme")
+async def _(event):
+    if event.fwd_from:
+        return
+    await event.delete()
+    hmm_s = 'https://some-random-api.ml/meme'
+    r = requests.get(url=hmm_s).json()
+    image_s = r['image']
+    await tbot.send_file(event.chat_id, file=image_s, caption=r['caption'])
+    
