@@ -26,7 +26,7 @@ gbanned = db.gban
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-edit_time = 2
+edit_time = 3
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
