@@ -269,3 +269,24 @@ async def on_file_to_photo(event):
         ))
     except PhotoInvalidDimensionsError:
         return
+
+@register(pattern="^/bin (.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    try:
+        tfsir = await event.reply("Wait Fetching Bin Info")
+        kek = event.pattern_match.group(1)
+        url = f"https://lookup.binlist.net/{kek}"
+        midhunkm = requests.get(url=url).json()
+        kekvro = midhunkm["country"]
+        data_is = (
+            f"<b><u>Bin</u></b> ➠ <code>{kek}</code> \n"
+            f"<b><u>Type</u></b> ➠ <code>{midhunkm['type']}</code> \n"
+            f"<b><u>Scheme</u></b> ➠ <code>{midhunkm['scheme']}</code> \n"
+            f"<b><u>Brand</u></b> ➠ <code>{midhunkm['brand']}</code> \n"
+            f"<b><u>Country</u></b> ➠ <code>{kekvro['name']} {kekvro['emoji']}</code> \n"
+        )
+        await tfsir.edit(data_is, parse_mode="HTML")
+    except:
+        await tfsir.edit("Not a Valid Bin Or Don't Have Enough Info.")
