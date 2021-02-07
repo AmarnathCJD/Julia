@@ -34,10 +34,7 @@ import sys
 from telethon import events
 import asyncio
 import traceback
-import asyncio
 import random
-
-from telethon import events
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
