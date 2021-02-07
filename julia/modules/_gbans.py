@@ -22,7 +22,7 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 gbanned = db.gban
 
-
+sed = "-1001433850650"
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
@@ -80,7 +80,7 @@ async def _(event):
                 "This user is already gbanned, I am updating the reason of the gban with your reason."
             )
             await event.client.send_message(
-                GBAN_LOGS,
+                sed,
                 "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
