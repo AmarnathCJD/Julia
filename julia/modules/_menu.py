@@ -44,7 +44,7 @@ async def is_register_admin(chat, user):
     return None
 
 file1 = "https://telegra.ph/file/f62ce5b00d093822f4e1a.jpg"
-pm_caption = "Anie Pm Under Development 😐\n\n Owner Buzy due To Exams""
+pm_caption = "Anie Pm Under Development 😐\n\n Owner Buzy due To Exams"
 PM = "X"
 @register(pattern="^/start$")
 async def start(event):
