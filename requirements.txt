@@ -7,6 +7,7 @@ numpy==1.19.4
 speedtest
 moviepy
 colour
+scapy
 faker
 mapper==0.1.17
 scipy==1.5.4
