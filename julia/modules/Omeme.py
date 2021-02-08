@@ -36,7 +36,10 @@ import json
 import urllib.request
 from telegraph import Telegraph
 import asyncio
+import shutil
+import argparse
 import shlex
+import subprocess
 from typing import Tuple
 from julia import *
 from julia.Config import Config
@@ -358,6 +361,21 @@ async def _(event):
 
         await m.edit(animation_chars[i % 117])
 client = tbot
+
+async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
+    """ run command in terminal """
+    args = shlex.split(cmd)
+    process = await asyncio.create_subprocess_exec(
+        *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+    )
+    stdout, stderr = await process.communicate()
+    return (
+        stdout.decode("utf-8", "replace").strip(),
+        stderr.decode("utf-8", "replace").strip(),
+        process.returncode,
+        process.pid,
+    )
+
 async def fetch_audio(event, ws):
     if not event.reply_to_msg_id:
         await event.reply("Reply To A Video / Audio.")
@@ -368,14 +386,14 @@ async def fetch_audio(event, ws):
         return
     if what.video:
         await event.reply("Video Detected, Converting To Audio !")
-        abe = await event.client.download_media(what.media)
-        anie_cmd = f"ffmpeg -i {abe} -map 0:a friday.mp3"
+        sed = await event.client.download_media(what.media)
+        anie_cmd = f"ffmpeg -i {sed} -map 0:a friday.mp3"
         stdout, stderr = (await runcmd(anie_cmd))[:2]
         finale = "friday.mp3"
     elif what.audio:
         await event.reply("Download Started !")
         finale = await event.client.download_media(what.media)
-    await event.edit("Almost Done!")    
+    await event.reply("Almost Done!")    
     return finale
 
 import string
