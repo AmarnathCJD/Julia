@@ -304,19 +304,9 @@ async def hi(event):
     job = fake.job()	
     android = fake.android_platform_token()	
     pc = fake.chrome()	
-    await event.reply(	
+    h = await event.reply("Getting Fake Info...")
+    await asyncio.sleep(3)
+    await h.edit(	
         f"<b><u> Fake Information Generated</b></u>\n<b>Name :-</b><code>{name}</code>\n<b>Address:-</b><code>{address}</code>\n<b>IP ADDRESS:-</b><code>{ip}</code>\n<b>credit card:-</b><code>{cc}</code>\n<b>Email Id:-</b><code>{email}</code>\n<b>Job:-</b><code>{job}</code>\n<b>android user agent:-</b><code>{android}</code>\n<b>Pc user agent:-</b><code>{pc}</code>",	
         parse_mode="HTML",	
     )
-ok = "1247754388"
-@register(pattern="^/find (.*)")
-async def _(event):
-    if event.is_group:
-        pass
-    else:
-        return
-    kek = event.pattern_match.group(1)
-    if event.kek in ok:
-    await event.reply("This Is Babe")
-    else:
-    await event.reply("This Is Gey")
