@@ -71,17 +71,12 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/sshot (.*)")
 async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    else:
+        return
         await event.reply("Painting web-page..")
     start = datetime.now()
     try:
