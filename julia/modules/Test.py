@@ -29,7 +29,7 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
 from telethon.errors.rpcerrorlist import YouBlockedUserError
-bot = "Aniechat"
+bot = "liveccm"
 naam = "gey"
 
 async def is_register_admin(chat, user):
@@ -69,7 +69,7 @@ async def _(event):
             return
         sysarg = event.pattern_match.group(1)
         if "" in sysarg:
-        async with borg.conversation(bot) as conv:
+        async with tbot.conversation(bot) as conv:
             try:
                 await conv.send_message("/gen " + sysarg)
                 await asyncio.sleep(4)
