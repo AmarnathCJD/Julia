@@ -89,7 +89,7 @@ async def _(event):
         pass
 
 
-@tbot.on(events.NewMessage(pattern=None))
+@tbot.on(events.NewMessage(pattern="^/noafk$")
 async def _(event):
     send = await event.get_sender()
     sender = await tbot.get_entity(send)
