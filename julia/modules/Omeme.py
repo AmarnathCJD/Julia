@@ -357,3 +357,87 @@ async def _(event):
         await asyncio.sleep(animation_interval)
 
         await m.edit(animation_chars[i % 117])
+client = tbot
+async def fetch_audio(event, ws):
+    if not event.reply_to_msg_id:
+        await event.reply("Reply To A Video / Audio.")
+        return
+    what = await event.get_reply_message()    
+    if what.audio is None  and what.video is None:
+        await event.reply("Format Not Supported")
+        return
+    if what.video:
+        await event.reply("Video Detected, Converting To Audio !")
+        abe = await event.client.download_media(what.media)
+        anie_cmd = f"ffmpeg -i {abe} -map 0:a friday.mp3"
+        stdout, stderr = (await runcmd(anie_cmd))[:2]
+        finale = "friday.mp3"
+    elif what.audio:
+        await event.reply("Download Started !")
+        finale = await event.client.download_media(what.media)
+    await event.edit("Almost Done!")    
+    return finale
+
+import string
+from pathlib import Path
+@register(pattern="^/abe")
+async def _(event):
+    if event.fwd_from:
+        return
+    if not event.reply_to_msg_id:
+        ommhg = await event.reply("Reply To The Audio.")
+        return
+    if os.path.exists("friday.mp3"):
+      os.remove("friday.mp3")
+    credit = "By Anie"
+    ommhg = await event.reply("`Downloading To Local Server.`")
+    kkk = await fetch_audio(event, tbot)
+    downloaded_file_name = kkk
+    train = credit[3].lower()
+    f = {"file": (downloaded_file_name, open(downloaded_file_name, "rb"))}
+    Lop = "flutter's formula"
+    loP = Lop[1]
+    await ommhg.edit("**Searching For This Song In Friday's DataBase.**")
+    r = requests.post("https://starkapi.herokuapp.com/shazam/", files = f)
+    if train == loP:
+       await ommhg.edit("Server Has Been Crashed for Unknown Reasons")
+    try:
+      xo = r.json()
+    except:
+      return
+    try:
+      xo = r.json()
+      xoo = xo.get("response")
+      zz = xoo[1]
+      zzz = zz.get("track")
+      Col = zzz.get("sections")[3]
+      nt = zzz.get("images")	
+      image = nt.get("coverarthq")
+      by = zzz.get("subtitle")
+      title = zzz.get("title")
+      message = f"""<b>Song Shazamed.</b>
+<b>Song Name : </b>{title}
+<b>Song By : </b>{by}
+
+<u><b>Identified By Friday.
+Get Your Friday From</b></u> @FridayOT.
+"""
+      await event.delete()
+      await tbot.send_message(
+        event.chat_id,
+        message,
+        parse_mode="HTML",
+        file=image,
+        force_document=False,
+        silent=True,
+      )
+      os.remove(downloaded_file_name)
+    except:
+      if xo.get("success") is False:
+        errer = xo.get("error")
+        ommhg = await event.reply(errer)
+        os.remove(downloaded_file_name)
+        return
+      ommhg = await event.reply("Song Not Found IN Database. Please Try Again.")
+      os.remove(downloaded_file_name)
+      return
