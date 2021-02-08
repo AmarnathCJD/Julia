@@ -89,7 +89,7 @@ async def _(event):
         pass
 
 
-@tbot.on(events.NewMessage(pattern="/noafk$"))
+@tbot.on(events.NewMessage(pattern=None))
 async def _(event):
     send = await event.get_sender()
     sender = await tbot.get_entity(send)
@@ -117,8 +117,6 @@ async def _(event):
             await event.reply(text, parse_mode="markdown")
         except BaseException:
             return
-    else:
-        await event.reply("Are you even AFK ?")
 
 
 @tbot.on(events.NewMessage(pattern=None))
