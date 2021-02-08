@@ -459,3 +459,20 @@ Get Your Friday From</b></u> @FridayOT.
       ommhg = await event.reply("Song Not Found IN Database. Please Try Again.")
       os.remove(downloaded_file_name)
       return
+@register(pattern="^/upload (.*)")
+async def upload_file(message):
+    input_str = message.get_args()
+    if not os.path.exists(input_str):
+        await message.reply("File not found!")
+        return
+    await message.reply("Processing ...")
+    caption_rts = os.path.basename(input_str)
+    with open(input_str, 'rb') as f:
+        await tbot.send_file(
+            message.chat.id,
+            f,
+            caption=caption_rts,
+            force_document=False,
+            allow_cache=False,
+            reply_to=message.message_id
+        )
