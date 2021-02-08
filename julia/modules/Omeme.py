@@ -449,7 +449,9 @@ Get Your Friday From</b></u> @FridayOT.
         force_document=False,
         silent=True,
       )
+downs = ("friday.mp3")
       os.remove(downloaded_file_name)
+      os.remove(downs)
     except:
       if xo.get("success") is False:
         errer = xo.get("error")
