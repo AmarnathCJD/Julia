@@ -18,28 +18,24 @@ approved_users = db.approve
 
 
 async def is_register_admin(chat, user):
-    try:
-        if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-
-            return isinstance(
-                (
-                    await tbot(functions.channels.GetParticipantRequest(chat, user))
-                ).participant,
-                (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
-            )
-        if isinstance(chat, types.InputPeerChat):
-
-            ui = await tbot.get_peer_id(user)
-            ps = (
-                await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
-            ).full_chat.participants.participants
-            return isinstance(
-                next((p for p in ps if p.user_id == ui), None),
-                (types.ChatParticipantAdmin, types.ChatParticipantCreator),
-            )
-        return False
-    except Exception:
-        return False
+    if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
+        return isinstance(
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
+            (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
+        )
+    if isinstance(chat, types.InputPeerChat):
+        ui = await tbot.get_peer_id(user)
+        ps = (
+            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
+        ).full_chat.participants.participants
+        return isinstance(
+            next((p for p in ps if p.user_id == ui), None),
+            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
+        )
+    if isinstance(chat, types.InputPeerUser):          
+        return True
 
 
 @register(pattern="^/afk ?(.*)")
@@ -48,10 +44,10 @@ async def _(event):
     sender = await tbot.get_entity(send)
     approved_userss = approved_users.find({})
     for ch in approved_userss:
-        iid = ch['id']
-        userss = ch['user']
+        iid = ch["id"]
+        userss = ch["user"]
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -89,18 +85,18 @@ async def _(event):
         pass
 
 
-@tbot.on(events.NewMessage(pattern="^/noafk$")
+@tbot.on(events.NewMessage(pattern="/noafk$"))
 async def _(event):
     send = await event.get_sender()
     sender = await tbot.get_entity(send)
 
     approved_userss = approved_users.find({})
     for ch in approved_userss:
-        iid = ch['id']
-        userss = ch['user']
+        iid = ch["id"]
+        userss = ch["user"]
 
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
@@ -117,6 +113,8 @@ async def _(event):
             await event.reply(text, parse_mode="markdown")
         except BaseException:
             return
+    else:
+        await event.reply("Are you even AFK ?")
 
 
 @tbot.on(events.NewMessage(pattern=None))
@@ -132,25 +130,25 @@ async def _(event):
         userid = reply.sender_id
     else:
         try:
-            for (ent, txt) in event.get_entities_text():            
+            for (ent, txt) in event.get_entities_text():
                 if ent.offset != 0:
                     break
                 if isinstance(ent, types.MessageEntityMention):
-                   pass
+                    pass
                 elif isinstance(ent, types.MessageEntityMentionName):
-                   pass
+                    pass
                 else:
-                   return  
+                    return
                 c = txt
                 a = c.split()[0]
-                #print (a)
-                #print (c)
+                # print (a)
+                # print (c)
                 if not "@" in a:
-                  userid = int(ent.user_id)
-                  break
-                else:                   
-                  let = await tbot.get_input_entity(a)
-                  userid = let.user_id
+                    userid = int(ent.user_id)
+                    break
+                else:
+                    let = await tbot.get_input_entity(a)
+                    userid = let.user_id
         except Exception:
             return
 
@@ -169,37 +167,31 @@ async def _(event):
         if not user.reason:
             etime = user.start_time
             elapsed_time = time.time() - float(etime)
-            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))           
+            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
             fst_name = "This user"
-            res = "**{} is AFK !**\n\n**Last seen**: {}".format(
-                fst_name, final)
+            res = "**{} is AFK !**\n\n**Last seen**: {}".format(fst_name, final)
 
             await event.reply(res, parse_mode="markdown")
         else:
             etime = user.start_time
             elapsed_time = time.time() - float(etime)
-            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))            
+            final = time.strftime("%Hh: %Mm: %Ss", time.gmtime(elapsed_time))
             fst_name = "This user"
             res = "**{} is AFK !**\n\n**Reason**: {}\n\n**Last seen**: {}".format(
-                fst_name, user.reason, final)
+                fst_name, user.reason, final
+            )
             await event.reply(res, parse_mode="markdown")
     userid = ""  # after execution
     let = ""  # after execution
 
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
-
-
 
 __help__ = """
  - /afk <reason>: mark yourself as AFK(Away From Keyboard)
  - /noafk: unmark yourself as AFK(Away From Keyboard)
 """
 
-CMD_HELP.update({
-    file_helpo: [
-        file_helpo,
-        __help__
-    ]
-})
+CMD_HELP.update({file_helpo: [file_helpo, __help__]})
