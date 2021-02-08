@@ -387,9 +387,9 @@ async def fetch_audio(event, ws):
     if what.video:
         await event.reply("Video Detected, Converting To Audio !")
         sed = await event.client.download_media(what.media)
-        anie_cmd = f"ffmpeg -i {sed} -map 0:a friday.mp3"
+        anie_cmd = f"ffmpeg -i {sed} -map 0:a anie.mp3"
         stdout, stderr = (await runcmd(anie_cmd))[:2]
-        finale = "friday.mp3"
+        finale = "anie.mp3"
     elif what.audio:
         await event.reply("Download Started !")
         finale = await event.client.download_media(what.media)
@@ -405,8 +405,8 @@ async def _(event):
     if not event.reply_to_msg_id:
         ommhg = await event.reply("Reply To The Audio.")
         return
-    if os.path.exists("friday.mp3"):
-      os.remove("friday.mp3")
+    if os.path.exists("anie.mp3"):
+      os.remove("anie.mp3")
     credit = "By Anie"
     ommhg = await event.reply("`Downloading To Local Server.`")
     kkk = await fetch_audio(event, tbot)
@@ -415,7 +415,7 @@ async def _(event):
     f = {"file": (downloaded_file_name, open(downloaded_file_name, "rb"))}
     Lop = "flutter's formula"
     loP = Lop[1]
-    await ommhg.edit("**Searching For This Song In Friday's DataBase.**")
+    await ommhg.edit("**Searching For This Song In Anie's DataBase.**")
     r = requests.post("https://starkapi.herokuapp.com/shazam/", files = f)
     if train == loP:
        await ommhg.edit("Server Has Been Crashed for Unknown Reasons")
@@ -437,8 +437,7 @@ async def _(event):
 <b>Song Name : </b>{title}
 <b>Song By : </b>{by}
 
-<u><b>Identified By Friday.
-Get Your Friday From</b></u> @FridayOT.
+<u><b>Identified By Anie.</b></u> @RoseLoverX.
 """
       await event.delete()
       await tbot.send_message(
@@ -449,9 +448,7 @@ Get Your Friday From</b></u> @FridayOT.
         force_document=False,
         silent=True,
       )
-downs = ("friday.mp3")
       os.remove(downloaded_file_name)
-      os.remove(downs)
     except:
       if xo.get("success") is False:
         errer = xo.get("error")
