@@ -20,7 +20,7 @@ async def _(event):
         return
     if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TMP_DOWNLOAD_DIRECTORY)
-    await event.reply("Reply to a message to get a permanent telegra.ph link.
+    await event.reply("Reply to a message to get a permanent telegra.ph link.")
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
         start = datetime.now()
