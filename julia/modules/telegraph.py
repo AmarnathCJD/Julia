@@ -18,7 +18,6 @@ auth_url = r["auth_url"]
 async def _(event):
     if event.fwd_from:
         return
-    await event.reply("Reply to a message to get a permanent telegra.ph link.")
     optional_title = event.pattern_match.group(2)
     if event.reply_to_msg_id:
         start = datetime.now()
@@ -31,7 +30,7 @@ async def _(event):
             )
             end = datetime.now()
             ms = (end - start).seconds
-            await event.reply("Downloaded to {} in {} seconds.".format(downloaded_file_name, ms))
+            h = await event.reply("Downloaded to {} in {} seconds.".format(downloaded_file_name, ms))
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
             try:
@@ -44,7 +43,7 @@ async def _(event):
                 end = datetime.now()
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
-                await event.reply("Uploaded to https://telegra.ph{} in {} seconds.".format(media_urls[0], (ms + ms_two)), link_preview=True)
+                await h.reply("Uploaded to https://telegra.ph{} in {} seconds.".format(media_urls[0], (ms + ms_two)), link_preview=True)
         elif input_str == "t":
             user_object = await tbot.get_entity(r_message.sender_id)
             title_of_page = user_object.first_name # + " " + user_object.last_name
@@ -74,7 +73,7 @@ async def _(event):
             ms = (end - start).seconds
             await event.reply("Pasted to https://telegra.ph/{} in {} seconds.".format(response["path"], ms), link_preview=True)
     else:
-        await event.reply("Reply to a message to get a permanent telegra.ph link. (Inspired by @ControllerBot)")
+        await event.reply("Reply to a message to get a permanent telegra.ph link.")
 
 
 def resize_image(image):
