@@ -10,7 +10,7 @@ from julia.events import register
 from pymongo import MongoClient
 from julia import MONGO_DB_URI
 from telethon import events
-import asyncio
+
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
@@ -84,8 +84,8 @@ async def _(event):
     except Exception:
         pass
 
-await asyncio.sleep(7)
-@tbot.on(events.NewMessage(pattern=None))
+
+@tbot.on(events.NewMessage(pattern="/noafk$"))
 async def _(event):
     send = await event.get_sender()
     sender = await tbot.get_entity(send)
