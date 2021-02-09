@@ -398,7 +398,7 @@ async def fetch_audio(event, ws):
 
 import string
 from pathlib import Path
-@register(pattern="^/abe")
+@register(pattern="^/shazam")
 async def _(event):
     if event.fwd_from:
         return
