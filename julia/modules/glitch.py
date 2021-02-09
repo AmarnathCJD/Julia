@@ -17,7 +17,7 @@ async def glitch(hell):
     hellid = hell.reply_to_msg_id
     hell = await hell.reply("Hahaha.... GlitchingðŸ¤ª")
     if not (reply and (reply.media)):
-        await hell.edit("`Media not found...`")
+        await hell.reply("`Media not found...`")
         return
     if not os.path.isdir("./temp/"):
         os.mkdir("./temp/")
@@ -68,7 +68,7 @@ async def glitch(hell):
         glitched = "./temp/" + "glitched.webp"
         glitch_img = glitcher.glitch_image(img, hellinput, color_offset=True)
         glitch_img.save(glitched)
-        await borg.send_file(hell.chat_id, glitched, reply_to=hellid)
+        await tbot.send_file(hell.chat_id, glitched, reply_to=hellid)
         os.remove(glitched)
         await hell.delete()
     elif cmd == "glitch":
@@ -85,7 +85,7 @@ async def glitch(hell):
             loop=LOOP,
         )
         sandy = await tbot.send_file(hell.chat_id, Glitched, reply_to=hellid)
-        await borg(
+        await tbot(
             functions.messages.SaveGifRequest(
                 id=types.InputDocument(
                     id=sandy.media.document.id,
