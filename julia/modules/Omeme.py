@@ -494,7 +494,7 @@ async def _(event):
              "Reply to any image or non animated sticker !"
         )#By @Danish_00
 #Fixed By a NOOB
-    dcevent = await event.reply("coloring image sar...")
+    await devent.edit("coloring image sar...")
     r = requests.post(
         "https://api.deepai.org/api/colorizer",
         files={
@@ -520,7 +520,7 @@ async def _(event):
 from random import randint
 from timeit import default_timer
 @register(pattern="^/cgen")
-def generator():
+async def _(event):
     start = default_timer()
     total = 0
     index = 0
