@@ -382,16 +382,16 @@ async def fetch_audio(event, ws):
         return
     what = await event.get_reply_message()    
     if what.audio is None  and what.video is None:
-        await ommhg.edit("Format Not Supported")
+        await event.reply("Format Not Supported")
         return
     if what.video:
-        await ommhg.edit("Video Detected, Converting To Audio !")
+        await event.reply("Video Detected, Converting To Audio !")
         sed = await event.client.download_media(what.media)
         anie_cmd = f"ffmpeg -i {sed} -map 0:a anie.mp3"
         stdout, stderr = (await runcmd(anie_cmd))[:2]
         finale = "anie.mp3"
     elif what.audio:
-        await ommhg.edit("Download Started !")
+        await event.reply("Download Started !")
         finale = await event.client.download_media(what.media)
     await event.reply("Almost Done!")    
     return finale
