@@ -71,12 +71,10 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/exec (.*)")
 async def msg(event):
-    if event.sender_id in SUDO_USERS:
-        pass
     elif event.sender_id == OWNER_ID:
         pass
     elif event.sender_id not in SUDO_USERS:
-        await event.reply("This is a developer restricted command. You do not have permissions to run this.")
+        await event.reply("This is an owner restricted command. You do not have permissions to run this.")
         return
     else:
         return
