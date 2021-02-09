@@ -494,7 +494,7 @@ async def _(event):
              "Reply to any image or non animated sticker !"
         )#By @Danish_00
 #Fixed By a NOOB
-    await dcevent.edit("coloring image sar...")
+    dcevent = await event.reply("coloring image sar...")
     r = requests.post(
         "https://api.deepai.org/api/colorizer",
         files={
@@ -513,7 +513,7 @@ async def _(event):
     result = f"{r_json}"
     
     await devent.delete()
-    await borg.send_message(
+    await tbot.send_message(
         event.chat_id,
         file=result
     )
