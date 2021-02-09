@@ -588,6 +588,3 @@ async def _(event):
     stop = default_timer()
     print(f'Tempo de exec:{stop-start}')
 
-
-if name == "main":
-    generator()
