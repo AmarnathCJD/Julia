@@ -382,16 +382,16 @@ async def fetch_audio(event, ws):
         return
     what = await event.get_reply_message()    
     if what.audio is None  and what.video is None:
-        await event.reply("Format Not Supported")
+        await ommhg.edit("Format Not Supported")
         return
     if what.video:
-        await event.reply("Video Detected, Converting To Audio !")
+        await ommhg.edit("Video Detected, Converting To Audio !")
         sed = await event.client.download_media(what.media)
         anie_cmd = f"ffmpeg -i {sed} -map 0:a anie.mp3"
         stdout, stderr = (await runcmd(anie_cmd))[:2]
         finale = "anie.mp3"
     elif what.audio:
-        await event.reply("Download Started !")
+        await ommhg.edit("Download Started !")
         finale = await event.client.download_media(what.media)
     await event.reply("Almost Done!")    
     return finale
@@ -455,7 +455,7 @@ async def _(event):
         ommhg = await event.reply(errer)
         os.remove(downloaded_file_name)
         return
-      ommhg = await event.reply("Song Not Found IN Database. Please Try Again.")
+      await ommhg.reply("Song Not Found IN Database. Please Try Again.")
       os.remove(downloaded_file_name)
       return
 @register(pattern="^/upload (.*)")
