@@ -260,7 +260,7 @@ async def apk(event):
         )
         app_details += f"\n\n===> Anie <==="
         await event.delete()
-        await event.reply(app_details, link_preview=false, parse_mode="HTML")
+        await event.reply(app_details, link_preview=True, parse_mode="HTML")
     except IndexError:
         await event.reply("No result found in search. Please enter **Valid app name**")
     except Exception as err:
