@@ -129,6 +129,7 @@ async def msg(event):
 async def _(event):
     if event.fwd_from:
         return
+    await event.reply("abe Loude porting")
     c = await event.get_chat()
     if c.admin_rights or c.creator:
         a = await tbot.get_admin_log(
