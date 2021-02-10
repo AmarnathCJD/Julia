@@ -259,7 +259,7 @@ async def apk(event):
             + "'>View in Play Store</a>"
         )
         app_details += f"\n\n===> Anie <==="
-        await event.delete
+        await event.delete()
         await event.reply(app_details, link_preview=false, parse_mode="HTML")
     except IndexError:
         await event.reply("No result found in search. Please enter **Valid app name**")
