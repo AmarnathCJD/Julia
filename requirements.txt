@@ -1,5 +1,5 @@
 wheel==0.34.2
-lxml==4.6.1
+lxml==4.6.2
 aria2p
 glitch_this
 cryptg==0.2.post2
@@ -20,7 +20,7 @@ argparse==1.4.0
 imutils==0.5.3
 telethon==1.18.2
 aiohttp==3.7.2
-bleach==3.2.1
+bleach==3.3.0
 emoji==0.6.0
 feedparser==6.0.2
 future==0.18.2
