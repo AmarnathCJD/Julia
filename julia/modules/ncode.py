@@ -11,6 +11,7 @@ from pygments.lexers import Python3Lexer
 client = tbot
 @register(pattern="^/ncode")
 async def coder_print(event):
+    await event.reply("Abe Lavde")
     a = await event.client.download_media(
         await event.get_reply_message(), TEMP_DOWNLOAD_DIRECTORY
     )
