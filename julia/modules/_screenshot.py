@@ -124,3 +124,21 @@ async def msg(event):
     except Exception:
         await event.edit(traceback.format_exc())
 
+
+@register(pattern="^/undlt")
+async def _(event):
+    if event.fwd_from:
+        return
+    c = await event.get_chat()
+    if c.admin_rights or c.creator:
+        a = await tbot.get_admin_log(
+            event.chat_id, limit=5, search="", edit=False, delete=True
+        )
+        for i in a:
+            await event.reply(i.original.action.message)
+    else:
+        await event.reply(
+            "I need administrative permissions in order to do this command"
+        )
+        await asyncio.sleep(3)
+        await event.delete()
