@@ -1,7 +1,7 @@
 from julia.events import register
 from julia import CMD_HELP
 from julia import tbot
-from julia import TEMP_DOWNLOAD_DIRECTORY as TMP_DOWNLOAD_DIRECTORY
+from julia import TEMP_DOWNLOAD_DIRECTORY
 from telethon import events
 import os
 import pygments
