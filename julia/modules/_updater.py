@@ -53,7 +53,6 @@ async def upstream(ups):
 
     try:
         txt = "`Oops.. Updater cannot continue "
-        txt += "please add heroku apikey, name`\n\n**LOGTRACE:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await lol.edit(f"{txt}\n`directory {error} is not found`")
