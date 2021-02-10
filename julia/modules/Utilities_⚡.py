@@ -26,28 +26,23 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
+gbanned = db.gban
 
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-
         return isinstance(
             (
                 await tbot(functions.channels.GetParticipantRequest(chat, user))
             ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
-    if isinstance(chat, types.InputPeerChat):
+    if isinstance(chat, types.InputPeerUser):          
+        return True
 
-        ui = await tbot.get_peer_id(user)
-        ps = (
-            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
-        ).full_chat.participants.participants
-        return isinstance(
-            next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
-        )
-    return None
+
+def get_reason(id):
+    return gbanned.find_one({"user": id})
 
 
 TMP_DOWNLOAD_DIRECTORY = "./"
@@ -84,13 +79,15 @@ async def who(event):
         message_id_to_reply = None
 
     try:
-        await event.client.send_file(event.chat_id,
-                                     photo,
-                                     caption=caption,
-                                     link_preview=False,
-                                     force_document=False,
-                                     reply_to=message_id_to_reply,
-                                     parse_mode="html")
+        await event.client.send_file(
+            event.chat_id,
+            photo,
+            caption=caption,
+            link_preview=False,
+            force_document=False,
+            reply_to=message_id_to_reply,
+            parse_mode="html",
+        )
 
         if not photo.startswith("http"):
             os.remove(photo)
@@ -103,8 +100,7 @@ async def who(event):
 async def get_user(event):
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
-        replied_user = await tbot(
-            GetFullUserRequest(previous_message.sender_id))
+        replied_user = await tbot(GetFullUserRequest(previous_message.sender_id))
     else:
         user = event.pattern_match.group(1)
 
@@ -118,15 +114,13 @@ async def get_user(event):
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
 
-            if isinstance(probable_user_mention_entity,
-                          MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 replied_user = await tbot(GetFullUserRequest(user_id))
                 return replied_user
         try:
             user_object = await tbot.get_entity(user)
-            replied_user = await tbot(
-                GetFullUserRequest(user_object.id))
+            replied_user = await tbot(GetFullUserRequest(user_object.id))
         except (TypeError, ValueError) as err:
             await event.reply(str(err))
             return None
@@ -136,11 +130,13 @@ async def get_user(event):
 
 async def fetch_info(replied_user, event):
     replied_user_profile_photos = await event.client(
-        GetUserPhotosRequest(user_id=replied_user.user.id,
-                             offset=42,
-                             max_id=0,
-                             limit=80))
-    replied_user_profile_photos_count = "Person needs help with uploading profile picture."
+        GetUserPhotosRequest(
+            user_id=replied_user.user.id, offset=42, max_id=0, limit=80
+        )
+    )
+    replied_user_profile_photos_count = (
+        "Person needs help with uploading profile picture."
+    )
     try:
         replied_user_profile_photos_count = replied_user_profile_photos.count
     except AttributeError as e:
@@ -161,17 +157,19 @@ async def fetch_info(replied_user, event):
     is_bot = replied_user.user.bot
     restricted = replied_user.user.restricted
     verified = replied_user.user.verified
-    photo = await event.client.download_profile_photo(user_id,
-                                                      TEMP_DOWNLOAD_DIRECTORY +
-                                                      str(user_id) + ".jpg",
-                                                      download_big=True)
+    photo = await event.client.download_profile_photo(
+        user_id, TEMP_DOWNLOAD_DIRECTORY + str(user_id) + ".jpg", download_big=True
+    )
 
-    first_name = first_name.replace(
-        "\u2060", "") if first_name else ("This User has no First Name")
-    last_name = last_name.replace(
-        "\u2060", "") if last_name else ("This User has no Last Name")
-    username = "@{}".format(username) if username else (
-        "This User has no Username")
+    first_name = (
+        first_name.replace("\u2060", "")
+        if first_name
+        else ("This User has no First Name")
+    )
+    last_name = (
+        last_name.replace("\u2060", "") if last_name else ("This User has no Last Name")
+    )
+    username = "@{}".format(username) if username else ("This User has no Username")
     user_bio = "This User has no About" if not user_bio else user_bio
 
     caption = "<b>USER INFO:</b> \n"
@@ -184,24 +182,41 @@ async def fetch_info(replied_user, event):
     caption += f"Is Verified by Telegram: {verified} \n"
     caption += f"ID: <code>{user_id}</code> \n \n"
     caption += f"Bio: \n<code>{user_bio}</code> \n \n"
+
+    users = gbanned.find({})
+    for fuckers in users:
+        gid = fuckers["user"]
+    if not user_id in SUDO_USERS and not user_id == OWNER_ID:     
+       if str(user_id) == str(gid):
+              caption += "<b>Gbanned:</b> Yes\n"
+              to_check = get_reason(id=r_sender_id)
+              bannerid = str(to_check["bannerid"])
+              reason = str(to_check["reason"])
+              caption += f"<b>Gbanned by:</b><code>{bannerid}</code>\n"
+              caption += f"<b>Reason:</b><code>{reason}</code>\n\n"
+       else:
+              caption += "<b>Gbanned:</b> No\n\n"
+           
     # caption += f"Common Chats with this user: {common_chat} \n\n"
     caption += "Permanent Link To Profile: "
-    caption += f"<a href=\"tg://user?id={user_id}\">{first_name}</a>"
+    caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
 
     if user_id in SUDO_USERS:
         caption += "\n\n<b>This person is one of my SUDO USERS\nHe can Gban/Ungban anyome, so mind it !</b>"
 
     if user_id == OWNER_ID:
-        caption += "\n\n<b>This person is my owner.\nHe is the reason why I am alive.</b>"
+        caption += (
+            "\n\n<b>This person is my owner.\nHe is the reason why I am alive.</b>"
+        )
 
-    approved_userss = approved_users.find({})
+    approved_userss = approved_users.find({})                
     for ch in approved_userss:
         iid = ch["id"]
         userss = ch["user"]
 
-    if event.chat_id == iid and event.sender_id == userss:
+    if event.chat_id == iid and str(user_id) == str(userss):
         caption += "\n\n<b>This person is approved in this chat.</b>"
-
+           
     return photo, caption
 
 
@@ -220,30 +235,28 @@ async def useridgetter(target):
             return
     message = await target.get_reply_message()
     if not message:
-       self_user = await target.get_sender()
-       user_id = self_user.id
-       if self_user.username:
-                name = "@" + self_user.username
-       else:
-                name = "**" + self_user.first_name + "**"
-       await target.reply("**Username:** {} \n**User ID:** `{}`".format(
-            name, user_id))
-  
+        self_user = await target.get_sender()
+        user_id = self_user.id
+        if self_user.username:
+            name = "@" + self_user.username
+        else:
+            name = "**" + self_user.first_name + "**"
+        await target.reply("**Username:** {} \n**User ID:** `{}`".format(name, user_id))
+
     if message:
         if not message.forward:
             user_id = message.sender.id
             if message.sender.username:
                 name = "@" + message.sender.username
             else:
-                name = "**" + message.sender.first_name + "**"            
+                name = "**" + message.sender.first_name + "**"
         else:
             user_id = message.forward.sender.id
             if message.forward.sender.username:
                 name = "@" + message.forward.sender.username
             else:
                 name = "*" + message.forward.sender.first_name + "*"
-        await target.reply("**Username:** {} \n**User ID:** `{}`".format(
-            name, user_id))
+        await target.reply("**Username:** {} \n**User ID:** `{}`".format(name, user_id))
 
 
 @register(pattern="^/chatid$")
@@ -319,6 +332,7 @@ def get_readable_time(seconds: int) -> str:
 @register(pattern="^/ping$")
 async def ping(event):
     import datetime
+
     start_time = datetime.datetime.now()
     message = await event.reply("Pinging .")
     await message.edit("Pinging ..")
@@ -372,8 +386,7 @@ async def _(event):
     else:
         evaluation = "Success 😃"
 
-    final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(
-        cmd, evaluation)
+    final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(cmd, evaluation)
     MAX_MESSAGE_SIZE_LIMIT = 4095
     if len(final_output) > MAX_MESSAGE_SIZE_LIMIT:
         with io.BytesIO(str.encode(final_output)) as out_file:
@@ -473,9 +486,4 @@ __help__ = """
  - /info: Get information about a user.
 """
 
-CMD_HELP.update({
-    file_helpo: [
-        file_helpo,
-        __help__
-    ]
-})
+CMD_HELP.update({file_helpo: [file_helpo, __help__]})
