@@ -21,33 +21,25 @@ async def can_approve_users(message):
         )
     )
     p = result.participant
-    return isinstance(p, types.ChannelParticipantCreator) or (isinstance(
-        p, types.ChannelParticipantAdmin) and p.admin_rights.add_admins)
+    return isinstance(p, types.ChannelParticipantCreator) or (
+        isinstance(p, types.ChannelParticipantAdmin) and p.admin_rights.add_admins
+    )
 
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-
         return isinstance(
             (
                 await tbot(functions.channels.GetParticipantRequest(chat, user))
             ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
-    if isinstance(chat, types.InputPeerChat):
-
-        ui = await tbot.get_peer_id(user)
-        ps = (
-            await tbot(functions.messages.GetFullChatRequest(chat.chat_id))
-        ).full_chat.participants.participants
-        return isinstance(
-            next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
-        )
-    return None
+    if isinstance(chat, types.InputPeerUser):          
+        return True
 
 
 # ------ THANKS TO LONAMI ------#
+
 
 async def get_user_from_event(event):
     """ Get the user from argument or replied message. """
@@ -67,8 +59,7 @@ async def get_user_from_event(event):
         if event.message.entities is not None:
             probable_user_mention_entity = event.message.entities[0]
 
-            if isinstance(probable_user_mention_entity,
-                          MessageEntityMentionName):
+            if isinstance(probable_user_mention_entity, MessageEntityMentionName):
                 user_id = probable_user_mention_entity.user_id
                 user_obj = await tbot.get_entity(user_id)
                 return user_obj
@@ -79,6 +70,7 @@ async def get_user_from_event(event):
             return None
 
     return user_obj
+
 
 @register(pattern="^/approve(?: |$)(.*)")
 async def approve(event):
@@ -108,7 +100,7 @@ async def approve(event):
         await event.reply("Why will I approve an admin ?")
         return
 
-    if iid == event.sender_id or iid == event.sender_id:
+    if iid == event.sender_id:
         await event.reply("Why are you trying to approve yourself ?")
         print("6")
         return
@@ -156,7 +148,7 @@ async def disapprove(event):
         await event.reply("Why will I disapprove an admin ?")
         return
 
-    if iid == event.sender_id or iid == event.sender_id:
+    if iid == event.sender_id:
         await event.reply("Why are you trying to disapprove yourself ?")
         print("6")
         return
@@ -218,7 +210,7 @@ async def checkst(event):
 
 @register(pattern="^/listapproved$")
 async def apprlst(event):
-    print("😁")
+    # print("😁")
     if event.fwd_from:
         return
     if MONGO_DB_URI is None:
@@ -277,6 +269,7 @@ async def disapprlst(event):
             return
     await event.reply("No one is approved in this chat.")
 
+
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
@@ -289,9 +282,4 @@ __help__ = """
  - /disapproveall: Disapproves all users who were approved in the chat
 """
 
-CMD_HELP.update({
-    file_helpo: [
-        file_helpo,
-        __help__
-    ]
-})
+CMD_HELP.update({file_helpo: [file_helpo, __help__]})
