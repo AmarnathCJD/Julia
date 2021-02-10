@@ -200,7 +200,7 @@ async def msg(event):
 @register(pattern="^/app (.*)")
 async def apk(event):
     app_name = event.pattern_match.group(1)
-    h = await event.reply("Finding your app!")
+    await event.reply("Finding your app!")
     try:
         remove_space = app_name.split(" ")
         final_name = "+".join(remove_space)
@@ -258,9 +258,10 @@ async def apk(event):
             + app_link
             + "'>View in Play Store</a>"
         )
-        app_details += f"\n\n===> TeleBot <==="
-        await h.edit(app_details, link_preview=True, parse_mode="HTML")
+        app_details += f"\n\n===> Anie <==="
+        await event.delete
+        await event.reply(app_details, link_preview=false, parse_mode="HTML")
     except IndexError:
-        await h.edit("No result found in search. Please enter **Valid app name**")
+        await event.reply("No result found in search. Please enter **Valid app name**")
     except Exception as err:
-        await h.edit("Exception Occured:- " + str(err))
+        await event.reply("Exception Occured:- " + str(err))
