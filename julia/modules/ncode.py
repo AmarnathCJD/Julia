@@ -1,3 +1,4 @@
+#Made By @RoseloverX
 from julia.events import register
 from julia import CMD_HELP
 from julia import tbot
