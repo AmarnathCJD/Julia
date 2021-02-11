@@ -3,22 +3,22 @@ from julia import TEMP_DOWNLOAD_DIRECTORY
 from telethon import events
 import json
 import math
-import asyncio
 import os
 import re
 import shlex
 import subprocess
 import time
+import eyed3
 from os.path import basename
 from typing import List, Optional, Tuple
 import webbrowser
 from bs4 import BeautifulSoup
-import requests
 from bs4 import BeautifulSoup as bs
 import re
 from telethon.tl.types import InputMessagesFilterDocument
 import telethon
 from telethon import Button, custom, events, functions
+from pymediainfo import MediaInfo
 from telethon.tl.types import MessageMediaPhoto
 from typing import Union
 SIZE_UNITS = ["B", "KB", "MB", "GB", "TB", "PB"]
@@ -26,7 +26,11 @@ BASE_URL = "https://isubtitles.org"
 import zipfile
 import os
 import aiohttp
-
+import requests
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
+headers = {"UserAgent": UserAgent().random}
+import asyncio
 sedpath = TEMP_DOWNLOAD_DIRECTORY
 session = aiohttp.ClientSession()
 
