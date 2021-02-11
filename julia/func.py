@@ -31,6 +31,23 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 headers = {"UserAgent": UserAgent().random}
 import asyncio
+import random
+import requests
+import string
+from bs4 import BeautifulSoup
+from hachoir.metadata import extractMetadata
+from hachoir.parser import createParser
+import hachoir
+import asyncio
+import os
+from pathlib import Path
+from selenium import webdriver
+import time
+import requests
+import shutil
+import os
+import argparse
+import wget
 sedpath = TEMP_DOWNLOAD_DIRECTORY
 session = aiohttp.ClientSession()
 
