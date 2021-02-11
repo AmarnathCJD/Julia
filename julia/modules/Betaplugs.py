@@ -310,3 +310,24 @@ async def hi(event):
         f"<b><u> Fake Information Generated</b></u>\n<b>Name :-</b><code>{name}</code>\n<b>Address:-</b><code>{address}</code>\n<b>IP ADDRESS:-</b><code>{ip}</code>\n<b>credit card:-</b><code>{cc}</code>\n<b>Email Id:-</b><code>{email}</code>\n<b>Job:-</b><code>{job}</code>\n<b>android user agent:-</b><code>{android}</code>\n<b>Pc user agent:-</b><code>{pc}</code>",	
         parse_mode="HTML",	
     )
+
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+ - /iplookup: Get INfo About an ipadress
+ - /memify: Memifies A Sticker Or a Pic
+ - /echo: Sudo Res. U k The Use??.
+ - /ftoimg: Converts Image In FIle Format TO Noral Pic
+ - /bin: Gathers Details ABout The Given BIn
+ - /rmeme: Send Random Memes
+ - /fake: Generates Fake Info
+"""
+
+CMD_HELP.update({
+    file_helpo: [
+        file_helpo,
+        __help__
+    ]
+})
