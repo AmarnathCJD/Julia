@@ -33,7 +33,7 @@ async def hmm(event):
     if not event.reply_to_msg_id:
         await event.reply("Reply to any Image.")
         return
-    hmmu = await event.edit("Colourzing..")
+    hmmu = await event.reply("Colourzing..")
     await event.get_reply_message()
     img = await convert_to_image(event, tbot)
     net = cv2.dnn.readNetFromCaffe(
@@ -41,7 +41,7 @@ async def hmm(event):
         "./resources/imgcolour/colorization_release_v2.caffemodel",
     )
     
-    pts = np.load("./resources/imgcolour/pts_in_hull.npy")
+    pts = np.load("./julia/resources/pts_in_hull.npy")
     class8 = net.getLayerId("class8_ab")
     conv8 = net.getLayerId("conv8_313_rh")
     pts = pts.transpose().reshape(2, 313, 1, 1)
