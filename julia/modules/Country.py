@@ -12,7 +12,6 @@ import re
 import string
 import nltk
 from PIL import Image
-from zalgo_text import zalgo
 from julia.events import register
 import json
 import subprocess
@@ -52,9 +51,6 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 approved_users = db.approve
 
-
-GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
-
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
@@ -77,17 +73,8 @@ async def is_register_admin(chat, user):
 
 @register(pattern="^/country (.*)")
 async def msg(event):
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-    if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
+    if event.fwd_from:
+        return
     start = datetime.now()
     try:
         input_str = event.pattern_match.group(1)
@@ -219,3 +206,20 @@ async def frwder(event):
     except Exception as e:
         await event.reply(f"Format - `/frwd <chat id/username> <message/reply to message>`\n\n{str(e)}")
         return
+    
+    
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+ - /country: Enter a Country Name To get its Details.
+ - /frwd: Forward a message From One Group To Another
+"""
+
+CMD_HELP.update({
+    file_helpo: [
+        file_helpo,
+        __help__
+    ]
+})
