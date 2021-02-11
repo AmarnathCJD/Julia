@@ -1,7 +1,7 @@
 from julia.Config import Config
 from julia.events import register
 from julia import CMD_HELP
-from julia import tbot
+from julia import tbot as borg
 from julia import TEMP_DOWNLOAD_DIRECTORY
 import os
 from shutil import rmtree
@@ -23,6 +23,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
 from julia.func import runcmd, convert_to_image, progress, humanbytes
+from julia.Ok import upload_file as uf
 sedpath = "./starkz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
@@ -37,7 +38,7 @@ async def hmm(event):
         return
     await event.reply("Colourzing..")
     await event.get_reply_message()
-    img = await convert_to_image(event, tbot)
+    img = await convert_to_image(event, borg)
     await event.reply("Test 2")
     net = cv2.dnn.readNetFromCaffe(
         "./resources/imgcolour/colouregex.prototxt",
@@ -69,7 +70,7 @@ async def hmm(event):
     await event.reply("Hmm Okk Lodu")
     ok = sedpath + "/" + file_name
     cv2.imwrite(ok, colorized)
-    await tbot.send_file(event.chat_id, ok)
+    await borg.send_file(event.chat_id, ok)
     await hmmu.delete()
     for files in (ok, img):
         if files and os.path.exists(files):
