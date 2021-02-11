@@ -94,7 +94,7 @@ async def start_again(event):
 async def reopen_again(event):
     if not event.is_group:
         await event.edit(
-            PM_START_TEXT,
+            pm_caption,
             buttons=[
                 [
                     Button.url(
@@ -142,7 +142,7 @@ async def help(event):
     else:
         await event.reply(
             "Contact me in PM to get the help menu",
-            buttons=[[Button.url("Help ❓", "t.me/MissJuliaRobot?start=help")]],
+            buttons=[[Button.url("Help ❓", "t.me/Jarvisevobot?start=help")]],
         )
 
 
@@ -161,18 +161,18 @@ async def help(event):
             return
     if not event.is_group:
         buttons = paginate_help(event, 0, CMD_LIST, "helpme")
-        await event.reply(PM_START_TEXT, buttons=buttons)
+        await event.reply(pm_caption, buttons=buttons)
     else:
         await event.reply(
             "Contact me in PM to get the help menu",
-            buttons=[[Button.url("Help ❓", "t.me/MissJuliaRobot?start=help")]],
+            buttons=[[Button.url("Help ❓", "t.me/Jarvisevobot?start=help")]],
         )
 
 
 @tbot.on(events.CallbackQuery(pattern=r"help_menu"))
 async def help_menu(event):
     buttons = paginate_help(event, 0, CMD_LIST, "helpme")
-    await event.edit(PM_START_TEXT, buttons=buttons)
+    await event.edit(pm_caption, buttons=buttons)
 
 
 @tbot.on(events.callbackquery.CallbackQuery(data=re.compile(rb"helpme_next\((.+?)\)")))
@@ -193,7 +193,7 @@ async def on_plug_in_callback_query_handler(event):
 async def on_plug_in_callback_query_handler(event):
     plugin_name = event.data_match.group(1).decode("UTF-8")
     help_string = ""
-    # By @MissJuliaBeta_Robot
+    # By @RoseLoverX
 
     for i in CMD_LIST[plugin_name]:
         plugin = plugin_name.replace("_", " ")
@@ -228,7 +228,7 @@ async def go_back(event):
     number = c["page"]
     # print (number)
     buttons = paginate_help(event, number, CMD_LIST, "helpme")
-    await event.edit(PM_START_TEXT, buttons=buttons)
+    await event.edit(pm_caption, buttons=buttons)
 
 
 def get_page(id):
