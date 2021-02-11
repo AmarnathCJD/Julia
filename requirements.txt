@@ -10,6 +10,7 @@ moviepy
 colour
 scapy
 eyed3
+fake_useragent
 pymediainfo
 pytest-timeit
 faker
