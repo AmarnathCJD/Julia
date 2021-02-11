@@ -79,3 +79,14 @@ async def _(event):
 def resize_image(image):
     im = Image.open(image)
     im.save(image, "PNG")
+
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+ - /tm : Get Telegraph Link Of Replied Media
+ - /tt: Get Telegraph Link of Replied Text
+"""
+
+CMD_HELP.update({file_helpo: [file_helpo, __help__]})
