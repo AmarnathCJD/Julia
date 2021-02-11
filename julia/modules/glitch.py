@@ -19,6 +19,7 @@ async def glitch(cat):
         return await cat.reply("`Reply to supported Media...`")
     catid = await reply_id(cat)
     san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+    await cat.reply("`Reply to supported Media...`")
     if not os.path.isdir("./temp"):
         os.mkdir("./temp")
     catinput = 2
