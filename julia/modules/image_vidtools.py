@@ -6,6 +6,7 @@ from julia import TEMP_DOWNLOAD_DIRECTORY
 import os
 from shutil import rmtree
 import cv2
+import io
 import cv2 as cv
 import random
 import numpy as np
@@ -22,7 +23,7 @@ from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
 from julia.func import runcmd, convert_to_image, progress, humanbytes
-sedpath = "./okiedoki/"
+sedpath = "./starkz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
 
@@ -34,9 +35,10 @@ async def hmm(event):
     if not event.reply_to_msg_id:
         await event.reply("Reply to any Image.")
         return
-    hmmu = await event.reply("Colourzing..")
+    await event.reply("Colourzing..")
     await event.get_reply_message()
     img = await convert_to_image(event, tbot)
+    await event.reply("Test 2")
     net = cv2.dnn.readNetFromCaffe(
         "./resources/imgcolour/colouregex.prototxt",
         "./resources/imgcolour/colorization_release_v2.caffemodel",
