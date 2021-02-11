@@ -10,6 +10,7 @@ import cv2 as cv
 import random
 import numpy as np
 from datetime import datetime
+import time
 from PIL import Image, ImageDraw, ImageFont
 import pytz 
 import asyncio
