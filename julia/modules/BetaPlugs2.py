@@ -517,3 +517,23 @@ async def _(event):
         event.chat_id,
         file=result
     )
+
+    file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+ - /meme: Get Random memes
+ - /rgif: Reply To a Gif To Rotate It
+ - /momfck: Uff
+ - /shazam: Reply To an Audio Or Video To Identify The Song
+ - /Upload: Sudo Restericted Uploads A file from Bot Dir
+ - /co: Colours An image Via DeepAi
+"""
+
+CMD_HELP.update({
+    file_helpo: [
+        file_helpo,
+        __help__
+    ]
+})
