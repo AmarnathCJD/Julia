@@ -26,7 +26,7 @@ from telethon.utils import get_input_location
 sedpath = "./starkgangz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
-from julia.Ok import upload_file as if
+from julia.Ok import upload_file as uf
 from julia.func import runcmd, convert_to_image, progress, humanbytes
 
 @register(pattern="^/cit")
