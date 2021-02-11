@@ -57,11 +57,13 @@ async def hmm(event):
     ab = net.forward()[0, :, :, :].transpose((1, 2, 0))
     ab = cv2.resize(ab, (image.shape[1], image.shape[0]))
     L = cv2.split(lab)[0]
+    await event.reply("hmm")
     colorized = np.concatenate((L[:, :, np.newaxis], ab), axis=2)
     colorized = cv2.cvtColor(colorized, cv2.COLOR_LAB2BGR)
     colorized = np.clip(colorized, 0, 1)
     colorized = (255 * colorized).astype("uint8")
     file_name = "Colour.png"
+    await event.reply("Hmm Okk Lodu")
     ok = sedpath + "/" + file_name
     cv2.imwrite(ok, colorized)
     await tbot.send_file(event.chat_id, ok)
