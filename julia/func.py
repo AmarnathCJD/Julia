@@ -28,8 +28,6 @@ import os
 import aiohttp
 
 sedpath = TEMP_DOWNLOAD_DIRECTORY
-if not os.path.isdir(sedpath):
-    os.makedirs(sedpath)
 session = aiohttp.ClientSession()
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
@@ -46,6 +44,43 @@ async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
         process.pid,
     )
 
+
+
+async def progress(current, total, event, start, type_of_ps, file_name=None):
+    """Generic progress_callback for uploads and downloads."""
+    now = time.time()
+    diff = now - start
+    if round(diff % 10.00) == 0 or current == total:
+        percentage = current * 100 / total
+        speed = current / diff
+        elapsed_time = round(diff) * 1000
+        if elapsed_time == 0:
+            return
+        time_to_completion = round((total - current) / speed) * 1000
+        estimated_total_time = elapsed_time + time_to_completion
+        progress_str = "{0}{1} {2}%\n".format(
+            "".join(["▰" for i in range(math.floor(percentage / 10))]),
+            "".join(["▱" for i in range(10 - math.floor(percentage / 10))]),
+            round(percentage, 2),
+        )
+        tmp = progress_str + "{0} of {1}\nETA: {2}".format(
+            humanbytes(current), humanbytes(total), time_formatter(estimated_total_time)
+        )
+        if file_name:
+            try:
+                await event.reply(
+                    "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
+                    
+                )
+            except:
+                pass
+        else:
+            try:
+                await event.reply("{}\n{}".format(type_of_ps, tmp))
+            except:
+                pass
+
+
 async def convert_to_image(event, tbot):
     lmao = await event.get_reply_message()
     if not (
@@ -58,7 +93,7 @@ async def convert_to_image(event, tbot):
             or lmao.sticker
             or lmao.media
     ):
-        await event.edit("`Format Not Supported.`")
+        await event.reply("`Format Not Supported.`")
         return
     else:
         try:
@@ -73,7 +108,7 @@ async def convert_to_image(event, tbot):
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
         else:
-            await event.edit(
+            await event.reply(
                 "Downloaded to `{}` successfully.".format(downloaded_file_name)
             )
     if not os.path.exists(downloaded_file_name):
