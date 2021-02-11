@@ -22,6 +22,7 @@ async def glitch(cat):
     if not os.path.isdir("./temp"):
         os.mkdir("./temp")
     catinput = 2
+    await cat.reply("`Reply to supported Media...`")
     glitch_file = await _cattools.media_to_pic(cat, reply)
     try:
         san = Get(san)
