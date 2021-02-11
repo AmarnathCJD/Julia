@@ -126,7 +126,7 @@ async def convert_to_image(event, tbot):
                 "Downloaded to `{}` successfully.".format(downloaded_file_name)
             )
     if not os.path.exists(downloaded_file_name):
-        await event.edit("Download Unsucessfull :(")
+        await event.reply("Download Unsucessfull :(")
         return
     if lmao and lmao.photo:
         lmao_final = downloaded_file_name
@@ -142,7 +142,7 @@ async def convert_to_image(event, tbot):
         image_new_path = sedpath + "image.png"
         os.rename(pathofsticker2, image_new_path)
         if not os.path.exists(image_new_path):
-            await event.edit("`Wasn't Able To Fetch Shot.`")
+            await event.reply("`Wasn't Able To Fetch Shot.`")
             return
         lmao_final = image_new_path
     elif lmao.audio:
@@ -153,7 +153,7 @@ async def convert_to_image(event, tbot):
         await runcmd(f"ffmpeg -i {hmmyes} -filter:v scale=500:500 -an {imgpath}")
         os.remove(sed_p)
         if not os.path.exists(imgpath):
-            await event.edit("`Wasn't Able To Fetch Shot.`")
+            await event.reply("`Wasn't Able To Fetch Shot.`")
             return
         lmao_final = imgpath
     elif lmao.gif or lmao.video or lmao.video_note:
@@ -162,8 +162,8 @@ async def convert_to_image(event, tbot):
         await take_screen_shot(sed_p2, 0, jpg_file)
         os.remove(sed_p2)
         if not os.path.exists(jpg_file):
-            await event.edit("`Couldn't Fetch. SS`")
+            await event.reply("`Couldn't Fetch. SS`")
             return
         lmao_final = jpg_file
-    await event.edit("`Almost Completed.`")
+    await event.reply("`Almost Completed.`")
     return lmao_final
