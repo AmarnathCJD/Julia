@@ -41,8 +41,8 @@ async def hmm(event):
     img = await convert_to_image(event, borg)
     await event.reply("Test 2")
     net = cv2.dnn.readNetFromCaffe(
-        "./resources/imgcolour/colouregex.prototxt",
-        "./resources/imgcolour/colorization_release_v2.caffemodel",
+        "./julia/resources/colouregex.prototxt",
+        "./julia/resources/colorization_release_v2.caffemodel",
     )
     await event.reply("hmm")
     pts = np.load("./julia/resources/pts_in_hull.npy")
