@@ -9,6 +9,8 @@ speedtest
 moviepy
 colour
 scapy
+eyed3
+pymediainfo
 pytest-timeit
 faker
 mapper==0.1.17
