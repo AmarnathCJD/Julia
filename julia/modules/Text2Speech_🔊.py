@@ -41,7 +41,7 @@ async def is_register_admin(chat, user):
     return None
 
 
-@register(pattern="^/tts (.*)")
+@register(pattern="^/speech (.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -99,7 +99,7 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /tts <lang | text>: Returns a speech note of the text provided
+ - /speech <lang | text>: Returns a speech note of the text provided
 """
 
 CMD_HELP.update({
