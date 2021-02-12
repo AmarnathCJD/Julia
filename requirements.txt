@@ -8,6 +8,7 @@ numpy==1.19.4
 speedtest
 moviepy
 colour
+vcam
 scapy
 eyed3
 wget
