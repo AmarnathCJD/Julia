@@ -87,3 +87,36 @@ async def iamthug(event):
     for files in (ok, img):
         if files and os.path.exists(files):
             os.remove(files)
+
+@register(pattern="^/mask")
+async def iamnone(event):
+    if event.fwd_from:
+        return
+    if not event.reply_to_msg_id:
+        await event.reply("Reply to any Image.")
+        return
+    hmm = await event.reply("`Converting To Masked Image..`")
+    await event.get_reply_message()
+    img = await convert_to_image(event, borg)
+    imagePath = img
+    wget_s = wget.download(event.pattern_match.group(1), out=TEMP_DOWNLOAD_DIRECTORY)
+    maskPath = wget_s
+    cascPath = "./resources/thuglife/face_regex.xml"
+    faceCascade = cv2.CascadeClassifier(cascPath)
+    image = cv2.imread(imagePath)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = faceCascade.detectMultiScale(gray, 1.15)
+    background = Image.open(imagePath)
+    for (x, y, w, h) in faces:
+        mask = Image.open(maskPath)
+        mask = mask.resize((w, h), Image.ANTIALIAS)
+        offset = (x, y)
+        background.paste(mask, offset, mask=mask)
+    file_name = "masked_img.png"
+    ok = sedpath + "/" + file_name
+    background.save(ok, "PNG")
+    await borg.send_file(event.chat_id, ok)
+    await hmm.delete()
+    for files in (ok, img, maskPath):
+        if files and os.path.exists(files):
+            os.remove(files)
