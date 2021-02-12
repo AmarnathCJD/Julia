@@ -27,6 +27,8 @@ sedpath = "./starkgangz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
 from julia.Ok import upload_file as uf
+from julia.Ok import upload_file
+
 from julia.func import convert_to_image, crop_vid, runcmd, tgs_to_gif
 DANISH = "58199388-5499-4c98-b052-c679b16310f9"
 @register(pattern="^/nfsw")
@@ -88,35 +90,22 @@ async def iamthug(event):
         if files and os.path.exists(files):
             os.remove(files)
 
-@register(pattern="^/mask")
-async def iamnone(event):
+@register(pattern="^/trig")
+async def lolmetrg(event):
     if event.fwd_from:
         return
-    if not event.reply_to_msg_id:
-        await event.reply("Reply to any Image.")
-        return
-    hmm = await event.reply("`Converting To Masked Image..`")
-    await event.get_reply_message()
+    await event.reply("`Triggered This Image`")
+    sed = await event.get_reply_message()
     img = await convert_to_image(event, borg)
-    imagePath = img
-    wget_s = wget.download(event.pattern_match.group(1), out=TEMP_DOWNLOAD_DIRECTORY)
-    maskPath = wget_s
-    cascPath = "./resources/thuglife/face_regex.xml"
-    faceCascade = cv2.CascadeClassifier(cascPath)
-    image = cv2.imread(imagePath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    faces = faceCascade.detectMultiScale(gray, 1.15)
-    background = Image.open(imagePath)
-    for (x, y, w, h) in faces:
-        mask = Image.open(maskPath)
-        mask = mask.resize((w, h), Image.ANTIALIAS)
-        offset = (x, y)
-        background.paste(mask, offset, mask=mask)
-    file_name = "masked_img.png"
-    ok = sedpath + "/" + file_name
-    background.save(ok, "PNG")
-    await borg.send_file(event.chat_id, ok)
-    await hmm.delete()
-    for files in (ok, img, maskPath):
+    url_s = upload_file(img)
+    imglink = f"https://telegra.ph{url_s[0]}"
+    lolul = f"https://some-random-api.ml/canvas/triggered?avatar={imglink}"
+    r = requests.get(lolul)
+    open("triggered.gif", "wb").write(r.content)
+    lolbruh = "triggered.gif"
+    await borg.send_file(
+        event.chat_id, lolbruh, caption="You got triggered....", reply_to=sed
+    )
+    for files in (lolbruh, img):
         if files and os.path.exists(files):
             os.remove(files)
