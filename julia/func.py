@@ -158,7 +158,7 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
         )
         if file_name:
             try:
-                await event.reply(
+                k = await event.reply(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
                     
                 )
@@ -167,6 +167,7 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
         else:
             try:
                 await event.reply("{}\n{}".format(type_of_ps, tmp))
+                await k.delete()
             except:
                 pass
 
@@ -183,7 +184,7 @@ async def convert_to_image(event, borg):
             or lmao.sticker
             or lmao.media
     ):
-        await event.edit("`Format Not Supported.`")
+        await event.reply("`Format Not Supported.`")
         return
     else:
         try:
@@ -198,11 +199,11 @@ async def convert_to_image(event, borg):
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
         else:
-            k = await event.reply(
+            f = await event.reply(
                 "Downloaded to `{}` successfully.".format(downloaded_file_name)
             )
     if not os.path.exists(downloaded_file_name):
-        await event.edit("Download Unsucessfull :(")
+        await f.edit("Download Unsucessfull :(")
         return
     if lmao and lmao.photo:
         lmao_final = downloaded_file_name
@@ -241,7 +242,8 @@ async def convert_to_image(event, borg):
             await event.edit("`Couldn't Fetch. SS`")
             return
         lmao_final = jpg_file
-    await k.edit("`Almost Completed.`")
+    await f.edit("`Almost Completed.`")
+    await f.delete()
     return lmao_final
 
 async def crop_vid(input_vid: str, final_path: str):
