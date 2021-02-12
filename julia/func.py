@@ -158,8 +158,9 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
         )
         if file_name:
             try:
-                k = await event.reply(
+                await event.reply(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
+                await event.delete()
                     
                 )
             except:
@@ -167,7 +168,6 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
         else:
             try:
                 await event.reply("{}\n{}".format(type_of_ps, tmp))
-                await k.delete()
             except:
                 pass
 
