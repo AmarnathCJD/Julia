@@ -98,6 +98,7 @@ async def lolmetrg(event):
     sed = await event.get_reply_message()
     img = await convert_to_image(event, borg)
     url_s = upload_file(img)
+    await event.reply("ok")
     imglink = f"https://telegra.ph{url_s[0]}"
     lolul = f"https://some-random-api.ml/canvas/triggered?avatar={imglink}"
     r = requests.get(lolul)
