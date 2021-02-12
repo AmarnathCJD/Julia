@@ -179,3 +179,35 @@ async def holastark2(event):
     await tbot.send_file(event.chat_id, ok)
     if os.path.exists(ok):
         os.remove(ok)
+
+@register(pattern="^/uff ?(.*)")
+async def img(event):
+    if event.fwd_from:
+        return
+    text = event.pattern_match.group(1)
+    if not text:
+        await event.reply("No input found!  --__--")
+        return
+    if ":" in text:
+        username, texto = text.split(":", 1)
+    else:
+        event.reply("Invalid Input! Check help for more info!")
+        return
+    img = Image.open("./resources/pb.jpg")
+    d1 = ImageDraw.Draw(img)
+
+    myFont = ImageFont.truetype("./resources/font.TTF", 100)
+
+    d1.text((300, 700), username, font=myFont, fill=(135, 98, 87))
+
+    d1.text((12, 1000), texto, font=myFont, fill=(203, 202, 202))
+
+    img.save("./starkgangz/testpb.jpg")
+    file_name = "testpb.jpg"
+    ok = "./starkgangz/" + file_name
+    await borg.send_file(event.chat_id, ok)
+    os.remove(files)
+    for files in (ok, img):
+        if files and os.path.exists(files):
+            os.remove(files)
+        event.delete()
