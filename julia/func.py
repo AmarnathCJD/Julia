@@ -160,7 +160,6 @@ async def progress(current, total, event, start, type_of_ps, file_name=None):
             try:
                 await event.reply(
                     "{}\n**File Name:** `{}`\n{}".format(type_of_ps, file_name, tmp)
-                await event.delete()
                     
                 )
             except:
@@ -199,7 +198,7 @@ async def convert_to_image(event, borg):
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
         else:
-            f = await event.reply(
+            f = await event.edit(
                 "Downloaded to `{}` successfully.".format(downloaded_file_name)
             )
     if not os.path.exists(downloaded_file_name):
