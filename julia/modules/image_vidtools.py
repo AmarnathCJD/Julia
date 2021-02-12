@@ -110,3 +110,53 @@ async def lolmetrg(event):
     for files in (lolbruh, img):
         if files and os.path.exists(files):
             os.remove(files)
+
+@register(pattern="^/spin ?(.*)")
+async def spinshit(message):
+    if message.fwd_from:
+        return
+    reply = await message.get_reply_message()
+    lmaodict = {"1": 1, "2": 3, "3": 6, "4": 12, "5": 24, "6": 60}
+    lolshit = message.pattern_match.group(1)
+    keke = f"{lolshit}"
+    if not reply:
+        await message.reply("`Reply To Media First !`")
+        return
+    else:
+        if lolshit:
+            step = lmaodict[keke]
+        else:
+            step = 1
+    pic_loc = await convert_to_image(message, borg)
+    if not pic_loc:
+        await message.reply("`Reply to a valid media first.`")
+        return
+    await message.reply("ðŸŒ€ `Tighten your seatbelts, sh*t is about to get wild ...`")
+    spin_dir = 1
+    path = "resources/rotate-disc/"
+    if os.path.exists(path):
+        rmtree(path, ignore_errors=True)
+    os.mkdir(path)
+    im = Image.open(pic_loc)
+    if im.mode != "RGB":
+        im = im.convert("RGB")
+    # Rotating pic by given angle and saving
+    for k, nums in enumerate(range(1, 360, step), start=0):
+        y = im.rotate(nums * spin_dir)
+        y.save(os.path.join(path, "spinx%s.jpg" % k))
+    output_vid = os.path.join(path, "out.mp4")
+    # ;__; Maths lol, y = mx + c
+    frate = int(((90 / 59) * step) + (1680 / 59))
+    # https://stackoverflow.com/questions/20847674/ffmpeg-libx264-height-not-divisible-by-2
+    await runcmd(
+        f'ffmpeg -framerate {frate} -i {path}spinx%d.jpg -c:v libx264 -preset ultrafast -vf "crop=trunc(iw/2)*2:trunc(ih/2)*2" -pix_fmt yuv420p {output_vid}'
+    )
+    if os.path.exists(output_vid):
+        round_vid = os.path.join(path, "out_round.mp4")
+        await crop_vid(output_vid, round_vid)
+        await borg.send_file(
+            message.chat_id, round_vid, video_note=True, reply_to=reply.id
+        )
+        await message.delete()
+    os.remove(pic_loc)
+    rmtree(path, ignore_errors=True)
