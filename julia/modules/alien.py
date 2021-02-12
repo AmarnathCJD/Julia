@@ -15,7 +15,6 @@ async def fun_mirror(event):
     reply = await event.get_reply_message()
     lol = await tbot.download_media(reply.media, path)
     file_name = "mirror.jpg"
-    await event.reply("aok")
     hehe = path + "/" + file_name
     img = cv2.imread(lol)
     H,W = img.shape[:2]
