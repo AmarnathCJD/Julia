@@ -161,7 +161,7 @@ async def spinshit(message):
     os.remove(pic_loc)
     rmtree(path, ignore_errors=True)
 
-@register(pattern="^/al ?(.*)")
+@register(pattern="^/abe (.*)")
 async def holastark2(event):
     if event.fwd_from:
         return
