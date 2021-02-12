@@ -6,8 +6,6 @@ import math
 from vcam import vcam,meshGen
 import sys
 import os
-from userbot.utils import admin_cmd
-from userbot import bot 
 if not os.path.isdir("./dco/"):
     os.makedirs("./dco/")
 
