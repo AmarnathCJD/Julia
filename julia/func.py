@@ -198,11 +198,11 @@ async def convert_to_image(event, borg):
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
         else:
-            f = await event.edit(
+            j = await event.reply(
                 "Downloaded to `{}` successfully.".format(downloaded_file_name)
             )
     if not os.path.exists(downloaded_file_name):
-        await f.edit("Download Unsucessfull :(")
+        await event.reply("Download Unsucessfull :(")
         return
     if lmao and lmao.photo:
         lmao_final = downloaded_file_name
@@ -241,8 +241,8 @@ async def convert_to_image(event, borg):
             await event.edit("`Couldn't Fetch. SS`")
             return
         lmao_final = jpg_file
-    await f.edit("`Almost Completed.`")
-    await f.delete()
+    await j.edit("`Almost Completed.`")
+    await j.delete()
     return lmao_final
 
 async def crop_vid(input_vid: str, final_path: str):
