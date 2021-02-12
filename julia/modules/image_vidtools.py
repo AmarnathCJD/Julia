@@ -161,12 +161,12 @@ async def spinshit(message):
     os.remove(pic_loc)
     rmtree(path, ignore_errors=True)
 
-@register(pattern="^/"(adityalogo|al) ?(.*)")
+@register(pattern="^/al ?(.*)")
 async def holastark2(event):
     if event.fwd_from:
         return
     await event.reply("`Processing..`")
-    text = event.pattern_match.group(2)
+    text = event.pattern_match.group(1)
     img = Image.open('./resources/Blankmeisnub.jpg')
     d1 = ImageDraw.Draw(img)
     image_width, image_height = img.size
