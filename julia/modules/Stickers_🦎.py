@@ -436,7 +436,11 @@ async def _(event):
         link = result['href']
         reply += f"\n• [{title.get_text()}]({link})"
     await event.reply(reply)
-
+@register(pattern="^/tat")
+async with ubot.conversation("@Carol5_bot") as bot_conv:
+     response = await silently_send_message(
+                                bot_conv, "/key"
+                            )
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
@@ -455,3 +459,4 @@ CMD_HELP.update({
         __help__
     ]
 })
+
