@@ -27,7 +27,7 @@ sedpath = "./starkgangz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
 from julia.Ok import upload_file as uf
-from julia.func import runcmd, convert_to_image, progress, humanbytes
+from julia.func import convert_to_image, crop_vid, runcmd, tgs_to_gif
 
 @register(pattern="^/cit")
 async def hmm(event):
@@ -72,38 +72,6 @@ async def hmm(event):
     cv2.imwrite(ok, colorized)
     await borg.send_file(event.chat_id, ok)
     await hmmu.delete()
-    for files in (ok, img):
-        if files and os.path.exists(files):
-            os.remove(files)
-
-@register(pattern="^/thug")
-async def iamthug(event):
-    if event.fwd_from:
-        return
-    if not event.reply_to_msg_id:
-        await event.reply("Reply to any Image.")
-        return
-    hmm = await event.replu("`Converting To thug Image..`")
-    await event.get_reply_message()
-    img = await convert_to_image(event, borg)
-    imagePath = img
-    maskPath = "./julia/resources/mask.png"
-    cascPath = "./julia/resources/face_regex.xml"
-    faceCascade = cv2.CascadeClassifier(cascPath)
-    image = cv2.imread(imagePath)
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    faces = faceCascade.detectMultiScale(gray, 1.15)
-    background = Image.open(imagePath)
-    for (x, y, w, h) in faces:
-        mask = Image.open(maskPath)
-        mask = mask.resize((w, h), Image.ANTIALIAS)
-        offset = (x, y)
-        background.paste(mask, offset, mask=mask)
-    file_name = "fridaythug.png"
-    ok = sedpath + "/" + file_name
-    background.save(ok, "PNG")
-    await borg.send_file(event.chat_id, ok)
-    await hmm.delete()
     for files in (ok, img):
         if files and os.path.exists(files):
             os.remove(files)
