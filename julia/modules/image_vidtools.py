@@ -2,6 +2,7 @@ from julia.Config import Config
 from julia.events import register
 from julia import CMD_HELP
 from julia import tbot as borg
+from julia import tbot
 from julia import TEMP_DOWNLOAD_DIRECTORY
 import os
 import wget
@@ -26,7 +27,6 @@ from telethon.utils import get_input_location
 sedpath = "./starkgangz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
-from julia.Ok import upload_file as uf
 from julia.Ok import upload_file
 
 from julia.func import convert_to_image, crop_vid, runcmd, tgs_to_gif
