@@ -15,7 +15,7 @@ from pygments.formatters import ImageFormatter
 from telegraph import upload_file
 from telethon import events
 from telethon.tl.types import MessageMediaPhoto
-
+import pygments, os, asyncio, shutil, scapy, sys, requests, re, subprocess, urllib
 @register(pattern="^/alien")
 async def fun_mirror(event):
     path = "dco"
@@ -63,3 +63,29 @@ async def hehe(event):
     await event.delete()
     shutil.rmtree(path)
     os.remove("dark.jpg")
+
+@register(pattern="^/circle")
+async def shiv(event):
+    if not event.reply_to_msg_id:
+        await event.reply("Reply to any media.")
+        return
+    await event.reply("```Processing...```")
+    reply = await event.get_reply_message()
+    download = await tbot.download_media(reply.media, path)
+    danish = cv2.VideoCapture(download) 
+    ret, frame = danish.read()
+    cv2.imwrite("danish.jpg", frame)
+    img=Image.open("danish.jpg").convert("RGB")
+    npImage=np.array(img)
+    h,w=img.size
+    alpha = Image.new('L', img.size,0)
+    draw = ImageDraw.Draw(alpha)
+    draw.pieslice([0,0,h,w],0,360,fill=255)
+    npAlpha=np.array(alpha)
+    npImage=np.dstack((npImage,npAlpha))
+    Image.fromarray(npImage).save('shivam.webp')
+    await event.client.send_file(event.chat_id, "shivam.webp", force_document=False, reply_to=event.reply_to_msg_id)
+    await event.delete()
+    shutil.rmtree(path)
+    os.remove("shivam.webp")
+    os.remove("danish.jpg")
