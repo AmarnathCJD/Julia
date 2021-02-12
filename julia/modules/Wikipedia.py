@@ -1,52 +1,10 @@
-
-#made by RoseLoverX Jo Kang Kiya Wo Mera beta Ho
-from PIL import ImageEnhance, ImageOps
-from random import uniform
-from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-import asyncio
-import io
-import random
-import re
-import string
-import nltk
-from zalgo_text import zalgo
-from julia.events import register
-import json
-import subprocess
-import textwrap
-import urllib.request
-from random import randrange
-from typing import List
-from typing import Optional
-import emoji
 import wikipedia
-from cowpy import cow
-from fontTools.ttLib import TTFont
-from PIL import ImageDraw
-from PIL import ImageFont
+from julia import *
+from wikipedia.exceptions import DisambiguationError, PageError
 from pymongo import MongoClient
 from telethon import *
-from telethon.tl import functions
-from telethon.tl.types import *
-from julia import *
-from julia.Config import Config
-import traceback
-nltk.download("punkt")
-nltk.download("averaged_perceptron_tagger")
-from countryinfo import CountryInfo
-import flag
-import html
-from telethon.tl.functions.photos import GetUserPhotosRequest
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.tl.types import MessageEntityMentionName
-from telethon.utils import get_input_location
-WIDE_MAP = {i: i + 0xFEE0 for i in range(0x21, 0x7F)}
-WIDE_MAP[0x20] = 0x3000
-import os
-from datetime import datetime
-from PIL import Image
-from telegraph import Telegraph, exceptions, upload_file
+from telethon.tl import *
+from julia.events import register
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -55,45 +13,72 @@ approved_users = db.approve
 
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
-
         return isinstance(
-            (await
-             tbot(functions.channels.GetParticipantRequest(chat,
-                                                           user))).participant,
+            (
+                await tbot(functions.channels.GetParticipantRequest(chat, user))
+            ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
-    if isinstance(chat, types.InputPeerChat):
+    if isinstance(chat, types.InputPeerUser):          
+        return True
 
-        ui = await tbot.get_peer_id(user)
-        ps = (await tbot(functions.messages.GetFullChatRequest(chat.chat_id)
-                         )).full_chat.participants.participants
-        return isinstance(
-            next((p for p in ps if p.user_id == ui), None),
-            (types.ChatParticipantAdmin, types.ChatParticipantCreator),
-        )
-    return None
 
-@register(pattern="^/wiki (.*)")
-async def msg(event):
+@register(pattern="^/wiki ?(.*)")
+async def _(event):
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
         userss = ch["user"]
     if event.is_group:
-        if (await is_register_admin(event.input_chat, event.message.sender_id)):
+        if await is_register_admin(event.input_chat, event.message.sender_id):
             pass
         elif event.chat_id == iid and event.sender_id == userss:
             pass
         else:
             return
-    await event.reply("Processing ...")
     input_str = event.pattern_match.group(1)
-    result = ""
-    results = wikipedia.search(input_str)
-    for s in results:
-        page = wikipedia.page(s)
-        url = page.url
-        result += f"> [{s}]({url}) \n"
-    await event.reply(
-        "WikiPedia **Search**: {} \n\n **Result**: \n\n{}".format(input_str, result)
-    )
+    if not input_str:
+        await event.reply("Please provide some input.")
+        return
+    res = ""
+    search = input_str
+    try:
+        res = wikipedia.summary(search)
+    except DisambiguationError as e:
+        await event.reply(
+            "Disambiguated pages found! Adjust your query accordingly.\n<i>{}</i>".format(e),
+            parse_mode="html",
+        )
+    except PageError as e:
+        await event.reply(
+            "<code>{}</code>".format(e), parse_mode="html"
+        )
+    if res:
+        result = f"<b>{search}</b>\n\n"
+        result += f"<i>{res}</i>\n"
+        result += f"""<a href="https://en.wikipedia.org/wiki/{search.replace(" ", "%20")}">Read more...</a>"""
+        if len(result) > 4000:
+            with open("result.txt", "w") as f:
+                f.write(f"{result}")
+            with open("result.txt", "rb") as f:
+                await tbot.send_file(
+                    chat_id=event.chat_id,
+                    file=f,
+                    filename=f.name,
+                    reply_to=event,                    
+                    parse_mode="html",
+                )
+        else:
+            await event.reply(
+                result, parse_mode="html", link_preview=False
+            )
+
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+ - /wiki <search>: Find results for search in wikipedia and return it.
+"""
+
+CMD_HELP.update({file_helpo: [file_helpo, __help__]})
