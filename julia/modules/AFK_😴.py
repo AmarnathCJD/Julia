@@ -29,10 +29,9 @@ async def is_register_admin(chat, user):
         return True
 
 
-@register(pattern="^/afk ?(.*)")
+@register(pattern=r"(.*?)")
 async def _(event):
-    send = await event.get_sender()
-    sender = await tbot.get_entity(send)
+    sender = await event.get_sender()    
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
@@ -44,69 +43,29 @@ async def _(event):
             pass
         else:
             return
-    else:
-        return
 
-    cmd = event.pattern_match.group(1)
-
-    if cmd is not None:
+    if event.text.startswith("/afk"):
+     cmd = event.text[len("/afk ") :]
+     if cmd is not None:
         reason = cmd
-    else:
+     else:
         reason = ""
+     fname = sender.first_name        
+     # print(reason)
+     start_time = time.time()
+     sql.set_afk(sender.id, reason, start_time)
+     await event.reply(
+           "**{} is now AFK !**".format(fname),
+           parse_mode="markdown")
+     return
 
-    fname = sender.first_name
-
-    notice = ""
-    if len(reason) > 100:
-        reason = reason[:100]
-        notice = "{fname} your afk reason was shortened to 100 characters."
-    else:
-        reason = cmd
-
-    # print(reason)
-    start_time = time.time()
-    sql.set_afk(sender.id, reason, start_time)
-
-    try:
-        await event.reply(
-            "**{} is now AFK !**\n\n{}".format(fname, notice),
-            parse_mode="markdown",
-        )
-    except Exception:
-        pass
-
-
-@tbot.on(events.NewMessage(pattern="/noafk$"))
-async def _(event):
-    send = await event.get_sender()
-    sender = await tbot.get_entity(send)
-
-    approved_userss = approved_users.find({})
-    for ch in approved_userss:
-        iid = ch["id"]
-        userss = ch["user"]
-
-    if event.is_group:
-        if await is_register_admin(event.input_chat, event.message.sender_id):
-            pass
-        elif event.chat_id == iid and event.sender_id == userss:
-            pass
-        else:
-            return
-    else:
-        return
-
-    res = sql.rm_afk(sender.id)
-    if res:
-        firstname = sender.first_name
-        try:
-            text = "**{} is no longer AFK !**".format(firstname)
-            await event.reply(text, parse_mode="markdown")
-        except BaseException:
-            return
-    else:
-        await event.reply("Are you even AFK ?")
-
+    if sql.is_afk(sender.id):
+       res = sql.rm_afk(sender.id)
+       if res:
+          firstname = sender.first_name
+          text = "**{} is no longer AFK !**".format(firstname)
+          await event.reply(text, parse_mode="markdown")
+        
 
 @tbot.on(events.NewMessage(pattern=None))
 async def _(event):
@@ -132,14 +91,8 @@ async def _(event):
                     return
                 c = txt
                 a = c.split()[0]
-                # print (a)
-                # print (c)
-                if not "@" in a:
-                    userid = int(ent.user_id)
-                    break
-                else:
-                    let = await tbot.get_input_entity(a)
-                    userid = let.user_id
+                let = await tbot.get_input_entity(a)
+                userid = let.user_id
         except Exception:
             return
 
@@ -182,7 +135,6 @@ file_helpo = file_help.replace("_", " ")
 
 __help__ = """
  - /afk <reason>: mark yourself as AFK(Away From Keyboard)
- - /noafk: unmark yourself as AFK(Away From Keyboard)
 """
 
 CMD_HELP.update({file_helpo: [file_helpo, __help__]})
