@@ -34,7 +34,6 @@ async def hmm(event):
     if event.fwd_from:
         return
     life = DANISH
-    if life == None:
     if not event.reply_to_msg_id:
         await event.reply("Reply to any Image.")
         return
