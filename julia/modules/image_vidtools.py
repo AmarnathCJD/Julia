@@ -160,3 +160,22 @@ async def spinshit(message):
         await message.delete()
     os.remove(pic_loc)
     rmtree(path, ignore_errors=True)
+
+@register(pattern="^/"(adityalogo|al) ?(.*)")
+async def holastark2(event):
+    if event.fwd_from:
+        return
+    await event.reply("`Processing..`")
+    text = event.pattern_match.group(2)
+    img = Image.open('./resources/Blankmeisnub.jpg')
+    d1 = ImageDraw.Draw(img)
+    image_width, image_height = img.size
+    myFont = ImageFont.truetype('./resources/Streamster.ttf', size=int(image_height * 300) // 100)
+    d1.text((621, 597), text, font=myFont, fill=(255, 255, 0))
+    file_name = "LogoBy@MeisNub.png"
+    await event.delete()
+    ok = sedpath + "/" + file_name
+    img.save(ok, "PNG")
+    await tbot.send_file(event.chat_id, ok)
+    if os.path.exists(ok):
+        os.remove(ok)
