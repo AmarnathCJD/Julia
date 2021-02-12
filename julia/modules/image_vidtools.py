@@ -55,3 +55,35 @@ async def hmm(event):
     await hmm.delete()
     if os.path.exists(img):
         os.remove(img)
+
+@register(pattern="^/thug")
+async def iamthug(event):
+    if event.fwd_from:
+        return
+    if not event.reply_to_msg_id:
+        await event.reply("Reply to any Image.")
+        return
+    hmm = await event.reply("`Converting To thug Image..`")
+    await event.get_reply_message()
+    img = await convert_to_image(event, borg)
+    imagePath = img
+    maskPath = "./resources/thuglife/mask.png"
+    cascPath = "./resources/thuglife/face_regex.xml"
+    faceCascade = cv2.CascadeClassifier(cascPath)
+    image = cv2.imread(imagePath)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    faces = faceCascade.detectMultiScale(gray, 1.15)
+    background = Image.open(imagePath)
+    for (x, y, w, h) in faces:
+        mask = Image.open(maskPath)
+        mask = mask.resize((w, h), Image.ANTIALIAS)
+        offset = (x, y)
+        background.paste(mask, offset, mask=mask)
+    file_name = "fridaythug.png"
+    ok = sedpath + "/" + file_name
+    background.save(ok, "PNG")
+    await borg.send_file(event.chat_id, ok)
+    await hmm.delete()
+    for files in (ok, img):
+        if files and os.path.exists(files):
+            os.remove(files)
