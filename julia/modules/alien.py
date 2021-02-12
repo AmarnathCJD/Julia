@@ -8,6 +8,13 @@ import sys
 import os
 if not os.path.isdir("./dco/"):
     os.makedirs("./dco/")
+from PIL import Image, ImageDraw
+import pygments, os, asyncio, shutil, scapy, sys, requests, re, subprocess
+from pygments.lexers import Python3Lexer
+from pygments.formatters import ImageFormatter
+from telegraph import upload_file
+from telethon import events
+from telethon.tl.types import MessageMediaPhoto
 
 @register(pattern="^/alien")
 async def fun_mirror(event):
@@ -34,3 +41,25 @@ async def fun_mirror(event):
         if files and os.path.exists(files):
             os.remove(files)
     hoi = await event.delete()
+client = tbot
+path = "./dcobra/"
+if not os.path.isdir(path):
+    os.makedirs(path)
+
+@register(pattern="^/mirror")
+async def hehe(event):
+    if not event.reply_to_msg_id:
+        await event.reply("Reply to media")
+        return
+    await event.reply("```Processing...```")
+    reply = await event.get_reply_message()
+    pathh = await tbot.download_media(reply.media, path)
+    img = cv2.VideoCapture(pathh)
+    iss,dan = img.read()
+    ish = cv2.flip(dan, 1)
+    misi = cv2.hconcat([dan, ish])
+    cv2.imwrite('dark.jpg', misi)
+    await event.client.send_file(event.chat_id, "dark.jpg" , reply_to=event.reply_to_msg_id) 
+    await event.delete()
+    shutil.rmtree(path)
+    os.remove("dark.jpg")
