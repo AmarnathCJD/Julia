@@ -1,5 +1,5 @@
 from julia import tbot as borg
-from julia import TEMP_DOWNLOAD_DIRECTORY
+from julia import TEMP_DOWNLOAD_DIRECTORY as TMP_DOWNLOAD_DIRECTORY
 from telethon import events
 import json
 import math
@@ -49,10 +49,62 @@ import shutil
 import os
 import argparse
 import wget
-sedpath = TEMP_DOWNLOAD_DIRECTORY
+from julia import logging
+sedpath = TMP_DOWNLOAD_DIRECTORY
 session = aiohttp.ClientSession()
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
+
+async def fetch_json(link):
+    async with session.get(link) as resp:
+        return await resp.json()
+
+def get_readable_file_size(size_in_bytes: Union[int, float]) -> str:
+    if size_in_bytes is None:
+        return "0B"
+    index = 0
+    while size_in_bytes >= 1024:
+        size_in_bytes /= 1024
+        index += 1
+    try:
+        return f"{round(size_in_bytes, 2)}{SIZE_UNITS[index]}"
+    except IndexError:
+        return "File too large"
+
+
+def get_readable_time(secs: float) -> str:
+    result = ""
+    (days, remainder) = divmod(secs, 86400)
+    days = int(days)
+    if days != 0:
+        result += f"{days}d"
+    (hours, remainder) = divmod(remainder, 3600)
+    hours = int(hours)
+    if hours != 0:
+        result += f"{hours}h"
+    (minutes, seconds) = divmod(remainder, 60)
+    minutes = int(minutes)
+    if minutes != 0:
+        result += f"{minutes}m"
+    seconds = int(seconds)
+    result += f"{seconds}s"
+    return result
+
+def time_formatter(milliseconds: int) -> str:
+    """Inputs time in milliseconds, to get beautified time,
+    as string"""
+    seconds, milliseconds = divmod(int(milliseconds), 1000)
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    days, hours = divmod(hours, 24)
+    tmp = (
+            ((str(days) + " day(s), ") if days else "")
+            + ((str(hours) + " hour(s), ") if hours else "")
+            + ((str(minutes) + " minute(s), ") if minutes else "")
+            + ((str(seconds) + " second(s), ") if seconds else "")
+            + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
+    )
+    return tmp[:-2]
 
 async def runcmd(cmd: str) -> Tuple[str, str, int, int]:
     """ run command in terminal """
@@ -131,7 +183,7 @@ async def convert_to_image(event, borg):
             or lmao.sticker
             or lmao.media
     ):
-        await event.reply("`Format Not Supported.`")
+        await event.edit("`Format Not Supported.`")
         return
     else:
         try:
@@ -146,7 +198,7 @@ async def convert_to_image(event, borg):
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
         else:
-            await event.reply(
+            k = await event.reply(
                 "Downloaded to `{}` successfully.".format(downloaded_file_name)
             )
     if not os.path.exists(downloaded_file_name):
@@ -189,5 +241,26 @@ async def convert_to_image(event, borg):
             await event.edit("`Couldn't Fetch. SS`")
             return
         lmao_final = jpg_file
-    await event.edit("`Almost Completed.`")
+    await k.edit("`Almost Completed.`")
     return lmao_final
+
+async def crop_vid(input_vid: str, final_path: str):
+    media_info = MediaInfo.parse(input_vid)
+    for track in media_info.tracks:
+        if track.track_type == "Video":
+            aspect_ratio = track.display_aspect_ratio
+            height = track.height
+            width = track.width
+    if aspect_ratio != 1:
+        crop_by = width if (height > width) else height
+        os.system(f'ffmpeg -i {input_vid} -vf "crop={crop_by}:{crop_by}" {final_path}')
+        os.remove(input_vid)
+    else:
+        os.rename(input_vid, final_path)
+
+def tgs_to_gif(sticker_path: str, quality: int = 256) -> str:                  
+    dest = os.path.join(Config.TMP_DOWNLOAD_DIRECTORY, "animation.gif")
+    with open(dest, 'wb') as t_g:
+        lottie.exporters.gif.export_gif(lottie.parsers.tgs.parse_tgs(sticker_path), t_g, quality, 1)
+    os.remove(sticker_path)
+    return dest
