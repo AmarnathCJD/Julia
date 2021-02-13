@@ -6,6 +6,7 @@ from julia import OWNER_ID as owner_id
 from julia import BOT_ID as bot_id
 from pyrogram import Client, filters
 from julia import register
+from julia import tbot
 luna = Client(
     ":memory:",
     bot_token=bot_token,
@@ -29,7 +30,7 @@ async def start(_, message):
     user_id = message.from_user.id
     if user_id in blacklisted:
         return
-    await luna.send_chat_action(message.chat.id, "typing")
+    await tbot.send_chat_action(message.chat.id, "typing")
     await message.reply_text(
         "**Only For Owners**\n/shutdown - `Shutdown Luna.`\n/blacklist - `Blacklist A User.`\n/whitelist - `Whitelist A User.`"
     )
