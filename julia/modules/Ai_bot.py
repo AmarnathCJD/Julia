@@ -26,13 +26,10 @@ async def getresp(query):
             text = res["response"]
             return text
 
-@register(pattern="^/abu$")
-async def start(_, message):
+@register(pattern="^/abu")
+async def start(message):
     user_id = message.from_user.id
-    if user_id in blacklisted:
-        return
-    await tbot.send_chat_action(message.chat.id, "typing")
-    await message.reply_text(
+    await message.reply(
         "**Only For Owners**\n/shutdown - `Shutdown Luna.`\n/blacklist - `Blacklist A User.`\n/whitelist - `Whitelist A User.`"
     )
 
