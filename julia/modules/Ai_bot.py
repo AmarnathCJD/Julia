@@ -26,12 +26,12 @@ async def getresp(query):
             text = res["response"]
             return text
 
-@luna.on_message(filters.command("help"))
+@register(pattern="^/abu$")
 async def start(_, message):
     user_id = message.from_user.id
     if user_id in blacklisted:
         return
-    await luna.send_chat_action(message.chat.id, "typing")
+    await tbot.send_chat_action(message.chat.id, "typing")
     await message.reply_text(
         "**Only For Owners**\n/shutdown - `Shutdown Luna.`\n/blacklist - `Blacklist A User.`\n/whitelist - `Whitelist A User.`"
     )
