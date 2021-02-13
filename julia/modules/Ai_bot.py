@@ -5,7 +5,7 @@ from julia import TOKEN as bot_token
 from julia import OWNER_ID as owner_id
 from julia import BOT_ID as bot_id
 from pyrogram import Client, filters
-
+from julia import register
 luna = Client(
     ":memory:",
     bot_token=bot_token,
@@ -24,7 +24,7 @@ async def getresp(query):
             text = res["response"]
             return text
 
-@luna.on_message(filters.command("halp"))
+@register(pattern="^/truth$")
 async def start(_, message):
     user_id = message.from_user.id
     if user_id in blacklisted:
