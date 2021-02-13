@@ -5,7 +5,7 @@ from julia import TOKEN as bot_token
 from julia import OWNER_ID as owner_id
 from julia import BOT_ID as bot_id
 from pyrogram import Client, filters
-from julia import register
+from julia.events import register
 from julia import tbot
 
 luna = Client(
