@@ -17,7 +17,7 @@ else:
 royal = bot.uid
 
 PM_IMG = "https://telegra.ph/file/b3818868fea51e007bae6.jpg"
-pm_caption = "__**🔥🔥𝚁𝚘𝚢𝚊𝚕𝚄𝚜𝚎𝚛-𝙱𝚘𝚝🔥🔥**__\n\n"
+pm_caption = "__**anie group bot**__\n\n"
 
 pm_caption += (
     f"               __↼🄼🄰🅂🅃🄴🅁⇀__\n**『[{DEFAULTUSER}](tg://user?id={royal})』**\n\n"
@@ -25,19 +25,7 @@ pm_caption += (
 
 pm_caption += "🛡️TELETHON🛡️ : `1.15.0` \n"
 
-pm_caption += f"😈𝚁𝚘𝚢𝚊𝚕-𝙱𝚘𝚝😈  : __**{royalversion}**__\n"
-
-pm_caption += f"⚜️Sudo⚜️             : `{sudou}`\n"
-
-pm_caption += "⚠️CHANNEL⚠️    : [ᴊᴏɪɴ](https://t.me/RoyalBot_Official)\n"
-
-pm_caption += "🔥CREATOR🔥     : [NOOB HERE](https://t.me/No_Needz_Approval)\n"
-
-pm_caption += "😆OWNER😆        : [NOOB HERE](https://t.me/Apoorvroy86)\n"
-
-pm_caption += "🤩SUPPORTER🤩: [HELLBOY](https://t.me/Kraken_The_BadASS)\n"
-
-pm_caption += "    [✨REPO✨](https://github.com/abhishek61728/ROYALUSER-BOT) 🔹 [📜LICENSE📜](https://github.com/abhishek61728/ROYALUSER-BOT/blob/main/LICENSE)"
+pm_caption += f"😈anie bot😈  : __**{royalversion}**__\n"
 
 
 @bot.on(admin_cmd(outgoing=True, pattern="alive$"))
@@ -49,8 +37,8 @@ async def amireallyalive(alive):
     await borg.send_file(alive.chat_id, PM_IMG, caption=pm_caption)
     await alive.delete()
 
-CmdHelp("alive").add_command(
-  'alive', None, 'Check weather the bot is alive or not'
+CmdHelp("/alive").add_command(
+  '/alive', None, 'Check weather the bot is alive or not'
 ).add_command(
-  'royal', None, 'Check weather the bot is alive or not. In your custom Alive Pic and Alive Msg'
+  'Anie', None, 'Check weather the bot is alive or not. In your custom Alive Pic and Alive Msg'
 ).add()
