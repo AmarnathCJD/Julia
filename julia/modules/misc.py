@@ -1,5 +1,5 @@
-from Julia import tbot
-from Julia.events import register
+from julia import tbot
+from julia.events import register
 
 from telethon import version
 from math import ceil
