@@ -73,7 +73,7 @@ if ENV:
     try:
         ubot.start()
     except BaseException:
-        print("Network Error !")
+        print("Bot Not Started")
         sys.exit(1)
 
 else:
