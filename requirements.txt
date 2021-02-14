@@ -12,8 +12,6 @@ vcam
 scapy
 eyed3
 wget
-pyrogram
-TgCrypto
 fake_useragent
 pymediainfo
 pytest-timeit
