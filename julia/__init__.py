@@ -14,7 +14,7 @@ StartTime = time.time()
 CMD_LIST = {}
 CMD_HELP = {}
 LOAD_PLUG = {}
-BOT_VERSION = "1.6.2"
+BOT_VERSION = "1.1.1"
 
 # enable logging
 logging.basicConfig(
@@ -23,6 +23,7 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get("ENV", True))
+
 if ENV:
     TOKEN = os.environ.get("TOKEN", None)
     OWNER_ID = int(os.environ.get("OWNER_ID", None))
@@ -43,7 +44,6 @@ if ENV:
     IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
     WALL_API = os.environ.get("WALL_API", None)
-    WORKERS = int(os.environ.get('WORKERS', 8))
     CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
     GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
     CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
@@ -52,7 +52,6 @@ if ENV:
     STRING_SESSION = os.environ.get("STRING_SESSION", None)
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     TEMPORARY_DATA = os.environ.get("TEMPORARY_DATA", None)
-    HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     UPSTREAM_REPO_URL = os.environ.get("UPSTREAM_REPO_URL", None)
     CONSOLE_LOGGER_VERBOSE = os.environ.get("CONSOLE_LOGGER_VERBOSE", "False")
     BOT_ID = int(os.environ.get("BOT_ID", None))
@@ -65,6 +64,7 @@ if ENV:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=INFO
         )
     LOGS = getLogger(__name__)
+
     if STRING_SESSION:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
     else:
@@ -73,7 +73,7 @@ if ENV:
     try:
         ubot.start()
     except BaseException:
-        print("Bot Not Started")
+        print("Sed Bra")
         sys.exit(1)
 
 else:
