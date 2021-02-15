@@ -90,124 +90,23 @@ async def iamthug(event):
         if files and os.path.exists(files):
             os.remove(files)
 
-@register(pattern="^/trig")
-async def lolmetrg(event):
-    if event.fwd_from:
-        return
-    await event.reply("`Triggered This Image`")
-    sed = await event.get_reply_message()
-    img = await convert_to_image(event, borg)
-    url_s = upload_file(img)
-    await event.reply("ok")
-    imglink = f"https://telegra.ph{url_s[0]}"
-    lolul = f"https://some-random-api.ml/canvas/triggered?avatar={imglink}"
-    r = requests.get(lolul)
-    open("triggered.gif", "wb").write(r.content)
-    lolbruh = "triggered.gif"
-    await borg.send_file(
-        event.chat_id, lolbruh, caption="You got triggered....", reply_to=sed
-    )
-    for files in (lolbruh, img):
-        if files and os.path.exists(files):
-            os.remove(files)
-
-@register(pattern="^/spin ?(.*)")
-async def spinshit(message):
-    if message.fwd_from:
-        return
-    reply = await message.get_reply_message()
-    lmaodict = {"1": 1, "2": 3, "3": 6, "4": 12, "5": 24, "6": 60}
-    lolshit = message.pattern_match.group(1)
-    keke = f"{lolshit}"
-    if not reply:
-        await message.reply("`Reply To Media First !`")
-        return
-    else:
-        if lolshit:
-            step = lmaodict[keke]
-        else:
-            step = 1
-    pic_loc = await convert_to_image(message, borg)
-    if not pic_loc:
-        await message.reply("`Reply to a valid media first.`")
-        return
-    await message.reply("ðŸŒ€ `Tighten your seatbelts, sh*t is about to get wild ...`")
-    spin_dir = 1
-    path = "resources/rotate-disc/"
-    if os.path.exists(path):
-        rmtree(path, ignore_errors=True)
-    os.mkdir(path)
-    im = Image.open(pic_loc)
-    if im.mode != "RGB":
-        im = im.convert("RGB")
-    # Rotating pic by given angle and saving
-    for k, nums in enumerate(range(1, 360, step), start=0):
-        y = im.rotate(nums * spin_dir)
-        y.save(os.path.join(path, "spinx%s.jpg" % k))
-    output_vid = os.path.join(path, "out.mp4")
-    # ;__; Maths lol, y = mx + c
-    frate = int(((90 / 59) * step) + (1680 / 59))
-    # https://stackoverflow.com/questions/20847674/ffmpeg-libx264-height-not-divisible-by-2
-    await runcmd(
-        f'ffmpeg -framerate {frate} -i {path}spinx%d.jpg -c:v libx264 -preset ultrafast -vf "crop=trunc(iw/2)*2:trunc(ih/2)*2" -pix_fmt yuv420p {output_vid}'
-    )
-    if os.path.exists(output_vid):
-        round_vid = os.path.join(path, "out_round.mp4")
-        await crop_vid(output_vid, round_vid)
-        await tbot.send_file(
-            message.chat_id, round_vid, video_note=True, reply_to=reply.id
-        )
-        await message.delete()
-    os.remove(pic_loc)
-    rmtree(path, ignore_errors=True)
-
-@register(pattern="^/abe (.*)")
-async def holastark2(event):
+@register(pattern="^/(adityalogo|blacklogo) ?(.*)")
+async def yufytf(event):
     if event.fwd_from:
         return
     await event.reply("`Processing..`")
-    text = event.pattern_match.group(1)
+    text = event.pattern_match.group(2)
     img = Image.open('./resources/Blankmeisnub.jpg')
-    d1 = ImageDraw.Draw(img)
-    image_width, image_height = img.size
-    myFont = ImageFont.truetype('./resources/Streamster.ttf', size=int(image_height * 300) // 100)
-    d1.text((621, 597), text, font=myFont, fill=(255, 255, 0))
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype('resources/Streamster.ttf', 220)
+    image_widthz, image_heightz = img.size
+    w,h = draw.textsize(text, font=font)
+    h += int(h*0.21)
+    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 0))
     file_name = "LogoBy@MeisNub.png"
     await event.delete()
     ok = sedpath + "/" + file_name
     img.save(ok, "PNG")
-    await tbot.send_file(event.chat_id, ok)
+    await borg.send_file(event.chat_id, ok, caption="Made By @FridayOT")
     if os.path.exists(ok):
         os.remove(ok)
-
-@register(pattern="^/uff ?(.*)")
-async def img(event):
-    if event.fwd_from:
-        return
-    text = event.pattern_match.group(1)
-    if not text:
-        await event.reply("No input found!  --__--")
-        return
-    if ":" in text:
-        username, texto = text.split(":", 1)
-    else:
-        event.reply("Invalid Input! Check help for more info!")
-        return
-    img = Image.open("./resources/pb.jpg")
-    d1 = ImageDraw.Draw(img)
-
-    myFont = ImageFont.truetype("./resources/font.TTF", 100)
-
-    d1.text((300, 700), username, font=myFont, fill=(135, 98, 87))
-
-    d1.text((12, 1000), texto, font=myFont, fill=(203, 202, 202))
-
-    img.save("./starkgangz/testpb.jpg")
-    file_name = "testpb.jpg"
-    ok = "./starkgangz/" + file_name
-    await borg.send_file(event.chat_id, ok)
-    os.remove(files)
-    for files in (ok, img):
-        if files and os.path.exists(files):
-            os.remove(files)
-        event.delete()
