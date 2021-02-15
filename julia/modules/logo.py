@@ -25,7 +25,7 @@ from telethon.utils import get_input_location
 sedpath = "./starkgangz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
-    @register(pattern="^/(logo|blacklogo) ?(.*)")
+@register(pattern="^/(logo|blacklogo) ?(.*)")
 async def yufytf(event):
     if event.fwd_from:
         return
