@@ -132,6 +132,6 @@ async def slogo(event):
     draw.text((x, y), text, font=font, fill="white", stroke_width=30, stroke_fill="black")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
-    await borg.send_file(event.chat_id, fname2, caption="Made By @FridayOT")
+    await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
