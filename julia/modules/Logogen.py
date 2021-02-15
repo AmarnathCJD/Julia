@@ -29,7 +29,7 @@ sedpath = "./starkgangz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
 from julia.Ok import upload_file
-logan = "https://telegra.ph/file/099688f61c26bc1867bac.jpg"
+DELTA = "https://telegra.ph/file/099688f61c26bc1867bac.jpg"
 from julia.func import convert_to_image, crop_vid, runcmd, tgs_to_gif
 DANISH = "58199388-5499-4c98-b052-c679b16310f9"
 @register(pattern="^/nfsw")
@@ -208,7 +208,7 @@ async def slogo(event):
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
-    img = logan
+    img = DELTA
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
