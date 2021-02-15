@@ -145,6 +145,7 @@ async def slogo(event):
         pass
     elif event.sender_id not in SUDO_USERS:
         await event.reply("Who Are You?")
+        return
     else:
         return
     await event.edit("`Processing..`")
