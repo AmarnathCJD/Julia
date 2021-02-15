@@ -228,7 +228,7 @@ async def slogo(event):
     if os.path.exists(fname2):
             os.remove(fname2)
 
-@register(pattern="^/(bonk|bonked) ?(.*)")
+@register(pattern="^/(llogo|bonked) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
@@ -244,16 +244,16 @@ async def slogo(event):
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
-    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-200), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
-    y= (image_heightz-h)/2
+    y= ((image_heightz-h)/2)-200)
     draw.text((x, y), text, font=font, fill="white", stroke_width=8, stroke_fill="black")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(nlogo|nalogo) ?(.*)")
+@register(pattern="^/(bonk|nalogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
