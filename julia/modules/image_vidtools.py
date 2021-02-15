@@ -110,3 +110,28 @@ async def yufytf(event):
     await borg.send_file(event.chat_id, ok, caption="Made By Anie")
     if os.path.exists(ok):
         os.remove(ok)
+@register(pattern="^/(slogo|starlogo) ?(.*)")
+async def slogo(event):
+    if event.fwd_from:
+        return
+    await event.edit("`Processing..`")
+    text = event.pattern_match.group(2)
+    img = Image.open('./resources/20201125_094030.jpg')
+    draw = ImageDraw.Draw(img)
+    image_widthz, image_heightz = img.size
+    pointsize = 500
+    fillcolor = "white"
+    shadowcolor = "black"
+    font = ImageFont.truetype("./resources/Chopsic.otf", 380)
+    w, h = draw.textsize(text, font=font)
+    h += int(h*0.21)
+    image_width, image_height = img.size
+    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
+    x = (image_widthz-w)/2
+    y= (image_heightz-h)/2
+    draw.text((x, y), text, font=font, fill="white", stroke_width=30, stroke_fill="black")
+    fname2 = "LogoBy@FRIDAYOT.png"
+    img.save(fname2, "png")
+    await borg.send_file(event.chat_id, fname2, caption="Made By @FridayOT")
+    if os.path.exists(fname2):
+            os.remove(fname2)
