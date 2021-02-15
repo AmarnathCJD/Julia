@@ -208,7 +208,7 @@ async def slogo(event):
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
-    img = Image.open('./resources/IMG_20210215_104759_504.jpg')
+    img = Image.open('./resources/IMG_20210215_114503_069.jpg')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
@@ -221,7 +221,7 @@ async def slogo(event):
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= (image_heightz-h)/2
-    draw.text((x, y), text, font=font, fill="red", stroke_width=9, stroke_fill="green")
+    draw.text((x, y), text, font=font, fill="red", stroke_width=9, stroke_fill="blue")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
