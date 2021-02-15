@@ -142,13 +142,13 @@ async def slogo(event):
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
-    img = Image.open('./resources/IMG_20210215_103846_312.jpg')
+    img = Image.open('./resources/IMG_20210215_104759_504.jpg')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Vampire Wars.otf", 69)
+    font = ImageFont.truetype("./resources/Helvetica.ttf", 69)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
