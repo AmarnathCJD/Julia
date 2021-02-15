@@ -170,7 +170,7 @@ async def slogo(event):
     if os.path.exists(fname2):
             os.remove(fname2)
 
-@register(pattern="^/(slogo|starlogo) ?(.*)")
+@register(pattern="^/(hlogo|heppylogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
