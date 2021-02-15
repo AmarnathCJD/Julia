@@ -90,7 +90,7 @@ async def iamthug(event):
         if files and os.path.exists(files):
             os.remove(files)
 
-@register(pattern="^/(adityalogo|blacklogo) ?(.*)")
+@register(pattern="^/(logo|blacklogo) ?(.*)")
 async def yufytf(event):
     if event.fwd_from:
         return
