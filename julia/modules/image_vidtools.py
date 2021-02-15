@@ -218,9 +218,9 @@ async def slogo(event):
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+90), text, font=font, fill=(255, 255, 255))
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-200), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
-    y= (image_heightz-h)/2
+    y= ((image_heightz-h)/2-200)
     draw.text((x, y), text, font=font, fill="red", stroke_width=9, stroke_fill="blue")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
