@@ -244,9 +244,9 @@ async def slogo(event):
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-200), text, font=font, fill=(255, 255, 255))
+    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
-    y= ((image_heightz-h)/2-200)
+    y= (image_heightz-h)/2
     draw.text((x, y), text, font=font, fill="white", stroke_width=8, stroke_fill="black")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
@@ -290,14 +290,14 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 120)
+    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 200)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
-    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2-200), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
-    y= (image_heightz-h)/2
-    draw.text((x, y), text, font=font, fill="white", stroke_width=8, stroke_fill="black")
+    y= ((image_heightz-h)/2-200)
+    draw.text((x, y), text, font=font, fill="white", stroke_width=8, stroke_fill="blue")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
