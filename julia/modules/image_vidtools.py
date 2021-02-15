@@ -3,6 +3,7 @@ from julia.events import register
 from julia import CMD_HELP
 from julia import tbot as borg
 from julia import tbot
+from julia import OWNER_ID, SUDO_USERS
 from julia import TEMP_DOWNLOAD_DIRECTORY
 import os
 import wget
@@ -139,6 +140,14 @@ async def slogo(event):
 @register(pattern="^/(blogo|betalogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
+        return
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        await event.reply("Who Are You?")
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
