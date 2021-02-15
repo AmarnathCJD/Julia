@@ -107,6 +107,6 @@ async def yufytf(event):
     await event.delete()
     ok = sedpath + "/" + file_name
     img.save(ok, "PNG")
-    await borg.send_file(event.chat_id, ok, caption="Made By @FridayOT")
+    await borg.send_file(event.chat_id, ok, caption="Made By Anie")
     if os.path.exists(ok):
         os.remove(ok)
