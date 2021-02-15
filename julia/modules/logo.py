@@ -239,7 +239,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(l1|starlogo) ?(.*)")
+@register(pattern="^/(clogo|stardbogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
@@ -251,7 +251,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 380)
+    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 70)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
@@ -264,7 +264,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-register(pattern="^/(l2|starlogo) ?(.*)")
+register(pattern="^/(xlogo|starsblogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
@@ -276,7 +276,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 380)
+    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 70)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
@@ -289,7 +289,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-register(pattern="^/(l3|starlogo) ?(.*)")
+register(pattern="^/(zlogo|starhdalogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
@@ -301,7 +301,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 380)
+    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 70)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
