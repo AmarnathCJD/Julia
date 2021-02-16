@@ -359,7 +359,7 @@ async def slogo(event):
     draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+500), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= ((image_heightz-h)/2+500)
-    draw.text((x, y), text, font=font, fill="black", stroke_width=10, stroke_fill="lightgreen")
+    draw.text((x, y), text, font=font, fill="black", stroke_width=8, stroke_fill="darkseagreen")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
