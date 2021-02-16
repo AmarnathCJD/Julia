@@ -43,7 +43,7 @@ async def is_register_admin(chat, user):
     return None
 
 file1 = "https://telegra.ph/file/602b35d2a13bf557d9661.jpg"
-pm_caption = "Anie Pm Under Development 😐\n\n Owner Buzy due To Exams"
+pm_caption = "Hi, my name is Anie!\nI'm a powerful group management bot\nAdd me to your groups as admin\nto manage your groups with my\ncommands\nYou can find my list of available\ncommands with /help"
 @register(pattern="^/start$")
 async def start(event):
     approved_userss = approved_users.find({})
