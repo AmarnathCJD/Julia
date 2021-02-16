@@ -359,13 +359,13 @@ async def slogo(event):
     draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+350), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= ((image_heightz-h)/2+350)
-    draw.text((x, y), text, font=font, fill="black", stroke_width=8, stroke_fill="darkseagreen")
+    draw.text((x, y), text, font=font, fill="cyan", stroke_width=11, stroke_fill="lightgreen")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(road|darxylogo) ?(.*)")
+@register(pattern="^/(mlogo|multilogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
@@ -406,6 +406,14 @@ async def slogo(event):
     draw.text((((image_widthz-w)/2)-590, ((image_heightz-h)/2)+500), tt, font=fuk, fill="white", stroke_width=5, stroke_fill="red")
     draw.text((((image_widthz-w)/2)-200, ((image_heightz-h)/2)+500), tt, font=fuk, fill=(255, 255, 255))
     draw.text((((image_widthz-w)/2)-200, ((image_heightz-h)/2)+500), tt, font=fuk, fill="pink", stroke_width=5, stroke_fill="red")
+    draw.text((((image_widthz-w)/2)+400, ((image_heightz-h)/2)-300), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)+400, ((image_heightz-h)/2)-300), tt, font=fuk, fill="lightblue", stroke_width=5, stroke_fill="silver")
+    draw.text((((image_widthz-w)/2)+100, ((image_heightz-h)/2)+400), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)+100, ((image_heightz-h)/2)+400), tt, font=fuk, fill="red", stroke_width=5, stroke_fill="gold")
+    draw.text((((image_widthz-w)/2)-100, ((image_heightz-h)/2)+100), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)-100, ((image_heightz-h)/2)+100), tt, font=fuk, fill="yellow", stroke_width=5, stroke_fill="silver")
+    draw.text((((image_widthz-w)/2)-320, ((image_heightz-h)/2)-230), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)-320, ((image_heightz-h)/2)-230), tt, font=fuk, fill="cyan", stroke_width=5, stroke_fill="blue")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
