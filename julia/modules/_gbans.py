@@ -39,14 +39,14 @@ async def _(event):
         return
 
     quew = event.pattern_match.group(1)
-
+    sun = "None"
     if "|" in quew:
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
     else:
     cid = quew
-    reason = "Not Specified"
+    reason = sun
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
