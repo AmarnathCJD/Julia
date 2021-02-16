@@ -27,7 +27,8 @@ def get_reason(id):
     return gbanned.find_one({"user": id})
 
 edit_time = 3
-@tbot.on(events.NewMessage(pattern="^/(gban|globalban)(?: |$)(.*)")
+
+@register(pattern="^/(gban|globalban)(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -39,9 +40,9 @@ async def _(event):
         return
 
     cid = event.pattern_match.group(1)
-    catinput = event.pattern_match.group(2)
-    if catinput:
-        reason = catinput
+    input = event.pattern_match.group(2)
+    if input:
+        reason = input
     else:
         reason = "None"
     if cid.isnumeric():
