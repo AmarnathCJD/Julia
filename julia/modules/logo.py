@@ -394,8 +394,13 @@ async def slogo(event):
     draw.text((x, y), text, font=font, fill="grey", stroke_width=6, stroke_fill="lightgreen")
     draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+360), tt, font=fuk, fill=(255, 255, 255))
     draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+360), tt, font=fuk, fill="green", stroke_width=5, stroke_fill="yellow")
-    draw.text((((image_widthz-w)/2)-80, ((image_heightz-h)/2)+360), tt, font=fuk, fill=(255, 255, 255))
-    draw.text((((image_widthz-w)/2)-80, ((image_heightz-h)/2)+360), tt, font=fuk, fill="pink", stroke_width=5, stroke_fill="red")
+    draw.text((((image_widthz-w)/2)+300, ((image_heightz-h)/2)+360), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)+300, ((image_heightz-h)/2)+360), tt, font=fuk, fill="pink", stroke_width=5, stroke_fill="red")
+    draw.text((((image_widthz-w)/2)+100, ((image_heightz-h)/2)-360), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)+100, ((image_heightz-h)/2)-360), tt, font=fuk, fill="green", stroke_width=5, stroke_fill="yellow")
+    draw.text((((image_widthz-w)/2)+50, ((image_heightz-h)/2)+200), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)+50, ((image_heightz-h)/2)+200), tt, font=fuk, fill="blue", stroke_width=5, stroke_fill="violet")
+    fname2 = "LogoBy@FRIDAYOT.png"
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
