@@ -1,4 +1,3 @@
-DELTA = "https://telegra.ph/file/099688f61c26bc1867bac.jpg"
 from julia.Config import Config
 from julia.events import register
 from julia import CMD_HELP
@@ -289,13 +288,13 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-register(pattern="^/(zlogo|starhdalogo) ?(.*)")
+register(pattern="^/(oklogo|starhdalogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
-    await event.edit("`Processing..`")
+    await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
-    img = Image.open('./resources/IMG_20210215_114444_530.jpg')
+    img = Image.open('./resources/IMG_20210216_101425_014.jpg')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
