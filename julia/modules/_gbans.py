@@ -27,7 +27,7 @@ def get_reason(id):
     return gbanned.find_one({"user": id})
 
 edit_time = 3
-@tbot.on(events.NewMessage(pattern="^/gban (.*)"))
+@tbot.on(events.NewMessage(pattern="^/(gban|globalban)(?: |$)(.*)")
 async def _(event):
     if event.fwd_from:
         return
@@ -38,15 +38,12 @@ async def _(event):
     else:
         return
 
-    quew = event.pattern_match.group(1)
-    sun = "None"
-    if "|" in quew:
-        iid, reasonn = quew.split("|")
-    cid = iid.strip()
-    reason = reasonn.strip()
-    elif "|" not in quew:
-          cid = quew
-          reason = sun
+    cid = event.pattern_match.group(1)
+    catinput = event.pattern_match.group(2)
+    if catinput:
+        reason = catinput
+    else:
+        reason = "None"
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
