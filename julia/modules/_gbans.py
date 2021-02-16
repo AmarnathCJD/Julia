@@ -45,8 +45,8 @@ async def _(event):
     cid = iid.strip()
     reason = reasonn.strip()
     else:
-    cid = quew
-    reason = sun
+        cid = quew
+        reason = sun
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
