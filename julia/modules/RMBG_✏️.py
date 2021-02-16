@@ -3,6 +3,7 @@ from julia import tbot
 from julia import MONGO_DB_URI
 from pymongo import MongoClient
 import io
+import asyncio
 import os
 from datetime import datetime
 
