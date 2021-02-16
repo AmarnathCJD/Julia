@@ -44,18 +44,8 @@ async def is_register_admin(chat, user):
 
 file1 = "https://telegra.ph/file/602b35d2a13bf557d9661.jpg"
 pm_caption = "Hi, my name is Anie!\nI'm a powerful group management bot\nAdd me to your groups as admin\nto manage your groups with my\ncommands\nYou can find my list of available\ncommands with /help"
-pmt = "Hello there! My name is Julia.
-I'm a modular group management bot with a few fun extras! Have a look at the following for an idea of some of the things I can help you with.
-
-Main commands available:
-  /start : Starts me, can be used to check i'm alive or no...
-  /help : PM's you this message.
-  /help <module name> : PM's you info about that module.
-  /settings : in PM: will send you your settings for all supported modules.
-   ~ in a group: will redirect you to pm, with all that chat's settings.
-"
- 
-Click on the buttons below to get documentation about specific modules!
+pmt = "Hello there! My name is Julia.\n
+I'm a Telethon Based group management bot\n with a Much fun extras! Have a look\nat the following for an idea of some of \nthe things I can help you with.\n\nMain commands available:\n/start : Starts me, can be used to check i'm alive or no...\n/help : PM's you this message.\n/help <module name> : PM's you info about that module.\n`/settings` : in PM: will send you your settings for all supported modules.\n~ in a group: will redirect you to pm, with all that chat's settings."
 @register(pattern="^/start$")
 async def start(event):
     approved_userss = approved_users.find({})
@@ -149,7 +139,7 @@ async def help(event):
             return
     if not event.is_group:
         buttons = paginate_help(event, 0, CMD_LIST, "helpme")
-        await event.reply(pm_caption, buttons=buttons)
+        await event.reply(pmt, buttons=buttons)
     else:
         await event.reply(
             "Contact me in PM to get the help menu",
