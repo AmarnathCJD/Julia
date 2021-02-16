@@ -36,7 +36,7 @@ async def yufytf(event):
     image_widthz, image_heightz = img.size
     w,h = draw.textsize(text, font=font)
     h += int(h*0.21)
-    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 0))
+    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 218, 135))
     file_name = "LogoBy@MeisNub.png"
     await event.delete()
     ok = sedpath + "/" + file_name
