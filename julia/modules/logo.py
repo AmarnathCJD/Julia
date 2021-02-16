@@ -50,7 +50,7 @@ async def slogo(event):
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
-    img = Image.open('./resources/20201125_094030.jpg')
+    img = Image.open('./resources/IMG_20210216_101425_014.jpg')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
