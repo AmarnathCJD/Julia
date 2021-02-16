@@ -238,7 +238,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(clogo|stardbogo) ?(.*)")
+@register(pattern="^/(jlogo|stardbogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
