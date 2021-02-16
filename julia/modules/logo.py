@@ -369,8 +369,14 @@ async def slogo(event):
 async def slogo(event):
     if event.fwd_from:
         return
+    quew = event.pattern_match.group(2)
+    if "|" in quew:
+        iid, reasonn = quew.split("|")
+    cid = iid.strip()
+    reason = reasonn.strip()
+    else:
+        text = event.pattern_match.group(2)
     await event.reply("`Processing..`")
-    text = event.pattern_match.group(2)
     img = Image.open('./resources/Blankmeisnub.jpg')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
@@ -381,8 +387,8 @@ async def slogo(event):
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16, (image_heightz-h)/2, text, font=font, fill=(255, 255, 255))
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16, (image_heightz-h)/2, text, font=font, fill="red", stroke_width=4, stroke_fill="blue")
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16, text, font=font, fill=(255, 255, 255))
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16, text, font=font, fill="red", stroke_width=4, stroke_fill="blue")
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= (image_heightz-h)/2
