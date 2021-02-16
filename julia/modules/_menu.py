@@ -66,10 +66,10 @@ async def start(event):
             buttons=[
                 [
                     Button.url(
-                        "Add To Group  👥", "t.me/MissJuliaRobot?startgroup=true"
+                        "Add To Group  👥", "t.me/Jarvisevobot?startgroup=true"
                     ),
                     Button.url(
-                        "Support Group 🎙️", "https://t.me/MissJuliaRobotSupport"
+                        "Support Group 🎙️", "https://t.me/dclogger"
                     ),
                 ],
             ],
