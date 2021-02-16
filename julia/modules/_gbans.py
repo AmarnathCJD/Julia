@@ -4,7 +4,7 @@ from telethon import events
 from telethon.tl.functions.channels import EditBannedRequest
 from pymongo import MongoClient
 from julia import MONGO_DB_URI, GBAN_LOGS
-import asyncio
+
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
     view_messages=True,
@@ -22,13 +22,12 @@ client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 gbanned = db.gban
 
-sed = "-1001433850650"
+
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-edit_time = 3
 
-@register(pattern="^/(gban|globalban)(?: |$)(.*)")
+@tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -39,12 +38,12 @@ async def _(event):
     else:
         return
 
-    cid = event.pattern_match.group(1)
-    input = event.pattern_match.group(2)
-    if input:
-        reason = input
-    else:
-        reason = "None"
+    quew = event.pattern_match.group(1)
+
+    if "|" in quew:
+        iid, reasonn = quew.split("|")
+    cid = iid.strip()
+    reason = reasonn.strip()
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
@@ -81,7 +80,7 @@ async def _(event):
                 "This user is already gbanned, I am updating the reason of the gban with your reason."
             )
             await event.client.send_message(
-                sed,
+                GBAN_LOGS,
                 "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
@@ -91,15 +90,14 @@ async def _(event):
     gbanned.insert_one(
         {"bannerid": event.sender_id, "user": r_sender_id, "reason": reason}
     )
-    k = await event.reply("Initiating Gban.")
-    await asyncio.sleep(edit_time)
-    await k.edit("Gbanned Successfully !")
+
     await event.client.send_message(
-        GBAN_LOGS,
+        event.chat_id,
         "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
             r_sender_id, event.sender_id, reason
         ),
     )
+    await event.reply("Gbanned Successfully !")
 
 
 @tbot.on(events.NewMessage(pattern="^/ungban (.*)"))
@@ -115,7 +113,7 @@ async def _(event):
 
     quew = event.pattern_match.group(1)
 
-    if "|" in quew:
+    if " | " in quew:
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
@@ -143,21 +141,21 @@ async def _(event):
         if r_sender_id == c["user"]:
             to_check = get_reason(id=r_sender_id)
             gbanned.delete_one({"user": r_sender_id})
-            h = await event.reply("Initiating Ungban")
-            await asyncio.sleep(edit_time)
-            await h.edit("Ungbanned Successfully !")
             await event.client.send_message(
                 GBAN_LOGS,
                 "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
             )
+            await event.reply("Ungbanned Successfully !")
             return
     await event.reply("Is that user even gbanned ?")
 
 
 @tbot.on(events.ChatAction())
 async def join_ban(event):
+    if event.is_private: 
+        return 
     if event.chat_id == int(-1001158277850):
         return
     if event.chat_id == int(-1001342790946):
@@ -185,6 +183,8 @@ async def join_ban(event):
 
 @tbot.on(events.NewMessage(pattern=None))
 async def type_ban(event):
+    if event.is_private: 
+        return 
     if event.chat_id == int(-1001158277850):
         return
     if event.chat_id == int(-1001342790946):
