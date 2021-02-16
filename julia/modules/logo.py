@@ -386,8 +386,8 @@ async def slogo(event):
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16, text, font=font, fill=(255, 255, 255))
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16, text, font=font, fill="red", stroke_width=4, stroke_fill="blue")
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16), text, font=font, fill=(255, 255, 255))
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)-16), text, font=font, fill="red", stroke_width=4, stroke_fill="blue")
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= (image_heightz-h)/2
