@@ -409,9 +409,9 @@ async def slogo(event):
     draw.text((((image_widthz-w)/2)+400, ((image_heightz-h)/2)-300), tt, font=fuk, fill=(255, 255, 255))
     draw.text((((image_widthz-w)/2)+400, ((image_heightz-h)/2)-300), tt, font=fuk, fill="lightblue", stroke_width=5, stroke_fill="silver")
     draw.text((((image_widthz-w)/2)+100, ((image_heightz-h)/2)+400), tt, font=fuk, fill=(255, 255, 255))
-    draw.text((((image_widthz-w)/2)+100, ((image_heightz-h)/2)+400), tt, font=fuk, fill="red", stroke_width=5, stroke_fill="gold")
-    draw.text((((image_widthz-w)/2)-100, ((image_heightz-h)/2)+100), tt, font=fuk, fill=(255, 255, 255))
-    draw.text((((image_widthz-w)/2)-100, ((image_heightz-h)/2)+100), tt, font=fuk, fill="yellow", stroke_width=5, stroke_fill="silver")
+    draw.text((((image_widthz-w)/2)+5, ((image_heightz-h)/2)+500), tt, font=fuk, fill="red", stroke_width=5, stroke_fill="gold")
+    draw.text((((image_widthz-w)/2)-300, ((image_heightz-h)/2)-400), tt, font=fuk, fill=(255, 255, 255))
+    draw.text((((image_widthz-w)/2)-300, ((image_heightz-h)/2)-400), tt, font=fuk, fill="yellow", stroke_width=5, stroke_fill="silver")
     draw.text((((image_widthz-w)/2)-320, ((image_heightz-h)/2)-230), tt, font=fuk, fill=(255, 255, 255))
     draw.text((((image_widthz-w)/2)-320, ((image_heightz-h)/2)-230), tt, font=fuk, fill="cyan", stroke_width=5, stroke_fill="blue")
     fname2 = "LogoBy@FRIDAYOT.png"
