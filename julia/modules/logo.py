@@ -313,3 +313,29 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
+
+@register(pattern="^/(glogo|girlylogo) ?(.*)")
+async def slogo(event):
+    if event.fwd_from:
+        return
+    await event.reply("`Processing..`")
+    text = event.pattern_match.group(2)
+    img = Image.open('./resources/IMG_20210216_105824_309.jpg')
+    draw = ImageDraw.Draw(img)
+    image_widthz, image_heightz = img.size
+    pointsize = 500
+    fillcolor = "white"
+    shadowcolor = "black"
+    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 59)
+    w, h = draw.textsize(text, font=font)
+    h += int(h*0.21)
+    image_width, image_height = img.size
+    draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
+    x = (image_widthz-w)/2
+    y= (image_heightz-h)/2
+    draw.text((x, y), text, font=font, fill=(255,193,203,20), stroke_width=5, stroke_fill="yellow")
+    fname2 = "LogoBy@FRIDAYOT.png"
+    img.save(fname2, "png")
+    await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
+    if os.path.exists(fname2):
+            os.remove(fname2)
