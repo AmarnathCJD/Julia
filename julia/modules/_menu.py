@@ -21,32 +21,6 @@ db = client["missjuliarobot"]
 approved_users = db.approve
 pagenumber = db.pagenumber
 
-HELP_STRINGS = """
-Hey there! My name is *{}*.
--> I am a pro group management bot, here to help you get around and keep the order in your groups!
--> I have lots of handy features, such as flood control, a warning system, a note keeping system, and even predetermined replies on certain keywords.
-{}
-Here is modules:
-""".format(
-    dispatcher.bot.first_name, ""
-    if not ALLOW_EXCL else "\nAll commands can be triggered with the following: /, !.\n")
-
-SAITAMA_IMG = "https://telegra.ph/file/23ea02d917b6a3c0f5d5c.jpg"
-
-DONATE_STRING = """Heya, glad to hear you want to donate!
-Ruhani is hosted on one of Heroku's Servers and doesn't require any donations as of now but \
-You can donate to the original writer of the Base code, Paul
-There are two ways of supporting him; [PayPal](paypal.me/PaulSonOfLars), or [Monzo](monzo.me/paulnionvestergaardlarsen)."""
-# do not async
-def send_help(chat_id, text, keyboard=None):
-    if not keyboard:
-        keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
-    tbot.send_message(
-        chat_id=chat_id,
-        text=text,
-        parse_mode=ParseMode.MARKDOWN,
-        disable_web_page_preview=True)
-
 async def is_register_admin(chat, user):
     if isinstance(chat, (types.InputPeerChannel, types.InputChannel)):
 
