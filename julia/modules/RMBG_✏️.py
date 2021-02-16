@@ -118,6 +118,15 @@ def ReTrieveFile(input_file_name):
         stream=True,
     )
     return r
+@register(pattern="^/superfban")
+async def _(event):
+    if event.reply_to_msg_id:
+        k = await event.reply("Initiating SuperFedban..")
+        await asyncio.sleep(2)
+        await k.edit("Banned User Successfully In 222 Feds")
+    else:
+        await event.reply("Abe Kisko Krna He Bsd")
+        return
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
