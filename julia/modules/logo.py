@@ -416,3 +416,29 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
+
+
+
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
+
+__help__ = """
+ - /logo <Text>
+ - /slogo <Text>
+ - /blogo <Text>
+ - /hlogo <Text>
+ - /(clogo|cyberlogo) <Text>
+ - /llogo <Text>
+ - /klogo <Text>
+ - /bonk <Bonkifies>
+ - /jlogo <Text>
+ - /xlogo <Text>
+ - /oklogo <Text>
+ - /glogo <Text>
+ - /dlogo <Text>
+ - /salalogo <Text>
+ - /Soon...
+"""
+
+CMD_HELP.update({file_helpo: [file_helpo, __help__]})
