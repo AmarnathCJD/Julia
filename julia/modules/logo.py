@@ -381,8 +381,8 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Road_Rage.otf", 200)
-    fuk = ImageFont.truetype("./resources/Road_Rage.otf", 69)
+    font = ImageFont.truetype("./resources/Road_Rage.otf", 210)
+    fuk = ImageFont.truetype("./resources/Road_Rage.otf", 90)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
@@ -392,8 +392,8 @@ async def slogo(event):
     x = (image_widthz-w)/2
     y= (image_heightz-h)/2
     draw.text((x, y), text, font=font, fill="grey", stroke_width=6, stroke_fill="lightgreen")
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+60), tt, font=fuk, fill=(255, 255, 255))
-    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+60), tt, font=fuk, fill="green", stroke_width=5, stroke_fill="yellow")
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+360), tt, font=fuk, fill=(255, 255, 255))
+    draw.text(((image_widthz-w)/2, ((image_heightz-h)/2)+360), tt, font=fuk, fill="green", stroke_width=5, stroke_fill="yellow")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
