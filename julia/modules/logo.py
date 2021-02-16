@@ -401,16 +401,16 @@ async def slogo(event):
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
-    fillcolor = "magenta"
-    shadowcolor = "red"
-    font = ImageFont.truetype("./resources/Younger than me.ttf", 70)
+    fillcolor = "white"
+    shadowcolor = "black"
+    font = ImageFont.truetype("./resources/Younger than me.ttf", 200)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= (image_heightz-h)/2
-    draw.text((x, y), text, font=font, fill="gold", stroke_width=3, stroke_fill="gold")
+    draw.text((x, y), text, font=font, fill="magenta", stroke_width=3, stroke_fill="green")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
