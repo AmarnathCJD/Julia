@@ -62,7 +62,6 @@ async def start(event):
         await tbot.send_file(event.chat_id, file=file1)
         await tbot.send_message(
             event.chat_id,
-            file1,
             pm_caption,
             buttons=[
                 [
