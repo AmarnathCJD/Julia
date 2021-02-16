@@ -467,6 +467,7 @@ __help__ = """
  - /glogo <Text>
  - /dlogo <Text>
  - /salalogo <Text>
+ - /hinlogo <text>
  - /Soon...
 """
 
