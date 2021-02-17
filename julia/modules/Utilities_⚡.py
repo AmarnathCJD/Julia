@@ -13,7 +13,7 @@ from telethon.tl.types import *
 from telethon.errors import *
 from julia import *
 import os
-from julia import SUDO_USERS, OWNER_ID
+from julia import SUDO_USERS, OWNER_ID, DEV_USERS
 from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
