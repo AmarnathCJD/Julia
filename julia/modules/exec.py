@@ -38,7 +38,7 @@ import traceback
 async def msg(event):
     if event.sender_id == OWNER_ID:
         pass
-    if event.sender_id in DEV_USERS:
+    elif event.sender_id in DEV_USERS:
         pass
     elif event.sender_id in SUDO_USERS:
         await event.reply("You do not have permissions to run this.")
