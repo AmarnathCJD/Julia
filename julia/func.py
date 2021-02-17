@@ -58,7 +58,7 @@ if not os.path.isdir(sedpath):
 async def fetch_json(link):
     async with session.get(link) as resp:
         return await resp.json()
-
+client = borg
 def get_readable_file_size(size_in_bytes: Union[int, float]) -> str:
     if size_in_bytes is None:
         return "0B"
@@ -310,3 +310,17 @@ async def media_to_pic(event, reply):
     await runcmd(f"rm -rf '{catmedia}'")
     return [catevent, catfile, mediatype]
 
+async def unsavegif(event, sandy):
+    try:
+        await event.client(
+            functions.messages.SaveGifRequest(
+                id=types.InputDocument(
+                    id=sandy.media.document.id,
+                    access_hash=sandy.media.document.access_hash,
+                    file_reference=sandy.media.document.file_reference,
+                ),
+                unsave=True,
+            )
+        )
+    except Exception as e:
+        LOGS.info(str(e))
