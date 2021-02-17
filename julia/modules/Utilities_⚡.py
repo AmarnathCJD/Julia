@@ -202,15 +202,14 @@ async def fetch_info(replied_user, event):
     caption += f'<a href="tg://user?id={user_id}">{first_name}</a>'
 
     if user_id in SUDO_USERS:
-        caption += "\n\n<b>This person is one of my SUDO USERS\nHe can Gban/Ungban anyome, so mind it !</b>"
+        caption += "\n\n<b>This person is one of my SUDO USERS\nHe can Gban/Ungban anyone, so mind it !</b>"
 
     if user_id == OWNER_ID:
         caption += (
             "\n\n<b>This person is my owner.\nHe is the reason why I am alive.</b>"
-
+        )
     if user_id in DEV_USERS:
         caption += "\n\n<b>This Is A Developer Beware!<b>"
-        )
 
     approved_userss = approved_users.find({})                
     for ch in approved_userss:
