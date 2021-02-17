@@ -13,7 +13,7 @@ from telethon.tl.types import *
 from telethon.errors import *
 from julia import *
 import os
-
+from julia import SUDO_USERS, OWNER_ID
 from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
@@ -351,9 +351,14 @@ async def ping(event):
 
 @register(pattern="^/eval")
 async def _(event):
-    check = event.message.sender_id
-    checkint = int(check)
-    if int(check) != int(OWNER_ID):
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        await event.reply("This is a Developer only Command!")
+        return
+    else:
         return
     cmd = event.text.split(" ", maxsplit=1)[1]
     reply_to_id = event.message.id
