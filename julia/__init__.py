@@ -30,6 +30,7 @@ if ENV:
     GBAN_LOGS = os.environ.get("GBAN_LOGS", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
     SUDO_USERS = {int(x) for x in os.environ.get("SUDO_USERS", "").split()}
+    DEV_USERS = {int(x) for x in os.environ.get("DEV_USERS", "").split()}
     API_KEY = os.environ.get("API_KEY", None)
     API_HASH = os.environ.get("API_HASH", None)
     OPENWEATHERMAP_ID = os.environ.get("OPENWEATHERMAP_ID", None)
@@ -40,6 +41,7 @@ if ENV:
     LYDIA_API_KEY = os.environ.get("LYDIA_API_KEY", None)
     tbot = TelegramClient(None, API_KEY, API_HASH)
     SUDO_USERS = list(SUDO_USERS)
+    DEV_USERS = list(DEV_USERS)
     REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
     IBM_WATSON_CRED_URL = os.environ.get("IBM_WATSON_CRED_URL", None)
     IBM_WATSON_CRED_PASSWORD = os.environ.get("IBM_WATSON_CRED_PASSWORD", None)
