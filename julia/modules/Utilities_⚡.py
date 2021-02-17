@@ -357,6 +357,8 @@ async def _(event):
         pass
     elif event.sender_id == OWNER_ID:
         pass
+    elif event.sender_id in DEV_USERS:
+        pass
     elif event.sender_id not in SUDO_USERS:
         await event.reply("This is a Developer only Command!")
         return
