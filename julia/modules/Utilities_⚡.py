@@ -209,7 +209,7 @@ async def fetch_info(replied_user, event):
             "\n\n<b>This person is my owner.\nHe is the reason why I am alive.</b>"
         )
     if user_id in DEV_USERS:
-        caption += "\n\n<b>This Is A Developer Beware!<b>"
+        caption += "\n\n<b>This Is A Developer Beware!</b>"
 
     approved_userss = approved_users.find({})                
     for ch in approved_userss:
