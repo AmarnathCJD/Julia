@@ -151,7 +151,7 @@ async def _(event):
                 os.remove(required_file_name)
 
 
-@register(pattern="^/eval (.*)")
+@register(pattern="^/howdoi (.*)")
 async def howdoi(event):
     if event.fwd_from:
         return
