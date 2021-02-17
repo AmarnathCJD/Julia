@@ -5,7 +5,7 @@ from glitch_this import ImageGlitcher
 from PIL import Image
 from julia import tbot as client
 from julia.events import register
-
+client = tbot
 @register(pattern=r"^/spam")
 async def glitch(cat):
     if cat.fwd_from:
@@ -14,18 +14,18 @@ async def glitch(cat):
     catinput = cat.pattern_match.group(2)
     reply = await cat.get_reply_message()
     if not reply:
-        return await edit_delete(cat, "`Reply to supported Media...`")
+        return await.reply("`Reply to supported Media...`")
     catid = await reply_id(cat)
     san = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
     if not os.path.isdir("./temp"):
         os.mkdir("./temp")
     if catinput:
         if not catinput.isdigit():
-            await cat.edit("`You input is invalid, check help`")
+            await cat.reply("`You input is invalid, check help`")
             return
         catinput = int(catinput)
         if not 0 < catinput < 9:
-            await cat.edit("`Invalid Range...`")
+            await cat.reply("`Invalid Range...`")
             return
     else:
         catinput = 2
