@@ -18,6 +18,7 @@ async def caschecker(cas):
     except (TypeError, ValueError) as err:
         await cas.reply(str(err))
         return
+    await event.reply("yesj")
     try:
         cas_count, members_count = (0,) * 2
         banned_users = ""
