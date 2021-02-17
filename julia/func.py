@@ -265,3 +265,48 @@ def tgs_to_gif(sticker_path: str, quality: int = 256) -> str:
         lottie.exporters.gif.export_gif(lottie.parsers.tgs.parse_tgs(sticker_path), t_g, quality, 1)
     os.remove(sticker_path)
     return dest
+
+async def take_screen_shot(
+    video_file: str, duration: int, path: str = ""
+) -> Optional[str]:
+    thumb_image_path = path or os.path.join(
+        "./temp/", f"{os.path.basename(video_file)}.jpg"
+    )
+    command = f"ffmpeg -ss {duration} -i '{video_file}' -vframes 1 '{thumb_image_path}'"
+    err = (await runcmd(command))[1]
+    if err:
+        print(err)
+    return thumb_image_path if os.path.exists(thumb_image_path) else None
+
+
+async def media_to_pic(event, reply):
+    mediatype = media_type(reply)
+    if mediatype not in ["Photo", "Round Video", "Gif", "Sticker", "Video"]:
+        await event.reply("`In the replied message. I cant extract any image to procced further reply to proper media`",
+        )
+        return None
+    catmedia = await reply.download_media(file="./temp")
+    catevent = await event.reply(f"`Transfiguration Time! Converting....`")
+    catfile = os.path.join("./temp/", "meme.png")
+    if mediatype == "Sticker":
+        if catmedia.endswith(".tgs"):
+            await runcmd(
+                f"lottie_convert.py --frame 0 -if lottie -of png '{catmedia}' '{catfile}'"
+            )
+        elif catmedia.endswith(".webp"):
+            im = Image.open(catmedia)
+            im.save(catfile)
+    elif mediatype in ["Round Video", "Video", "Gif"]:
+        extractMetadata(createParser(catmedia))
+        await runcmd(f"rm -rf '{catfile}'")
+        await take_screen_shot(catmedia, 0, catfile)
+        if not os.path.exists(catfile):
+            await catevent.reply(f"`Sorry. I can't extract a image from this {mediatype}`"
+            )
+            return None
+    else:
+        im = Image.open(catmedia)
+        im.save(catfile)
+    await runcmd(f"rm -rf '{catmedia}'")
+    return [catevent, catfile, mediatype]
+
