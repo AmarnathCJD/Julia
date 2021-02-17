@@ -15,7 +15,7 @@ from random import randrange
 from typing import List
 from typing import Optional
 from julia import OWNER_ID
-from julia import SUDO_USERS
+from julia import DEV_USERS
 from fontTools.ttLib import TTFont
 from telethon import *
 from telethon.tl import functions
@@ -38,8 +38,10 @@ import traceback
 async def msg(event):
     if event.sender_id == OWNER_ID:
         pass
-    elif event.sender_id not in SUDO_USERS:
-        await event.reply("This is an owner restricted command. You do not have permissions to run this.")
+    if event.sender_id in DEV_USERS:
+        pass
+    elif event.sender_id in SUDO_USERS:
+        await event.reply("You do not have permissions to run this.")
         return
     else:
         return
