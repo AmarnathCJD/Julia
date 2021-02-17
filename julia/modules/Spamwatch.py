@@ -5,7 +5,7 @@ from telethon.tl.types import ChannelParticipantsAdmins
 
 import spamwatch
 from julia import tbot as client
-from julia import register
+from julia.events import register
 
 @register(pattern=r"^/spam")
 async def caschecker(cas):
