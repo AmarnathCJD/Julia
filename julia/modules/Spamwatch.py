@@ -5,6 +5,7 @@ from glitch_this import ImageGlitcher
 from PIL import Image
 from julia import tbot as client
 from julia.events import register
+from julia.func import media_to_pic, unsavegif
 client = tbot
 @register(pattern=r"^/spam")
 async def glitch(cat):
@@ -29,7 +30,7 @@ async def glitch(cat):
             return
     else:
         catinput = 2
-    glitch_file = await _cattools.media_to_pic(cat, reply)
+    glitch_file = await media_to_pic(cat, reply)
     try:
         san = Get(san)
         await cat.client(san)
@@ -56,7 +57,7 @@ async def glitch(cat):
             loop=LOOP,
         )
         sandy = await cat.client.send_file(cat.chat_id, glitched, reply_to=catid)
-        await _catutils.unsavegif(cat, sandy)
+        await unsavegif(cat, sandy)
     await glitch_file[0].delete()
     for files in (glitch_file[1], glitched):
         if files and os.path.exists(files):
