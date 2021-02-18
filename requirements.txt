@@ -11,6 +11,7 @@ moviepy
 colour
 spamwatch
 vcam
+Image
 scapy
 eyed3
 wget
