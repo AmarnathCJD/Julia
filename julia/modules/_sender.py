@@ -1,12 +1,16 @@
 #Test
 from julia import tbot, OWNER_ID, DEV_USERS, SUDO_USERS
 from julia.events import register
-import io
-import sys
-import traceback
 import os
+import asyncio
+import os
+import time
+from datetime import datetime
+from julia import TEMP_DOWNLOAD_DIRECTORY as path
+from julia import TEMP_DOWNLOAD_DIRECTORY
+
+
 client = tbot
-import os
 thumb_image_path = "./resources/IMG_20210210_170521_219.jpg"
 @register(pattern=r"^/send ?(.*)")
 async def Prof(event):
@@ -36,61 +40,65 @@ async def Prof(event):
     else:
         await event.reply("Ekdm Bochlaik😑, File Not Found😆")
 
-@register(pattern="^/huh")
+papth = TEMP_DOWNLOAD_DIRECTORY + "thumb_image.jpg"
+@register(pattern="^/rename (.*)")
 async def _(event):
     if event.fwd_from:
         return
-    await event.reply("Processing ...")
-    cmd = event.raw_text.split(" ", maxsplit=1)[1]
-    reply_to_id = event.message.id
+    thumb = None
+    if os.path.exists(papth):
+        thumb = papth
+    dcevent = await event.reply(
+        "Rename & Upload in process 🙄🙇‍♂️🙇‍♂️🙇‍♀️ It might take some time if file size is big",
+    )
+    input_str = event.pattern_match.group(1)
+    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
-    if "print(tbot.me)" in cmd.split():
-       return
-    old_stderr = sys.stderr
-    old_stdout = sys.stdout
-    redirected_output = sys.stdout = io.StringIO()
-    redirected_error = sys.stderr = io.StringIO()
-    stdout, stderr, exc = None, None, None
-
-    try:
-        await aexec(cmd, event)
-    except Exception:
-        exc = traceback.format_exc()
-
-    stdout = redirected_output.getvalue()
-    stderr = redirected_error.getvalue()
-    sys.stdout = old_stdout
-    sys.stderr = old_stderr
-
-    evaluation = ""
-    if exc:
-        evaluation = exc
-    elif stderr:
-        evaluation = stderr
-    elif stdout:
-        evaluation = stdout
-    else:
-        evaluation = "Success"
-
-    final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(cmd, evaluation)
-
-    if len(final_output) > 1024:
-        with io.BytesIO(str.encode(final_output)) as out_file:
-            out_file.name = "eval.text"
-            await tbot.send_file(
+        start = datetime.now()
+        file_name = input_str
+        reply_message = await event.get_reply_message()
+        c_time = time.time()
+        to_download_directory = TEMP_DOWNLOAD_DIRECTORY
+        downloaded_file_name = os.path.join(to_download_directory, file_name)
+        downloaded_file_name = await event.client.download_media(
+            reply_message,
+            downloaded_file_name,
+            progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                progress(d, t, dcevent, c_time, "trying to download", file_name)
+            ),
+        )
+        end = datetime.now()
+        ms_one = (end - start).seconds
+        try:
+            thumb = await reply_message.download_media(thumb=-1)
+        except Exception:
+            thumb = thumb
+        if os.path.exists(downloaded_file_name):
+            c_time = time.time()
+            hmm = await event.client.send_file(
                 event.chat_id,
-                out_file,
-                force_document=True,
+                downloaded_file_name,
+                force_document=False,
+                supports_streaming=True,
                 allow_cache=False,
-                caption=cmd,
-                reply_to=reply_to_id,
+                reply_to=event.message.id,
+                thumb=thumb,
+                progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
+                    progress(
+                        d, t, event, c_time, "trying to upload", downloaded_file_name
+                    )
+                ),
             )
-            await event.delete()
+            end_two = datetime.now()
+            os.remove(downloaded_file_name)
+            ms_two = (end_two - end).seconds
+            await dcevent.edit(
+                f"Downloaded file in {ms_one} seconds.\nUploaded in {ms_two} seconds."
+            )
+            await asyncio.sleep(2)
+            await dcevent.delete()
+        else:
+            await dcevent.edit("File Not Found {}".format(input_str))
     else:
-        await event.reply(final_output)
-
-
-async def aexec(code, event):
-    exec(f"async def __aexec(event): " + "".join(f"\n {l}" for l in code.split("\n")))
-    return await locals()["__aexec"](event)
+        await dcevent.edit(".rename file.name as reply to a Telegram media/file")
