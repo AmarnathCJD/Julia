@@ -31,7 +31,7 @@ async def _(event):
     cmd = event.pattern_match.group(1)
     catinput = event.pattern_match.group(2)
     await event.reply(f"{cmd} {catinput}")
-@tbot.on(events.NewMessage(pattern="^/gban (.*) (.*)"))
+@tbot.on(events.NewMessage(pattern="^/gban (.*) (. *)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -43,8 +43,12 @@ async def _(event):
         return
     cmd = event.pattern_match.group(1)
     catinput = event.pattern_match.group(2)
+    if catinput == None:
+      los = "Massban"
+    else:
+      los = catinput
     cid = cmd
-    reason = catinput
+    reason = los
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
