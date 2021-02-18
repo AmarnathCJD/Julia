@@ -30,7 +30,7 @@ def get_reason(id):
 async def _(event):
     cmd = event.pattern_match.group(1)
     catinput = event.pattern_match.group(2)
-    await event.reply(f"{cmd}{catinput}")
+    await event.reply(f"{cmd} {catinput}")
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
