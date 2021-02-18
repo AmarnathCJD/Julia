@@ -2,6 +2,7 @@
 from julia import tbot, OWNER_ID, DEV_USERS, SUDO_USERS
 from julia.events import register
 client = tbot
+thumb_image_path = "./resources/IMG_20210210_170521_219.jpg"
 @register(pattern=r"^/send ?(.*)")
 async def Prof(event):
     if event.sender_id == OWNER_ID:
@@ -13,6 +14,8 @@ async def Prof(event):
         return
     else:
         return
+    thumb = thumb_image_path
+    message_id = event.message.id
     input_str = event.pattern_match.group(1)
     the_plugin_file = "./julia/modules/{}.py".format(input_str)
     message_id = event.message.id
@@ -21,5 +24,6 @@ async def Prof(event):
             the_plugin_file,
             force_document=True,
             allow_cache=False,
+            thumb=thumb,
             reply_to=message_id,
         )
