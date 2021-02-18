@@ -1,7 +1,8 @@
 import sys, subprocess, datetime
 
 
-@register(pattern="^/decrypt 
+@register(pattern="^/decrypt (.*)")
+Text 
 
 class top():
     _alphabet = r"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`~!@#$%^&*()_+-=,./;'[]<>?:\"{}|₹"
