@@ -26,10 +26,10 @@ chat = -1001433850650
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-@tbot.on(events.NewMessage(pattern="^/(gfuk|glitchs)(?: |$)(.*)"))
+@register(pattern="^/(gfuk|glitchs)(?: |$)(.*)")
 async def _(event):
-    cmd = cat.pattern_match.group(1)
-    catinput = cat.pattern_match.group(2)
+    cmd = event.pattern_match.group(1)
+    catinput = event.pattern_match.group(2)
     await event.reply(f"{cmd}{catinput}")
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
