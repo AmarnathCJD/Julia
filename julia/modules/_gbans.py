@@ -26,7 +26,7 @@ chat = -1001433850650
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-@register(pattern="^/gfuk (?: |$)(.*)")
+@register(pattern="^/gfuk (.*) (.*)")
 async def _(event):
     cmd = event.pattern_match.group(1)
     catinput = event.pattern_match.group(2)
