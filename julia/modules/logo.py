@@ -21,9 +21,10 @@ from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
 from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
-sedpath = "./starkgangz/"
+sedpath = "./LEGENDX/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
+LEGENDX = event.sender.username
 @register(pattern="^/(logo|blacklogo) ?(.*)")
 async def yufytf(event):
     if event.fwd_from:
@@ -77,7 +78,7 @@ async def slogo(event):
     elif event.sender_id == OWNER_ID:
         pass
     elif event.sender_id not in SUDO_USERS:
-        await event.reply("Who Are You?")
+        await event.reply(f"OH @{LEGENDX} SORRY VRO YOU CANNOT USE THIS 🥺")
         return
     else:
         return
@@ -135,7 +136,7 @@ async def slogo(event):
     elif event.sender_id == OWNER_ID:
         pass
     elif event.sender_id not in SUDO_USERS:
-        await event.reply("Who Are You?")
+        await event.reply(f"OH @{LEGENDX} SORRY VRO YOU CANT ACCESS THIS 🥺")
         return
     else:
         return
