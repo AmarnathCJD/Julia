@@ -24,7 +24,6 @@ from telethon.utils import get_input_location
 sedpath = "./starkz/"
 if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
-Anie = event.sender.username
 @register(pattern="^/(logo|blacklogo) ?(.*)")
 async def yufytf(event):
     if event.fwd_from:
@@ -78,7 +77,6 @@ async def slogo(event):
     elif event.sender_id == OWNER_ID:
         pass
     elif event.sender_id not in SUDO_USERS:
-        await event.reply(f"Oh @{Anie} Sorry vro u can't acess this")
         return
     else:
         return
@@ -136,7 +134,6 @@ async def slogo(event):
     elif event.sender_id == OWNER_ID:
         pass
     elif event.sender_id not in SUDO_USERS:
-        await event.reply(f"Oh @{Anie} Sorry vro u can't acess This🍨")
         return
     else:
         return
