@@ -52,14 +52,14 @@ async def _(event):
         "Rename & Upload in process 🙄🙇‍♂️🙇‍♂️🙇‍♀️ It might take some time if file size is big",
     )
     input_str = event.pattern_match.group(1)
-    if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
-        os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+    if not os.path.isdir(path):
+        os.makedirs(path)
     if event.reply_to_msg_id:
         start = datetime.now()
         file_name = input_str
         reply_message = await event.get_reply_message()
         c_time = time.time()
-        to_download_directory = TEMP_DOWNLOAD_DIRECTORY
+        to_download_directory = path
         downloaded_file_name = os.path.join(to_download_directory, file_name)
         downloaded_file_name = await event.client.download_media(
             reply_message,
@@ -70,6 +70,7 @@ async def _(event):
         )
         end = datetime.now()
         ms_one = (end - start).seconds
+        await event.reply("ok")
         try:
             thumb = await reply_message.download_media(thumb=-1)
         except Exception:
