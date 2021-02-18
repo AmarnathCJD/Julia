@@ -21,7 +21,7 @@ client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
 db = client["missjuliarobot"]
 gbanned = db.gban
-
+chat = -1001433850650
 
 def get_reason(id):
     return gbanned.find_one({"user": id})
@@ -84,7 +84,7 @@ async def _(event):
                 "This user is already gbanned, I am updating the reason of the gban with your reason."
             )
             await event.client.send_message(
-                GBAN_LOGS,
+                chat,
                 "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
@@ -96,7 +96,7 @@ async def _(event):
     )
 
     await event.client.send_message(
-        event.chat_id,
+        chat,
         "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
             r_sender_id, event.sender_id, reason
         ),
@@ -146,7 +146,7 @@ async def _(event):
             to_check = get_reason(id=r_sender_id)
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
-                GBAN_LOGS,
+                chat,
                 "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
