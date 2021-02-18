@@ -26,7 +26,7 @@ gbanned = db.gban
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-
+chat = -1001356773955
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
@@ -92,7 +92,7 @@ async def _(event):
     )
 
     await event.client.send_message(
-        event.chat_id,
+        chat,
         "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
             r_sender_id, event.sender_id, reason
         ),
