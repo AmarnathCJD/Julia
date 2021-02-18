@@ -1,4 +1,4 @@
-# timer added by @MissJulia_Robot
+# timer added
 
 import threading
 import time
@@ -78,10 +78,8 @@ def __load_afk_users():
     global AFK_USERSS
     try:
         all_afk = SESSION.query(AFK).all()
-        AFK_USERS = {
-            user.user_id: user.reason for user in all_afk if user.is_afk}
-        AFK_USERSS = {
-            user.user_id: user.start_time for user in all_afk if user.is_afk}
+        AFK_USERS = {user.user_id: user.reason for user in all_afk if user.is_afk}
+        AFK_USERSS = {user.user_id: user.start_time for user in all_afk if user.is_afk}
     finally:
         SESSION.close()
 
