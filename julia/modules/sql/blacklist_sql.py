@@ -1,143 +1,107 @@
 import threading
 
-from sqlalchemy import String, Column, Integer, UnicodeText
+from sqlalchemy import Column, String, UnicodeText, distinct, func
 
-from julia.modules.sql import SESSION, BASE
-
-DEF_COUNT = 1
-DEF_LIMIT = 0
-DEF_OBJ = (None, DEF_COUNT, DEF_LIMIT)
+from julia.modules.sql import BASE
+from julia.modules.sql import SESSION
 
 
-class FloodControl(BASE):
-    __tablename__ = "antiflood"
+class BlackListFilters(BASE):
+    __tablename__ = "blacklist"
     chat_id = Column(String(14), primary_key=True)
-    user_id = Column(Integer)
-    count = Column(Integer, default=DEF_COUNT)
-    limit = Column(Integer, default=DEF_LIMIT)
+    trigger = Column(UnicodeText, primary_key=True, nullable=False)
 
-    def __init__(self, chat_id):
+    def __init__(self, chat_id, trigger):
         self.chat_id = str(chat_id)  # ensure string
+        self.trigger = trigger
 
     def __repr__(self):
-        return "<flood control for %s>" % self.chat_id
+        return "<Blacklist filter '%s' for %s>" % (self.trigger, self.chat_id)
+
+    def __eq__(self, other):
+        return bool(
+            isinstance(other, BlackListFilters)
+            and self.chat_id == other.chat_id
+            and self.trigger == other.trigger
+        )
 
 
-class FloodSettings(BASE):
-    __tablename__ = "antiflood_settings"
-    chat_id = Column(String(14), primary_key=True)
-    flood_type = Column(Integer, default=1)
-    value = Column(UnicodeText, default="0")
+BlackListFilters.__table__.create(checkfirst=True)
 
-    def __init__(self, chat_id, flood_type=1, value="0"):
-        self.chat_id = str(chat_id)
-        self.flood_type = flood_type
-        self.value = value
+BLACKLIST_FILTER_INSERTION_LOCK = threading.RLock()
 
-    def __repr__(self):
-        return "<{} will executing {} for flood.>".format(self.chat_id, self.flood_type)
+CHAT_BLACKLISTS = {}
 
 
-FloodControl.__table__.create(checkfirst=True)
-FloodSettings.__table__.create(checkfirst=True)
+def add_to_blacklist(chat_id, trigger):
+    with BLACKLIST_FILTER_INSERTION_LOCK:
+        blacklist_filt = BlackListFilters(str(chat_id), trigger)
 
-INSERTION_FLOOD_LOCK = threading.RLock()
-INSERTION_FLOOD_SETTINGS_LOCK = threading.RLock()
-
-CHAT_FLOOD = {}
-
-
-def set_flood(chat_id, amount):
-    with INSERTION_FLOOD_LOCK:
-        flood = SESSION.query(FloodControl).get(str(chat_id))
-        if not flood:
-            flood = FloodControl(str(chat_id))
-
-        flood.user_id = None
-        flood.limit = amount
-
-        CHAT_FLOOD[str(chat_id)] = (None, DEF_COUNT, amount)
-
-        SESSION.add(flood)
+        SESSION.merge(blacklist_filt)  # merge to avoid duplicate key issues
         SESSION.commit()
+        CHAT_BLACKLISTS.setdefault(str(chat_id), set()).add(trigger)
 
 
-def update_flood(chat_id: str, user_id) -> bool:
-    if str(chat_id) in CHAT_FLOOD:
-        curr_user_id, count, limit = CHAT_FLOOD.get(str(chat_id), DEF_OBJ)
+def rm_from_blacklist(chat_id, trigger):
+    with BLACKLIST_FILTER_INSERTION_LOCK:
+        blacklist_filt = SESSION.query(BlackListFilters).get((str(chat_id), trigger))
+        if blacklist_filt:
+            # sanity check
+            if trigger in CHAT_BLACKLISTS.get(str(chat_id), set()):
+                CHAT_BLACKLISTS.get(str(chat_id), set()).remove(trigger)
 
-        if limit == 0:  # no antiflood
-            return False
-
-        if user_id != curr_user_id or user_id is None:  # other user
-            CHAT_FLOOD[str(chat_id)] = (user_id, DEF_COUNT, limit)
-            return False
-
-        count += 1
-        if count > limit:  # too many msgs, kick
-            CHAT_FLOOD[str(chat_id)] = (None, DEF_COUNT, limit)
+            SESSION.delete(blacklist_filt)
+            SESSION.commit()
             return True
 
-        # default -> update
-        CHAT_FLOOD[str(chat_id)] = (user_id, count, limit)
+        SESSION.close()
         return False
 
 
-def get_flood_limit(chat_id):
-    return CHAT_FLOOD.get(str(chat_id), DEF_OBJ)[2]
+def get_chat_blacklist(chat_id):
+    return CHAT_BLACKLISTS.get(str(chat_id), set())
 
 
-def set_flood_strength(chat_id, flood_type, value):
-    # for flood_type
-    # 1 = ban
-    # 2 = kick
-    # 3 = mute
-    # 4 = tban
-    # 5 = tmute
-    with INSERTION_FLOOD_SETTINGS_LOCK:
-        curr_setting = SESSION.query(FloodSettings).get(str(chat_id))
-        if not curr_setting:
-            curr_setting = FloodSettings(
-                chat_id, flood_type=int(flood_type), value=value
-            )
-
-        curr_setting.flood_type = int(flood_type)
-        curr_setting.value = str(value)
-
-        SESSION.add(curr_setting)
-        SESSION.commit()
-
-
-def get_flood_setting(chat_id):
+def num_blacklist_filters():
     try:
-        setting = SESSION.query(FloodSettings).get(str(chat_id))
-        if setting:
-            return setting.flood_type, setting.value
-        else:
-            return 1, "0"
+        return SESSION.query(BlackListFilters).count()
+    finally:
+        SESSION.close()
+
+
+def num_blacklist_chat_filters(chat_id):
+    try:
+        return (
+            SESSION.query(BlackListFilters.chat_id)
+            .filter(BlackListFilters.chat_id == str(chat_id))
+            .count()
+        )
+    finally:
+        SESSION.close()
+
+
+def num_blacklist_filter_chats():
+    try:
+        return SESSION.query(func.count(distinct(BlackListFilters.chat_id))).scalar()
+    finally:
+        SESSION.close()
+
+
+def __load_chat_blacklists():
+    global CHAT_BLACKLISTS
+    try:
+        chats = SESSION.query(BlackListFilters.chat_id).distinct().all()
+        for (chat_id,) in chats:  # remove tuple by ( ,)
+            CHAT_BLACKLISTS[chat_id] = []
+
+        all_filters = SESSION.query(BlackListFilters).all()
+        for x in all_filters:
+            CHAT_BLACKLISTS[x.chat_id] += [x.trigger]
+
+        CHAT_BLACKLISTS = {x: set(y) for x, y in CHAT_BLACKLISTS.items()}
 
     finally:
         SESSION.close()
 
 
-def migrate_chat(old_chat_id, new_chat_id):
-    with INSERTION_FLOOD_LOCK:
-        flood = SESSION.query(FloodControl).get(str(old_chat_id))
-        if flood:
-            CHAT_FLOOD[str(new_chat_id)] = CHAT_FLOOD.get(str(old_chat_id), DEF_OBJ)
-            flood.chat_id = str(new_chat_id)
-            SESSION.commit()
-
-        SESSION.close()
-
-
-def __load_flood_settings():
-    global CHAT_FLOOD
-    try:
-        all_chats = SESSION.query(FloodControl).all()
-        CHAT_FLOOD = {chat.chat_id: (None, DEF_COUNT, chat.limit) for chat in all_chats}
-    finally:
-        SESSION.close()
-
-
-__load_flood_settings()
+__load_chat_blacklists()
