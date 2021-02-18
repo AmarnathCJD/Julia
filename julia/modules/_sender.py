@@ -40,7 +40,7 @@ async def Prof(event):
     else:
         await event.reply("Ekdm Bochlaik😑, File Not Found😆")
 
-papth = TEMP_DOWNLOAD_DIRECTORY + "thumb_image.jpg"
+papth = path + "thumb_image.jpg"
 @register(pattern="^/rename (.*)")
 async def _(event):
     if event.fwd_from:
