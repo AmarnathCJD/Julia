@@ -1,4 +1,4 @@
-from julia import SUDO_USERS, tbot, OWNER_ID, DEV_USERS
+from julia import SUDO_USERS, tbot, OWNER_ID
 from telethon.tl.types import ChatBannedRights
 from telethon import events
 from telethon.tl.functions.channels import EditBannedRequest
@@ -26,7 +26,11 @@ gbanned = db.gban
 def get_reason(id):
     return gbanned.find_one({"user": id})
 
-chat = -1001433850650
+@tbot.on(events.NewMessage(pattern="^/(gfuk|glitchs)(?: |$)(.*)"))
+async def _(event):
+    cmd = cat.pattern_match.group(1)
+    catinput = cat.pattern_match.group(2)
+    await event.reply(f"{cmd}{catinput}")
 @tbot.on(events.NewMessage(pattern="^/gban (.*)"))
 async def _(event):
     if event.fwd_from:
@@ -34,8 +38,6 @@ async def _(event):
     if event.sender_id in SUDO_USERS:
         pass
     elif event.sender_id == OWNER_ID:
-        pass
-    elif event.sender_id in DEV_USERS:
         pass
     else:
         return
@@ -65,9 +67,6 @@ async def _(event):
     if r_sender_id in SUDO_USERS:
         await event.reply("Hey that's a sudo user idiot.")
         return
-    if r_sender_id in DEV_USERS:
-        await event.reply("Oh Come on That's a Dev")
-        return
 
     for c in chats:
         if r_sender_id == c["user"]:
@@ -85,7 +84,7 @@ async def _(event):
                 "This user is already gbanned, I am updating the reason of the gban with your reason."
             )
             await event.client.send_message(
-                chat,
+                GBAN_LOGS,
                 "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
@@ -97,7 +96,7 @@ async def _(event):
     )
 
     await event.client.send_message(
-        chat,
+        event.chat_id,
         "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
             r_sender_id, event.sender_id, reason
         ),
@@ -109,7 +108,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    if event.sender_id in SUDO_USERS or in DEV_USERS:
+    if event.sender_id in SUDO_USERS:
         pass
     elif event.sender_id == OWNER_ID:
         pass
@@ -141,16 +140,13 @@ async def _(event):
     if r_sender_id in SUDO_USERS:
         await event.reply("Hey that's a sudo user idiot.")
         return
-    if r_sender_id in DEV_USERS:
-        await event.reply("Oh Come on That's a Dev")
-        return
 
     for c in chats:
         if r_sender_id == c["user"]:
             to_check = get_reason(id=r_sender_id)
             gbanned.delete_one({"user": r_sender_id})
             await event.client.send_message(
-                chat,
+                GBAN_LOGS,
                 "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
                     r_sender_id, event.sender_id, reason
                 ),
