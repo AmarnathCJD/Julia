@@ -1,20 +1,10 @@
 import sys, subprocess, datetime
-
-
+from julia import tbot
+from julia.events import register
+import secureme
 @register(pattern="^/decrypt (.*)")
-Text 
-
-class top():
-    _alphabet = r"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`~!@#$%^&*()_+-=,./;'[]<>?:\"{}|₹"
-
-def HWID():
-    string = subprocess.check_output('wmic csproduct get uuid').decode().split('\n')[1].strip()
-    HW_ID = 0
-    for i in string:
-        if i.isdigit() == True:
-            HW += int(i) 
-    return HW_ID
-
+cmd = event.pattern_match.group(1)
+Text = cmd
 def encrypt(Text, Method="Length", Password="22"):
     args = ["HWID", "Length", "Password", "Date", "Month", "Year", "Hour"]
     if Method == "HWID":
@@ -38,6 +28,7 @@ def encrypt(Text, Method="Length", Password="22"):
     for i in Text :
         encrypted += top._alphabet[int((top._alphabet.find(i) + key) % len(top._alphabet))]
     return encrypted
+    await event.reply(f"encrypted")
     
 def decrypt(Text, Method="Length", Password="22"):
     args = ["HWID", "Length", "Password", "Date", "Month", "Year", "Hour"]
