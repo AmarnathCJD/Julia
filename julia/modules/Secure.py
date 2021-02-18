@@ -3,8 +3,17 @@ from julia import tbot
 from julia.events import register
 import secureme
 @register(pattern="^/decrypt (.*)")
-cmd = event.pattern_match.group(1)
-Text = cmd
+async def hmm(event):
+   cmd = event.pattern_match.group(1)
+   Text = cmd
+   await encrypt(event, tbot)
+   await event.reply("hmm")
+   await event.reply(f"{encrypted})
+  
+
+
+
+
 def encrypt(Text, Method="Length", Password="22"):
     args = ["HWID", "Length", "Password", "Date", "Month", "Year", "Hour"]
     if Method == "HWID":
@@ -28,8 +37,6 @@ def encrypt(Text, Method="Length", Password="22"):
     for i in Text :
         encrypted += top._alphabet[int((top._alphabet.find(i) + key) % len(top._alphabet))]
     return encrypted
-    await event.reply(f"encrypted")
-    
 def decrypt(Text, Method="Length", Password="22"):
     args = ["HWID", "Length", "Password", "Date", "Month", "Year", "Hour"]
     if Method == "HWID":
