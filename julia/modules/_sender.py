@@ -7,7 +7,7 @@ async def _(event):
   person = event.sender.id
   if person in DEV_USERS or person in OWNER_ID:
     LEGENDX= event.pattern_match.group(1)
-    ok = f"julia/modules/{LEGENDX}"
+    ok = f"./julia/modules/{LEGENDX}.py"
     await event.reply("test")
     await bot.send_file(event.chat_id, ok)
   else:
