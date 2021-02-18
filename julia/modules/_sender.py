@@ -2,6 +2,7 @@
 from julia import tbot, OWNER_ID, DEV_USERS, SUDO_USERS
 from julia.events import register
 client = tbot
+import os
 thumb_image_path = "./resources/IMG_20210210_170521_219.jpg"
 @register(pattern=r"^/send ?(.*)")
 async def Prof(event):
@@ -18,12 +19,16 @@ async def Prof(event):
     message_id = event.message.id
     input_str = event.pattern_match.group(1)
     the_plugin_file = "./julia/modules/{}.py".format(input_str)
-    message_id = event.message.id
-    await event.client.send_file(
-            event.chat_id,
-            the_plugin_file,
-            force_document=True,
-            allow_cache=False,
-            thumb=thumb,
-            reply_to=message_id,
-        )
+    if os.path.exists(the_plugin_file):
+     message_id = event.message.id
+     await event.client.send_file(
+             event.chat_id,
+             the_plugin_file,
+             force_document=True,
+             allow_cache=False,
+             thumb=thumb,
+             reply_to=message_id,
+         )
+    else:
+        await event.reply("Ekdm Bochlaik😑, File Not Found😆")
+
