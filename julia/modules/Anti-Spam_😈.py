@@ -1,6 +1,7 @@
 from julia import CMD_HELP, BOT_ID
 import nude
 import html
+import re
 import asyncio
 from julia.modules.sql import cleaner_sql as sql
 from pymongo import MongoClient
@@ -47,7 +48,7 @@ async def is_register_admin(chat, user):
             ).participant,
             (types.ChannelParticipantAdmin, types.ChannelParticipantCreator),
         )
-    if isinstance(chat, types.InputPeerUser):          
+    if isinstance(chat, types.InputPeerUser):
         return True
 
 
@@ -176,6 +177,8 @@ async def _(event):
 
 @tbot.on(events.NewMessage(pattern=None))
 async def _(event):
+    if event.is_private: 
+        return 
     approved_userss = approved_users.find({})
     for ch in approved_userss:
         iid = ch["id"]
@@ -405,31 +408,35 @@ async def del_profanity(event):
             return
         pass
     chats = globalchat.find({})
-    z = []
     for c in chats:
         if event.text:
-            if event.chat_id == c["id"]:   
-                if event.message.entities != None:
-                 for (ent, txt) in event.get_entities_text():
-                  if ent.offset != 0:
-                    break
-                  if isinstance(ent, types.MessageEntityMentionName):                
-                    p = txt
-                    z.append(p)
-                print (z)               
+            if event.chat_id == c["id"]:
                 u = msg.split()
-                if "@" in u and c != []:
-                   h = " ".join(filter(lambda x:x[0]!='@', u))   
-                   rm = " ".join(filter(lambda x:x not in c, h))
+                if (
+                    [(k) for k in u if k.startswith("@")]
+                    and [(k) for k in u if k.startswith("#")]
+                    and [(k) for k in u if k.startswith("/")]
+                    and re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []
+                ):
+                    h = " ".join(filter(lambda x: x[0] != "@", u))
+                    km = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", h)
+                    tm = km.split()
+                    jm = " ".join(filter(lambda x: x[0] != "#", tm))
+                    hm = jm.split()
+                    rm = " ".join(filter(lambda x: x[0] != "/", hm))
                 elif [(k) for k in u if k.startswith("@")]:
-                   rm = " ".join(filter(lambda x:x[0]!='@', u))            
-                elif c != []:
-                   rm = " ".join(filter(lambda x:x not in c, u))
+                    rm = " ".join(filter(lambda x: x[0] != "@", u))
+                elif [(k) for k in u if k.startswith("#")]:
+                    rm = " ".join(filter(lambda x: x[0] != "#", u))
+                elif [(k) for k in u if k.startswith("/")]:
+                    rm = " ".join(filter(lambda x: x[0] != "/", u))
+                elif re.findall(r"\[([^]]+)]\(\s*([^)]+)\s*\)", msg) != []:
+                    rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
                 else:
-                   rm = msg
-                print (rm)            
+                    rm = msg
+                # print (rm)
                 a = TextBlob(rm)
-                b = a.detect_language()    
+                b = a.detect_language()
                 if not b == "en":
                     await event.delete()
                     st = sender.first_name
@@ -442,6 +449,8 @@ async def del_profanity(event):
 
 @tbot.on(events.ChatAction())
 async def del_cleanservice(event):
+    if event.is_private: 
+        return 
     chats = cleanservices.find({})
     for c in chats:
         if event.chat_id == c["id"]:
