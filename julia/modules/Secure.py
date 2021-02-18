@@ -8,7 +8,7 @@ async def hmm(event):
    Text = cmd
    await encrypt(event, tbot)
    await event.reply("hmm")
-   await event.reply(f"{encrypted})
+   await event.reply(f"{encrypted}")
   
 
 
