@@ -1,4 +1,4 @@
-from julia import SUDO_USERS, OWNER_ID, tbot
+from julia import SUDO_USERS, OWNER_ID, tbot, DEV_USERS
 from julia.events import register
 
 
