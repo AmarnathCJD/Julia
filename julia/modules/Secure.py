@@ -17,7 +17,7 @@ async def hmm(event):
     await event.reply(k)
 
 
-@register(pattern="^/decrypt (.*)")
+@register(pattern="^/encode (.*)")
 async def hmm(event):
      test = event.pattern_match.group(1)
      s = test
