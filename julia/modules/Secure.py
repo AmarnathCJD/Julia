@@ -1,7 +1,6 @@
 from julia import tbot
 from julia.events import register
 import secureme
-from base64 import b64encode, b64decode
 @register(pattern="^/encrypt (.*)")
 async def hmm(event):
     cmd = event.pattern_match.group(1)
