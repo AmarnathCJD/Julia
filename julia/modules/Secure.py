@@ -6,6 +6,7 @@ import secureme
 async def hmm(event):
    cmd = event.pattern_match.group(1)
    Text = cmd
+   await event.reply("hmm")
    await encrypt(event, tbot)
    await event.reply("hmm")
    await event.reply(f"{encrypted}")
