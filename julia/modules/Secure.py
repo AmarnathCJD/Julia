@@ -4,18 +4,9 @@ from julia.events import register
 import secureme
 @register(pattern="^/decrypt (.*)")
 async def hmm(event):
-   cmd = event.pattern_match.group(1)
-   Text = cmd
-   await event.reply("hmm")
-   await encrypt(Text)
-   await event.reply("hmm")
-   await event.reply(f"{encrypted}")
-  
-
-
-
-
-def encrypt(Text, Method="Length", Password="22"):
+    cmd = event.pattern_match.group(1)
+    Text = cmd
+    await event.reply("hmm")
     args = ["HWID", "Length", "Password", "Date", "Month", "Year", "Hour"]
     if Method == "HWID":
         key = HWID()
@@ -38,6 +29,8 @@ def encrypt(Text, Method="Length", Password="22"):
     for i in Text :
         encrypted += top._alphabet[int((top._alphabet.find(i) + key) % len(top._alphabet))]
     return encrypted
+    await event.reply("hmm")
+    await event.reply(f"{encrypted}")
 def decrypt(Text, Method="Length", Password="22"):
     args = ["HWID", "Length", "Password", "Date", "Month", "Year", "Hour"]
     if Method == "HWID":
