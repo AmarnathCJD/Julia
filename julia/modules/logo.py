@@ -495,7 +495,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(t2stl|starlogo) ?(.*)")
+@register(pattern="^/(test2|starlogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
         return
@@ -507,14 +507,14 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Blacksword.otf", 130)
+    font = ImageFont.truetype("./resources/Blacksword.otf", 115)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= ((image_heightz-h)/2+6)
-    draw.text((x, y), text, font=font, fill="blue", stroke_width=7, stroke_fill="white")
+    draw.text((x, y), text, font=font, fill="red", stroke_width=8, stroke_fill="white")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
