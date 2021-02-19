@@ -41,15 +41,6 @@ async def Prof(event):
     else:
         await event.reply("Are You On Weed?,No Such File Exist!")
 
-@register(pattern="^/ttf ?(.*)")
-async def get(event):
-    name = event.text[5:]
-    m = await event.get_reply_message()
-    with open(name, "w") as f:
-        f.write(m.message)
-    await event.delete()
-    await tbot.send_file(event.chat_id, name, force_document=True)
-
 thumb_image_path = TEMP_DOWNLOAD_DIRECTORY + "thumb_image.jpg"
 client = tbot
 @register(pattern="^/ren ?(.*)")
