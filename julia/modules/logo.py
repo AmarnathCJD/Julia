@@ -482,7 +482,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Eternate.otf", 120)
+    font = ImageFont.truetype("./resources/Dastnevis.otf", 120)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
@@ -507,7 +507,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Doctor Glitch.otf", 120)
+    font = ImageFont.truetype("./resources/Lalezar.otf", 120)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
