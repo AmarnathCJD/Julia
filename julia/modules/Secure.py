@@ -15,11 +15,3 @@ async def hmm(event):
     Text = ok
     k = secureme.decrypt(Text)
     await event.reply(k)
-
-
-@register(pattern="^/encode (.*)")
-async def hmm(event):
-     test = event.pattern_match.group(1)
-     s = test
-     d=b64encode(s.encode())
-     await event.reply(d)
