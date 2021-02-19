@@ -88,14 +88,14 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Vermin Vibes V.otf", 69)
+    font = ImageFont.truetype("./resources/._Facon.ttf", 80)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= (image_heightz-h)/2
-    draw.text((x, y), text, font=font, fill="red", stroke_width=9, stroke_fill="black")
+    draw.text((x, y), text, font=font, fill="red", stroke_width=10, stroke_fill="black")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
