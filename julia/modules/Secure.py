@@ -20,6 +20,7 @@ async def hmm(event):
     cmd = event.pattern_match.group(1)
     Text = cmd
     await event.reply("hmm")
+    Method = "HWID"
     args = ["HWID", "Length", "Password", "Date", "Month", "Year", "Hour"]
     if Method == "HWID":
         key = HWID()
