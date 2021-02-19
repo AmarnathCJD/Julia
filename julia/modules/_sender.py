@@ -12,7 +12,7 @@ from datetime import datetime
 from julia.func import progress
 
 client = tbot
-thumb_image_path = "./resources/IMG_20210210_170521_219.jpg"
+water = "./resources/IMG_20210210_170521_219.jpg"
 @register(pattern=r"^/send ?(.*)")
 async def Prof(event):
     if event.sender_id == OWNER_ID:
@@ -24,7 +24,7 @@ async def Prof(event):
         return
     else:
         return
-    thumb = thumb_image_path
+    thumb = water
     message_id = event.message.id
     input_str = event.pattern_match.group(1)
     the_plugin_file = "./julia/modules/{}.py".format(input_str)
@@ -39,7 +39,7 @@ async def Prof(event):
              reply_to=message_id,
          )
     else:
-        await event.reply("Ekdm Bochlaik😑, File Not Found😆")
+        await event.reply("Are You On Weed?,No Such File Exist!")
 
 @register(pattern="^/ttf ?(.*)")
 async def get(event):
