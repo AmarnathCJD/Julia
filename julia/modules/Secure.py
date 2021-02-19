@@ -2,6 +2,19 @@ import sys, subprocess, datetime
 from julia import tbot
 from julia.events import register
 import secureme
+
+
+class top():
+    _alphabet = r"abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890`~!@#$%^&*()_+-=,./;'[]<>?:\"{}|₹"
+
+def HWID():
+    string = subprocess.check_output('wmic csproduct get uuid').decode().split('\n')[1].strip()
+    HW_ID = 0
+    for i in string:
+        if i.isdigit() == True:
+            HW += int(i) 
+    return HW_ID
+
 @register(pattern="^/decrypt (.*)")
 async def hmm(event):
     cmd = event.pattern_match.group(1)
@@ -23,7 +36,7 @@ async def hmm(event):
     if Method == "Hour":
         key = datetime.datetime.now().hour
     if Method not in args:
-        print(f"You have to pass one from {args} to encrypt or leave it blank.")
+        await event.reply(f"You have to pass one from {args} to encrypt or leave it blank.")
         sys.exit()
     encrypted = ''
     for i in Text :
