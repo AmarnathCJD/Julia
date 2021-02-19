@@ -84,7 +84,6 @@ better_profanity==0.7.0
 heroku3==4.2.3
 validators==0.18.1
 youtube-search-python==1.3.4
-textblob==0.15.3
 google-trans-new==1.1.9
 cloudmersive_virus_api_client==3.0.1
 dateparser==1.0.0
