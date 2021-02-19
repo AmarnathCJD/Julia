@@ -74,8 +74,7 @@ async def _(event):
         )
         url = f"https://nekobin.com/{key}"
 
-    reply_text = f"Pasted to Nekobin : [neko]({url})"
-    await event.reply(reply_text)
+    await event.reply(f"Pasted to Nekobin : [neko]({url})", link_preview=False)
 
 
 
