@@ -393,7 +393,7 @@ async def _(event):
     elif stdout:
         evaluation = stdout
     else:
-        evaluation = "Success 😃"
+        evaluation = "Success"
 
     final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(cmd, evaluation)
     MAX_MESSAGE_SIZE_LIMIT = 4095
@@ -433,7 +433,7 @@ file_help = file_help.replace(".py", "")
 file_helpo = file_help.replace("_", " ")
 
 __help__ = """
- - /userid: If replied to user's message gets that user's id otherwise get sender's id.
+ - /id: If replied to user's message gets that user's id otherwise get sender's id.
  - /chatid: Get the current chat id.
  - /runs: Reply a random string from an array of replies.
  - /info: Get information about a user.
