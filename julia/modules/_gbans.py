@@ -63,7 +63,7 @@ async def _(event):
     if r_sender_id in SUDO_USERS:
         await event.reply("Hey that's a sudo user idiot.")
         return
-    k=event.r_sender_id
+    k=event.sender
     fname=k.first_name
     X=k.last_name
     cd = (f"{fname}-{X}") 
