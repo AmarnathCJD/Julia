@@ -13,7 +13,7 @@ from telethon.tl.types import *
 from julia import *
 import better_profanity
 from better_profanity import profanity
-from textblob import TextBlob
+from google_trans_new import google_translator
 
 client = MongoClient()
 client = MongoClient(MONGO_DB_URI)
@@ -26,6 +26,7 @@ globalchat = db.globchat
 CMD_STARTERS = "/"
 profanity.load_censor_words_from_file("./profanity_wordlist.txt")
 
+translator = google_translator()
 
 async def can_change_info(message):
     result = await tbot(
@@ -434,9 +435,8 @@ async def del_profanity(event):
                     rm = re.sub(r"\[([^]]+)]\(\s*([^)]+)\s*\)", r"", msg)
                 else:
                     rm = msg
-                # print (rm)
-                a = TextBlob(rm)
-                b = a.detect_language()
+                # print (rm)                                
+                b = translator.detect(text)               
                 if not b == "en":
                     await event.delete()
                     st = sender.first_name
