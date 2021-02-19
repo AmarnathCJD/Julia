@@ -481,7 +481,7 @@ __help__ = """
  - /slogo <Text>
  - /blogo <Text>
  - /hlogo <Text>
- - /(clogo|cyberlogo) <Text>
+ - /clogo <Text>
  - /llogo <Text>
  - /klogo <Text>
  - /bonk <Bonkifies>
@@ -492,7 +492,7 @@ __help__ = """
  - /dlogo <Text>
  - /salalogo <Text>
  - /hinlogo <text>
- - /Soon...
+ - /mlogo <text1|text2>
 """
 
 CMD_HELP.update({file_helpo: [file_helpo, __help__]})
