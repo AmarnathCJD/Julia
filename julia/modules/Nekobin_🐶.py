@@ -76,5 +76,18 @@ async def _(event):
 
     await event.reply(f"Pasted to Nekobin : [neko]({url})", link_preview=False)
 
+file_help = os.path.basename(__file__)
+file_help = file_help.replace(".py", "")
+file_helpo = file_help.replace("_", " ")
 
+__help__ = """
+ - /neko <text>:Type in reply to a doc or text to paste it to nekobin
+"""
+
+CMD_HELP.update({
+    file_helpo: [
+        file_helpo,
+        __help__
+    ]
+})
 
