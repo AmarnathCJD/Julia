@@ -33,4 +33,4 @@ Deploy Anie to Heroku:
 
 **And Last Of All thanks to [@lonami](http://t.me/lonami) for creating [Telethon](https://github.com/LonamiWebs/Telethon) !**
 
-<b>Team Legend</b>
+<b>#Team Legend</b>
