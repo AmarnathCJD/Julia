@@ -76,7 +76,7 @@ async def start(event):
             ],
         )
     else:
-        await event.reply("I am Alive 🙁")
+        await event.reply("Heya Anie Here!,\nHow Can I Help Ya.")
 
 
 @tbot.on(events.CallbackQuery(pattern=r"start_again"))
