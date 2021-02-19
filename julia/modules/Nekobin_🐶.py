@@ -1,5 +1,6 @@
 from julia import tbot as borg
-from julia.events import register 
+from julia.events import register
+from julia import CMD_HELP
 from julia import TEMP_DOWNLOAD_DIRECTORY
 import logging
 import os
