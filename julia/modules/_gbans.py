@@ -95,7 +95,7 @@ async def _(event):
     )
     await event.client.send_message(
         chat,
-        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** [{cd}](tg://user?id={})\n**REASON:** `{}`".format(
+        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
             r_sender_id, event.sender_id, reason
         ),
     )
