@@ -9,6 +9,6 @@ async def alive(event):
     elif event.sender_id in DEV_USERS:
         await event.reply("I'm Alive Co-Master")
     elif event.sender_id in SUDO_USERS:
-        await event.reply("I'm Alive Pro!")
+        await event.reply("I'm Alive Dad!")
     elif event.sender_id not in SUDO_USERS:
-        await event.reply("★彡[ᴀɴɪᴇ]彡★")
+        await event.reply("★彡[ALWAYS OP]彡★")
