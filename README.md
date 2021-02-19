@@ -32,4 +32,5 @@ Deploy Anie to Heroku:
 - [Haruka Aya](https://gitlab.com/HarukaNetwork/OSS/HarukaAya)
 
 **And Last Of All thanks to [@lonami](http://t.me/lonami) for creating [Telethon](https://github.com/LonamiWebs/Telethon) !**
-/n#<b>Team Legend</b>
+
+<b>Team Legend</b>
