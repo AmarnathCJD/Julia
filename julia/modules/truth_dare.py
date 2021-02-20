@@ -3,6 +3,7 @@ from random import uniform
 from julia import OWNER_ID
 from julia import SUDO_USERS
 import random
+import os
 from julia.events import register
 from random import randrange
 from telethon import *
