@@ -88,8 +88,8 @@ async def _(event):
             )
             await event.client.send_message(
                 chat,
-                "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(
-                    r_sender_id, event.sender_id, reason
+                "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** `{}` \n**UPDATER:** `{}`**\nREASON:** `{}`".format(
+                    r_sender_id, cd, reason
                 ),
             )
             return
