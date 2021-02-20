@@ -45,7 +45,7 @@ async def _(event):
     cid = iid.strip()
     reason = reasonn.strip()
     else:
-        quew = cid
+        cid = quew
         reason = ("Unspecified")
     if cid.isnumeric():
         cid = int(cid)
