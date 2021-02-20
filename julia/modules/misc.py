@@ -53,5 +53,4 @@ async def weebify(event):
         if normiecharacter in normiefont:
             weebycharacter = weebyfont[normiefont.index(normiecharacter)]
             string = string.replace(normiecharacter, weebycharacter)
-    await event.reply("hmm")
     await event.reply(string)
