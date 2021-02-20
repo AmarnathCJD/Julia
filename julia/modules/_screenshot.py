@@ -5,7 +5,8 @@ from julia import CMD_HELP
 from datetime import datetime
 from selenium import webdriver
 from julia.events import register
-
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
 
 @register(pattern="^/sshot (.*)")
