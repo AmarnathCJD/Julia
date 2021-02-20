@@ -22,7 +22,7 @@ from telethon.tl.types import MessageEntityMentionName
 from telethon.utils import get_input_location
 import random
 
-@tbot.on(events.NewMessage(pattern="^/logu (.*)"))
+@tbot.on(events.NewMessage(pattern="^/tlogo (.*)"))
 async def slogo(event):
     if event.sender_id in SUDO_USERS:
         pass
@@ -41,16 +41,14 @@ async def slogo(event):
     await event.reply("`Processing..`")
     text = cid
     hmm = ("IMG_20210219_203337_228.jpg", "IMG_20210210_170521_219.jpg", "IMG_20210215_104759_504.jpg", "IMG_20210215_103846_312.jpg")
-    fun = ("Vermin Vibes V.otf", "Blacksword.otf")
     lol = random.choice(hmm)
-    test = random.choice(fun)
     img = Image.open(f'./resources/{lol}')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype(f"./resources/{test}", 200)
+    font = ImageFont.truetype(f"./resources/Vermin Vibes V.otf", 130)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
