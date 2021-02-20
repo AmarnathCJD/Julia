@@ -60,6 +60,7 @@ async def msg(event):
             )
         await k.delete()
     except Exception:
+        await k.delete()
         await event.reply("Not a Valid Url")
 
 file_help = os.path.basename(__file__)
