@@ -17,7 +17,6 @@ async def msg(event):
         pass
     else:
         return
-    await event.reply("Painting web-page..")
     start = datetime.now()
     try:
         chrome_options = webdriver.ChromeOptions()
