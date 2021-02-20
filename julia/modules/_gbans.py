@@ -37,11 +37,11 @@ async def _(event):
         pass
     else:
         return
+    quew = event.pattern_match.group(1)
     if event.reply_to_msg_id:
        reply_message = await event.get_reply_message()
        k = reply_message.sender_id
        cid = k
-       quew = event.pattern_match.group(1)
        reason = quew
     entity = await tbot.get_input_entity(cid)
     try:
