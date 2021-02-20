@@ -2,14 +2,9 @@ import io
 import os
 import traceback
 from julia import CMD_HELP
-from datetime import datetime
 from selenium import webdriver
 from julia.events import register
 from selenium.webdriver.chrome.options import Options
-from selenium import webdriver
-from telethon import *
-from telethon.tl import functions
-from telethon.tl.types import *
 from julia import *
 from julia.Config import Config
 from julia import tbot
@@ -23,8 +18,8 @@ async def msg(event):
         pass
     else:
         return
-    start = datetime.now()
     try:
+        await event.reply("Painting Web_Page...")
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--ignore-certificate-errors")
         chrome_options.add_argument("--test-type")
@@ -63,9 +58,7 @@ async def msg(event):
                 allow_cache=False,
                 silent=True,
             )
-        end = datetime.now()
-        ms = (end - start).seconds
-        await event.edit(f"Done in {ms} seconds")
+        await event.delete()
     except Exception:
         await event.edit(traceback.format_exc())
 
