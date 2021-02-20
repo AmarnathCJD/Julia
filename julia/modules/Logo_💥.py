@@ -40,7 +40,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype(f".julia/resources/fonts/Thicxer-8MerB.ttf", 140)
+    font = ImageFont.truetype(".julia/resources/fonts/Thicxer-8MerB.ttf", 140)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
