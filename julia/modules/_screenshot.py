@@ -19,7 +19,7 @@ async def msg(event):
     else:
         return
     try:
-        await event.reply("Painting Web_Page...")
+        k = await event.reply("Painting Web_Page...")
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--ignore-certificate-errors")
         chrome_options.add_argument("--test-type")
@@ -58,9 +58,9 @@ async def msg(event):
                 allow_cache=False,
                 silent=True,
             )
-        await event.delete()
+        await k.delete()
     except Exception:
-        await event.edit(traceback.format_exc())
+        await event.reply(traceback.format_exc())
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
