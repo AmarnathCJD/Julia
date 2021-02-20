@@ -44,6 +44,9 @@ async def _(event):
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
+    else:
+        quew = cid
+        reason = ("Unspecified")
     if cid.isnumeric():
         cid = int(cid)
     entity = await tbot.get_input_entity(cid)
