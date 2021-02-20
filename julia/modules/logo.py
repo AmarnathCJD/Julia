@@ -26,7 +26,13 @@ if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
 @register(pattern="^/(logo|blacklogo) ?(.*)")
 async def yufytf(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -47,6 +53,12 @@ async def yufytf(event):
 @register(pattern="^/(slogo|starlogo) ?(.*)")
 async def slogo(event):
     if event.fwd_from:
+        return
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
@@ -104,7 +116,13 @@ async def slogo(event):
 
 @register(pattern="^/(hlogo|heppylogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
@@ -162,7 +180,13 @@ async def slogo(event):
 
 @register(pattern="^/(llogo|bonked) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -188,7 +212,13 @@ async def slogo(event):
             os.remove(fname2)
 @register(pattern="^/(bonk|nalogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
@@ -213,7 +243,13 @@ async def slogo(event):
             os.remove(fname2)
 @register(pattern="^/(klogo|skayogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
@@ -238,7 +274,13 @@ async def slogo(event):
             os.remove(fname2)
 @register(pattern="^/(jlogo|stardbogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
@@ -263,7 +305,13 @@ async def slogo(event):
             os.remove(fname2)
 @register(pattern="^/(xlogo|starsblogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
@@ -288,7 +336,13 @@ async def slogo(event):
             os.remove(fname2)
 @register(pattern="^/(oklogo|starhdalogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -314,7 +368,13 @@ async def slogo(event):
 
 @register(pattern="^/(vlogo|girlylogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -340,7 +400,13 @@ async def slogo(event):
 
 @register(pattern="^/(dlogo|darxylogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -365,7 +431,13 @@ async def slogo(event):
             os.remove(fname2)
 @register(pattern="^/(mlogo|multilogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     quew = event.pattern_match.group(2)
     if "|" in quew:
@@ -420,7 +492,13 @@ async def slogo(event):
 
 @register(pattern="^/(salalogo|darxsjylogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -446,7 +524,13 @@ async def slogo(event):
 
 @register(pattern="^/(hinlogo|darxsjwylogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -472,7 +556,13 @@ async def slogo(event):
 
 @register(pattern="^/(testl|starlogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
@@ -497,7 +587,13 @@ async def slogo(event):
             os.remove(fname2)
 @register(pattern="^/(test2|starlogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        return
+    else:
         return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
