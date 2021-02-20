@@ -99,8 +99,8 @@ async def _(event):
     )
     await event.client.send_message(
         chat,
-        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [{}](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
-            r_sender_id, cd, event.sender_id, reason
+        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
+            r_sender_id, cd, reason
         ),
     )
     await event.reply("Gbanned Successfully !")
@@ -154,7 +154,7 @@ async def _(event):
             await event.client.send_message(
                 chat,
                 "**REMOVAL OF GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**REMOVER:** `{}`\n**REASON:** `{}`".format(
-                    r_sender_id, event.sender_id, reason
+                    r_sender_id, cd, reason
                 ),
             )
             await event.reply("Ungbanned Successfully !")
@@ -183,7 +183,7 @@ async def join_ban(event):
                     await tbot(EditBannedRequest(event.chat_id, user, BANNED_RIGHTS))
                     await event.reply(
                         "This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(
-                            bannerid, reason
+                            cd, reason
                         )
                     )
                 except Exception as e:
@@ -212,7 +212,7 @@ async def type_ban(event):
                 )
                 await event.reply(
                     "This user is gbanned and has been removed !\n\n**Gbanned By**: `{}`\n**Reason**: `{}`".format(
-                        bannerid, reason
+                        cd, reason
                     )
                 )
             except Exception:
