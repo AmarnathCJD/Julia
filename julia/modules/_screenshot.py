@@ -7,6 +7,12 @@ from selenium import webdriver
 from julia.events import register
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
+from telethon import *
+from telethon.tl import functions
+from telethon.tl.types import *
+from julia import *
+from julia.Config import Config
+from julia import tbot
 GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
 
 @register(pattern="^/sshot (.*)")
