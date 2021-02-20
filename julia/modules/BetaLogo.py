@@ -28,7 +28,7 @@ st = random.choice(k)
 n = ("black", "green", "red", "blue", "magenta", "pink", "lightgreen", "brickred", "cherryred", "brown", "violet", "orange", "yellow", "gold", "silver")
 col = random.choice(n)
 
-@tbot.on(events.NewMessage(pattern="^/lugo (.*)"))
+@tbot.on(events.NewMessage(pattern="^/logu (.*)"))
 async def slogo(event):
     if event.fwd_from:
         return
