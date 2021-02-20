@@ -1,6 +1,7 @@
 import io
 import os
 import traceback
+from julia import CMD_HELP
 from datetime import datetime
 from selenium import webdriver
 from julia.events import register
