@@ -43,6 +43,13 @@ async def _(event):
        k = reply_message.sender_id
        cid = k
        reason = quew
+    if not event.reply_to_msg_id:
+        if "|" in quew:
+        iid, reasonn = quew.split("|")
+     cid = iid.strip()
+     reason = reasonn.strip()   
+     if cid.isnumeric():
+        cid = int(cid)
     entity = await tbot.get_input_entity(cid)
     try:
         r_sender_id = entity.user_id
@@ -97,69 +104,6 @@ async def _(event):
         ),
     )
     await event.reply("Gbanned Successfully !")
-    if not event.reply_to_msg_id:
-        if "|" in quew:
-        iid, reasonn = quew.split("|")
-     cid = iid.strip()
-     reason = reasonn.strip()   
-     if cid.isnumeric():
-        cid = int(cid)
-     entity = await tbot.get_entity(cid)
-    try:
-        r_sender_id = entity.user_id
-    except Exception:
-        await event.reply("Couldn't fetch that user.")
-        return
-    if not reason:
-        await event.reply("Need a reason for gban.")
-        return
-    chats = gbanned.find({})
-
-    if r_sender_id == OWNER_ID:
-        await event.reply("Fool, how can I gban my master ?")
-        return
-    if r_sender_id in SUDO_USERS:
-        await event.reply("Hey that's a sudo user idiot.")
-        return
-    k=event.sender
-    fname=k.first_name
-    X=k.last_name
-    cd = (f"{fname}-{X}") 
-    for c in chats:
-        if r_sender_id == c["user"]:
-            to_check = get_reason(id=r_sender_id)
-            gbanned.update_one(
-                {
-                    "_id": to_check["_id"],
-                    "bannerid": to_check["bannerid"],
-                    "user": to_check["user"],
-                    "reason": to_check["reason"],
-                },
-                {"$set": {"reason": reason, "bannerid": event.sender_id}},
-            )
-            await event.reply(
-                "This user is already gbanned, I am updating the reason of the gban with your reason."
-            )
-            await event.client.send_message(
-                chat,
-                "**GLOBAL BAN UPDATE**\n\n**PERMALINK:** [user](tg://user?id={})\n**UPDATER:** `{}`**\nREASON:** `{}`".format(
-                    r_sender_id, event.sender_id, reason
-                ),
-            )
-            return
-
-    gbanned.insert_one(
-        {"bannerid": event.sender_id, "user": r_sender_id, "reason": reason}
-    )
-    await event.client.send_message(
-        chat,
-        "**NEW GLOBAL BAN**\n\n**PERMALINK:** [user](tg://user?id={})\n**BANNER:** `{}`\n**REASON:** `{}`".format(
-            r_sender_id, event.sender_id, reason
-        ),
-    )
-    await event.reply("Gbanned Successfully !")
-    
-
 
 @tbot.on(events.NewMessage(pattern="^/ungban (.*)"))
 async def _(event):
