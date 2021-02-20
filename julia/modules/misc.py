@@ -39,7 +39,7 @@ async def wish_check(event):
 normiefont = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 weebyfont = ["Λ", "в", "¢", "∂", "є", "ƒ", "g", "н", "ι", "נ", "к", "ℓ", "м", "η", "σ", "ρ", "q", "я", "ѕ", "т", "υ", "ν", "ω", "χ", "у", "z"]
 
-@register(pattern="^f ?(.*)")
+@register(pattern="^/f ?(.*)")
 async def weebify(event):
     args = event.pattern_match.group(1)
     if not args:
