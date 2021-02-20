@@ -117,13 +117,18 @@ async def _(event):
         return
 
     quew = event.pattern_match.group(1)
-
-    if " | " in quew:
-        iid, reasonn = quew.split("|")
-    cid = iid.strip()
-    reason = reasonn.strip()
-    if cid.isnumeric():
-        cid = int(cid)
+    if event.reply_to_msg_id:
+       reply_message = await event.get_reply_message()
+       k = reply_message.sender_id
+       cid = k
+       reason = quew
+    if not event.reply_to_msg_id:
+        if "|" in quew:
+          iid, reasonn = quew.split("|")
+        cid = iid.strip()
+        reason = reasonn.strip()   
+        if cid.isnumeric():
+           cid = int(cid)
     entity = await tbot.get_input_entity(cid)
     try:
         r_sender_id = entity.user_id
