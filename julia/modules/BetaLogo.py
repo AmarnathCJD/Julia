@@ -43,14 +43,14 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype(f"./resources/{test}", 125)
+    font = ImageFont.truetype(f"./resources/{test}", 200)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= ((image_heightz-h)/2+6)
-    n = ("black", "green", "red", "blue", "black", "lightgreen", "brickred", "black", "violet", "orange", "yellow", "gold", "silver")
+    n = ("black", "green", "red", "blue", "black", "lightgreen", "black", "violet", "orange", "yellow", "gold", "silver")
     col = random.choice(n)
     draw.text((x, y), text, font=font, fill=f"{reason}", stroke_width=8, stroke_fill=f"{col}")
     fname2 = "LogoBy@FRIDAYOT.png"
