@@ -24,7 +24,14 @@ import random
 
 @tbot.on(events.NewMessage(pattern="^/logu (.*)"))
 async def slogo(event):
-    if event.fwd_from:
+    if event.sender_id in SUDO_USERS:
+        pass
+    elif event.sender_id == OWNER_ID:
+        pass
+    elif event.sender_id not in SUDO_USERS:
+        await event.reply("Sed")
+        return
+    else:
         return
     quew = event.pattern_match.group(1)
     if "|" in quew:
