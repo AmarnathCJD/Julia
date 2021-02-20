@@ -44,7 +44,7 @@ async def _(event):
         iid, reasonn = quew.split("|")
     cid = iid.strip()
     reason = reasonn.strip()
-    elif "|" not in quew:
+    if "|" not in quew:
         cid = quew
         reason = ("None")
     if cid.isnumeric():
