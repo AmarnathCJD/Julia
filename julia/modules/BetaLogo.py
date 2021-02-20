@@ -39,7 +39,8 @@ async def slogo(event):
     reason = reasonn.strip()
     await event.reply("`Processing..`")
     text = cid
-    img = Image.open('./resources/IMG_20210219_203337_228.jpg')
+    hmm = "IMG_20210219_203337_228.jpg"
+    img = Image.open(f'./resources/{hmm}')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
