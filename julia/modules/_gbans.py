@@ -43,7 +43,7 @@ async def _(event):
        cid = k
        quew = event.pattern_match.group(1)
        reason = quew
-    if not event.reply_to_msg_id and quew:
+    else:
      if "|" in quew:
         iid, reasonn = quew.split("|")
      cid = iid.strip()
@@ -104,6 +104,7 @@ async def _(event):
         ),
     )
     await event.reply("Gbanned Successfully !")
+    
 
 
 @tbot.on(events.NewMessage(pattern="^/ungban (.*)"))
