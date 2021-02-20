@@ -43,8 +43,6 @@ async def _(event):
        cid = k
        quew = event.pattern_match.group(1)
        reason = quew
-    if cid.isnumeric():
-        cid = int(cid)
     entity = await tbot.get_input_entity(cid)
     try:
         r_sender_id = entity.user_id
