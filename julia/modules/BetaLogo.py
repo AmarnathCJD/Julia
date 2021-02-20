@@ -4,6 +4,7 @@ from julia import CMD_HELP
 from julia import tbot as borg
 from julia import TEMP_DOWNLOAD_DIRECTORY
 import os
+from telethon import events
 import random
 import numpy as np
 from datetime import datetime
