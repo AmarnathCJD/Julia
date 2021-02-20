@@ -1,4 +1,5 @@
 from julia import tbot as borg
+from julia import tbot
 from julia.events import register
 from julia import CMD_HELP
 from julia import TEMP_DOWNLOAD_DIRECTORY
@@ -80,7 +81,7 @@ async def _(event):
     await event.reply(f"Pasted to Nekobin : [neko]({url})", link_preview=False)
 
     
-client = borg
+client = tbot
 @register(pattern="^/ncode")
 async def coder_print(event):
     a = await event.client.download_media(
@@ -103,8 +104,6 @@ async def coder_print(event):
     await event.client.send_file(
         event.chat_id, "result.png", force_document=True, reply_to=event.reply_to_msg_id
     )
-    # await event.client.send_file(event.chat_id, "resuly.png",
-    # force_document=False, reply_to=event.reply_to_msg_id)
     await res.delete()
     await event.delete()
     os.remove(a)
