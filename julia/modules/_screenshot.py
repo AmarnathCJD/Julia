@@ -60,7 +60,7 @@ async def msg(event):
             )
         await k.delete()
     except Exception:
-        await event.reply(traceback.format_exc())
+        await event.reply("Not a Valid Url")
 
 file_help = os.path.basename(__file__)
 file_help = file_help.replace(".py", "")
