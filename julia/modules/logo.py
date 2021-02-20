@@ -26,14 +26,6 @@ if not os.path.isdir(sedpath):
     os.makedirs(sedpath)
 @register(pattern="^/(logo|blacklogo) ?(.*)")
 async def yufytf(event):
-    if event.sender_id in SUDO_USERS:
-        pass
-    elif event.sender_id == OWNER_ID:
-        pass
-    elif event.sender_id not in SUDO_USERS:
-        return
-    else:
-        return
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
     img = Image.open('./resources/Blankmeisnub.jpg')
@@ -52,14 +44,6 @@ async def yufytf(event):
         os.remove(ok)
 @register(pattern="^/(slogo|starlogo) ?(.*)")
 async def slogo(event):
-    if event.fwd_from:
-        return
-    if event.sender_id in SUDO_USERS:
-        pass
-    elif event.sender_id == OWNER_ID:
-        pass
-    else:
-        return
     await event.edit("`Processing..`")
     text = event.pattern_match.group(2)
     img = Image.open('./resources/20201125_094030.jpg')
@@ -68,7 +52,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./resources/Blacksword.otf", 600)
+    font = ImageFont.truetype("./resources/Blacksword.otf", 630)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
@@ -624,20 +608,7 @@ file_helpo = file_help.replace("_", " ")
 __help__ = """
  - /logo <Text>
  - /slogo <Text>
- - /blogo <Text>
- - /hlogo <Text>
- - /clogo <Text>
- - /llogo <Text>
- - /klogo <Text>
- - /bonk <Bonkifies>
- - /jlogo <Text>
- - /xlogo <Text>
- - /oklogo <Text>
- - /glogo <Text>
- - /dlogo <Text>
- - /salalogo <Text>
- - /hinlogo <text>
- - /mlogo <text1|text2>
+ - Under Dev.
 """
 
 CMD_HELP.update({file_helpo: [file_helpo, __help__]})
