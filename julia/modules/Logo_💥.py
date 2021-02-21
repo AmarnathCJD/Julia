@@ -34,7 +34,7 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./julia/resources/Thrones.ttf", 300)
+    font = ImageFont.truetype("./julia/resources/times_new_yorker.ttf", 300)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
