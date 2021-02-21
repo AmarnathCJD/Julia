@@ -33,14 +33,14 @@ async def slogo(event):
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./julia/resources/fonts/Borgens Burlesque.otf", 300)
+    font = ImageFont.truetype("./julia/resources/fonts/Borgens Burlesque.otf", 500)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
     draw.text(((image_widthz-w)/2, (image_heightz-h)/2), text, font=font, fill=(255, 255, 255))
     x = (image_widthz-w)/2
     y= ((image_heightz-h)/2+6)
-    draw.text((x, y), text, font=font, fill="blue", stroke_width=25, stroke_fill="black")
+    draw.text((x, y), text, font=font, fill="red", stroke_width=25, stroke_fill="yellow")
     fname2 = "LogoBy@FRIDAYOT.png"
     img.save(fname2, "png")
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
