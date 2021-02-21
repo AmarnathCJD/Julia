@@ -3,7 +3,7 @@ from telethon.tl.types import ChatBannedRights
 from telethon import events
 from telethon.tl.functions.channels import EditBannedRequest
 from pymongo import MongoClient
-from julia import MONGO_DB_URI, GBAN_LOGS
+from julia import MONGO_DB_URI
 
 BANNED_RIGHTS = ChatBannedRights(
     until_date=None,
