@@ -356,7 +356,7 @@ async def ping(event):
 
 @register(pattern="^/eval")
 async def _(event):
-    elif event.sender_id == OWNER_ID:
+    if event.sender_id == OWNER_ID:
         pass
     else:
         return
