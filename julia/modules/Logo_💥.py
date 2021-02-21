@@ -24,7 +24,7 @@ from telethon.utils import get_input_location
 import random
 
 
-@register(pattern="^/(1|starlogo) ?(.*)")
+@register(pattern="^/(logo|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -48,7 +48,7 @@ async def slogo(event):
     if os.path.exists(fname2):
             os.remove(fname2)
 
-@register(pattern="^/(2|starlogo) ?(.*)")
+@register(pattern="^/(logo|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -71,7 +71,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(3|starlogo) ?(.*)")
+@register(pattern="^/(blogo|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -94,7 +94,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(4|starlogo) ?(.*)")
+@register(pattern="^/(clogo|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -117,7 +117,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(5|starlogo) ?(.*)")
+@register(pattern="^/(dlogo|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -140,7 +140,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(6|starlogo) ?(.*)")
+@register(pattern="^/(elogo|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
@@ -163,7 +163,7 @@ async def slogo(event):
     await borg.send_file(event.chat_id, fname2, caption="Made By Anie")
     if os.path.exists(fname2):
             os.remove(fname2)
-@register(pattern="^/(7|starlogo) ?(.*)")
+@register(pattern="^/(flogo|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
