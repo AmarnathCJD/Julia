@@ -47,6 +47,7 @@ if ENV:
     LYDIA_API_KEY = None
     WOLFRAM_ID = None
     TEMP_DOWNLOAD_DIRECTORY = "./"
+    WALL_API = None
     YOUTUBE_API_KEY = None
     
     if CONSOLE_LOGGER_VERBOSE:
