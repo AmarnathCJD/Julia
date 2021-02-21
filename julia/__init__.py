@@ -26,7 +26,7 @@ ENV = bool(os.environ.get("ENV", True))
 
 if ENV:
     TOKEN = os.environ.get("TOKEN", None)
-    OWNER_ID = int(os.environ.get("OWNER_ID", None))
+    OWNER_ID = 1221693726
     GBAN_LOGS = os.environ.get("GBAN_LOGS", None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
     SUDO_USERS = {int(x) for x in os.environ.get("SUDO_USERS", "").split()}
