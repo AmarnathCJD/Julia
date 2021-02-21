@@ -31,8 +31,12 @@ if ENV:
     API_KEY = 1822414
     API_HASH = "46f1888d3f68396bad08c92ac4d7f00a"
     DB_URI = "postgres://okebzhizjpyfrf:792896d97d959a7fd4b1cb91c66bb621ec075aa83d8278728a33b77f8c3672a7@ec2-52-50-171-4.eu-west-1.compute.amazonaws.com:5432/d23aaaj6ddar4f"
-    SUDO_USERS = None
-    DEV_USERS = None
+    su = 1383009042
+    de = 1383009042
+    SUDO_USERS = {int(x) for x in su.split()}
+    DEV_USERS = {int(x) for x in de.split()}
+    SUDO_USERS = list(SUDO_USERS)
+    DEV_USERS = list(DEV_USERS)
     UPSTREAM_REPO_URL = "https://github.com/amarnathcdj/julia"
     MONGO_DB_URI = "mongodb+srv://newgay:nub123@cluster0.hlrtz.mongodb.net/anie?retryWrites=true&w=majority"
     REM_BG_API_KEY = None
