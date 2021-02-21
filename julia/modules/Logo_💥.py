@@ -6,6 +6,7 @@ from julia import TEMP_DOWNLOAD_DIRECTORY
 import os
 from telethon import events
 import random
+import requests
 import numpy as np
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
