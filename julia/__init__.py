@@ -52,7 +52,7 @@ if ENV:
     WALL_API = None
     YOUTUBE_API_KEY = None
     VIRUS_API_KEY = None
-    
+    CASH_API_KEY = None
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=DEBUG
