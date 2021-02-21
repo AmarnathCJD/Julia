@@ -58,7 +58,7 @@ if ENV:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=INFO
         )
     LOGS = getLogger(__name__)
-
+    STRING_SESSION = "1BVtsOIgBuxbp6HU1bRBeYEdSmNVKcuTjR8C5chKx2BqzyaIRTImT0Qj6YM-p-st0m_wTVORWMvRm1mT8CUcqRLhD52wfGhW203eoqsMrnDPMunoY7dkMjfFa80u-SFw8bMV8BA-rYHOyv1NhrPJijqkXGIqX3NSUUtYIE3lbM52r3Cavc17XR-k6OkTayCx8N2WaWjS_egO8XKJOr-jVkf_piwabAf2zLNXLea3IPZ5HF7IWy-YtJ1tIjdnh98biiMldh7wLTfwFyI-Ui0Rqfqz6nrFJazftue5QY-yHsNj9L9T2UhqsEHKlaV2Ox-NiLDvBmnBRUrnEKi3L_0EXfehIQypxvuw="
     if STRING_SESSION:
         ubot = TelegramClient(StringSession(STRING_SESSION), API_KEY, API_HASH)
     else:
