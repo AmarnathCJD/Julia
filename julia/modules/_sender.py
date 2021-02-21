@@ -12,16 +12,11 @@ from datetime import datetime
 from julia.func import progress
 
 client = tbot
-water = "./resources/IMG_20210210_170521_219.jpg"
+water = "./julia/resources/IMG_20210210_170521_219.jpg"
 @register(pattern=r"^/send ?(.*)")
 async def Prof(event):
     if event.sender_id == OWNER_ID:
         pass
-    elif event.sender_id in DEV_USERS:
-        pass
-    elif event.sender_id in SUDO_USERS:
-        await event.reply("You do not have permissions to run this.")
-        return
     else:
         return
     thumb = water
