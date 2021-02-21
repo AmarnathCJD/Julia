@@ -214,7 +214,7 @@ async def drawText(image_path, text):
 
 @register(pattern="^/echo (.*)")
 async def _(event):
-    elif event.sender_id == OWNER_ID:
+    if event.sender_id == OWNER_ID:
         pass
     else:
         return
