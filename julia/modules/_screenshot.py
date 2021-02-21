@@ -5,7 +5,6 @@ from julia import CMD_HELP
 from selenium import webdriver
 from julia.events import register
 from selenium.webdriver.chrome.options import Options
-from julia import *
 from julia.Config import Config
 from julia import tbot
 GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
