@@ -43,16 +43,17 @@ if ENV:
     TEMPORARY_DATA = None
     CONSOLE_LOGGER_VERBOSE = False
     BOT_ID = 1484701846
-    CHROME_DRIVER = None
-    GOOGLE_CHROME_BIN = None
+    CHROME_DRIVER = "/app/.chromedriver/bin/chromedriver"
+    GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
     tbot = TelegramClient(None, API_KEY, API_HASH)
     LYDIA_API_KEY = None
-    WOLFRAM_ID = None
+    WOLFRAM_ID = "V4GHVG-AKHHG599KP"
     TEMP_DOWNLOAD_DIRECTORY = "./"
-    WALL_API = None
+    WALL_API = "e87add43be4c43a58c00ec5957ab250b"
     YOUTUBE_API_KEY = None
     VIRUS_API_KEY = None
     CASH_API_KEY = None
+    OPENWEATHERMAP_ID = "dbab2b41c8871bb3ef0627d9ae4e4693"
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=DEBUG
