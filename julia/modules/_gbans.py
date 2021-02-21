@@ -31,9 +31,7 @@ chat = -1001433850650
 async def _(event):
     if event.fwd_from:
         return
-    if event.sender_id in SUDO_USERS:
-        pass
-    elif event.sender_id == OWNER_ID:
+    if event.sender_id == OWNER_ID:
         pass
     else:
         return
@@ -63,9 +61,6 @@ async def _(event):
 
     if r_sender_id == OWNER_ID:
         await event.reply("Fool, how can I gban my master ?")
-        return
-    if r_sender_id in SUDO_USERS:
-        await event.reply("Hey that's a sudo user idiot.")
         return
     k=event.sender
     fname=k.first_name
@@ -109,9 +104,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    if event.sender_id in SUDO_USERS:
-        pass
-    elif event.sender_id == OWNER_ID:
+    if event.sender_id == OWNER_ID:
         pass
     else:
         return
@@ -142,9 +135,6 @@ async def _(event):
 
     if r_sender_id == OWNER_ID:
         await event.reply("Fool, how can I ungban my master ?")
-        return
-    if r_sender_id in SUDO_USERS:
-        await event.reply("Hey that's a sudo user idiot.")
         return
 
     for c in chats:
