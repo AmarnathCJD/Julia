@@ -38,6 +38,8 @@ if ENV:
     REM_BG_API_KEY = None
     TIME_API_KEY = None
     IBM_WATSON_CRED_URL = None
+    IBM_WATSON_CRED_PASSWORD = None
+    HEROKU_APP_NAME = None
     TEMPORARY_DATA = None
     CONSOLE_LOGGER_VERBOSE = False
     BOT_ID = 1484701846
@@ -49,6 +51,7 @@ if ENV:
     TEMP_DOWNLOAD_DIRECTORY = "./"
     WALL_API = None
     YOUTUBE_API_KEY = None
+    VIRUS_API_KEY = None
     
     if CONSOLE_LOGGER_VERBOSE:
         basicConfig(
