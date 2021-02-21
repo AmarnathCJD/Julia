@@ -1,7 +1,6 @@
 wheel==0.34.2
 lxml==4.6.2
 aria2p
-tempmail
 glitch_this
 cryptg==0.2.post2
 chromedriver==2.24.1
