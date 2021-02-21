@@ -19,6 +19,7 @@ async def _(event):
             SCREEN_SHOT_LAYER_ACCESS_KEY, input_str, "1", "2220x1080", "PNG", "1"
         )
     )
+    lel = ("Anie")
     # https://stackoverflow.com/a/23718458/4723940
     contentType = response_api.headers["content-type"]
     if "image" in contentType:
@@ -28,7 +29,7 @@ async def _(event):
                 await borg.send_file(
                     event.chat_id,
                     screenshot_image,
-                    caption=input_str,
+                    caption=lel,
                     force_document=True,
                     reply_to=event.message.reply_to_msg_id,
                 )
