@@ -24,17 +24,17 @@ from telethon.utils import get_input_location
 import random
 
 
-@register(pattern="^/(vl|starlogo) ?(.*)")
+@register(pattern="^/(l|starlogo) ?(.*)")
 async def slogo(event):
     await event.reply("`Processing..`")
     text = event.pattern_match.group(2)
-    img = Image.open('./julia/resources/IMG_20210220_225112_240.jpg')
+    img = Image.open('./julia/resources/Blankmeisnub.jpg')
     draw = ImageDraw.Draw(img)
     image_widthz, image_heightz = img.size
     pointsize = 500
     fillcolor = "white"
     shadowcolor = "black"
-    font = ImageFont.truetype("./julia/resources/fonts/FNL_DEMO-KCFonts.ttf", 300)
+    font = ImageFont.truetype("./julia/resources/Thrones.ttf", 300)
     w, h = draw.textsize(text, font=font)
     h += int(h*0.21)
     image_width, image_height = img.size
