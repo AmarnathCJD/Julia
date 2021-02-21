@@ -7,7 +7,7 @@ from julia.events import register
 from selenium.webdriver.chrome.options import Options
 from julia.Config import Config
 from julia import tbot
-GOOGLE_CHROME_BIN = "/app/.apt/usr/bin/google-chrome"
+GOOGLE_CHROME_BIN = "/home/ubuntu/googlechrome"
 
 @register(pattern="^/sshot (.*)")
 async def msg(event):
