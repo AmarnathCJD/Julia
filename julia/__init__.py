@@ -25,7 +25,7 @@ LOGGER = logging.getLogger(__name__)
 ENV = bool(os.environ.get("ENV", True))
 
 if ENV:
-    TOKEN = "1484701846:AAEi08RPmT6fB4WTOAe6d87LBhnct1ScXMQ"
+    TOKEN = "1484701846:AAHuhlkYx5IuW5BSc0fdHhQMFyOh8f_5JAQ"
     OWNER_ID = 1221693726
     OWNER_USERNAME = "RoseLoverX"
     API_KEY = 1822414
