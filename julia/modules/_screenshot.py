@@ -11,7 +11,7 @@ SCREEN_SHOT_LAYER_ACCESS_KEY = "ed5c9f4f66729019d4a0ec6bdcabd5bd"
 async def _(event):
     if event.fwd_from:
         return
-    await event.reply("Painting Web_page...")
+    k = await event.reply("Painting Web_page...")
     sample_url = "https://api.screenshotlayer.com/api/capture?access_key={}&url={}&fullpage={}&viewport={}&format={}&force={}"
     input_str = event.pattern_match.group(1)
     response_api = requests.get(
@@ -33,6 +33,7 @@ async def _(event):
                     force_document=True,
                     reply_to=event.message.reply_to_msg_id,
                 )
+                await k.delete()
                 await event.delete()
             except Exception as e:
                 await event.reply(str(e))
