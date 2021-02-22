@@ -93,10 +93,9 @@ async def _(event):
             await dcevent.edit(
                 f"Downloaded file in {ms_one} seconds.\nUploaded in {ms_two} seconds."
             )
-            await asyncio.sleep(2)
-            await dcevent.delete()
         else:
             await dcevent.edit("File Not Found {}".format(input_str))
+        await dcevent.delete()
     else:
         await dcevent.edit(".rename file.name as reply to a Telegram media/file")
 
