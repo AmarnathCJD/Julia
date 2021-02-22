@@ -97,7 +97,7 @@ async def _(event):
             await dcevent.edit("File Not Found {}".format(input_str))
         await dcevent.delete()
     else:
-        await dcevent.edit(".rename file.name as reply to a Telegram media/file")
+        await event.reply(".rename file.name as reply to a Telegram media/file")
 
 import asyncio
 import os
