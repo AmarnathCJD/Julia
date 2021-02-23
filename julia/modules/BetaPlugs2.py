@@ -5,7 +5,6 @@ from julia import OWNER_ID
 from julia import SUDO_USERS
 from julia import tbot
 import glob
-import speedtest
 from datetime import datetime
 import io
 import os
