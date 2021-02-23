@@ -16,7 +16,6 @@ scapy
 eyed3
 wget
 fake_useragent
-pymediainfo
 pytest-timeit
 faker
 mapper==0.1.17
