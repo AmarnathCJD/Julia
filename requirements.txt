@@ -9,6 +9,7 @@ moviepy
 colour
 spamwatch
 vcam
+pymediainfo
 flask
 secureme
 Image
