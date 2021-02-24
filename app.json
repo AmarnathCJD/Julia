@@ -131,13 +131,13 @@
       "value": "/app/.chromedriver/bin/chromedriver",
       "required": false
     }
-  }
+  },
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-python"
     },
     {
       "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-    },
+    }
   ]
 }
