@@ -11,6 +11,7 @@ spamwatch
 vcam
 pymediainfo
 flask
+numpy
 secureme
 Image
 scapy
