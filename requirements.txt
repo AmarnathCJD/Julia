@@ -28,7 +28,7 @@ scikit-image==0.17.2
 argparse==1.4.0
 imutils==0.5.3
 telethon==1.18.2
-aiohttp=3.7.3
+aiohttp==3.7.3
 bleach==3.3.0
 emoji==0.6.0
 feedparser==6.0.2
