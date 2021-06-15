@@ -108,6 +108,7 @@ FEDERATION_BANNED_USERID = {}
 FEDERATION_NOTIFICATION = {}
 FEDS_SUBSCRIBER = {}
 MYFEDS_SUBSCRIBER = {}
+MY_SUBS = {}
 
 
 def get_fed_info(fed_id):
@@ -711,11 +712,15 @@ def subs_fed(fed_id, my_fed):
 
         SESSION.merge(subsfed)  # merge to avoid duplicate key issues
         SESSION.commit()
-        global FEDS_SUBSCRIBER
+        global FEDS_SUBSCRIBER, MY_SUBS
         if FEDS_SUBSCRIBER.get(fed_id, set()) == set():
             FEDS_SUBSCRIBER[fed_id] = {my_fed}
         else:
             FEDS_SUBSCRIBER.get(fed_id, set()).add(my_fed)
+        if MY_SUBS.get(my_fed, set()) == set():
+            MY_SUBS[my_fed] = {fed_id}
+        else:
+            MY_SUBS.get(my_fed, set()).add(fed_id)
         return True
 
 
