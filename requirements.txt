@@ -1,5 +1,5 @@
 wheel==0.34.2
-lxml==4.6.2
+lxml==4.9.1
 aria2p
 glitch_this
 cryptg==0.2.post2
