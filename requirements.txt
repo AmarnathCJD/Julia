@@ -1,4 +1,4 @@
-wheel==0.34.2
+wheel==0.38.1
 lxml==4.6.2
 aria2p
 glitch_this
