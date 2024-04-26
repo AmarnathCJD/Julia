@@ -73,7 +73,7 @@ idna<2.9,>=2.5
 fontTools==4.16.1
 pymongo==3.11.0
 dnspython==2.0.0
-gitpython==3.1.11
+gitpython==3.1.41
 bing_image_downloader==1.0.4
 alphabet_detector==0.0.7
 howdoi==2.0.10
