@@ -20,7 +20,7 @@ fake_useragent
 pytest-timeit
 faker
 mapper==0.1.17
-scipy==1.5.4
+scipy==1.10.0
 matplotlib==3.3.2
 opencv-python-headless==4.4.0.44
 scikit-image==0.17.2
