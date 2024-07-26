@@ -31,7 +31,7 @@ aiohttp==3.9.4
 bleach==3.3.0
 emoji==0.6.0
 feedparser==6.0.2
-future==0.18.2
+future==0.18.3
 geopy==2.0.0
 googletrans==3.0.0
 hurry.filesize==0.9
